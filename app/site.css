@@ -1,0 +1,66 @@
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}
+
+.overview-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+
+.overview-thumbnail {
+  display: flex;
+  height: 12rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--muted);
+  padding: 1.25rem;
+  transition: border-color 150ms ease;
+}
+
+.overview-card:hover .overview-thumbnail,
+.overview-card:focus-within .overview-thumbnail {
+  border-color: var(--ring);
+}
+
+.overview-thumbnail-content {
+  display: flex;
+  width: 100%;
+  max-width: 20rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.85);
+}
+
+.overview-thumbnail[data-component="calendar"] .overview-thumbnail-content {
+  transform: scale(0.65);
+}
+
+.overview-live {
+  display: flex;
+  min-height: 16rem;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.overview-live > * {
+  max-width: 100%;
+}

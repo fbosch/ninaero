@@ -1,0 +1,14 @@
+.serena
+
+/node_modules/
+/.next/
+/out/
+/public/r/
+*.tsbuildinfo
+next-env.d.ts
+.env*
+!.env.example
+.pnpm-debug.log*
+.DS_Store
+/.pnpm-store/
+/generated/
