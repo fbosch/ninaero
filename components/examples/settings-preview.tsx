@@ -49,9 +49,7 @@ export function SettingsPreview() {
           </PopoverTrigger>
           <PopoverContent align="end">
             <PopoverTitle>Local preview</PopoverTitle>
-            <PopoverDescription>
-              Changes stay in this page. Reloading restores the sample values.
-            </PopoverDescription>
+            <PopoverDescription>Changes reset on reload.</PopoverDescription>
           </PopoverContent>
         </Popover>
       </div>
@@ -95,12 +93,12 @@ export function SettingsPreview() {
           </div>
         </TabsContent>
       </Tabs>
-      <div className="flex flex-wrap items-center gap-4 border-t pt-5">
+      <div className="flex flex-wrap items-center gap-4 pt-2">
         <Button type="submit" disabled={isSaved}>
           Save changes
         </Button>
         <output aria-live="polite" className="text-xs text-muted-foreground">
-          {isSaved ? "Saved in this preview." : "Demo only. Reloading resets changes."}
+          {isSaved ? "Saved in this preview." : "Preview only."}
         </output>
       </div>
     </form>

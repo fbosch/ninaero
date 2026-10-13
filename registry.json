@@ -13,7 +13,7 @@
         "tw-animate-css@^1.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/font-nunito-sans.json"
+        "http://localhost:3000/r/font-google-sans-flex.json"
       ],
       "cssVars": {
         "theme": {
@@ -23,7 +23,7 @@
           "shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "font-heading": "var(--font-sans)",
-          "font-sans": "var(--font-nunito-sans, 'Nunito Sans', ui-sans-serif, system-ui, sans-serif)",
+          "font-sans": "'Google Sans Flex Variable', ui-sans-serif, system-ui, sans-serif",
           "color-sidebar-ring": "var(--sidebar-ring)",
           "color-sidebar-border": "var(--sidebar-border)",
           "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
@@ -65,11 +65,13 @@
         },
         "light": {
           "background": "oklch(1 0 0)",
+          "neutral-border": "#d9e0e3",
+          "neutral-input": "#7b858a",
           "foreground": "oklch(0.145 0 0)",
           "card": "oklch(1 0 0)",
           "card-foreground": "oklch(0.145 0 0)",
-          "popover": "oklch(1 0 0)",
-          "popover-foreground": "oklch(0.145 0 0)",
+          "popover": "var(--button-paper-fill)",
+          "popover-foreground": "var(--button-paper-ink)",
           "secondary": "oklch(0.97 0 0)",
           "secondary-foreground": "oklch(0.205 0 0)",
           "muted": "oklch(0.97 0 0)",
@@ -91,16 +93,14 @@
           "button-link-ink": "#17677d",
           "button-focus": "#006d89",
           "accent-soft": "#e6f4f8",
-          "accent-border": "#b2cdd6",
-          "accent-outline": "#647f8a",
           "primary": "var(--button-primary-fill)",
           "primary-foreground": "var(--button-primary-ink)",
           "accent": "var(--accent-soft)",
           "accent-foreground": "var(--button-link-ink)",
           "ring": "var(--button-focus)",
-          "border": "var(--accent-border)",
-          "input": "var(--accent-outline)",
-          "sidebar-border": "var(--accent-border)",
+          "border": "var(--neutral-border)",
+          "input": "var(--neutral-input)",
+          "sidebar-border": "var(--neutral-border)",
           "sidebar-primary": "var(--button-primary-fill)",
           "sidebar-primary-foreground": "var(--button-primary-ink)",
           "sidebar-accent": "var(--accent-soft)",
@@ -125,15 +125,20 @@
           "button-destructive-shade": "#4a081c14",
           "button-highlight": "#ffffff80",
           "shadow-color": "215deg 10% 24%",
-          "shadow-color-paper": "205deg 18% 28%"
+          "shadow-color-paper": "205deg 18% 28%",
+          "paper-fill": "#f5fafb",
+          "paper-rule": "#557e9414",
+          "paper-dot": "#557e9429"
         },
         "dark": {
           "background": "oklch(0.145 0 0)",
+          "neutral-border": "#39444a",
+          "neutral-input": "#8a9195",
           "foreground": "oklch(0.985 0 0)",
           "card": "oklch(0.205 0 0)",
           "card-foreground": "oklch(0.985 0 0)",
-          "popover": "oklch(0.205 0 0)",
-          "popover-foreground": "oklch(0.985 0 0)",
+          "popover": "var(--button-paper-fill)",
+          "popover-foreground": "var(--button-paper-ink)",
           "secondary": "oklch(0.269 0 0)",
           "secondary-foreground": "oklch(0.985 0 0)",
           "muted": "oklch(0.269 0 0)",
@@ -154,16 +159,14 @@
           "button-link-ink": "#8adef2",
           "button-focus": "#7ce1f6",
           "accent-soft": "#203e48",
-          "accent-border": "#3d5965",
-          "accent-outline": "#708d99",
           "primary": "var(--button-primary-fill)",
           "primary-foreground": "var(--button-primary-ink)",
           "accent": "var(--accent-soft)",
           "accent-foreground": "var(--button-link-ink)",
           "ring": "var(--button-focus)",
-          "border": "var(--accent-border)",
-          "input": "var(--accent-outline)",
-          "sidebar-border": "var(--accent-border)",
+          "border": "var(--neutral-border)",
+          "input": "var(--neutral-input)",
+          "sidebar-border": "var(--neutral-border)",
           "sidebar-primary": "var(--button-primary-fill)",
           "sidebar-primary-foreground": "var(--button-primary-ink)",
           "sidebar-accent": "var(--accent-soft)",
@@ -188,7 +191,10 @@
           "button-destructive-shade": "#00000040",
           "button-highlight": "#ffffff33",
           "shadow-color": "215deg 10% 3%",
-          "shadow-color-paper": "205deg 18% 5%"
+          "shadow-color-paper": "205deg 18% 5%",
+          "paper-fill": "#17252e",
+          "paper-rule": "#a2d6ec0f",
+          "paper-dot": "#a2d6ec24"
         }
       },
       "css": {
@@ -201,16 +207,14 @@
           "--button-link-ink": "#17677d",
           "--button-focus": "#006d89",
           "--accent-soft": "#e6f4f8",
-          "--accent-border": "#b2cdd6",
-          "--accent-outline": "#647f8a",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -226,16 +230,14 @@
           "--button-link-ink": "#8adef2",
           "--button-focus": "#7ce1f6",
           "--accent-soft": "#203e48",
-          "--accent-border": "#3d5965",
-          "--accent-outline": "#708d99",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -251,16 +253,14 @@
           "--button-link-ink": "#40558b",
           "--button-focus": "#4057a0",
           "--accent-soft": "#edf0fc",
-          "--accent-border": "#bcc6e1",
-          "--accent-outline": "#6c729d",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -276,16 +276,14 @@
           "--button-link-ink": "#bdccfa",
           "--button-focus": "#c1cfff",
           "--accent-soft": "#2b3451",
-          "--accent-border": "#495475",
-          "--accent-outline": "#939dc7",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -301,16 +299,14 @@
           "--button-link-ink": "#715080",
           "--button-focus": "#76518b",
           "--accent-soft": "#f5effa",
-          "--accent-border": "#d1c0dc",
-          "--accent-outline": "#88729e",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -326,16 +322,14 @@
           "--button-link-ink": "#dfc7ef",
           "--button-focus": "#e4ccfa",
           "--accent-soft": "#3d2f49",
-          "--accent-border": "#61516f",
-          "--accent-outline": "#af9bc4",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -351,16 +345,14 @@
           "--button-link-ink": "#4c6275",
           "--button-focus": "#4c647a",
           "--accent-soft": "#eef2f6",
-          "--accent-border": "#c4cfd9",
-          "--accent-outline": "#727e8b",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -376,16 +368,14 @@
           "--button-link-ink": "#c9dbe9",
           "--button-focus": "#d0e6f8",
           "--accent-soft": "#303f4c",
-          "--accent-border": "#4b5c6b",
-          "--accent-outline": "#8c9cae",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
           "--accent-foreground": "var(--button-link-ink)",
           "--ring": "var(--button-focus)",
-          "--border": "var(--accent-border)",
-          "--input": "var(--accent-outline)",
-          "--sidebar-border": "var(--accent-border)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
           "--sidebar-primary": "var(--button-primary-fill)",
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
@@ -400,12 +390,76 @@
             "@apply bg-background text-foreground": {}
           },
           "html": {
-            "@apply font-sans": {}
+            "@apply font-sans": {},
+            "font-family": "var(--font-sans)",
+            "font-variation-settings": "\"ROND\" 100"
           }
         },
         "@layer components": {
           ".ninaero-surface-paper": {
             "--shadow-color": "var(--shadow-color-paper)"
+          },
+          ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
+            "--shadow-color": "var(--shadow-color-paper)",
+            "background-color": "var(--paper-fill)"
+          },
+          ".ninaero-paper-ruled": {
+            "background-image": "repeating-linear-gradient(transparent 0 23px, var(--paper-rule) 23px 24px)"
+          },
+          ".ninaero-paper-dotted": {
+            "background-image": "radial-gradient(circle, var(--paper-dot) 1px, transparent 1px)",
+            "background-size": "16px 16px"
+          },
+          ".ninaero-paper-grid": {
+            "background-image": "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
+            "background-size": "24px 24px"
+          },
+          ".ninaero-popover": {
+            "border-radius": "1.25rem",
+            "corner-shape": "squircle",
+            "border": "1px solid var(--border)",
+            "color": "var(--popover-foreground)",
+            "background-color": "var(--popover)",
+            "box-shadow": "inset 0 1px 0 var(--button-highlight), 0 2px 2px hsl(var(--shadow-color) / 0.14), 0 4px 6px hsl(var(--shadow-color) / 0.10), 0 8px 14px hsl(var(--shadow-color) / 0.05)"
+          },
+          ".ninaero-toggle": {
+            "--toggle-corner": "0.875rem",
+            "--button-recess-fill": "var(--button-paper-pressed)",
+            "--button-recess-shade": "color-mix(in oklab, var(--button-recess-fill), black var(--button-recess-shade-weight))",
+            "--button-recess-highlight": "color-mix(in oklab, var(--button-recess-fill), white var(--button-recess-highlight-weight))",
+            "border-radius": "var(--toggle-corner)",
+            "corner-shape": "squircle",
+            "border": "1px solid transparent",
+            "color": "var(--button-paper-ink)",
+            "background-color": "transparent",
+            "outline": "2px solid transparent",
+            "outline-offset": "3px",
+            "transition": "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out"
+          },
+          ".ninaero-toggle--outline": {
+            "border-color": "var(--input)",
+            "background-color": "var(--card)"
+          },
+          ".ninaero-toggle[aria-pressed=true]": {
+            "--button-recess-fill": "var(--accent-soft)",
+            "color": "var(--accent-foreground)",
+            "background-color": "var(--accent-soft)",
+            "border-color": "var(--button-primary-edge)",
+            "box-shadow": "inset 0 1px 0 var(--button-highlight)"
+          },
+          ".ninaero-toggle:focus-visible": {
+            "outline-color": "var(--ring)"
+          },
+          ".ninaero-toggle[aria-invalid=true]": {
+            "border-color": "var(--button-destructive-edge)"
+          },
+          ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
+            "background-color": "var(--button-recess-fill)",
+            "box-shadow": "inset 0 1px 2px var(--button-recess-shade), inset 0 -1px 0 var(--button-recess-highlight)"
+          },
+          ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]": {
+            "box-shadow": "none",
+            "opacity": "0.5"
           },
           ".ninaero-button": {
             "--button-corner": "1rem",
@@ -475,6 +529,9 @@
             "opacity": "0.5"
           },
           "@media (hover: hover)": {
+            ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])": {
+              "background-color": "var(--button-paper-hover)"
+            },
             ".ninaero-button--primary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
               "background-color": "var(--button-primary-hover)"
             },
@@ -505,12 +562,58 @@
             "background-image": "none"
           },
           "@media (prefers-reduced-motion: reduce)": {
+            ".ninaero-toggle": {
+              "transition": "none"
+            },
             ".ninaero-button": {
               "transition": "none",
               "--button-press-shift": "0px"
             }
           },
           "@media (forced-colors: active)": {
+            ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
+              "background-image": "none",
+              "background-color": "Canvas"
+            },
+            ".ninaero-popover": {
+              "border-color": "CanvasText",
+              "background-color": "Canvas",
+              "color": "CanvasText",
+              "box-shadow": "none"
+            },
+            ".ninaero-toggle": {
+              "border-color": "ButtonText",
+              "background-color": "ButtonFace",
+              "color": "ButtonText",
+              "box-shadow": "none"
+            },
+            ".ninaero-toggle[aria-pressed=true]": {
+              "border-color": "Highlight",
+              "background-color": "Highlight",
+              "color": "HighlightText"
+            },
+            ".ninaero-toggle:focus-visible": {
+              "outline-color": "Highlight"
+            },
+            ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
+              "background-color": "ButtonFace",
+              "color": "ButtonText",
+              "box-shadow": "none"
+            },
+            ".ninaero-toggle[aria-pressed=true]:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
+              "background-color": "Highlight",
+              "color": "HighlightText"
+            },
+            ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])": {
+              "background-color": "ButtonFace"
+            },
+            ".ninaero-toggle[aria-invalid=true]": {
+              "border-color": "ButtonText"
+            },
+            ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]": {
+              "border-color": "GrayText",
+              "color": "GrayText"
+            },
             ".ninaero-button": {
               "background-image": "none",
               "border-color": "ButtonText",
@@ -535,19 +638,19 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "font-nunito-sans",
-      "title": "Nunito Sans",
-      "type": "registry:font",
-      "font": {
-        "family": "'Nunito Sans', ui-sans-serif, system-ui, sans-serif",
-        "provider": "google",
-        "import": "Nunito_Sans",
-        "variable": "--font-nunito-sans",
-        "subsets": [
-          "latin",
-          "latin-ext"
-        ]
-      }
+      "name": "font-google-sans-flex",
+      "title": "Google Sans Flex",
+      "dependencies": [
+        "@fontsource-variable/google-sans-flex@5.3.2"
+      ],
+      "css": {
+        "@import \"@fontsource-variable/google-sans-flex/full.css\"": {},
+        ":root": {
+          "--font-sans": "'Google Sans Flex Variable', ui-sans-serif, system-ui, sans-serif",
+          "--font-heading": "var(--font-sans)"
+        }
+      },
+      "type": "registry:style"
     },
     {
       "name": "accordion",

@@ -46,6 +46,8 @@ test("preset rules share the registry output and keep paper, ink, and destructiv
     "button-paper-ink",
     "button-paper-edge",
     "button-outline-edge",
+    "accent-border",
+    "accent-outline",
   ];
   const published = JSON.parse(
     await readFile(new URL("../../../public/r/theme.json", import.meta.url), "utf8"),
@@ -63,31 +65,31 @@ test("only Cyan, Indigo, Lavender, and Slate are offered as accents", () => {
   assert.deepEqual(Object.keys(accentPresets), ["cyan", "indigo", "lavender", "slate"]);
 });
 
-test("structural borders and control outlines follow each preset in both modes", () => {
-  assert.equal(accentSemanticTokens.border, "var(--accent-border)");
-  assert.equal(accentSemanticTokens.input, "var(--accent-outline)");
-  assert.equal(accentSemanticTokens["sidebar-border"], "var(--accent-border)");
+test("structural borders and control outlines stay neutral across accent presets", () => {
+  assert.equal(accentSemanticTokens.border, "var(--neutral-border)");
+  assert.equal(accentSemanticTokens.input, "var(--neutral-input)");
+  assert.equal(accentSemanticTokens["sidebar-border"], "var(--neutral-border)");
   assert.equal(accentSemanticTokens["button-paper-edge"], undefined);
   assert.equal(accentSemanticTokens["button-outline-edge"], undefined);
   for (const mode of ["light", "dark"]) {
     const borders = new Set();
-    const outlines = new Set();
-    for (const [name, preset] of Object.entries(accentPresets)) {
+    const inputs = new Set();
+    for (const [name] of Object.entries(accentPresets)) {
       const selector =
         mode === "light"
           ? `[data-accent="${name}"]`
           : `.dark[data-accent="${name}"], .dark [data-accent="${name}"]`;
       const rules = accentRules[selector];
-      assert.equal(rules["--accent-border"], preset[mode]["accent-border"]);
-      assert.equal(rules["--accent-outline"], preset[mode]["accent-outline"]);
-      for (const key of ["border", "input", "sidebar-border"]) {
-        assert.equal(rules[`--${key}`], accentSemanticTokens[key]);
-      }
-      borders.add(preset[mode]["accent-border"]);
-      outlines.add(preset[mode]["accent-outline"]);
+      assert.equal(rules["--border"], "var(--neutral-border)");
+      assert.equal(rules["--input"], "var(--neutral-input)");
+      assert.equal(rules["--sidebar-border"], "var(--neutral-border)");
+      assert.equal(rules["--accent-border"], undefined);
+      assert.equal(rules["--accent-outline"], undefined);
+      borders.add(rules["--border"]);
+      inputs.add(rules["--input"]);
     }
-    assert.equal(borders.size, 4);
-    assert.equal(outlines.size, 4);
+    assert.equal(borders.size, 1);
+    assert.equal(inputs.size, 1);
   }
 });
 
@@ -120,7 +122,7 @@ for (const [name, preset] of Object.entries(accentPresets)) {
         assert.ok(contrast(palette["button-link-ink"], background) >= 4.5);
         assert.ok(contrast(palette["button-focus"], background) >= 3);
         assert.ok(contrast(palette["button-primary-edge"], background) >= 3);
-        assert.ok(contrast(palette["accent-outline"], background) >= 3);
+        assert.ok(contrast(theme[mode]["neutral-input"], background) >= 3);
       }
     });
     test(`${name} ${mode}: CSS scopes apply to both the root and comparison cards`, () => {

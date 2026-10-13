@@ -6,28 +6,42 @@ Ninaero combines a Nintendo handheld-inspired layout with paper details and rest
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, and Slate alternatives. Primary, selection, focus, and structural border tokens follow the chosen preset; paper, ink, and destructive colors keep their neutral or semantic roles. Green, yellow, orange, and red remain reserved for status colors.
+This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, and Slate alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay neutral. Paper, ink, and destructive colors keep their neutral or semantic roles. Green, yellow, orange, and red remain reserved for status colors.
 
 ## Reference hierarchy
 
-| Role                       | Reference traits                                                                    | Application                                             | Boundary                                                                                                               |
-| -------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Core                       | DS-like organization, fine paper lines, compact layouts                             | Page backgrounds and content structure                  | Use one quiet paper pattern at a time. Keep dense content on plain backgrounds.                                        |
-| Supporting controls        | Wii framing, shallow shading, cyan edging, and the moodboard's squircle requirement | Controls, navigation, and panel frames                  | Use squircle corner curves on rectangular controls. Ordinary circular-arc corners and pill shapes are not substitutes. |
-| Signature accent           | Glass rims, soft highlights, localized glow                                         | Primary actions, selected elements, and floating layers | Keep most controls matte. Glass must clarify importance or layering.                                                   |
-| Optional artwork           | Flipnote outlines, sparse color, discrete dithered shading                          | Empty states and occasional header illustrations        | Use original artwork. Do not pixelate routine text, icons, or controls.                                                |
-| Outside the everyday theme | Dense ASCII/ANSI patterns, perspective-grid orbs, geometric spectacle               | Occasional standalone artwork                           | Keep these out of forms, tables, and navigation.                                                                       |
+| Role                       | Reference traits                                                       | Application                                             | Boundary                                                                                                                                                                                                |
+| -------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Core                       | DS-like organization, ruled, dotted, and grid paper, compact layouts   | Page backgrounds and content structure                  | Use one quiet paper pattern at a time. Keep dense content on plain backgrounds.                                                                                                                         |
+| Supporting controls        | Wii framing, shallow shading, and the moodboard's squircle requirement | Controls, navigation, and panel frames                  | Keep ordinary edges neutral; reserve accent edges for selected states and focus. Use squircle corner curves on rectangular controls. Ordinary circular-arc corners and pill shapes are not substitutes. |
+| Signature accent           | Glass rims, soft highlights, localized glow                            | Primary actions, selected elements, and floating layers | Keep most controls matte. Glass must clarify importance or layering.                                                                                                                                    |
+| Optional artwork           | Flipnote outlines, sparse color, discrete dithered shading             | Empty states and occasional header illustrations        | Use original artwork. Do not pixelate routine text, icons, or controls.                                                                                                                                 |
+| Outside the everyday theme | Dense ASCII/ANSI patterns, perspective-grid orbs, geometric spectacle  | Occasional standalone artwork                           | Keep these out of forms, tables, and navigation.                                                                                                                                                        |
 
 The lined announcement-bar reference is the clearest bridge between paper and lightly raised controls. The DS reference itself has square controls and pixel edges. Ninaero deliberately combines handheld organization with the squircle geometry called for in the moodboard annotations.
 
 ## Materials and layout
 
-- Start with faint horizontal ruling as the main paper pattern. Grid and dotted patterns are alternatives for specific contexts, not additional textures to stack over the ruling.
+- Use faint horizontal ruling as the default paper background, with dots and grid as active alternatives for other contexts. Choose one pattern per region; never layer different paper variants.
 - Keep inputs, tables, and long text on opaque, plain backgrounds. Paper texture must not interfere with their content.
 - Use squircle corner curves with fine edges and shallow depth. Rectangular buttons can still have squircle corners; icon buttons should make the squircle silhouette especially clear. Preserve straight alignment in lists, tables, and compact forms.
 - Keep cards and ordinary controls mostly matte. Avoid heavy bevels, console bezels, and large glossy gradients.
 - Put glass on a small number of important elements. Readable content stays opaque even when its rim or backdrop is translucent.
 - Keep crisp dithering and smooth blur on separate objects. They describe different materials and should not compete within one control.
+
+### Paper patterns
+
+Use the Paper Details group in the moodboard as the source for all three variants. These are CSS textures, not image assets to copy into the theme.
+
+| Pattern | Current use                                     | Shared class           |
+| ------- | ----------------------------------------------- | ---------------------- |
+| Ruled   | Homepage background and Input workshop specimen | `ninaero-paper-ruled`  |
+| Dotted  | Backdrop around the composed settings example   | `ninaero-paper-dotted` |
+| Grid    | Component catalogue thumbnails                  | `ninaero-paper-grid`   |
+
+Keep patterns on page backgrounds and preview backdrops. Forms, tables, code blocks, and long text keep opaque, plain fills. A grid is one pattern made from horizontal and vertical rules; do not add dots or ruling over it. Separate sections with space instead of adding decorative divider lines.
+
+Define pattern fills, ink, and CSS recipes in `registry/ninaero/theme.mjs` so consumers can use the same opt-in classes. Paper stays independent of the Cyan, Indigo, Lavender, and Slate accents. Tune the pattern ink separately in light and dark modes, and remove decorative textures in forced-colors mode. The initial spacing is 24px for ruling and grid, and 16px for dots. Spacing and ink strength still need visual review.
 
 ## Color and typography
 
@@ -41,7 +55,7 @@ The lined announcement-bar reference is the clearest bridge between paper and li
 | Feedback colors       | Additional colors communicate meaning rather than decorate each component |
 | Dark background       | Deep ink-blue with lighter framed panels                                  |
 
-Use Nunito Sans for interface text and headings. Its open, softly shaped letterforms suit the paper surfaces and shallow controls without copying Nintendo lettering. Keep existing component weights and sizes; refine the type scale in the specimens. Pixel lettering belongs in optional artwork, not labels, paragraphs, or error messages.
+Use Google Sans Flex for interface text and headings, with its `ROND` axis set to `100` for rounded terminals. Keep existing component weights and sizes; set roundness without overriding the weight axis. Self-host the full variable font in both the site and installed theme. Pixel lettering belongs in optional artwork, not labels, paragraphs, or error messages.
 
 Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It should not become a separate neon dashboard. Adjust texture, fills, and highlights for readability instead of mechanically inverting the light theme.
 
@@ -97,7 +111,7 @@ Keep this lighting separate from keyboard-focus outlines, invalid borders, and d
 
 ### Theme tokens and validation
 
-Keep elevation geometry separate from shadow color. Define the shared recipes in `registry/ninaero/theme.mjs`; use an inherited receiving-surface shadow color so the same elevation can work on paper or a dark panel. Accent presets may change edges and highlights without recoloring the neutral surface's cast shadow.
+Keep elevation geometry separate from shadow color. Define the shared recipes in `registry/ninaero/theme.mjs`; use an inherited receiving-surface shadow color so the same elevation can work on paper or a dark panel. Accent presets may change primary-action edges and highlights; ordinary structural borders remain neutral.
 
 In dark mode, tune the shadow against the actual panel instead of increasing black opacity until it disappears. Use a visible rim and inset highlight for separation where a cast shadow alone cannot provide it. Keep glow, focus outlines, and invalid-state borders separate from elevation.
 
@@ -124,7 +138,7 @@ These are design requirements. They have not yet been verified in a themed inter
 
 The homepage at `/` has a concise introduction and one composed interface example. `/examples` lists composed interfaces; each example has its own preview and code page. `/components` remains the catalogue and `/docs` remains documentation. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
 
-Keep navigation and example pages minimal: no empty categories, duplicate catalogue, token wall, or state matrix on the homepage. Appearance controls use progressive disclosure. Workshop navigation is secondary. Examples are preview compositions, not installable registry blocks unless explicitly added to the registry.
+Borrow Afterglow's homepage structure: a prominent heading, one framed example, visible accent choices, and an install command. Restore faint ruling on the homepage background. Use dots and grid in the separate preview contexts listed above. Separate sections with space, not decorative divider lines. Retain borders for controls and the preview frame. Keep catalogues, token swatches, and state matrices off the homepage. Color mode stays under Appearance; accents are also available in the hero. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
 
 - Keep shared tokens and theme rules in `registry/ninaero/theme.mjs`.
 - Keep installable component styling in `registry/ninaero/ui/`.
@@ -139,7 +153,7 @@ Button uses native CSS `corner-shape: squircle` with a nonzero `border-radius` t
 
 True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded corners, which do not fulfill the intended geometry. The workshop identifies that limitation. No polyfill is included.
 
-Accent presets live in `registry/ninaero/accents.mjs` and feed the same theme source and registry output as the Button rules. The root `data-accent` attribute selects a preset independently of light/dark mode. The workshop provides an Accent selector and side-by-side Button comparisons. Accent roles and structural borders change globally; neutral paper, ink, and destructive colors do not.
+Accent presets live in `registry/ninaero/accents.mjs` and feed the same theme source and registry output as the Button rules. The root `data-accent` attribute selects a preset independently of light/dark mode. The workshop provides an Accent selector and side-by-side Button comparisons. Accent fills, selection, and focus follow the chosen preset; structural borders stay neutral.
 
 Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Both borders have separate light/dark tokens and stay unchanged when the accent changes. Invalid Buttons keep their variant material and use a single restrained semantic-red border, without an always-on ring. The outer outline appears only for keyboard focus and follows the accent, or the system highlight color in forced-colors mode.
 
@@ -175,6 +189,8 @@ Image filenames below are relative to `Projects/Ninaero/attachments/`. Canvas no
 | Rounded framing and cyan edging   | `nintendo wii.png`                | `bb171bd7f0580645` |
 | Paper and raised framing together | `Pasted image 20261012153817.png` | `a24694601a4c40ef` |
 | Ruled paper                       | `lined paper.png`                 | `1327a50e3e61200e` |
+| Dotted paper                      | `dotted background.png`           | `59f7072feec62b4c` |
+| Grid paper                        | `grid paper.png`                  | `a194a00493c888cc` |
 | Glass pill rim                    | `Pasted image 20261012154402.png` | `efaad4b8934b154a` |
 | Flipnote outlines                 | `Pasted image 20261012154930.png` | `6262b605c14756c0` |
 | Dithered shading                  | `Pasted image 20261012154220.png` | `0662d08130f07c9f` |

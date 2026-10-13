@@ -38,7 +38,7 @@ test("local CSS and registry use the same complete light and dark tokens", () =>
   assert.ok(css.includes("@apply border-border outline-ring/50;"));
 });
 
-test("the shared theme installs Nunito Sans for interface text and headings", () => {
+test("the shared theme installs self-hosted rounded Google Sans Flex", () => {
   const registry = createRegistry(
     theme,
     manifest.dependencies,
@@ -46,29 +46,66 @@ test("the shared theme installs Nunito Sans for interface text and headings", ()
     "https://ninaero.example/r",
   );
   const item = registry.items.find(({ name }) => name === "theme");
-  const font = registry.items.find(({ name }) => name === "font-nunito-sans");
+  const font = registry.items.find(({ name }) => name === "font-google-sans-flex");
 
-  assert.deepEqual(item.registryDependencies, ["https://ninaero.example/r/font-nunito-sans.json"]);
-  assert.equal(font.type, "registry:font");
-  assert.deepEqual(font.font, theme.font);
-  assert.equal(font.font.import, "Nunito_Sans");
-  assert.equal(font.font.provider, "google");
-  assert.deepEqual(font.font.subsets, ["latin", "latin-ext"]);
+  assert.deepEqual(item.registryDependencies, [
+    "https://ninaero.example/r/font-google-sans-flex.json",
+  ]);
+  assert.equal(font.type, "registry:style");
+  assert.deepEqual(font.dependencies, [
+    `${theme.font.dependency}@${manifest.dependencies[theme.font.dependency]}`,
+  ]);
+  assert.deepEqual(font.css, {
+    [`@import "${theme.font.stylesheet}"`]: {},
+    ":root": {
+      "--font-sans": theme.theme["font-sans"],
+      "--font-heading": theme.theme["font-heading"],
+    },
+  });
+  assert.equal(font.files, undefined);
+  assert.equal(theme.font.stylesheet, "@fontsource-variable/google-sans-flex/full.css");
   assert.equal(theme.theme["font-heading"], "var(--font-sans)");
-  assert.equal(theme.theme["font-sans"], `var(${font.font.variable}, ${font.font.family})`);
-  assert.ok(renderThemeCss(theme).includes(`--font-sans: ${theme.theme["font-sans"]};`));
+  assert.equal(theme.theme["font-sans"], theme.font.family);
+  assert.equal(theme.font.roundness, 100);
+  assert.equal(theme.css["@layer base"].html["font-variation-settings"], '"ROND" 100');
+  assert.equal(item.css["@layer base"].html["font-variation-settings"], '"ROND" 100');
+
+  const fontImport = `@import "${theme.font.stylesheet}";`;
+  const css = renderThemeCss(theme);
+  assert.ok(css.includes(fontImport));
+  assert.ok(css.indexOf(fontImport) < css.indexOf("@theme inline"));
+  assert.ok(css.includes(`--font-sans: ${theme.font.family};`));
+  assert.ok(css.includes('font-variation-settings: "ROND" 100;'));
 });
 
-test("the site loads the shared Nunito Sans variable with Next.js", async () => {
-  const layout = await readFile(new URL("../../../app/layout.tsx", import.meta.url), "utf8");
-
-  assert.match(layout, /import \{ Nunito_Sans \} from "next\/font\/google"/);
-  assert.match(layout, /const nunitoSans = Nunito_Sans\(/);
-  assert.ok(layout.includes(`variable: "${theme.font.variable}"`));
-  assert.ok(
-    layout.includes(`subsets: ${JSON.stringify(theme.font.subsets).replaceAll(",", ", ")}`),
+test("font package assets retain roundness and variable weights", async () => {
+  const metadata = JSON.parse(
+    await readFile(
+      new URL(
+        "../../../node_modules/@fontsource-variable/google-sans-flex/metadata.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
   );
-  assert.match(layout, /className=\{nunitoSans.variable\}/);
+  assert.equal(metadata.family, "Google Sans Flex");
+  assert.ok(Number(metadata.variable.ROND.min) <= theme.font.roundness);
+  assert.ok(Number(metadata.variable.ROND.max) >= theme.font.roundness);
+  for (const weight of [400, 500, 600]) {
+    assert.ok(Number(metadata.variable.wght.min) <= weight);
+    assert.ok(Number(metadata.variable.wght.max) >= weight);
+  }
+  const fontCss = await readFile(
+    new URL(
+      "../../../node_modules/@fontsource-variable/google-sans-flex/full.css",
+      import.meta.url,
+    ),
+    "utf8",
+  );
+  assert.match(fontCss, /font-family: 'Google Sans Flex Variable'/);
+  assert.match(fontCss, /font-weight: 1 1000/);
+  assert.match(fontCss, /google-sans-flex-latin-full-normal\.woff2/);
+  assert.match(fontCss, /google-sans-flex-latin-ext-full-normal\.woff2/);
 });
 
 test("every bundled item and component dependency resolves within the registry", () => {

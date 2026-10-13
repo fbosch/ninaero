@@ -22,7 +22,7 @@ The dev and production build commands generate the theme and registry before sta
 
 `app/globals.css` and `registry.json` are generated. Do not edit them directly. The same token source feeds the local preview and the installable theme.
 
-Nunito Sans is the default interface and heading font. The site self-hosts it with `next/font/google`; theme installs include the `font-nunito-sans` registry item. Font metadata and the shared font stack live in `registry/ninaero/theme.mjs`.
+Google Sans Flex is the default interface and heading font, with roundness set to `ROND 100`. The site and installed theme self-host the full variable font through `@fontsource-variable/google-sans-flex`. Theme installs include the `font-google-sans-flex` stylesheet item and its font package; the item adds the font import to the consumer stylesheet, with no manual Next.js setup. Font metadata, imports, and roundness live in `registry/ninaero/theme.mjs`.
 
 | Path                             | Purpose                                                                 |
 | -------------------------------- | ----------------------------------------------------------------------- |
@@ -42,7 +42,7 @@ Nunito Sans is the default interface and heading font. The site self-hosts it wi
 | `components/docs/`               | Searchable navigation, live examples, and copyable code                 |
 | `scripts/lib/component-docs.mjs` | Extract consumer examples and API signatures from current source        |
 | `generated/component-docs.json`  | Generated documentation data, ignored by Git                            |
-| `app/site.css`                   | Workshop-only styling                                                   |
+| `app/site.css`                   | Website-only layout and specimen styling                                |
 | `scripts/build-registry.mjs`     | Generate shared CSS and registry manifest                               |
 | `public/r/`                      | Generated shadcn registry artifacts, ignored by Git                     |
 

@@ -1,31 +1,60 @@
 "use client";
 
+import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useId } from "react";
 
+import { useAccent } from "@/components/accent-provider";
 import { AccentSwitcher } from "@/components/accent-switcher";
-export function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+import { ToggleGroup, ToggleGroupItem } from "@/registry/ninaero/ui/toggle-group";
 
-  useEffect(() => setMounted(true), []);
+const colorModes = [
+  { value: "system", label: "System", Icon: MonitorIcon },
+  { value: "light", label: "Light", Icon: SunIcon },
+  { value: "dark", label: "Dark", Icon: MoonIcon },
+] as const;
+
+export function ThemeSwitcher() {
+  const id = useId();
+  const { theme, setTheme } = useTheme();
+  const { mounted } = useAccent();
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <label htmlFor="color-mode" className="text-sm font-medium">
-        Color mode
-      </label>
-      <select
-        id="color-mode"
-        value={mounted ? theme : "system"}
-        disabled={!mounted}
-        onChange={(event) => setTheme(event.target.value)}
-        className="h-9 rounded-lg border border-input bg-background px-3 text-sm focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-50"
-      >
-        <option value="system">System</option>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
+    <div className="space-y-4">
+      <fieldset className="space-y-2">
+        <legend id={id} className="text-xs text-muted-foreground">
+          Color mode
+        </legend>
+        <ToggleGroup
+          aria-labelledby={id}
+          value={mounted && theme ? [theme] : []}
+          multiple={false}
+          disabled={!mounted}
+          spacing={1}
+          size="lg"
+          onValueChange={(values) => {
+            // A preference stays selected when its active toggle is pressed again.
+            if (values.length === 0) return;
+            const value = values[0];
+            if (!colorModes.some((mode) => mode.value === value)) {
+              throw new Error(`Unknown color mode: ${value}`);
+            }
+            setTheme(value);
+          }}
+          className="w-full"
+        >
+          {colorModes.map(({ value, label, Icon }) => (
+            <ToggleGroupItem
+              key={value}
+              value={value}
+              className="min-w-0 flex-1 gap-1.5 px-2 text-xs"
+            >
+              <Icon aria-hidden="true" className="size-3.5" />
+              {label}
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+      </fieldset>
       <AccentSwitcher />
     </div>
   );

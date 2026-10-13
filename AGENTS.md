@@ -7,6 +7,7 @@ Ninaero is an installable shadcn/ui theme with a local workshop and component do
 - Use pnpm, with the version pinned in `package.json`, and Node.js 22 or newer.
 - Edit shared tokens and CSS rules in `registry/ninaero/theme.mjs`, and accent presets in `registry/ninaero/accents.mjs`.
 - Keep installable components in `registry/ninaero/ui/` and supporting hooks in `registry/ninaero/hooks/`, not `components/ui/`. Keep preview-only code and workshop styling separate; installed components must not depend on them.
+- In examples, component previews, workshops, docs, and showcase UI, use matching components from `registry/ninaero/ui/` instead of recreating library controls; use native elements only when explicitly demonstrating native behavior.
 - Do not hand-edit `app/globals.css`, `registry.json`, `generated/component-docs.json`, or `public/r/`. Regenerate them with `pnpm registry:build` after changing their source. The dev command generates once before starting Next.js; rerun generation when editing theme source during development.
 - When adding a component, update `registry/ninaero/catalog.json` and its preview/documentation mappings. The generator derives dependencies from source imports and rejects missing preview mappings.
 

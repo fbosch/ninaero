@@ -42,9 +42,14 @@ function rules(values, depth = 0) {
     .join("\n");
 }
 
+function fontImportRule(theme) {
+  return `@import "${theme.font.stylesheet}"`;
+}
+
 export function renderThemeCss(theme) {
   return [
     "/* Generated from registry/ninaero/theme.mjs. Run pnpm registry:build. */",
+    `${fontImportRule(theme)};`,
     '@import "tailwindcss";',
     '@import "tw-animate-css";',
     '@import "shadcn/tailwind.css";',
@@ -60,7 +65,7 @@ export function renderThemeCss(theme) {
 export function createRegistry(theme, dependencies, components, registryUrl = defaultRegistryUrl) {
   const { url, origin } = parseRegistryUrl(registryUrl);
   const itemUrl = (name) => `${url}/${name}.json`;
-  const fontName = "font-nunito-sans";
+  const fontName = "font-google-sans-flex";
   const packages = (names) =>
     names.map((name) => {
       if (!dependencies[name]) throw new Error(`Missing package dependency: ${name}`);
@@ -86,9 +91,17 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
       {
         $schema: "https://ui.shadcn.com/schema/registry-item.json",
         name: fontName,
-        title: "Nunito Sans",
-        type: "registry:font",
-        font: theme.font,
+        title: "Google Sans Flex",
+        type: "registry:style",
+        dependencies: packages([theme.font.dependency]),
+        css: {
+          [fontImportRule(theme)]: {},
+          // cssVars.theme is scoped to .theme by the CLI; default fonts must be global.
+          ":root": {
+            "--font-sans": theme.theme["font-sans"],
+            "--font-heading": theme.theme["font-heading"],
+          },
+        },
       },
       ...components.map((component) => ({
         name: component.name,

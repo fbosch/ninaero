@@ -47,7 +47,7 @@ export default async function SettingsExamplePage() {
           </Link>
         </div>
         <TabsContent value="preview">
-          <div className="flex justify-center rounded-xl bg-muted/30 p-4 sm:p-8">
+          <div className="flex justify-center rounded-xl ninaero-paper-dotted p-4 sm:p-8">
             <SettingsPreview />
           </div>
         </TabsContent>

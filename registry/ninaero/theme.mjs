@@ -24,11 +24,11 @@ export const buttonRecessShadow = [
   "inset 0 -1px 0 var(--button-recess-highlight)",
 ].join(", ");
 const sansFont = {
-  family: "'Nunito Sans', ui-sans-serif, system-ui, sans-serif",
-  provider: "google",
-  import: "Nunito_Sans",
-  variable: "--font-nunito-sans",
-  subsets: ["latin", "latin-ext"],
+  family: "'Google Sans Flex Variable', ui-sans-serif, system-ui, sans-serif",
+  dependency: "@fontsource-variable/google-sans-flex",
+  // The full font keeps custom axes; the package default only keeps weight.
+  stylesheet: "@fontsource-variable/google-sans-flex/full.css",
+  roundness: 100,
 };
 
 export const theme = {
@@ -40,7 +40,7 @@ export const theme = {
     "shadow-xl": elevations.dialog,
     "shadow-2xl": elevations.dialog,
     "font-heading": "var(--font-sans)",
-    "font-sans": `var(${sansFont.variable}, ${sansFont.family})`,
+    "font-sans": sansFont.family,
     "color-sidebar-ring": "var(--sidebar-ring)",
     "color-sidebar-border": "var(--sidebar-border)",
     "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
@@ -82,11 +82,13 @@ export const theme = {
   },
   light: {
     background: "oklch(1 0 0)",
+    "neutral-border": "#d9e0e3",
+    "neutral-input": "#7b858a",
     foreground: "oklch(0.145 0 0)",
     card: "oklch(1 0 0)",
     "card-foreground": "oklch(0.145 0 0)",
-    popover: "oklch(1 0 0)",
-    "popover-foreground": "oklch(0.145 0 0)",
+    popover: "var(--button-paper-fill)",
+    "popover-foreground": "var(--button-paper-ink)",
     secondary: "oklch(0.97 0 0)",
     "secondary-foreground": "oklch(0.205 0 0)",
     muted: "oklch(0.97 0 0)",
@@ -122,14 +124,19 @@ export const theme = {
     "button-highlight": "#ffffff80",
     "shadow-color": "215deg 10% 24%",
     "shadow-color-paper": "205deg 18% 28%",
+    "paper-fill": "#f5fafb",
+    "paper-rule": "#557e9414",
+    "paper-dot": "#557e9429",
   },
   dark: {
     background: "oklch(0.145 0 0)",
+    "neutral-border": "#39444a",
+    "neutral-input": "#8a9195",
     foreground: "oklch(0.985 0 0)",
     card: "oklch(0.205 0 0)",
     "card-foreground": "oklch(0.985 0 0)",
-    popover: "oklch(0.205 0 0)",
-    "popover-foreground": "oklch(0.985 0 0)",
+    popover: "var(--button-paper-fill)",
+    "popover-foreground": "var(--button-paper-ink)",
     secondary: "oklch(0.269 0 0)",
     "secondary-foreground": "oklch(0.985 0 0)",
     muted: "oklch(0.269 0 0)",
@@ -164,6 +171,9 @@ export const theme = {
     "button-highlight": "#ffffff33",
     "shadow-color": "215deg 10% 3%",
     "shadow-color-paper": "205deg 18% 5%",
+    "paper-fill": "#17252e",
+    "paper-rule": "#a2d6ec0f",
+    "paper-dot": "#a2d6ec24",
   },
   css: {
     ...accentRules,
@@ -176,12 +186,82 @@ export const theme = {
       },
       html: {
         "@apply font-sans": {},
+        "font-family": "var(--font-sans)",
+        "font-variation-settings": `"ROND" ${sansFont.roundness}`,
       },
     },
     "@layer components": {
       ".ninaero-surface-paper": {
         "--shadow-color": "var(--shadow-color-paper)",
       },
+      ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
+        "--shadow-color": "var(--shadow-color-paper)",
+        "background-color": "var(--paper-fill)",
+      },
+      ".ninaero-paper-ruled": {
+        "background-image":
+          "repeating-linear-gradient(transparent 0 23px, var(--paper-rule) 23px 24px)",
+      },
+      ".ninaero-paper-dotted": {
+        "background-image": "radial-gradient(circle, var(--paper-dot) 1px, transparent 1px)",
+        "background-size": "16px 16px",
+      },
+      ".ninaero-paper-grid": {
+        "background-image":
+          "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
+        "background-size": "24px 24px",
+      },
+      ".ninaero-popover": {
+        "border-radius": "1.25rem",
+        "corner-shape": "squircle",
+        border: "1px solid var(--border)",
+        color: "var(--popover-foreground)",
+        "background-color": "var(--popover)",
+        "box-shadow": `inset 0 1px 0 var(--button-highlight), ${elevations.floating}`,
+      },
+      ".ninaero-toggle": {
+        "--toggle-corner": "0.875rem",
+        "--button-recess-fill": "var(--button-paper-pressed)",
+        "--button-recess-shade":
+          "color-mix(in oklab, var(--button-recess-fill), black var(--button-recess-shade-weight))",
+        "--button-recess-highlight":
+          "color-mix(in oklab, var(--button-recess-fill), white var(--button-recess-highlight-weight))",
+        "border-radius": "var(--toggle-corner)",
+        "corner-shape": "squircle",
+        border: "1px solid transparent",
+        color: "var(--button-paper-ink)",
+        "background-color": "transparent",
+        outline: "2px solid transparent",
+        "outline-offset": "3px",
+        transition:
+          "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out",
+      },
+      ".ninaero-toggle--outline": {
+        "border-color": "var(--input)",
+        "background-color": "var(--card)",
+      },
+      ".ninaero-toggle[aria-pressed=true]": {
+        "--button-recess-fill": "var(--accent-soft)",
+        color: "var(--accent-foreground)",
+        "background-color": "var(--accent-soft)",
+        "border-color": "var(--button-primary-edge)",
+        "box-shadow": "inset 0 1px 0 var(--button-highlight)",
+      },
+      ".ninaero-toggle:focus-visible": {
+        "outline-color": "var(--ring)",
+      },
+      ".ninaero-toggle[aria-invalid=true]": {
+        "border-color": "var(--button-destructive-edge)",
+      },
+      ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
+        "background-color": "var(--button-recess-fill)",
+        "box-shadow": buttonRecessShadow,
+      },
+      ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]":
+        {
+          "box-shadow": "none",
+          opacity: "0.5",
+        },
       ".ninaero-button": {
         "--button-corner": "1rem",
         "--button-press-shift": "1px",
@@ -257,6 +337,10 @@ export const theme = {
           opacity: "0.5",
         },
       "@media (hover: hover)": {
+        ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])":
+          {
+            "background-color": "var(--button-paper-hover)",
+          },
         ".ninaero-button--primary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
           {
             "background-color": "var(--button-primary-hover)",
@@ -294,12 +378,61 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
+        ".ninaero-toggle": {
+          transition: "none",
+        },
         ".ninaero-button": {
           transition: "none",
           "--button-press-shift": "0px",
         },
       },
       "@media (forced-colors: active)": {
+        ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
+          "background-image": "none",
+          "background-color": "Canvas",
+        },
+        ".ninaero-popover": {
+          "border-color": "CanvasText",
+          "background-color": "Canvas",
+          color: "CanvasText",
+          "box-shadow": "none",
+        },
+        ".ninaero-toggle": {
+          "border-color": "ButtonText",
+          "background-color": "ButtonFace",
+          color: "ButtonText",
+          "box-shadow": "none",
+        },
+        ".ninaero-toggle[aria-pressed=true]": {
+          "border-color": "Highlight",
+          "background-color": "Highlight",
+          color: "HighlightText",
+        },
+        ".ninaero-toggle:focus-visible": {
+          "outline-color": "Highlight",
+        },
+        ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
+          "background-color": "ButtonFace",
+          color: "ButtonText",
+          "box-shadow": "none",
+        },
+        ".ninaero-toggle[aria-pressed=true]:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
+          {
+            "background-color": "Highlight",
+            color: "HighlightText",
+          },
+        ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])":
+          {
+            "background-color": "ButtonFace",
+          },
+        ".ninaero-toggle[aria-invalid=true]": {
+          "border-color": "ButtonText",
+        },
+        ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]":
+          {
+            "border-color": "GrayText",
+            color: "GrayText",
+          },
         ".ninaero-button": {
           "background-image": "none",
           "border-color": "ButtonText",

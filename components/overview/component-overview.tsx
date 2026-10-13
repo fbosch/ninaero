@@ -135,7 +135,7 @@ export function ComponentOverview() {
             <span className="text-sm text-muted-foreground">1 item</span>
           </div>
           <article className="overview-card max-w-md space-y-3">
-            <div className="overview-thumbnail" aria-hidden="true">
+            <div className="overview-thumbnail ninaero-paper-grid" aria-hidden="true">
               <div className="w-full space-y-3">
                 <div className="grid grid-cols-5 gap-2">
                   {["bg-background", "bg-card", "bg-primary", "bg-secondary", "bg-accent"].map(
@@ -189,7 +189,7 @@ export function ComponentOverview() {
                   className="overview-card flex min-w-0 flex-col gap-3"
                 >
                   <div
-                    className="overview-thumbnail"
+                    className="overview-thumbnail ninaero-paper-grid"
                     data-component={item.name}
                     inert
                     aria-hidden="true"

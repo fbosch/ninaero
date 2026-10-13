@@ -11,7 +11,6 @@ export default function ExamplesPage() {
     <main id="main" className="mx-auto max-w-4xl space-y-10 px-5 py-12 sm:px-8">
       <header className="space-y-3">
         <h1 className="text-3xl font-semibold tracking-tight">Examples</h1>
-        <p className="text-muted-foreground">Components working together.</p>
       </header>
       <ul className="divide-y border-y">
         <li>

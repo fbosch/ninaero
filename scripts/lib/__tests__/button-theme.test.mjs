@@ -75,7 +75,7 @@ for (const [mode, palette] of [
 
 test("reduced motion removes press movement without a specificity override", () => {
   const activeSelector = Object.keys(components).find((selector) =>
-    selector.includes(":active:not(:disabled)"),
+    selector.startsWith(".ninaero-button:active:not(:disabled)"),
   );
   assert.ok(activeSelector.includes(":not([data-disabled])"));
   assert.ok(activeSelector.includes(":not([aria-disabled=true])"));

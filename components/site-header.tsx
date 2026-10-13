@@ -1,10 +1,18 @@
 "use client";
 
+import { SlidersHorizontalIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { Popover, PopoverContent, PopoverTrigger } from "@/registry/ninaero/ui/popover";
+import { Button } from "@/registry/ninaero/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/registry/ninaero/ui/popover";
 
 const destinations = [
   ["/examples", "Examples"],
@@ -16,7 +24,7 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 border-b px-5 py-5 sm:px-8">
+    <header className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
       <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-5 text-sm">
         <Link href="/" className="font-semibold tracking-tight">
           Ninaero
@@ -36,10 +44,14 @@ export function SiteHeader() {
         })}
       </nav>
       <Popover>
-        <PopoverTrigger className="rounded-sm text-sm text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">
+        <PopoverTrigger render={<Button variant="outline" size="sm" className="gap-2" />}>
+          <SlidersHorizontalIcon aria-hidden="true" />
           Appearance
         </PopoverTrigger>
-        <PopoverContent align="end" className="w-80 max-w-[calc(100vw-2rem)] p-4">
+        <PopoverContent align="end" className="w-72 max-w-[calc(100vw-2rem)] gap-4 p-4">
+          <PopoverHeader>
+            <PopoverTitle>Appearance</PopoverTitle>
+          </PopoverHeader>
           <ThemeSwitcher />
         </PopoverContent>
       </Popover>

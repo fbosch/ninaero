@@ -135,7 +135,7 @@ test("modals are elevated above menus and the chart tooltip", async () => {
     ["dialog", "shadow-xl"],
     ["alert-dialog", "shadow-xl"],
     ["sheet", "shadow-xl"],
-    ["popover", "shadow-md"],
+    ["popover", "ninaero-popover"],
     ["chart", "shadow-md"],
   ]) {
     const source = await readFile(

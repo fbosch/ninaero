@@ -14,7 +14,7 @@ export default function InputWorkshopPage() {
           Opaque fills with editable, disabled, and invalid states.
         </p>
       </header>
-      <div className="button-specimen max-w-lg space-y-5 p-6">
+      <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-5 p-6">
         <div className="space-y-2">
           <Label htmlFor="editable-input">Editable input</Label>
           <Input id="editable-input" placeholder="Try typing here" />

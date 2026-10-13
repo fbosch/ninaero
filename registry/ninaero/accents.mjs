@@ -13,8 +13,6 @@ export const accentPresets = {
       "button-link-ink": "#17677d",
       "button-focus": "#006d89",
       "accent-soft": "#e6f4f8",
-      "accent-border": "#b2cdd6",
-      "accent-outline": "#647f8a",
     },
     dark: {
       "button-primary-fill": "#79cfe5",
@@ -25,8 +23,6 @@ export const accentPresets = {
       "button-link-ink": "#8adef2",
       "button-focus": "#7ce1f6",
       "accent-soft": "#203e48",
-      "accent-border": "#3d5965",
-      "accent-outline": "#708d99",
     },
   },
   indigo: {
@@ -40,8 +36,6 @@ export const accentPresets = {
       "button-link-ink": "#40558b",
       "button-focus": "#4057a0",
       "accent-soft": "#edf0fc",
-      "accent-border": "#bcc6e1",
-      "accent-outline": "#6c729d",
     },
     dark: {
       "button-primary-fill": "#a9baf0",
@@ -52,8 +46,6 @@ export const accentPresets = {
       "button-link-ink": "#bdccfa",
       "button-focus": "#c1cfff",
       "accent-soft": "#2b3451",
-      "accent-border": "#495475",
-      "accent-outline": "#939dc7",
     },
   },
   lavender: {
@@ -67,8 +59,6 @@ export const accentPresets = {
       "button-link-ink": "#715080",
       "button-focus": "#76518b",
       "accent-soft": "#f5effa",
-      "accent-border": "#d1c0dc",
-      "accent-outline": "#88729e",
     },
     dark: {
       "button-primary-fill": "#cbb1e1",
@@ -79,8 +69,6 @@ export const accentPresets = {
       "button-link-ink": "#dfc7ef",
       "button-focus": "#e4ccfa",
       "accent-soft": "#3d2f49",
-      "accent-border": "#61516f",
-      "accent-outline": "#af9bc4",
     },
   },
   slate: {
@@ -94,8 +82,6 @@ export const accentPresets = {
       "button-link-ink": "#4c6275",
       "button-focus": "#4c647a",
       "accent-soft": "#eef2f6",
-      "accent-border": "#c4cfd9",
-      "accent-outline": "#727e8b",
     },
     dark: {
       "button-primary-fill": "#b3c6d7",
@@ -106,8 +92,6 @@ export const accentPresets = {
       "button-link-ink": "#c9dbe9",
       "button-focus": "#d0e6f8",
       "accent-soft": "#303f4c",
-      "accent-border": "#4b5c6b",
-      "accent-outline": "#8c9cae",
     },
   },
 };
@@ -124,9 +108,9 @@ export const accentSemanticTokens = {
   accent: "var(--accent-soft)",
   "accent-foreground": "var(--button-link-ink)",
   ring: "var(--button-focus)",
-  border: "var(--accent-border)",
-  input: "var(--accent-outline)",
-  "sidebar-border": "var(--accent-border)",
+  border: "var(--neutral-border)",
+  input: "var(--neutral-input)",
+  "sidebar-border": "var(--neutral-border)",
   "sidebar-primary": "var(--button-primary-fill)",
   "sidebar-primary-foreground": "var(--button-primary-ink)",
   "sidebar-accent": "var(--accent-soft)",
