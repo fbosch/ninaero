@@ -146,7 +146,10 @@ html.dark {
   border-radius: 1.5rem;
   corner-shape: squircle;
   background: color-mix(in oklab, var(--card) 60%, var(--muted));
-  box-shadow: var(--shadow-md);
+  box-shadow:
+    0 1px 2px hsl(var(--shadow-color) / 0.06),
+    0 3px 8px hsl(var(--shadow-color) / 0.04),
+    0 6px 18px hsl(var(--shadow-color) / 0.02);
 }
 
 .dark .home-preview-shell {
