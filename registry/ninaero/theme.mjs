@@ -221,7 +221,7 @@ export const theme = {
           "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
         "background-size": "24px 24px",
       },
-      ".ninaero-input, .ninaero-textarea": {
+      ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger": {
         "--input-corner": "0.875rem",
         "--input-recess-shade":
           "color-mix(in oklab, var(--card), black var(--input-recess-shade-weight))",
@@ -238,22 +238,26 @@ export const theme = {
         "outline-offset": "3px",
         transition: "background-color 80ms ease-out, border-color 80ms ease-out",
       },
-      ".ninaero-input::placeholder, .ninaero-textarea::placeholder": {
-        color: "var(--input-placeholder)",
-        opacity: "1",
-      },
-      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible": {
-        "outline-color": "var(--ring)",
-      },
-      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true]": {
-        "border-color": "var(--destructive)",
-      },
-      ".ninaero-input:disabled, .ninaero-textarea:disabled": {
-        "border-color": "var(--border)",
-        "background-color": "var(--input-disabled-fill)",
-        color: "var(--muted-foreground)",
-        "box-shadow": "none",
-      },
+      ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder]":
+        {
+          color: "var(--input-placeholder)",
+          opacity: "1",
+        },
+      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible":
+        {
+          "outline-color": "var(--ring)",
+        },
+      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid]":
+        {
+          "border-color": "var(--destructive)",
+        },
+      ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled]":
+        {
+          "border-color": "var(--border)",
+          "background-color": "var(--input-disabled-fill)",
+          color: "var(--muted-foreground)",
+          "box-shadow": "none",
+        },
       ".ninaero-popover": {
         "border-radius": "1.25rem",
         "corner-shape": "squircle",
@@ -261,6 +265,47 @@ export const theme = {
         color: "var(--popover-foreground)",
         "background-color": "var(--popover)",
         "box-shadow": `inset 0 1px 0 var(--button-highlight), ${elevations.floating}`,
+      },
+      ".ninaero-select-content": {
+        "transform-origin": "var(--transform-origin)",
+        transition: "opacity 80ms ease-out, transform 80ms ease-out",
+      },
+      ".ninaero-select-content[data-starting-style], .ninaero-select-content[data-ending-style]": {
+        opacity: "0",
+        transform: "scale(0.98)",
+      },
+      ".ninaero-select-content[data-align-trigger=true]": {
+        opacity: "1",
+        transform: "none",
+        transition: "none",
+      },
+      ".ninaero-select-icon": {
+        color: "var(--input-placeholder)",
+        transition: "transform 80ms ease-out",
+      },
+      ".ninaero-select-icon[data-popup-open]": {
+        transform: "rotate(180deg)",
+      },
+      ".ninaero-select-item": {
+        "border-radius": "0.875rem",
+        "corner-shape": "squircle",
+        border: "1px solid transparent",
+        outline: "2px solid transparent",
+        "outline-offset": "-3px",
+      },
+      ".ninaero-select-item[data-selected]": {
+        "border-color": "var(--ring)",
+        "background-color": "var(--accent)",
+        color: "var(--accent-foreground)",
+      },
+      ".ninaero-select-item[data-highlighted]": {
+        "outline-color": "var(--ring)",
+      },
+      ".ninaero-select-item[data-highlighted]:not([data-selected]):not([data-disabled])": {
+        "background-color": "var(--muted)",
+      },
+      ".ninaero-select-item[data-disabled]": {
+        color: "var(--muted-foreground)",
       },
       ".ninaero-toggle": {
         "--toggle-corner": "0.875rem",
@@ -421,9 +466,17 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
-        ".ninaero-input, .ninaero-textarea": {
+        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger": {
           transition: "none",
         },
+        ".ninaero-select-content, .ninaero-select-icon": {
+          transition: "none",
+        },
+        ".ninaero-select-content[data-starting-style], .ninaero-select-content[data-ending-style]":
+          {
+            opacity: "1",
+            transform: "none",
+          },
         ".ninaero-toggle": {
           transition: "none",
         },
@@ -437,31 +490,64 @@ export const theme = {
           "background-image": "none",
           "background-color": "Canvas",
         },
-        ".ninaero-input, .ninaero-textarea": {
+        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger": {
           "border-color": "CanvasText",
           "background-color": "Canvas",
           color: "CanvasText",
           "box-shadow": "none",
         },
-        ".ninaero-input::placeholder, .ninaero-textarea::placeholder": {
-          color: "GrayText",
-        },
-        ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true]": {
-          "border-color": "CanvasText",
-        },
-        ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible": {
-          "outline-color": "Highlight",
-        },
-        ".ninaero-input:disabled, .ninaero-textarea:disabled": {
-          "border-color": "GrayText",
-          "background-color": "Canvas",
-          color: "GrayText",
-        },
+        ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder]":
+          {
+            color: "GrayText",
+          },
+        ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid]":
+          {
+            "border-color": "CanvasText",
+          },
+        ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible":
+          {
+            "outline-color": "Highlight",
+          },
+        ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled]":
+          {
+            "border-color": "GrayText",
+            "background-color": "Canvas",
+            color: "GrayText",
+          },
         ".ninaero-popover": {
           "border-color": "CanvasText",
           "background-color": "Canvas",
           color: "CanvasText",
           "box-shadow": "none",
+        },
+        ".ninaero-select-icon": {
+          color: "ButtonText",
+        },
+        ".ninaero-select-trigger:disabled .ninaero-select-icon, .ninaero-select-trigger[data-disabled] .ninaero-select-icon":
+          {
+            color: "GrayText",
+          },
+        ".ninaero-select-item": {
+          "border-color": "Canvas",
+          "outline-color": "Canvas",
+          "background-color": "Canvas",
+          color: "CanvasText",
+        },
+        ".ninaero-select-item[data-selected]": {
+          "border-color": "Highlight",
+          "background-color": "Highlight",
+          color: "HighlightText",
+        },
+        ".ninaero-select-item[data-highlighted]": {
+          "outline-color": "Highlight",
+        },
+        ".ninaero-select-item[data-highlighted]:not([data-selected]):not([data-disabled])": {
+          "background-color": "Canvas",
+        },
+        ".ninaero-select-item[data-disabled]": {
+          "border-color": "Canvas",
+          "background-color": "Canvas",
+          color: "GrayText",
         },
         ".ninaero-toggle": {
           "border-color": "ButtonText",

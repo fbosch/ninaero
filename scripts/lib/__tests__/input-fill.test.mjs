@@ -12,8 +12,11 @@ const source = await readFile(
 const classes = source.match(/className=\{cn\(\s*"([^"]+)"/)[1].split(" ");
 
 const components = theme.css["@layer components"];
-const input = components[".ninaero-input, .ninaero-textarea"];
-const disabled = components[".ninaero-input:disabled, .ninaero-textarea:disabled"];
+const input = components[".ninaero-input, .ninaero-textarea, .ninaero-select-trigger"];
+const disabled =
+  components[
+    ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled]"
+  ];
 test("Input uses an opaque neutral content fill in either theme", () => {
   assert.ok(classes.includes("ninaero-input"));
   assert.equal(input["background-color"], "var(--card)");
@@ -39,13 +42,15 @@ test("disabled Input stays opaque and signals its state without fading the whole
 
 test("Input preserves a separate focus outline and semantic invalid border", () => {
   assert.equal(
-    components[".ninaero-input:focus-visible, .ninaero-textarea:focus-visible"]["outline-color"],
+    components[
+      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible"
+    ]["outline-color"],
     "var(--ring)",
   );
   assert.equal(
-    components[".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true]"][
-      "border-color"
-    ],
+    components[
+      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid]"
+    ]["border-color"],
     "var(--destructive)",
   );
   assert.equal(input.outline, "2px solid transparent");

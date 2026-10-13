@@ -6,7 +6,7 @@ import { theme } from "../../../registry/ninaero/theme.mjs";
 import { renderThemeCss } from "../theme.mjs";
 
 const components = theme.css["@layer components"];
-const input = components[".ninaero-input, .ninaero-textarea"];
+const input = components[".ninaero-input, .ninaero-textarea, .ninaero-select-trigger"];
 
 test("Input uses smaller native squircle corners than Button without clipping", () => {
   assert.equal(input["corner-shape"], "squircle");
@@ -21,7 +21,7 @@ test("Input uses smaller native squircle corners than Button without clipping", 
   }
   assert.match(
     renderThemeCss(theme),
-    /\.ninaero-input, \.ninaero-textarea \{[^}]*corner-shape: squircle;/,
+    /\.ninaero-input, \.ninaero-textarea, \.ninaero-select-trigger \{[^}]*corner-shape: squircle;/,
   );
 });
 
@@ -67,7 +67,9 @@ test("Input derives a shallow recess from its opaque neutral fill without cast e
 
 test("disabled Input removes its recess and does not brighten the dark fill", () => {
   assert.equal(
-    components[".ninaero-input:disabled, .ninaero-textarea:disabled"]["box-shadow"],
+    components[
+      ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled]"
+    ]["box-shadow"],
     "none",
   );
   assert.equal(theme.light["input-disabled-fill"], "var(--muted)");
@@ -102,43 +104,55 @@ test("Input text and placeholders retain contrast against both recessed edge ton
 test("Input keeps focus immediate and removes material transitions under reduced motion", () => {
   assert.equal(input.transition, "background-color 80ms ease-out, border-color 80ms ease-out");
   assert.equal(
-    components["@media (prefers-reduced-motion: reduce)"][".ninaero-input, .ninaero-textarea"]
-      .transition,
+    components["@media (prefers-reduced-motion: reduce)"][
+      ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger"
+    ].transition,
     "none",
   );
   assert.equal(
-    components[".ninaero-input:focus-visible, .ninaero-textarea:focus-visible"]["outline-color"],
+    components[
+      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible"
+    ]["outline-color"],
     "var(--ring)",
   );
 });
 
 test("forced-colors Input uses system boundaries, disabled ink, and keyboard focus", () => {
   const forced = components["@media (forced-colors: active)"];
-  assert.deepEqual(forced[".ninaero-input, .ninaero-textarea"], {
+  assert.deepEqual(forced[".ninaero-input, .ninaero-textarea, .ninaero-select-trigger"], {
     "border-color": "CanvasText",
     "background-color": "Canvas",
     color: "CanvasText",
     "box-shadow": "none",
   });
   assert.equal(
-    forced[".ninaero-input::placeholder, .ninaero-textarea::placeholder"].color,
+    forced[
+      ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder]"
+    ].color,
     "GrayText",
   );
   assert.equal(
-    forced[".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true]"][
-      "border-color"
-    ],
+    forced[
+      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid]"
+    ]["border-color"],
     "CanvasText",
   );
   assert.equal(
-    forced[".ninaero-input:focus-visible, .ninaero-textarea:focus-visible"]["outline-color"],
+    forced[
+      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible"
+    ]["outline-color"],
     "Highlight",
   );
-  assert.deepEqual(forced[".ninaero-input:disabled, .ninaero-textarea:disabled"], {
-    "border-color": "GrayText",
-    "background-color": "Canvas",
-    color: "GrayText",
-  });
+  assert.deepEqual(
+    forced[
+      ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled]"
+    ],
+    {
+      "border-color": "GrayText",
+      "background-color": "Canvas",
+      color: "GrayText",
+    },
+  );
 });
 
 test("Input preserves its primitive, dimensions, file styling, exports, and native props", async () => {
@@ -156,7 +170,9 @@ test("Input preserves its primitive, dimensions, file styling, exports, and nati
   assert.ok(!source.includes("rounded-"));
   assert.ok(!source.includes("ResizeObserver"));
   assert.equal(
-    components[".ninaero-input::placeholder, .ninaero-textarea::placeholder"].color,
+    components[
+      ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder]"
+    ].color,
     "var(--input-placeholder)",
   );
 });

@@ -11,7 +11,14 @@ const source = await readFile(
 );
 const classes = source.match(/className=\{cn\(\s*"([^"]+)"/)[1].split(" ");
 const components = theme.css["@layer components"];
-const fields = (suffix = "") => `.ninaero-input${suffix}, .ninaero-textarea${suffix}`;
+const fields = (suffix = "") => {
+  const selectSuffix = suffix === "::placeholder" ? "[data-placeholder]" : suffix;
+  const selectors = `.ninaero-input${suffix}, .ninaero-textarea${suffix}, .ninaero-select-trigger${selectSuffix}`;
+  if (suffix === ":disabled") return `${selectors}, .ninaero-select-trigger[data-disabled]`;
+  if (suffix === "[aria-invalid=true]")
+    return `${selectors}, .ninaero-select-trigger[data-invalid]`;
+  return selectors;
+};
 
 test("Textarea shares Input's material recipe instead of maintaining a separate field style", () => {
   assert.ok(classes.includes("ninaero-textarea"));
@@ -30,7 +37,7 @@ test("Textarea shares Input's material recipe instead of maintaining a separate 
   );
   assert.match(
     renderThemeCss(theme),
-    /\.ninaero-input, \.ninaero-textarea \{[^}]*corner-shape: squircle;/,
+    /\.ninaero-input, \.ninaero-textarea, \.ninaero-select-trigger \{[^}]*corner-shape: squircle;/,
   );
   assert.ok(
     !classes.some((value) =>
