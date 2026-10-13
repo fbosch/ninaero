@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { accentRules } from "../../../registry/ninaero/accents.mjs";
-import { elevations, theme } from "../../../registry/ninaero/theme.mjs";
+import {
+  buttonRecessShadow,
+  elevations,
+  theme,
+} from "../../../registry/ninaero/theme.mjs";
 import { renderThemeCss } from "../theme.mjs";
 
 const components = theme.css["@layer components"];
@@ -41,14 +45,24 @@ test("every elevation uses layered shadows with one overhead light direction", (
   }
 });
 
+test("control cast shadows soften their falloff without losing depth", () => {
+  const control = layers(elevations.control);
+  control.forEach((layer) => {
+    assert.ok(layer.blur >= layer.y * 2);
+  });
+  assert.ok(Math.max(...control.map((layer) => layer.y)) <= 4);
+  assert.ok(Math.max(...control.map((layer) => layer.blur)) <= 10);
+  const overlappingOpacity =
+    1 -
+    control.reduce((remaining, layer) => remaining * (1 - layer.opacity), 1);
+  assert.ok(overlappingOpacity >= 0.25 && overlappingOpacity <= 0.35);
+});
+
 test("all raised Buttons share the same cast shadow, with independent material bevels", () => {
   for (const variant of ["primary", "secondary", "destructive"]) {
     const shadow = components[`.ninaero-button--${variant}`]["box-shadow"];
     assert.ok(shadow.startsWith("inset 0 1px 0"));
-    assert.equal(
-      shadow.slice(shadow.indexOf("0 1px 1px hsl")),
-      elevations.control,
-    );
+    assert.ok(shadow.endsWith(elevations.control));
   }
   for (const variant of ["outline", "ghost", "link"]) {
     assert.equal(
@@ -87,10 +101,7 @@ test("pressing collapses cast shadows while reduced motion keeps static feedback
   const pressSelector = Object.keys(components).find((key) =>
     key.startsWith(".ninaero-button:active"),
   );
-  assert.equal(
-    components[pressSelector]["box-shadow"],
-    "inset 0 1px 2px hsl(var(--shadow-color) / 0.22)",
-  );
+  assert.equal(components[pressSelector]["box-shadow"], buttonRecessShadow);
   for (const variant of ["primary", "secondary", "destructive"]) {
     const pressed = Object.entries(components).find(([key]) =>
       key.startsWith(`.ninaero-button--${variant}:active`),

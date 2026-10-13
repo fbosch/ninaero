@@ -67,6 +67,7 @@ Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomea
 - Use one overhead light, with highlights at the top and cast shadows below. Keep horizontal offsets at zero across the elevation scale. This is Ninaero's choice of light direction; the article's above-left example is not a required angle.
 - Separate the border, inset highlight, lower bevel, and cast shadow. Borders define the squircle silhouette. Insets and a crisp lower edge describe the control's material and thickness. A soft outer shadow describes its distance from the surface beneath it.
 - Keep Primary, Secondary, and Destructive on the same shallow elevation. Their fills communicate hierarchy and meaning; a destructive action does not need a taller shadow. Outline, Ghost, and Link should not acquire the same raised material by default.
+- Soften control cast shadows by broadening blur relative to the downward offset and tapering each layer's opacity. Keep enough shadow strength to show shallow elevation. A subtle fade should not make the shadow nearly invisible. The rim and bevel still define the Button; avoid a hard-edged dark silhouette beneath it.
 - Do not turn shadows into accent-colored glow. Match the shadow hue to the receiving paper or panel, then reduce lightness and tune saturation. A red button on neutral paper should not automatically cast a red shadow.
 
 ### Layered elevation
@@ -82,7 +83,17 @@ Use a compact elevation scale rather than tuning every component independently.
 
 Build each cast shadow from a few layers with progressively larger offsets and blur radii. Avoid one large, uniform blur that reads as a fuzzy border. Layer opacity accumulates, so judge the combined shadow rather than copying the same opacity across elevation levels.
 
-On press, reduce the control's apparent distance from the paper. Collapse its outer shadow and retain a small inset cue. Pair that change with the existing pressed fill and brief movement; under reduced motion, the static fill and shadow must still communicate the press. Disabled controls lose raised shadows.
+On press, reduce the control's apparent distance from the paper. Collapse its outer shadow and use a small top inset shade with a lower inset highlight. Pair that change with the pressed fill and brief movement; under reduced motion, the static fill and inset lighting must still communicate the press. Disabled controls lose raised shadows.
+
+### Color inside pressed controls
+
+Cast shadows take their color from the receiving paper or panel. Recessed shading takes its color from the control's own pressed fill. Use a darker, lower-chroma tone for the inset shade and a lighter, lower-chroma tone for the inset highlight. A red Button can have red-tinted internal shading while casting a neutral paper shadow. Primary follows its selected accent; Secondary and Outline use paper tones; Destructive keeps its semantic red material.
+
+Reverse the depth cue, not the hue or the light source. Under the same overhead light, a pressed control has shade along its upper interior and a fine highlight along its lower interior. Keep both horizontal offsets at zero and remove the outer cast shadow. Outline remains flat at rest but can use this paper recess on press. Ghost and Link do not acquire recessed framing.
+
+The shared `buttonRecessShadow` recipe lives in `registry/ninaero/theme.mjs`. Each recessed Button sets `--button-recess-fill` to its material's pressed fill. Local `color-mix(in oklab, ...)` expressions derive the shade and highlight so accent changes cannot leave stale inset colors. The current black mix weights are 4% in light mode and 6% in dark mode; white mix weights are 6% and 8%. These are shallow lighting cues, not black cavities or white glow. Tune them against the actual material and verify label contrast across both inset tones.
+
+Keep this lighting separate from keyboard-focus outlines, invalid borders, and disabled styling. Reduced motion removes movement but retains the static recessed cue. Forced-colors mode removes decorative inset lighting and preserves system-color boundaries.
 
 ### Theme tokens and validation
 

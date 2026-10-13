@@ -9,21 +9,25 @@ const buttonPressSelector =
   ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost)";
 export const elevations = {
   control: [
-    "0 1px 1px hsl(var(--shadow-color) / 0.18)",
-    "0 2px 3px hsl(var(--shadow-color) / 0.12)",
-    "0 4px 6px hsl(var(--shadow-color) / 0.08)",
+    "0 1px 2px hsl(var(--shadow-color) / 0.18)",
+    "0 2px 5px hsl(var(--shadow-color) / 0.11)",
+    "0 4px 10px hsl(var(--shadow-color) / 0.07)",
   ].join(", "),
   floating: [
     "0 2px 2px hsl(var(--shadow-color) / 0.14)",
     "0 4px 6px hsl(var(--shadow-color) / 0.10)",
-    "0 8px 14px hsl(var(--shadow-color) / 0.06)",
+    "0 8px 14px hsl(var(--shadow-color) / 0.05)",
   ].join(", "),
   dialog: [
     "0 2px 3px hsl(var(--shadow-color) / 0.12)",
     "0 8px 12px hsl(var(--shadow-color) / 0.08)",
-    "0 16px 28px hsl(var(--shadow-color) / 0.05)",
+    "0 16px 28px hsl(var(--shadow-color) / 0.04)",
   ].join(", "),
 };
+export const buttonRecessShadow = [
+  "inset 0 1px 2px var(--button-recess-shade)",
+  "inset 0 -1px 0 var(--button-recess-highlight)",
+].join(", ");
 export const theme = {
   theme: {
     "shadow-sm": elevations.control,
@@ -102,6 +106,8 @@ export const theme = {
     "button-paper-pressed": "#d9e5eb",
     "button-paper-highlight": "#ffffffa6",
     "button-paper-shade": "#1737460d",
+    "button-recess-shade-weight": "4%",
+    "button-recess-highlight-weight": "6%",
     "button-destructive-fill": "#f6d9dc",
     "button-destructive-hover": "#efc2c8",
     "button-destructive-pressed": "#e8aeb7",
@@ -142,6 +148,8 @@ export const theme = {
     "button-paper-pressed": "#20303a",
     "button-paper-highlight": "#ffffff26",
     "button-paper-shade": "#00000040",
+    "button-recess-shade-weight": "6%",
+    "button-recess-highlight-weight": "8%",
     "button-destructive-fill": "#603039",
     "button-destructive-hover": "#743945",
     "button-destructive-pressed": "#502630",
@@ -173,6 +181,11 @@ export const theme = {
       ".ninaero-button": {
         "--button-corner": "1rem",
         "--button-press-shift": "1px",
+        "--button-recess-fill": "var(--background)",
+        "--button-recess-shade":
+          "color-mix(in oklab, var(--button-recess-fill), black var(--button-recess-shade-weight))",
+        "--button-recess-highlight":
+          "color-mix(in oklab, var(--button-recess-fill), white var(--button-recess-highlight-weight))",
         "border-radius": "var(--button-corner)",
         "corner-shape": "squircle",
         border: "1px solid transparent",
@@ -182,6 +195,7 @@ export const theme = {
           "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out, transform 80ms ease-out",
       },
       ".ninaero-button--primary": {
+        "--button-recess-fill": "var(--button-primary-pressed)",
         color: "var(--button-primary-ink)",
         "background-color": "var(--button-primary-fill)",
         "background-image":
@@ -190,6 +204,7 @@ export const theme = {
         "box-shadow": `inset 0 1px 0 var(--button-highlight), ${elevations.control}`,
       },
       ".ninaero-button--secondary, .ninaero-button--outline": {
+        "--button-recess-fill": "var(--button-paper-pressed)",
         color: "var(--button-paper-ink)",
       },
       ".ninaero-button--secondary": {
@@ -200,6 +215,7 @@ export const theme = {
         "box-shadow": `inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), ${elevations.control}`,
       },
       ".ninaero-button--destructive": {
+        "--button-recess-fill": "var(--button-destructive-pressed)",
         color: "var(--button-destructive-ink)",
         "background-color": "var(--button-destructive-fill)",
         "background-image":
@@ -230,7 +246,7 @@ export const theme = {
       },
       [buttonPressSelector]: {
         transform: "translateY(var(--button-press-shift))",
-        "box-shadow": "inset 0 1px 2px hsl(var(--shadow-color) / 0.22)",
+        "box-shadow": buttonRecessShadow,
       },
       ".ninaero-button:disabled, .ninaero-button[data-disabled], .ninaero-button[aria-disabled=true]":
         {
@@ -260,6 +276,11 @@ export const theme = {
           "background-image": "none",
         },
       ".ninaero-button--secondary:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
+        {
+          "background-color": "var(--button-paper-pressed)",
+          "background-image": "none",
+        },
+      ".ninaero-button--outline:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
         {
           "background-color": "var(--button-paper-pressed)",
           "background-image": "none",
