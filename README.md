@@ -8,7 +8,9 @@ The baseline uses Next.js App Router, React, TypeScript, Tailwind CSS v4, Base U
 
 1. Install dependencies with `pnpm install`. Use Node.js 22 or newer and the pnpm version in `package.json`.
 2. Run `pnpm dev`.
-3. Open `http://localhost:3000`. Compare Light, Dark, and System modes; try the inputs and dialog.
+3. Open `http://localhost:3000/#button-workshop`. Use Accent or the side-by-side Cyan, Indigo, Lavender, and Slate buttons to choose a palette. Compare Light and Dark modes, then try Test action and keyboard focus.
+
+Accent and color mode are independent and persist separately when browser storage is available. Borders follow the accent; paper, ink, and destructive colors stay unchanged. To use a preset in another project, set `data-accent="cyan"`, `data-accent="indigo"`, `data-accent="lavender"`, or `data-accent="slate"` on `<html>`; add the `dark` class for dark mode.
 
 The dev and production build commands generate the theme and registry before starting Next.js. If port 3000 is occupied, stop that server or explicitly use a matching registry URL and Next.js port.
 
@@ -23,6 +25,7 @@ The dev and production build commands generate the theme and registry before sta
 | Path | Purpose |
 | --- | --- |
 | `registry/ninaero/theme.mjs` | Theme source and light/dark tokens |
+| `registry/ninaero/accents.mjs` | Cyan, Indigo, Lavender, and Slate preset source and generated selectors |
 | `registry/ninaero/ui/` | Installable component source |
 | `registry/ninaero/hooks/` | Installable supporting hooks |
 | `registry/ninaero/catalog.json` | Upstream catalogue snapshot and item descriptors |
@@ -95,7 +98,7 @@ Deploy the Next.js app to serve the gallery and `/r/*.json`, or host the generat
 - `pnpm test`: catalogue and documentation coverage, compiled usage examples, source-derived dependencies, token consistency, and invalid configuration.
 - `pnpm check`: production build, lint, typecheck, and tests.
 
-Shared semantic tokens remain neutral. Button is the first themed component, with native CSS squircle corners, cyan highlights, and a paper-background specimen at `/`. See [DESIGN.md](DESIGN.md) for the direction and browser-support requirement. MDX documentation and analytics remain outside this baseline.
+Paper and ink tokens remain neutral. Primary, selection, and focus tokens follow the chosen accent preset. Button is the first fully styled component, with native CSS squircle corners and a paper-background specimen at `/`. See [DESIGN.md](DESIGN.md) for the direction and browser-support requirement. MDX documentation and analytics remain outside this baseline.
 
 ## References
 

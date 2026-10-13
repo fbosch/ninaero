@@ -51,6 +51,37 @@ export default function ThemeDocsPage() {
           surfaces.
         </p>
       </section>
+      <section aria-labelledby="theme-accent-heading" className="space-y-4">
+        <h2 id="theme-accent-heading" className="text-xl font-semibold">
+          Accent presets
+        </h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Choose Cyan, Indigo, Lavender, or Slate with the Accent selector.
+          Accent and color mode are independent. Primary actions, selected
+          controls, Button links, focus rings, and borders share the palette;
+          paper, ink, and destructive colors stay unchanged. Structural borders
+          use a subtle tint; input and button outlines use a stronger shade.
+          Invalid and destructive borders retain their status colors. The site
+          remembers your choice when browser storage is available.
+        </p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Installed themes support the same presets without a React provider.
+          Set data-accent on the root element and use the dark class for dark
+          mode. Edit preset colors in registry/ninaero/accents.mjs, then
+          regenerate the registry.
+        </p>
+        <CodeBlock
+          code={'<html data-accent="lavender" class="dark">'}
+          label="Lavender accent in dark mode"
+          language="tsx"
+        />
+        <Link
+          href="/#button-workshop"
+          className="inline-block text-sm underline underline-offset-4"
+        >
+          Compare accent buttons in the workshop
+        </Link>
+      </section>
       <section aria-labelledby="theme-edit-heading" className="space-y-4">
         <h2 id="theme-edit-heading" className="text-xl font-semibold">
           Update the theme

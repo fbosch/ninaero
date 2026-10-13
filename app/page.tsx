@@ -42,7 +42,7 @@ export default function Home() {
           <h1 className="text-3xl font-semibold tracking-tight">Ninaero</h1>
           <p className="text-muted-foreground">
             Button is the first themed component. Compare its squircle corners
-            and cyan highlights alongside the remaining neutral baseline.
+            and accent palettes alongside neutral paper and ink surfaces.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4">

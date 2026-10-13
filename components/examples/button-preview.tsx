@@ -2,6 +2,8 @@
 
 import { PlusIcon } from "lucide-react";
 import { useId, useState } from "react";
+import { useAccent } from "@/components/accent-provider";
+import { accentNames, accentPresets } from "@/registry/ninaero/accents.mjs";
 import { Button } from "@/registry/ninaero/ui/button";
 import { ButtonGroup } from "@/registry/ninaero/ui/button-group";
 import { Input } from "@/registry/ninaero/ui/input";
@@ -20,6 +22,7 @@ const sizes = ["xs", "sm", "default", "lg"] as const;
 const iconSizes = ["icon-xs", "icon-sm", "icon", "icon-lg"] as const;
 
 export function ButtonPreview() {
+  const { accent, mounted, setAccent } = useAccent();
   const inputId = useId();
   const [activations, setActivations] = useState(0);
 
@@ -27,7 +30,9 @@ export function ButtonPreview() {
     <div className="grid gap-6 lg:grid-cols-2">
       <div className="button-specimen flex flex-col justify-center gap-5 p-6">
         <div className="space-y-2">
-          <p className="text-sm font-medium">Paper + cyan</p>
+          <p className="text-sm font-medium">
+            Paper + {accentPresets[accent].label.toLowerCase()}
+          </p>
           <p className="text-sm">
             Test the button with a pointer or keyboard. Each activation
             increments the counter.
@@ -57,9 +62,37 @@ export function ButtonPreview() {
         <output className="text-sm tabular-nums">
           Activations: {activations}
         </output>
-        <p className="text-xs">Preview only. No data is saved.</p>
+        <p className="text-xs">The counter is preview-only and is not saved.</p>
       </div>
       <div className="space-y-5">
+        <fieldset className="space-y-3">
+          <legend className="text-sm font-medium">Compare accents</legend>
+          <p className="text-xs text-muted-foreground">
+            Choose an accent to apply it across the workshop, catalogue, and
+            docs. Compare each in light and dark mode.
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            {accentNames.map((name) => (
+              <div
+                key={name}
+                data-accent={name}
+                className="space-y-2 rounded-lg border bg-card p-3"
+              >
+                <Button
+                  className="w-full"
+                  disabled={!mounted}
+                  aria-pressed={accent === name}
+                  onClick={() => setAccent(name)}
+                >
+                  {accentPresets[name].label}
+                </Button>
+                <p className="min-h-4 text-center text-xs text-muted-foreground">
+                  {accent === name ? "Selected" : ""}
+                </p>
+              </div>
+            ))}
+          </div>
+        </fieldset>
         <div className="space-y-3">
           <h3 className="text-sm font-medium">Variants and states</h3>
           <p className="text-xs text-muted-foreground">

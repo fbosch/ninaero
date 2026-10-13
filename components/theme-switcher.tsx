@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
+import { AccentSwitcher } from "@/components/accent-switcher";
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -10,7 +11,7 @@ export function ThemeSwitcher() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex flex-wrap items-center gap-3">
       <label htmlFor="color-mode" className="text-sm font-medium">
         Color mode
       </label>
@@ -25,6 +26,7 @@ export function ThemeSwitcher() {
         <option value="light">Light</option>
         <option value="dark">Dark</option>
       </select>
+      <AccentSwitcher />
     </div>
   );
 }

@@ -36,11 +36,11 @@ test("Button uses native squircle curves without clipping its focus outline", ()
   assert.ok(css.includes("outline-offset: 3px;"));
 });
 
-test("Button-specific colors leave shared neutral semantic tokens unchanged", () => {
+test("Accent roles follow the palette while paper surfaces remain neutral", () => {
   assert.equal(theme.light.background, "oklch(1 0 0)");
   assert.equal(theme.dark.background, "oklch(0.145 0 0)");
-  assert.equal(theme.light.primary, "oklch(0.205 0 0)");
-  assert.equal(theme.dark.primary, "oklch(0.922 0 0)");
+  assert.equal(theme.light.primary, "var(--button-primary-fill)");
+  assert.equal(theme.dark.primary, "var(--button-primary-fill)");
   for (const palette of [theme.light, theme.dark]) {
     assert.ok(palette["button-primary-fill"]);
     assert.ok(palette["button-paper-fill"]);
@@ -67,7 +67,11 @@ for (const [mode, palette] of [
   test(`${mode} focus and matte-control edges meet 3:1 on paper`, () => {
     const background = palette["button-paper-fill"];
     for (const token of ["button-focus", "button-paper-edge"]) {
-      const ratio = contrast(palette[token], background);
+      const value =
+        token === "button-paper-edge"
+          ? palette["accent-outline"]
+          : palette[token];
+      const ratio = contrast(value, background);
       assert.ok(ratio >= 3, `${token}: ${ratio.toFixed(2)}:1`);
     }
   });

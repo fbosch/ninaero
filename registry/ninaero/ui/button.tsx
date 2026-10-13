@@ -11,8 +11,7 @@ const buttonVariants = cva(
         outline: "ninaero-button--outline",
         secondary: "ninaero-button--secondary",
         ghost: "ninaero-button--ghost",
-        destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30",
+        destructive: "ninaero-button--destructive",
         link: "ninaero-button--link",
       },
       size: {
