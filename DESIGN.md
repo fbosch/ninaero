@@ -92,7 +92,11 @@ In dark mode, tune the shadow against the actual panel instead of increasing bla
 
 Compare all raised Button variants together in light and dark modes, on both paper and plain panels. Check resting, hover, pressed, disabled, and keyboard-focus states. When floating components are styled, check that their elevation remains above controls and that shadows are not clipped. Verify contrast against the highlighted and shaded fills, not just the base color. In forced-colors mode, remove decorative shadows and retain system-color boundaries.
 
-These are requirements for future shadow refinement. The current Button has variant-specific bevels and shadows, not a complete shared elevation system. Exact offsets, blur radii, colors, and opacity remain subject to browser review.
+The shared recipes now live in `registry/ninaero/theme.mjs` as control, floating, and dialog elevations. Raised Button variants combine their own inset bevels with the same control cast shadow.
+
+The `shadow-sm` utility uses control elevation; `shadow-md` and `shadow-lg` use floating elevation; `shadow-xl` and `shadow-2xl` use dialog elevation. Dialog, Alert Dialog, and Sheet use the dialog level; the chart tooltip uses the floating level.
+
+Shadow color inherits from `--shadow-color`. The `ninaero-surface-paper` class selects the light/dark paper shadow color for its descendants. Exact offsets, blur radii, colors, and opacity still need browser review.
 
 ## Interaction and accessibility
 

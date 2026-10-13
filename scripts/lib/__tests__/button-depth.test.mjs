@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { accentRules } from "../../../registry/ninaero/accents.mjs";
-import { theme } from "../../../registry/ninaero/theme.mjs";
+import { elevations, theme } from "../../../registry/ninaero/theme.mjs";
 
 const components = theme.css["@layer components"];
 function channels(hex) {
@@ -49,8 +49,7 @@ for (const [variant, material] of [
     );
     assert.ok(rules["box-shadow"].includes("inset 0 1px 0"));
     assert.ok(rules["box-shadow"].includes("inset 0 -1px 0"));
-    assert.ok(rules["box-shadow"].includes("0 2px 0"));
-    assert.ok(rules["box-shadow"].includes("0 3px 6px"));
+    assert.ok(rules["box-shadow"].endsWith(elevations.control));
   });
 
   test(`${variant} has guarded hover and pressed feedback without a held highlight`, () => {

@@ -28,7 +28,7 @@ export function ButtonPreview() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <div className="button-specimen flex flex-col justify-center gap-5 p-6">
+      <div className="button-specimen ninaero-surface-paper flex flex-col justify-center gap-5 p-6">
         <div className="space-y-2">
           <p className="text-sm font-medium">
             Paper + {accentPresets[accent].label.toLowerCase()}

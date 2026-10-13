@@ -4,8 +4,33 @@ import {
   accentSemanticTokens,
   defaultAccent,
 } from "./accents.mjs";
+
+const buttonPressSelector =
+  ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost)";
+export const elevations = {
+  control: [
+    "0 1px 1px hsl(var(--shadow-color) / 0.18)",
+    "0 2px 3px hsl(var(--shadow-color) / 0.12)",
+    "0 4px 6px hsl(var(--shadow-color) / 0.08)",
+  ].join(", "),
+  floating: [
+    "0 2px 2px hsl(var(--shadow-color) / 0.14)",
+    "0 4px 6px hsl(var(--shadow-color) / 0.10)",
+    "0 8px 14px hsl(var(--shadow-color) / 0.06)",
+  ].join(", "),
+  dialog: [
+    "0 2px 3px hsl(var(--shadow-color) / 0.12)",
+    "0 8px 12px hsl(var(--shadow-color) / 0.08)",
+    "0 16px 28px hsl(var(--shadow-color) / 0.05)",
+  ].join(", "),
+};
 export const theme = {
   theme: {
+    "shadow-sm": elevations.control,
+    "shadow-md": elevations.floating,
+    "shadow-lg": elevations.floating,
+    "shadow-xl": elevations.dialog,
+    "shadow-2xl": elevations.dialog,
     "font-heading": "var(--font-sans)",
     "font-sans": "ui-sans-serif, system-ui, sans-serif",
     "color-sidebar-ring": "var(--sidebar-ring)",
@@ -82,9 +107,9 @@ export const theme = {
     "button-destructive-edge": "#a35864",
     "button-destructive-highlight": "#ffffff66",
     "button-destructive-shade": "#4a081c14",
-    "button-destructive-shadow": "#310d182e",
     "button-highlight": "#ffffff80",
-    "button-shadow": "#355c7326",
+    "shadow-color": "215deg 10% 24%",
+    "shadow-color-paper": "205deg 18% 28%",
   },
   dark: {
     background: "oklch(0.145 0 0)",
@@ -120,9 +145,9 @@ export const theme = {
     "button-destructive-edge": "#cf7b8c",
     "button-destructive-highlight": "#ffffff1a",
     "button-destructive-shade": "#00000040",
-    "button-destructive-shadow": "#00000066",
     "button-highlight": "#ffffff33",
-    "button-shadow": "#00000059",
+    "shadow-color": "215deg 10% 3%",
+    "shadow-color-paper": "205deg 18% 5%",
   },
   css: {
     ...accentRules,
@@ -138,6 +163,9 @@ export const theme = {
       },
     },
     "@layer components": {
+      ".ninaero-surface-paper": {
+        "--shadow-color": "var(--shadow-color-paper)",
+      },
       ".ninaero-button": {
         "--button-corner": "1rem",
         "--button-press-shift": "1px",
@@ -155,20 +183,17 @@ export const theme = {
         "background-image":
           "linear-gradient(180deg, var(--button-highlight), transparent 65%)",
         "border-color": "var(--button-primary-edge)",
-        "box-shadow":
-          "inset 0 1px 0 var(--button-highlight), 0 2px 0 var(--button-shadow), 0 3px 6px var(--button-shadow)",
+        "box-shadow": `inset 0 1px 0 var(--button-highlight), ${elevations.control}`,
       },
       ".ninaero-button--secondary, .ninaero-button--outline": {
         color: "var(--button-paper-ink)",
         "border-color": "var(--button-paper-edge)",
-        "box-shadow": "0 2px 0 var(--button-shadow)",
       },
       ".ninaero-button--secondary": {
         "background-color": "var(--button-paper-fill)",
         "background-image":
           "linear-gradient(180deg, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
-        "box-shadow":
-          "inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), 0 2px 0 var(--button-shadow), 0 3px 6px var(--button-shadow)",
+        "box-shadow": `inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), ${elevations.control}`,
       },
       ".ninaero-button--destructive": {
         color: "var(--button-destructive-ink)",
@@ -176,8 +201,7 @@ export const theme = {
         "background-image":
           "linear-gradient(180deg, var(--button-destructive-highlight), transparent 55%, var(--button-destructive-shade))",
         "border-color": "var(--button-destructive-edge)",
-        "box-shadow":
-          "inset 0 1px 0 var(--button-destructive-highlight), inset 0 -1px 0 var(--button-destructive-shade), 0 2px 0 var(--button-destructive-shadow), 0 3px 6px var(--button-destructive-shadow)",
+        "box-shadow": `inset 0 1px 0 var(--button-destructive-highlight), inset 0 -1px 0 var(--button-destructive-shade), ${elevations.control}`,
       },
       ".ninaero-button--outline": {
         "background-color": "var(--background)",
@@ -200,11 +224,10 @@ export const theme = {
         "border-color": "var(--destructive)",
         "outline-color": "var(--destructive)",
       },
-      ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost)":
-        {
-          transform: "translateY(var(--button-press-shift))",
-          "box-shadow": "inset 0 1px 2px var(--button-shadow)",
-        },
+      [buttonPressSelector]: {
+        transform: "translateY(var(--button-press-shift))",
+        "box-shadow": "inset 0 1px 2px hsl(var(--shadow-color) / 0.22)",
+      },
       ".ninaero-button:disabled, .ninaero-button[data-disabled], .ninaero-button[aria-disabled=true]":
         {
           "box-shadow": "none",
@@ -230,6 +253,7 @@ export const theme = {
       ".ninaero-button--primary:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
         {
           "background-color": "var(--button-primary-pressed)",
+          "background-image": "none",
         },
       ".ninaero-button--secondary:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
         {
@@ -240,7 +264,6 @@ export const theme = {
         {
           "background-color": "var(--button-destructive-pressed)",
           "background-image": "none",
-          "box-shadow": "inset 0 1px 2px var(--button-destructive-shadow)",
         },
       "@media (prefers-reduced-motion: reduce)": {
         ".ninaero-button": {
@@ -252,6 +275,9 @@ export const theme = {
         ".ninaero-button": {
           "background-image": "none",
           "border-color": "ButtonText",
+          "box-shadow": "none",
+        },
+        [buttonPressSelector]: {
           "box-shadow": "none",
         },
         ".ninaero-button:focus-visible": {
