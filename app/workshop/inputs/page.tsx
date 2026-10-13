@@ -13,6 +13,10 @@ export default function InputWorkshopPage() {
         <p className="text-muted-foreground">
           Opaque fills with editable, disabled, and invalid states.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Squircle corners require browser support for CSS corner-shape. Other browsers show
+          ordinary rounded corners. Use Tab to inspect keyboard focus.
+        </p>
       </header>
       <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-5 p-6">
         <div className="space-y-2">
@@ -22,6 +26,10 @@ export default function InputWorkshopPage() {
         <div className="space-y-2">
           <Label htmlFor="disabled-input">Disabled input</Label>
           <Input id="disabled-input" disabled defaultValue="Unavailable" />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="readonly-input">Read-only input</Label>
+          <Input id="readonly-input" readOnly defaultValue="Select and copy this text" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="invalid-input">Invalid input</Label>

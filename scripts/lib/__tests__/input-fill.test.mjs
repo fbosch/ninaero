@@ -11,11 +11,15 @@ const source = await readFile(
 );
 const classes = source.match(/className=\{cn\(\s*"([^"]+)"/)[1].split(" ");
 
+const components = theme.css["@layer components"];
+const input = components[".ninaero-input"];
+const disabled = components[".ninaero-input:disabled"];
 test("Input uses an opaque neutral content fill in either theme", () => {
-  assert.ok(classes.includes("bg-card"));
-  assert.ok(classes.includes("text-card-foreground"));
-  const fills = classes.filter((value) => /(^|:)bg-/.test(value) && !value.startsWith("file:"));
-  assert.deepEqual(fills, ["bg-card", "disabled:bg-muted"]);
+  assert.ok(classes.includes("ninaero-input"));
+  assert.equal(input["background-color"], "var(--card)");
+  assert.equal(input.color, "var(--card-foreground)");
+  assert.equal(input.border, "1px solid var(--input)");
+  assert.ok(!classes.some((value) => /(^|:)bg-/.test(value) && !value.startsWith("file:")));
   for (const mode of ["light", "dark"]) {
     for (const token of ["card", "muted"]) {
       assert.ok(!/transparent|\//.test(theme[mode][token]));
@@ -24,23 +28,24 @@ test("Input uses an opaque neutral content fill in either theme", () => {
 });
 
 test("disabled Input stays opaque and signals its state without fading the whole field", () => {
-  assert.ok(classes.includes("disabled:bg-muted"));
-  assert.ok(classes.includes("disabled:text-muted-foreground"));
-  assert.ok(classes.includes("disabled:border-border"));
+  assert.equal(disabled["background-color"], "var(--muted)");
+  assert.equal(disabled.color, "var(--muted-foreground)");
+  assert.equal(disabled["border-color"], "var(--border)");
   assert.ok(classes.includes("disabled:cursor-not-allowed"));
   assert.ok(classes.includes("disabled:pointer-events-none"));
+  assert.equal(disabled.opacity, undefined);
   assert.ok(!classes.some((value) => value.includes("opacity-")));
 });
 
-test("Input fill changes preserve focus and semantic invalid feedback", () => {
-  for (const value of [
-    "focus-visible:border-ring",
-    "focus-visible:ring-3",
-    "aria-invalid:border-destructive",
-    "aria-invalid:ring-3",
-  ]) {
-    assert.ok(classes.includes(value), value);
-  }
+test("Input preserves a separate focus outline and semantic invalid border", () => {
+  assert.equal(components[".ninaero-input:focus-visible"]["outline-color"], "var(--ring)");
+  assert.equal(
+    components[".ninaero-input[aria-invalid=true]"]["border-color"],
+    "var(--destructive)",
+  );
+  assert.equal(input.outline, "2px solid transparent");
+  assert.equal(input["outline-offset"], "3px");
+  assert.ok(!classes.some((value) => value.includes("ring-")));
 });
 
 test("accent presets do not recolor Input's neutral fill", () => {
@@ -58,5 +63,5 @@ test("published Input source matches the installable opaque-fill component", asy
   const file = published.files.find((entry) => entry.path.endsWith("/input.tsx"));
   assert.ok(file);
   assert.equal(file.content, source);
-  assert.ok(file.content.includes("bg-card"));
+  assert.ok(file.content.includes("ninaero-input"));
 });

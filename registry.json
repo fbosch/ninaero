@@ -65,13 +65,13 @@
         },
         "light": {
           "background": "oklch(1 0 0)",
-          "neutral-border": "#d9e0e3",
-          "neutral-input": "#7b858a",
+          "neutral-border": "#dfdfdf",
+          "neutral-input": "#838383",
           "foreground": "oklch(0.145 0 0)",
           "card": "oklch(1 0 0)",
           "card-foreground": "oklch(0.145 0 0)",
-          "popover": "var(--button-paper-fill)",
-          "popover-foreground": "var(--button-paper-ink)",
+          "popover": "var(--card)",
+          "popover-foreground": "var(--card-foreground)",
           "secondary": "oklch(0.97 0 0)",
           "secondary-foreground": "oklch(0.205 0 0)",
           "muted": "oklch(0.97 0 0)",
@@ -106,14 +106,14 @@
           "sidebar-accent": "var(--accent-soft)",
           "sidebar-accent-foreground": "var(--button-link-ink)",
           "sidebar-ring": "var(--button-focus)",
-          "button-paper-fill": "#f5f8fa",
-          "button-paper-edge": "#788b95",
-          "button-outline-edge": "#7b858a",
-          "button-paper-hover": "#e6f0f4",
-          "button-paper-ink": "#253b46",
-          "button-paper-pressed": "#d9e5eb",
+          "button-paper-fill": "#f8f8f8",
+          "button-paper-edge": "#888888",
+          "button-outline-edge": "#838383",
+          "button-paper-hover": "#eeeeee",
+          "button-paper-ink": "#383838",
+          "button-paper-pressed": "#e3e3e3",
           "button-paper-highlight": "#ffffffa6",
-          "button-paper-shade": "#1737460d",
+          "button-paper-shade": "#3333330d",
           "button-recess-shade-weight": "4%",
           "button-recess-highlight-weight": "6%",
           "button-destructive-fill": "#f6d9dc",
@@ -124,21 +124,21 @@
           "button-destructive-highlight": "#ffffff66",
           "button-destructive-shade": "#4a081c14",
           "button-highlight": "#ffffff80",
-          "shadow-color": "215deg 10% 24%",
-          "shadow-color-paper": "205deg 18% 28%",
-          "paper-fill": "#f5fafb",
-          "paper-rule": "#557e9414",
-          "paper-dot": "#557e9429"
+          "shadow-color": "0deg 0% 24%",
+          "shadow-color-paper": "0deg 0% 28%",
+          "paper-fill": "#f9f9f9",
+          "paper-rule": "#79797914",
+          "paper-dot": "#79797929"
         },
         "dark": {
           "background": "oklch(0.145 0 0)",
-          "neutral-border": "#39444a",
-          "neutral-input": "#8a9195",
+          "neutral-border": "#424242",
+          "neutral-input": "#909090",
           "foreground": "oklch(0.985 0 0)",
           "card": "oklch(0.205 0 0)",
           "card-foreground": "oklch(0.985 0 0)",
-          "popover": "var(--button-paper-fill)",
-          "popover-foreground": "var(--button-paper-ink)",
+          "popover": "var(--card)",
+          "popover-foreground": "var(--card-foreground)",
           "secondary": "oklch(0.269 0 0)",
           "secondary-foreground": "oklch(0.985 0 0)",
           "muted": "oklch(0.269 0 0)",
@@ -172,12 +172,12 @@
           "sidebar-accent": "var(--accent-soft)",
           "sidebar-accent-foreground": "var(--button-link-ink)",
           "sidebar-ring": "var(--button-focus)",
-          "button-paper-fill": "#263641",
-          "button-paper-edge": "#6b8290",
-          "button-outline-edge": "#8a9195",
-          "button-paper-hover": "#314854",
-          "button-paper-ink": "#e5f1f5",
-          "button-paper-pressed": "#20303a",
+          "button-paper-fill": "#343434",
+          "button-paper-edge": "#7f7f7f",
+          "button-outline-edge": "#909090",
+          "button-paper-hover": "#454545",
+          "button-paper-ink": "#efefef",
+          "button-paper-pressed": "#2e2e2e",
           "button-paper-highlight": "#ffffff26",
           "button-paper-shade": "#00000040",
           "button-recess-shade-weight": "6%",
@@ -190,11 +190,11 @@
           "button-destructive-highlight": "#ffffff1a",
           "button-destructive-shade": "#00000040",
           "button-highlight": "#ffffff33",
-          "shadow-color": "215deg 10% 3%",
-          "shadow-color-paper": "205deg 18% 5%",
-          "paper-fill": "#17252e",
-          "paper-rule": "#a2d6ec0f",
-          "paper-dot": "#a2d6ec24"
+          "shadow-color": "0deg 0% 3%",
+          "shadow-color-paper": "0deg 0% 5%",
+          "paper-fill": "#232323",
+          "paper-rule": "#cecece0f",
+          "paper-dot": "#cecece24"
         }
       },
       "css": {
@@ -414,6 +414,28 @@
             "background-image": "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
             "background-size": "24px 24px"
           },
+          ".ninaero-input": {
+            "--input-corner": "0.5rem",
+            "border-radius": "var(--input-corner)",
+            "corner-shape": "squircle",
+            "border": "1px solid var(--input)",
+            "color": "var(--card-foreground)",
+            "background-color": "var(--card)",
+            "outline": "2px solid transparent",
+            "outline-offset": "3px",
+            "transition": "background-color 80ms ease-out, border-color 80ms ease-out"
+          },
+          ".ninaero-input:focus-visible": {
+            "outline-color": "var(--ring)"
+          },
+          ".ninaero-input[aria-invalid=true]": {
+            "border-color": "var(--destructive)"
+          },
+          ".ninaero-input:disabled": {
+            "border-color": "var(--border)",
+            "background-color": "var(--muted)",
+            "color": "var(--muted-foreground)"
+          },
           ".ninaero-popover": {
             "border-radius": "1.25rem",
             "corner-shape": "squircle",
@@ -562,6 +584,9 @@
             "background-image": "none"
           },
           "@media (prefers-reduced-motion: reduce)": {
+            ".ninaero-input": {
+              "transition": "none"
+            },
             ".ninaero-toggle": {
               "transition": "none"
             },
@@ -574,6 +599,22 @@
             ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
               "background-image": "none",
               "background-color": "Canvas"
+            },
+            ".ninaero-input": {
+              "border-color": "CanvasText",
+              "background-color": "Canvas",
+              "color": "CanvasText"
+            },
+            ".ninaero-input[aria-invalid=true]": {
+              "border-color": "CanvasText"
+            },
+            ".ninaero-input:focus-visible": {
+              "outline-color": "Highlight"
+            },
+            ".ninaero-input:disabled": {
+              "border-color": "GrayText",
+              "background-color": "Canvas",
+              "color": "GrayText"
             },
             ".ninaero-popover": {
               "border-color": "CanvasText",

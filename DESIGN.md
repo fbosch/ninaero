@@ -2,11 +2,11 @@
 
 ## Handheld paper with glass accents
 
-Ninaero combines a Nintendo handheld-inspired layout with paper details and restrained glass highlights. The everyday UI uses cool off-white backgrounds, clear ink, squircle-cornered controls, and small cyan accents.
+Ninaero combines a Nintendo handheld-inspired layout with paper details and restrained glass highlights. The everyday UI uses neutral white and gray backgrounds, clear ink, squircle-cornered controls, and small cyan accents.
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, and Slate alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay neutral. Paper, ink, and destructive colors keep their neutral or semantic roles. Green, yellow, orange, and red remain reserved for status colors.
+This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, and Slate alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Destructive states keep semantic red. Green, yellow, orange, and red remain reserved for status colors.
 
 ## Reference hierarchy
 
@@ -22,7 +22,7 @@ The lined announcement-bar reference is the clearest bridge between paper and li
 
 ## Materials and layout
 
-- Use faint horizontal ruling as the default paper background, with dots and grid as active alternatives for other contexts. Choose one pattern per region; never layer different paper variants.
+- Use faint dots on the homepage, with ruling and grid in the preview contexts below. Choose one pattern per region; never layer different paper variants. Keep the existing page color when selecting a pattern.
 - Keep inputs, tables, and long text on opaque, plain backgrounds. Paper texture must not interfere with their content.
 - Use squircle corner curves with fine edges and shallow depth. Rectangular buttons can still have squircle corners; icon buttons should make the squircle silhouette especially clear. Preserve straight alignment in lists, tables, and compact forms.
 - Keep cards and ordinary controls mostly matte. Avoid heavy bevels, console bezels, and large glossy gradients.
@@ -35,25 +35,31 @@ Use the Paper Details group in the moodboard as the source for all three variant
 
 | Pattern | Current use                                     | Shared class           |
 | ------- | ----------------------------------------------- | ---------------------- |
-| Ruled   | Homepage background and Input workshop specimen | `ninaero-paper-ruled`  |
-| Dotted  | Backdrop around the composed settings example   | `ninaero-paper-dotted` |
+| Ruled   | Input workshop specimen                         | `ninaero-paper-ruled`  |
+| Dotted  | Homepage and composed settings example backdrop | `ninaero-paper-dotted` |
 | Grid    | Component catalogue thumbnails                  | `ninaero-paper-grid`   |
+
+The homepage uses `bg-background` to keep the neutral page fill beneath its dots. Changing the texture must not introduce a blue-tinted page background. Its preview frame uses a near-white mix of 60% `card` and 40% `muted` in light mode, and the unchanged `muted` fill in dark mode. Keep the `border` edge neutral; do not use Button material tokens.
 
 Keep patterns on page backgrounds and preview backdrops. Forms, tables, code blocks, and long text keep opaque, plain fills. A grid is one pattern made from horizontal and vertical rules; do not add dots or ruling over it. Separate sections with space instead of adding decorative divider lines.
 
-Define pattern fills, ink, and CSS recipes in `registry/ninaero/theme.mjs` so consumers can use the same opt-in classes. Paper stays independent of the Cyan, Indigo, Lavender, and Slate accents. Tune the pattern ink separately in light and dark modes, and remove decorative textures in forced-colors mode. The initial spacing is 24px for ruling and grid, and 16px for dots. Spacing and ink strength still need visual review.
+Define pattern fills, ink, and CSS recipes in `registry/ninaero/theme.mjs` so consumers can use the same opt-in classes. Paper fills and pattern ink stay grayscale and independent of the Cyan, Indigo, Lavender, and Slate accents. Tune the pattern ink separately in light and dark modes, and remove decorative textures in forced-colors mode. The initial spacing is 24px for ruling and grid, and 16px for dots. Spacing and ink strength still need visual review.
 
 ## Color and typography
 
+Ninaero is neutral-first in both color modes. Page backgrounds, cards, popovers, menus, dialogs, field fills, ordinary borders, paper patterns, and cast shadows use grayscale values. Dark panels are charcoal or gray, not blue-black. A token named neutral must actually be achromatic, not merely unchanged across accent presets.
+
+Reserve the chosen accent for primary actions, links, selected controls, active states, and keyboard focus. Secondary and Outline controls keep neutral materials. Feedback colors retain their semantic meaning. Syntax highlighting and data marks may use color to distinguish content, while their containers stay neutral. Popover and menu containers use the neutral card palette independently of Button material tokens; their selected items and controls may use the accent.
+
 | Role                  | Direction                                                                 |
 | --------------------- | ------------------------------------------------------------------------- |
-| Light background      | Cool off-white paper                                                      |
-| Content panels        | Paper-white, opaque fills                                                 |
+| Light background      | White or off-white grayscale paper                                        |
+| Content panels        | Opaque white or gray fills                                                |
 | Text and strong edges | Clear, dark ink                                                           |
 | Main accent           | Cyan-blue                                                                 |
 | Selection             | Pale cyan fill with a defined edge                                        |
 | Feedback colors       | Additional colors communicate meaning rather than decorate each component |
-| Dark background       | Deep ink-blue with lighter framed panels                                  |
+| Dark background       | Charcoal with lighter neutral-gray panels                                 |
 
 Use Google Sans Flex for interface text and headings, with its `ROND` axis set to `100` for rounded terminals. Keep existing component weights and sizes; set roundness without overriding the weight axis. Self-host the full variable font in both the site and installed theme. Pixel lettering belongs in optional artwork, not labels, paragraphs, or error messages.
 
@@ -67,7 +73,7 @@ Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It shou
 | Inputs and tables    | Plain opaque fills, clear ink, fine dividers, and an explicit focus outline. No texture or blur behind their content.                   |
 | Tabs and selection   | Pale cyan fill with a defined edge. Keep selection recognizable without glow.                                                           |
 | Cards                | Paper-white panels with quiet framing. Reserve stronger depth for elements that need to stand apart.                                    |
-| Popovers and dialogs | Opaque readable interiors, with an optional translucent rim or restrained backdrop blur.                                                |
+| Popovers and dialogs | Opaque grayscale interiors and neutral frames in both modes. Optional rims or backdrop blur must not tint the panel blue.               |
 | Empty states         | Optional original Flipnote-inspired illustration or localized dithering, separate from the working controls.                            |
 
 A cyan highlight is not a reason to add blur. Prefer a fill, edge, or small highlight first. Use translucency only where the element's position over another layer matters.
@@ -82,7 +88,7 @@ Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomea
 - Separate the border, inset highlight, lower bevel, and cast shadow. Borders define the squircle silhouette. Insets and a crisp lower edge describe the control's material and thickness. A soft outer shadow describes its distance from the surface beneath it.
 - Keep Primary, Secondary, and Destructive on the same shallow elevation. Their fills communicate hierarchy and meaning; a destructive action does not need a taller shadow. Outline, Ghost, and Link should not acquire the same raised material by default.
 - Soften control cast shadows by broadening blur relative to the downward offset and tapering each layer's opacity. Keep enough shadow strength to show shallow elevation. A subtle fade should not make the shadow nearly invisible. The rim and bevel still define the Button; avoid a hard-edged dark silhouette beneath it.
-- Do not turn shadows into accent-colored glow. Match the shadow hue to the receiving paper or panel, then reduce lightness and tune saturation. A red button on neutral paper should not automatically cast a red shadow.
+- Do not turn shadows into accent-colored glow. Keep cast shadows achromatic on neutral paper and panels, and tune their lightness to the receiving material. A red button on neutral paper should not automatically cast a red shadow.
 
 ### Layered elevation
 
@@ -138,7 +144,7 @@ These are design requirements. They have not yet been verified in a themed inter
 
 The homepage at `/` has a concise introduction and one composed interface example. `/examples` lists composed interfaces; each example has its own preview and code page. `/components` remains the catalogue and `/docs` remains documentation. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
 
-Borrow Afterglow's homepage structure: a prominent heading, one framed example, visible accent choices, and an install command. Restore faint ruling on the homepage background. Use dots and grid in the separate preview contexts listed above. Separate sections with space, not decorative divider lines. Retain borders for controls and the preview frame. Keep catalogues, token swatches, and state matrices off the homepage. Color mode stays under Appearance; accents are also available in the hero. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
+Borrow Afterglow's homepage structure: a prominent heading, one framed example, visible accent choices, and an install command. Use faint dots on the neutral homepage background. Keep ruling and grid in the separate preview contexts listed above. Separate sections with space, not decorative divider lines. Retain borders for controls and the preview frame. Keep catalogues, token swatches, and state matrices off the homepage. Color mode stays under Appearance; accents are also available in the hero. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
 
 - Keep shared tokens and theme rules in `registry/ninaero/theme.mjs`.
 - Keep installable component styling in `registry/ninaero/ui/`.
@@ -156,6 +162,12 @@ True squircle rendering requires browser support for `corner-shape`. Unsupported
 Accent presets live in `registry/ninaero/accents.mjs` and feed the same theme source and registry output as the Button rules. The root `data-accent` attribute selects a preset independently of light/dark mode. The workshop provides an Accent selector and side-by-side Button comparisons. Accent fills, selection, and focus follow the chosen preset; structural borders stay neutral.
 
 Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Both borders have separate light/dark tokens and stay unchanged when the accent changes. Invalid Buttons keep their variant material and use a single restrained semantic-red border, without an always-on ring. The outer outline appears only for keyboard focus and follows the accent, or the system highlight color in forced-colors mode.
+
+### Input fields
+
+Input uses native squircle corner curves with a smaller `0.5rem` corner extent than Button. Keep the field rectangular and flat, with an opaque neutral fill and a fine neutral edge. Invalid fields use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque. Do not add Button bevels, cast shadows, glass, or paper texture inside a field.
+
+The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero's squircle corners are a deliberate theme choice. DS nickname-field geometry has not been independently verified.
 
 ## First design specimen
 

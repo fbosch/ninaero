@@ -82,7 +82,10 @@ test("paper variants appear in distinct preview contexts while forms remain plai
     read("components/examples/settings-preview.tsx"),
     read("app/site.css"),
   ]);
-  assert.match(home, /<main\b[^>]*className="[^"]*\bninaero-paper-ruled\b/);
+  const homeClasses = home.match(/<main\b[^>]*className="([^"]+)"/)?.[1].split(/\s+/);
+  assert.ok(homeClasses?.includes("ninaero-paper-dotted"));
+  assert.ok(homeClasses?.includes("bg-background"));
+  assert.ok(!homeClasses?.includes("ninaero-paper-ruled"));
   assert.match(example, /className="[^"]*\bninaero-paper-dotted\b/);
   assert.equal((catalogue.match(/overview-thumbnail ninaero-paper-grid/g) ?? []).length, 2);
   assert.match(inputs, /button-specimen ninaero-paper-ruled/);

@@ -65,14 +65,10 @@ html.dark {
 }
 
 .button-specimen {
-  border: 1px solid #b4cbd5;
+  border: 1px solid var(--border);
   border-radius: 1.5rem;
   corner-shape: squircle;
   color: var(--button-paper-ink);
-}
-
-.dark .button-specimen {
-  border-color: #506d7c;
 }
 
 .squircle-support-note {
@@ -86,8 +82,8 @@ html.dark {
 }
 
 .syntax-code {
-  background: #ffffff;
-  color: #24292e;
+  background: var(--card);
+  color: var(--card-foreground);
   tab-size: 2;
 }
 
@@ -96,8 +92,7 @@ html.dark {
 }
 
 .dark .syntax-code {
-  background: #24292e;
-  color: #e1e4e8;
+  background: var(--muted);
 }
 
 .dark .syntax-code span {
@@ -115,15 +110,20 @@ html.dark {
 }
 
 .home-preview-shell {
-  border: 1px solid var(--button-paper-edge);
+  border: 1px solid var(--border);
   border-radius: 1.5rem;
   corner-shape: squircle;
-  background: var(--button-paper-fill);
+  background: color-mix(in oklab, var(--card) 60%, var(--muted));
   box-shadow: var(--shadow-md);
 }
 
+.dark .home-preview-shell {
+  background: var(--muted);
+}
+
 @media (forced-colors: active) {
-  .home-preview-shell {
+  .home-preview-shell,
+  .dark .home-preview-shell {
     border-color: CanvasText;
     background: Canvas;
     box-shadow: none;

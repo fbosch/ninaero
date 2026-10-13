@@ -64,8 +64,8 @@ test("Popover uses opaque paper, a neutral frame, and the shared floating elevat
   assert.ok(popover["box-shadow"].endsWith(elevations.floating));
   assert.equal(popover["backdrop-filter"], undefined);
   for (const mode of ["light", "dark"]) {
-    assert.equal(theme[mode].popover, "var(--button-paper-fill)");
-    assert.equal(theme[mode]["popover-foreground"], "var(--button-paper-ink)");
+    assert.equal(theme[mode].popover, "var(--card)");
+    assert.equal(theme[mode]["popover-foreground"], "var(--card-foreground)");
   }
   for (const rules of Object.values(accentRules)) {
     assert.equal(rules["--popover"], undefined);

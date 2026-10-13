@@ -9,7 +9,7 @@ import { Button } from "@/registry/ninaero/ui/button";
 
 export default function Home() {
   return (
-    <main id="main" className="ninaero-paper-ruled min-h-[calc(100svh-4.5rem)]">
+    <main id="main" className="ninaero-paper-dotted bg-background min-h-[calc(100svh-4.5rem)]">
       <div className="mx-auto max-w-6xl space-y-12 px-5 py-8 sm:px-8 lg:py-12">
         <section className="home-hero relative isolate space-y-8">
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
