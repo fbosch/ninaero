@@ -1,8 +1,8 @@
 import Link from "next/link";
+import { ButtonPreview } from "@/components/examples/button-preview";
 import { DialogPreview } from "@/components/examples/dialog-preview";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import catalog from "@/registry/ninaero/catalog.json";
-import { Button } from "@/registry/ninaero/ui/button";
 import {
   Card,
   CardContent,
@@ -41,8 +41,8 @@ export default function Home() {
           </p>
           <h1 className="text-3xl font-semibold tracking-tight">Ninaero</h1>
           <p className="text-muted-foreground">
-            A neutral shadcn/ui baseline. Compare tokens and component states
-            before defining the Nintendo and Frutiger Aero direction.
+            Button is the first themed component. Compare its squircle corners
+            and cyan highlights alongside the remaining neutral baseline.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4">
@@ -60,23 +60,17 @@ export default function Home() {
       </header>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card id="button-workshop" className="md:col-span-2">
           <CardHeader>
             <CardTitle>
               <h2>Buttons</h2>
             </CardTitle>
             <CardDescription>
-              Visual specimens. These buttons perform no action.
+              Squircle curves, shallow depth, and clear interaction states.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-wrap items-center gap-3">
-            <Button>Default</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="link">Link</Button>
-            <Button disabled>Disabled</Button>
+          <CardContent>
+            <ButtonPreview />
           </CardContent>
         </Card>
 

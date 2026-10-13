@@ -84,7 +84,7 @@ export function createRegistry(
         name: "theme",
         title: "Ninaero theme",
         description:
-          "Neutral light and dark tokens for Tailwind v4 and shadcn/ui.",
+          "Shared light and dark tokens with Ninaero squircle Button styling.",
         type: "registry:theme",
         dependencies: packages(["shadcn", "tw-animate-css"]),
         cssVars: { theme: theme.theme, light: theme.light, dark: theme.dark },

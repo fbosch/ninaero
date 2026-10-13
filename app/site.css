@@ -64,3 +64,63 @@ html.dark {
 .overview-live > * {
   max-width: 100%;
 }
+
+.button-specimen {
+  border: 1px solid #b4cbd5;
+  border-radius: 1.5rem;
+  corner-shape: squircle;
+  background-color: #f5fafb;
+  background-image: repeating-linear-gradient(
+    transparent 0 23px,
+    #557e9414 23px 24px
+  );
+  color: var(--button-paper-ink);
+}
+
+.dark .button-specimen {
+  border-color: #506d7c;
+  background-color: #17252e;
+  background-image: repeating-linear-gradient(
+    transparent 0 23px,
+    #a2d6ec0f 23px 24px
+  );
+}
+
+.squircle-support-note {
+  display: none;
+}
+
+@supports not (corner-shape: squircle) {
+  .squircle-support-note {
+    display: block;
+  }
+}
+
+.syntax-code {
+  background: #ffffff;
+  color: #24292e;
+  tab-size: 2;
+}
+
+.syntax-code span {
+  color: var(--syntax-light, inherit);
+}
+
+.dark .syntax-code {
+  background: #24292e;
+  color: #e1e4e8;
+}
+
+.dark .syntax-code span {
+  color: var(--syntax-dark, inherit);
+}
+
+@media (forced-colors: active) {
+  .syntax-code,
+  .syntax-code span,
+  .dark .syntax-code,
+  .dark .syntax-code span {
+    background: Canvas;
+    color: CanvasText;
+  }
+}

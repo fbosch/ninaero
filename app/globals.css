@@ -84,6 +84,18 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --button-primary-fill: #b9e9f5;
+  --button-primary-hover: #a2dfef;
+  --button-primary-ink: #123846;
+  --button-primary-edge: #3a8197;
+  --button-paper-fill: #f5f8fa;
+  --button-paper-hover: #e6f0f4;
+  --button-paper-ink: #253b46;
+  --button-paper-edge: #647f8a;
+  --button-link-ink: #17677d;
+  --button-focus: #006d89;
+  --button-highlight: #ffffff80;
+  --button-shadow: #355c7326;
 }
 
 .dark {
@@ -118,6 +130,18 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --button-primary-fill: #79cfe5;
+  --button-primary-hover: #96def0;
+  --button-primary-ink: #102d3a;
+  --button-primary-edge: #a0e3f2;
+  --button-paper-fill: #263641;
+  --button-paper-hover: #314854;
+  --button-paper-ink: #e5f1f5;
+  --button-paper-edge: #708d99;
+  --button-link-ink: #8adef2;
+  --button-focus: #7ce1f6;
+  --button-highlight: #ffffff33;
+  --button-shadow: #00000059;
 }
 
 @layer base {
@@ -129,6 +153,91 @@
   }
   html {
     @apply font-sans;
+  }
+}
+@layer components {
+  .ninaero-button {
+    --button-corner: 1rem;
+    --button-press-shift: 1px;
+    border-radius: var(--button-corner);
+    corner-shape: squircle;
+    border: 1px solid transparent;
+    outline: 2px solid transparent;
+    outline-offset: 3px;
+    transition: background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out, transform 80ms ease-out;
+  }
+  .ninaero-button--primary {
+    color: var(--button-primary-ink);
+    background-color: var(--button-primary-fill);
+    background-image: linear-gradient(180deg, var(--button-highlight), transparent 65%);
+    border-color: var(--button-primary-edge);
+    box-shadow: inset 0 1px 0 var(--button-highlight), 0 2px 0 var(--button-shadow), 0 3px 6px var(--button-shadow);
+  }
+  .ninaero-button--secondary, .ninaero-button--outline {
+    color: var(--button-paper-ink);
+    border-color: var(--button-paper-edge);
+    box-shadow: 0 2px 0 var(--button-shadow);
+  }
+  .ninaero-button--secondary {
+    background-color: var(--button-paper-fill);
+  }
+  .ninaero-button--outline {
+    background-color: var(--background);
+  }
+  .ninaero-button--ghost {
+    color: var(--button-paper-ink);
+  }
+  .ninaero-button--link {
+    color: var(--button-link-ink);
+    text-underline-offset: 4px;
+  }
+  .ninaero-button--outline[aria-expanded=true], .ninaero-button--secondary[aria-expanded=true], .ninaero-button--ghost[aria-expanded=true] {
+    background-color: var(--button-paper-hover);
+  }
+  .ninaero-button:focus-visible {
+    outline-color: var(--button-focus);
+  }
+  .ninaero-button[aria-invalid=true] {
+    border-color: var(--destructive);
+    outline-color: var(--destructive);
+  }
+  .ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost) {
+    transform: translateY(var(--button-press-shift));
+    box-shadow: inset 0 1px 2px var(--button-shadow);
+  }
+  .ninaero-button:disabled, .ninaero-button[data-disabled], .ninaero-button[aria-disabled=true] {
+    box-shadow: none;
+    opacity: 0.5;
+  }
+  @media (hover: hover) {
+    .ninaero-button--primary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]) {
+      background-color: var(--button-primary-hover);
+    }
+    .ninaero-button--secondary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]), .ninaero-button--outline:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]), .ninaero-button--ghost:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]) {
+      background-color: var(--button-paper-hover);
+    }
+    .ninaero-button--link:hover {
+      text-decoration-line: underline;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ninaero-button {
+      transition: none;
+      --button-press-shift: 0px;
+    }
+  }
+  @media (forced-colors: active) {
+    .ninaero-button {
+      background-image: none;
+      border-color: ButtonText;
+      box-shadow: none;
+    }
+    .ninaero-button:focus-visible {
+      outline-color: Highlight;
+    }
+    .ninaero-button:disabled, .ninaero-button[data-disabled], .ninaero-button[aria-disabled=true] {
+      border-color: GrayText;
+    }
   }
 }
 

@@ -78,6 +78,7 @@ export default function ThemeDocsPage() {
         <CodeBlock
           code="pnpm registry:build"
           label="Regenerate theme and registry"
+          language="bash"
         />
         <p className="text-sm text-muted-foreground">
           Do not edit <code className="text-foreground">app/globals.css</code>{" "}
@@ -96,6 +97,7 @@ export default function ThemeDocsPage() {
             2,
           )}
           label="Theme token source"
+          language="json"
         />
         <a
           href="/r/theme.json"

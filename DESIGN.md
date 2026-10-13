@@ -2,29 +2,29 @@
 
 ## Handheld paper with glass accents
 
-Ninaero combines a Nintendo handheld-inspired layout with paper details and restrained glass highlights. The everyday UI uses cool off-white backgrounds, clear ink, rounded controls, and small cyan accents.
+Ninaero combines a Nintendo handheld-inspired layout with paper details and restrained glass highlights. The everyday UI uses cool off-white backgrounds, clear ink, squircle-cornered controls, and small cyan accents.
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This is the agreed visual direction, not a description of the current implementation. The repository still starts from a neutral shadcn/ui Base UI baseline. Exact tokens, fonts, and interaction details need a design specimen before implementation.
+This document records the agreed visual direction. Button is the first themed component; the remaining component styling and shared semantic colors retain their neutral baseline. Button-specific values are an initial specimen, not a final palette or type system.
 
 ## Reference hierarchy
 
 | Role | Reference traits | Application | Boundary |
 | --- | --- | --- | --- |
 | Core | DS-like organization, fine paper lines, compact layouts | Page backgrounds and content structure | Use one quiet paper pattern at a time. Keep dense content on plain backgrounds. |
-| Supporting controls | Wii rounded framing, shallow shading, cyan edging | Controls, navigation, and panel frames | Prefer rounded rectangles. Do not turn every control into a pill. |
+| Supporting controls | Wii framing, shallow shading, cyan edging, and the moodboard's squircle requirement | Controls, navigation, and panel frames | Use squircle corner curves on rectangular controls. Ordinary circular-arc corners and pill shapes are not substitutes. |
 | Signature accent | Glass rims, soft highlights, localized glow | Primary actions, selected elements, and floating layers | Keep most controls matte. Glass must clarify importance or layering. |
 | Optional artwork | Flipnote outlines, sparse color, discrete dithered shading | Empty states and occasional header illustrations | Use original artwork. Do not pixelate routine text, icons, or controls. |
 | Outside the everyday theme | Dense ASCII/ANSI patterns, perspective-grid orbs, geometric spectacle | Occasional standalone artwork | Keep these out of forms, tables, and navigation. |
 
-The lined announcement-bar reference is the clearest bridge between paper and rounded, lightly raised controls. The DS reference itself has square controls and pixel edges. Rounded framing is a deliberate adaptation for Ninaero, not a literal DS trait.
+The lined announcement-bar reference is the clearest bridge between paper and lightly raised controls. The DS reference itself has square controls and pixel edges. Ninaero deliberately combines handheld organization with the squircle geometry called for in the moodboard annotations.
 
 ## Materials and layout
 
 - Start with faint horizontal ruling as the main paper pattern. Grid and dotted patterns are alternatives for specific contexts, not additional textures to stack over the ruling.
 - Keep inputs, tables, and long text on opaque, plain backgrounds. Paper texture must not interfere with their content.
-- Use rounded rectangles with fine edges and shallow depth. Preserve straight alignment in lists, tables, and compact forms.
+- Use squircle corner curves with fine edges and shallow depth. Rectangular buttons can still have squircle corners; icon buttons should make the squircle silhouette especially clear. Preserve straight alignment in lists, tables, and compact forms.
 - Keep cards and ordinary controls mostly matte. Avoid heavy bevels, console bezels, and large glossy gradients.
 - Put glass on a small number of important elements. Readable content stays opaque even when its rim or backdrop is translucent.
 - Keep crisp dithering and smooth blur on separate objects. They describe different materials and should not compete within one control.
@@ -49,7 +49,7 @@ Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It shou
 
 | Component | Treatment |
 | --- | --- |
-| Buttons | Rounded rectangles, a fine edge, and shallow depth. Give the primary action a restrained cyan highlight. Reduce the depth on press. |
+| Buttons | Squircle corner curves, a fine edge, and shallow depth. Give the primary action a restrained cyan highlight. Reduce the depth on press. |
 | Inputs and tables | Plain opaque fills, clear ink, fine dividers, and an explicit focus outline. No texture or blur behind their content. |
 | Tabs and selection | Pale cyan fill with a defined edge. Keep selection recognizable without glow. |
 | Cards | Paper-white panels with quiet framing. Reserve stronger depth for elements that need to stand apart. |
@@ -80,6 +80,14 @@ The workshop at `/`, overview at `/components`, documentation at `/docs`, and in
 
 The visual direction does not require changing component APIs or interaction behavior.
 
+### Squircle rendering
+
+Button uses native CSS `corner-shape: squircle` with a nonzero `border-radius` to define the corner extent. This produces superellipse curves without a clipping mask, extra DOM, or JavaScript measurement. Shadows and focus outlines remain outside the button.
+
+True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded corners, which do not fulfill the intended geometry. The workshop identifies that limitation. No polyfill is included.
+
+Button-specific colors and rules share the same theme source and registry output. They do not replace the neutral global semantic colors.
+
 ## First design specimen
 
 1. Mock up one compact form with tabs, an input, a primary button, and a popover. Begin with paper backgrounds and matte controls.
@@ -93,12 +101,12 @@ A successful specimen has a clear hierarchy with the decorative effects removed.
 
 - Exact light and dark palette values.
 - Font family and type scale.
-- Corner radii, border weights, and shadow values.
+- Final squircle corner extent, border weights, and shadow values.
 - Paper-pattern spacing and opacity.
 - Where translucency is useful, and its strength.
 - Motion timing and the original illustration style.
 
-Set these from the specimen rather than treating moodboard images as ready-made tokens. Browser and interaction validation remain future work.
+Refine these from the specimen rather than treating moodboard images as ready-made tokens. A Button specimen is available in the workshop; broader themed components still need their own browser and interaction checks.
 
 ## Moodboard sources
 

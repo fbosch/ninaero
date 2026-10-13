@@ -5,7 +5,9 @@ import {
   componentTitle,
   overviewItems,
 } from "@/lib/component-overview";
+import { sourceLanguage } from "@/lib/syntax-highlighting.mjs";
 import { CodeBlock } from "./code-block";
+import { HighlightedCode } from "./highlighted-code";
 
 export type ComponentDocumentation = {
   name: string;
@@ -106,6 +108,7 @@ export function ComponentContent({
         <CodeBlock
           code={documentation.installCommand}
           label="Install command"
+          language="bash"
         />
         {documentation.packages.length > 0 ? (
           <p className="text-xs leading-relaxed text-muted-foreground">
@@ -188,9 +191,11 @@ export function ComponentContent({
                 </span>
               </div>
               {entry.props ? (
-                <pre className="overflow-auto rounded-md bg-muted p-3 text-xs leading-relaxed">
-                  <code>{entry.props}</code>
-                </pre>
+                <HighlightedCode
+                  code={entry.props}
+                  language="typescript"
+                  compact
+                />
               ) : null}
               {entry.defaults.length > 0 ? (
                 <dl className="grid gap-2 text-xs sm:grid-cols-2">
@@ -225,7 +230,12 @@ export function ComponentContent({
           project.
         </p>
         {documentation.files.map((file) => (
-          <CodeBlock key={file.path} code={file.content} label={file.path} />
+          <CodeBlock
+            key={file.path}
+            code={file.content}
+            label={file.path}
+            language={sourceLanguage(file.path)}
+          />
         ))}
         <a
           href={`${registryUrl}/${name}.json`}

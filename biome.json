@@ -33,6 +33,19 @@
     {
       "includes": ["app/globals.css", "registry.json"],
       "formatter": { "enabled": false }
+    },
+    {
+      "includes": ["app/globals.css", "app/site.css"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnknownProperty": {
+              "level": "error",
+              "options": { "ignore": ["corner-shape"] }
+            }
+          }
+        }
+      }
     }
   ],
   "assist": {

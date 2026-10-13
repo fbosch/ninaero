@@ -45,9 +45,11 @@ Add components with `pnpm exec shadcn add <component>`. The configured aliases p
 
 The snapshot in `registry/ninaero/catalog.json` contains all 62 concrete UI components from the upstream Base UI catalogue, including both Base UI Toast and Sonner, plus the mobile hook and utilities. It was resolved with shadcn CLI 4.21.4 using the `base-nova` style. The upstream `form` entry has no files or dependencies and is recorded under `excluded`. Field components are included for composing forms.
 
-The original five specimens and token swatches remain at `/`. The `/components` overview groups all 62 components into preview cards, with search, interactive preview dialogs, and links to their documentation and registry JSON. Thumbnails are inert and hidden from assistive technology; use each card's Preview button to interact with its example.
+The workshop and token swatches remain at `/`, with an interactive squircle Button specimen. The `/components` overview groups all 62 components into preview cards, with search, interactive preview dialogs, and links to their documentation and registry JSON. Thumbnails are inert and hidden from assistive technology; use each card's Preview button to interact with its example.
 
 Each component also has a page at `/docs/<component>`, with an interactive preview, copyable install command, standalone usage example, exported API signatures and defaults, and registry source. `/docs` covers installation; `/docs/theme` covers the shared tokens. The documentation sidebar searches component names and descriptions. Theme switching applies to every route.
+
+Code examples, source files, API signatures, and commands use server-rendered Shiki syntax highlighting. Colors follow the light/dark theme selector; Copy uses the original plain-text code. The browser only receives highlighted markup, not the highlighter.
 
 Documentation data is generated alongside the registry from the installed component files and live preview modules. The build fails on missing source or preview mappings; tests compile all 62 standalone examples with consumer aliases. API signatures are shown as written in the wrappers, not as expanded references for every inherited Base UI or native HTML prop.
 
@@ -93,7 +95,7 @@ Deploy the Next.js app to serve the gallery and `/r/*.json`, or host the generat
 - `pnpm test`: catalogue and documentation coverage, compiled usage examples, source-derived dependencies, token consistency, and invalid configuration.
 - `pnpm check`: production build, lint, typecheck, and tests.
 
-The initial visual tokens are neutral. Design references, custom Nintendo/Frutiger Aero styling, MDX documentation, and analytics remain outside this baseline.
+Shared semantic tokens remain neutral. Button is the first themed component, with native CSS squircle corners, cyan highlights, and a paper-background specimen at `/`. See [DESIGN.md](DESIGN.md) for the direction and browser-support requirement. MDX documentation and analytics remain outside this baseline.
 
 ## References
 

@@ -47,7 +47,11 @@ export default function DocsPage() {
           It installs the shared theme, every component, and supporting hooks
           and utilities.
         </p>
-        <CodeBlock code={presetInstallCommand} label="Complete preset" />
+        <CodeBlock
+          code={presetInstallCommand}
+          label="Complete preset"
+          language="bash"
+        />
         <p className="text-sm text-muted-foreground">
           When using the local registry, keep the Ninaero server running while
           the CLI fetches its files.
