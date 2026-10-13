@@ -29,6 +29,46 @@ The lined announcement-bar reference is the clearest bridge between paper and li
 - Put glass on a small number of important elements. Readable content stays opaque even when its rim or backdrop is translucent.
 - Keep crisp dithering and smooth blur on separate objects. They describe different materials and should not compete within one control.
 
+### Spacing and density
+
+Borrow Wii U's repeated rows, aligned content edges, and separate navigation bands. The [menu references](https://www.nintendoworldreport.com/news/32404/wii-u-boot-screen-officially-revealed-for-television-and-gamepad) show a compact GamePad grid; the [operations manual, page 19](https://www.nintendo.com/eu/media/downloads/support_1/wii_u_3/WiiU_OperationsManual_EN.pdf) pairs a padded settings category with a denser list. WaraWara Plaza is a scene-based TV layout, not a form-spacing reference. These resized images support the hierarchy, not exact Nintendo pixel values.
+
+The values below are Ninaero's spacing rules. Use the existing 4px Tailwind step, with different roles for internal padding and space between controls.
+
+| Role                                      | Space                                        |
+| ----------------------------------------- | -------------------------------------------- |
+| Label, control, and help within one field | 8px                                          |
+| Separate fields                           | 16px                                         |
+| Separate field groups                     | 24px                                         |
+| Panel content inset                       | 24px                                         |
+| Neighboring actions                       | 8px                                          |
+| Compact select-menu inset                 | 8px                                          |
+| Page gutter                               | 20px on narrow layouts, 32px on wide layouts |
+| Major page sections                       | 32px on narrow layouts, 48px on wide layouts |
+
+Keep one owner for each gap. A field's 8px label gap sits inside the 16px field stack; it is not extra field separation. Panel padding and page gutters have different jobs. Use compact menu padding rather than putting a 24px panel inset around every option list.
+
+#### Control geometry
+
+Keep the existing compact heights. Match default Button, Input, and Select rows at 32px, and align field text at a 12px horizontal inset.
+
+| Control             | Height        | Horizontal inset | Internal spacing                     |
+| ------------------- | ------------- | ---------------- | ------------------------------------ |
+| Button xs / sm      | 24px / 28px   | 8px              | 4px icon-to-label gap                |
+| Button default / lg | 32px / 36px   | 12px / 16px      | 8px icon-to-label gap                |
+| Input               | 32px          | 12px             | 4px vertical inset, 20px line height |
+| Select default      | 32px          | 12px             | 4px vertical inset, 8px content gaps |
+| Select sm           | 28px          | 8px              | 4px vertical inset and content gaps  |
+| Textarea            | At least 64px | 12px             | 8px vertical inset                   |
+
+Icon-only buttons stay square and center their glyphs. Default and large icon-bearing buttons may reduce the icon-side inset by 4px; compact buttons keep their 8px inset. Use a 20px line height for ordinary control labels and 16px for compact labels. Textareas keep the existing responsive text sizing and 24px / 20px line heights on narrow / wider layouts.
+
+Compound fields use a 12px outside inset and 8px between inline adornments and input content. Let the group own the border and row height. Embedded buttons reuse Button's actual size variants, and block adornments own the adjacent vertical inset instead of doubling the textarea's padding.
+
+Select options keep an even minimum 32px row with 12px on the label side. Reserve room for the trailing checkmark and an 8px gap so text cannot run beneath it. Group labels share the option text edge.
+
+Preserve squircle corners, material depth, responsive text sizes, and native multiline sizing. Leave focus outlines and shadows unclipped; do not inflate every control to account for their painted extent. These defaults are compact web controls, not measurements of Nintendo touch targets. Use larger targets where the interaction requires them.
+
 ### Paper patterns
 
 Use the Paper Details group in the moodboard as the source for all three variants. These are CSS textures, not image assets to copy into the theme.
@@ -165,7 +205,7 @@ Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Bot
 
 ### Input fields
 
-Input, Textarea, and Select triggers use native squircle corner curves with a `0.875rem` corner extent and `0.75rem` horizontal padding, close to Button's proportions. Keep the field rectangular, with an opaque neutral fill and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes; keep at least 3:1 contrast against the adjacent paper and field fills. A faint upper-interior shade and lower-interior highlight give it a shallow paper recess without raising it above the page. Derive both tones from the field fill, using black mixes of 4% in light mode and 6% in dark mode, and white mixes of 6% and 8%. Placeholder ink must retain contrast against both inset tones.
+Input, Textarea, and Select triggers use native squircle corner curves with a `0.875rem` corner extent, close to Button's proportions. Default fields use `0.75rem` horizontal padding; compact Select triggers use `0.5rem`. Keep the field rectangular, with an opaque neutral fill and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes; keep at least 3:1 contrast against the adjacent paper and field fills. A faint upper-interior shade and lower-interior highlight give it a shallow paper recess without raising it above the page. Derive both tones from the field fill, using black mixes of 4% in light mode and 6% in dark mode, and white mixes of 6% and 8%. Placeholder ink must retain contrast against both inset tones.
 
 Invalid fields retain this material and use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
 

@@ -40,7 +40,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "ninaero-select-trigger flex w-fit items-center justify-between gap-2 px-3 py-1 text-sm whitespace-nowrap select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-[size=default]:h-8 data-[size=sm]:h-7 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "ninaero-select-trigger flex w-fit items-center justify-between gap-2 px-3 py-1 text-sm leading-5 whitespace-nowrap select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:gap-1 data-[size=sm]:px-2 data-[size=sm]:text-[0.8rem] data-[size=sm]:leading-4 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 data-[size=sm]:*:data-[slot=select-value]:gap-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -81,7 +81,7 @@ function SelectContent({
           data-slot="select-content"
           data-align-trigger={alignItemWithTrigger}
           className={cn(
-            "ninaero-popover ninaero-select-content relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 overflow-x-hidden overflow-y-auto p-1.5",
+            "ninaero-popover ninaero-select-content relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 overflow-x-hidden overflow-y-auto p-2",
             className,
           )}
           {...props}
@@ -110,7 +110,7 @@ function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Prop
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "ninaero-select-item relative flex min-h-8 w-full cursor-default items-center gap-2 py-1 pr-8 pl-3 text-sm select-none data-disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "ninaero-select-item relative flex min-h-8 w-full cursor-default items-center gap-2 py-1 pr-8 pl-3 text-sm leading-5 select-none data-disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
       )}
       {...props}

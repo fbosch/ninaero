@@ -71,7 +71,7 @@ test("Select shares explicit focus, invalid, placeholder, and opaque disabled fi
 test("Select popup uses the shared neutral floating frame and owns its padding", () => {
   assert.ok(classes(popup).includes("ninaero-popover"));
   assert.ok(classes(popup).includes("ninaero-select-content"));
-  assert.ok(classes(popup).includes("p-1.5"));
+  assert.ok(classes(popup).includes("p-2"));
   const material = components[".ninaero-popover"];
   assert.equal(material["border-radius"], "1.25rem");
   assert.equal(material["corner-shape"], "squircle");

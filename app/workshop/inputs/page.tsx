@@ -81,11 +81,11 @@ export default function InputWorkshopPage() {
           ordinary rounded corners. Use Tab to inspect keyboard focus.
         </p>
       </header>
-      <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-5 p-6">
+      <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-4 p-6">
         <div className="space-y-2">
           <Label htmlFor="editable-input">Editable input</Label>
           <Input id="editable-input" placeholder="Try typing here" />
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="flex flex-wrap gap-2">
             <Button variant="secondary">Secondary action</Button>
             <Button variant="outline">Outline action</Button>
           </div>
@@ -115,7 +115,7 @@ export default function InputWorkshopPage() {
         <h2 id="textarea-states" className="text-xl font-semibold">
           Textareas
         </h2>
-        <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-5 p-6">
+        <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-4 p-6">
           <div className="space-y-2">
             <Label htmlFor="editable-textarea">Editable textarea</Label>
             <Textarea id="editable-textarea" placeholder="Try typing a few lines" rows={3} />
@@ -150,7 +150,7 @@ export default function InputWorkshopPage() {
         <h2 id="select-states" className="text-xl font-semibold">
           Selects
         </h2>
-        <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-5 p-6">
+        <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-4 p-6">
           <div className="space-y-2">
             <Label htmlFor="editable-select">Editable select</Label>
             <SelectSpecimen id="editable-select" />
