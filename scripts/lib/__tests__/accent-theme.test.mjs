@@ -45,6 +45,8 @@ test("preset rules share the registry output and keep paper, ink, and destructiv
     "destructive",
     "button-paper-fill",
     "button-paper-ink",
+    "button-paper-edge",
+    "button-outline-edge",
   ];
   const published = JSON.parse(
     await readFile(
@@ -75,10 +77,8 @@ test("structural borders and control outlines follow each preset in both modes",
   assert.equal(accentSemanticTokens.border, "var(--accent-border)");
   assert.equal(accentSemanticTokens.input, "var(--accent-outline)");
   assert.equal(accentSemanticTokens["sidebar-border"], "var(--accent-border)");
-  assert.equal(
-    accentSemanticTokens["button-paper-edge"],
-    "var(--accent-outline)",
-  );
+  assert.equal(accentSemanticTokens["button-paper-edge"], undefined);
+  assert.equal(accentSemanticTokens["button-outline-edge"], undefined);
   for (const mode of ["light", "dark"]) {
     const borders = new Set();
     const outlines = new Set();
@@ -90,12 +90,7 @@ test("structural borders and control outlines follow each preset in both modes",
       const rules = accentRules[selector];
       assert.equal(rules["--accent-border"], preset[mode]["accent-border"]);
       assert.equal(rules["--accent-outline"], preset[mode]["accent-outline"]);
-      for (const key of [
-        "border",
-        "input",
-        "sidebar-border",
-        "button-paper-edge",
-      ]) {
+      for (const key of ["border", "input", "sidebar-border"]) {
         assert.equal(rules[`--${key}`], accentSemanticTokens[key]);
       }
       borders.add(preset[mode]["accent-border"]);
@@ -110,7 +105,7 @@ test("invalid Button borders and forced-colors outlines retain semantic colors",
   const components = theme.css["@layer components"];
   assert.equal(
     components[".ninaero-button[aria-invalid=true]"]["border-color"],
-    "var(--destructive)",
+    "var(--button-destructive-edge)",
   );
   assert.equal(
     components["@media (forced-colors: active)"][".ninaero-button"][

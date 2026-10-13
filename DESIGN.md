@@ -6,7 +6,7 @@ Ninaero combines a Nintendo handheld-inspired layout with paper details and rest
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, and Slate alternatives. Primary, selection, focus, and border tokens follow the chosen preset; paper, ink, and destructive colors keep their neutral or semantic roles. Green, yellow, orange, and red remain reserved for status colors.
+This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, and Slate alternatives. Primary, selection, focus, and structural border tokens follow the chosen preset; paper, ink, and destructive colors keep their neutral or semantic roles. Green, yellow, orange, and red remain reserved for status colors.
 
 ## Reference hierarchy
 
@@ -126,7 +126,9 @@ Button uses native CSS `corner-shape: squircle` with a nonzero `border-radius` t
 
 True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded corners, which do not fulfill the intended geometry. The workshop identifies that limitation. No polyfill is included.
 
-Accent presets live in `registry/ninaero/accents.mjs` and feed the same theme source and registry output as the Button rules. The root `data-accent` attribute selects a preset independently of light/dark mode. The workshop provides an Accent selector and side-by-side Button comparisons. Accent roles and borders change globally; neutral paper, ink, and destructive colors do not.
+Accent presets live in `registry/ninaero/accents.mjs` and feed the same theme source and registry output as the Button rules. The root `data-accent` attribute selects a preset independently of light/dark mode. The workshop provides an Accent selector and side-by-side Button comparisons. Accent roles and structural borders change globally; neutral paper, ink, and destructive colors do not.
+
+Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Both borders have separate light/dark tokens and stay unchanged when the accent changes. Invalid Buttons keep their variant material and use a single restrained semantic-red border, without an always-on ring. The outer outline appears only for keyboard focus and follows the accent, or the system highlight color in forced-colors mode.
 
 ## First design specimen
 

@@ -66,11 +66,12 @@ for (const [mode, palette] of [
 
   test(`${mode} focus and matte-control edges meet 3:1 on paper`, () => {
     const background = palette["button-paper-fill"];
-    for (const token of ["button-focus", "button-paper-edge"]) {
-      const value =
-        token === "button-paper-edge"
-          ? palette["accent-outline"]
-          : palette[token];
+    for (const token of [
+      "button-focus",
+      "button-paper-edge",
+      "button-outline-edge",
+    ]) {
+      const value = palette[token];
       const ratio = contrast(value, background);
       assert.ok(ratio >= 3, `${token}: ${ratio.toFixed(2)}:1`);
     }

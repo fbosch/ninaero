@@ -94,13 +94,14 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
   --sidebar-accent-foreground: var(--button-link-ink);
   --sidebar-ring: var(--button-focus);
   --button-paper-fill: #f5f8fa;
+  --button-paper-edge: #788b95;
+  --button-outline-edge: #7b858a;
   --button-paper-hover: #e6f0f4;
   --button-paper-ink: #253b46;
   --button-paper-pressed: #d9e5eb;
@@ -155,13 +156,14 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
   --sidebar-accent-foreground: var(--button-link-ink);
   --sidebar-ring: var(--button-focus);
   --button-paper-fill: #263641;
+  --button-paper-edge: #6b8290;
+  --button-outline-edge: #8a9195;
   --button-paper-hover: #314854;
   --button-paper-ink: #e5f1f5;
   --button-paper-pressed: #20303a;
@@ -198,7 +200,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -224,7 +225,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -250,7 +250,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -276,7 +275,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -302,7 +300,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -328,7 +325,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -354,7 +350,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -380,7 +375,6 @@
   --border: var(--accent-border);
   --input: var(--accent-outline);
   --sidebar-border: var(--accent-border);
-  --button-paper-edge: var(--accent-outline);
   --sidebar-primary: var(--button-primary-fill);
   --sidebar-primary-foreground: var(--button-primary-ink);
   --sidebar-accent: var(--accent-soft);
@@ -421,9 +415,9 @@
   }
   .ninaero-button--secondary, .ninaero-button--outline {
     color: var(--button-paper-ink);
-    border-color: var(--button-paper-edge);
   }
   .ninaero-button--secondary {
+    border-color: var(--button-paper-edge);
     background-color: var(--button-paper-fill);
     background-image: linear-gradient(180deg, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade));
     box-shadow: inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), 0 1px 1px hsl(var(--shadow-color) / 0.18), 0 2px 3px hsl(var(--shadow-color) / 0.12), 0 4px 6px hsl(var(--shadow-color) / 0.08);
@@ -436,6 +430,7 @@
     box-shadow: inset 0 1px 0 var(--button-destructive-highlight), inset 0 -1px 0 var(--button-destructive-shade), 0 1px 1px hsl(var(--shadow-color) / 0.18), 0 2px 3px hsl(var(--shadow-color) / 0.12), 0 4px 6px hsl(var(--shadow-color) / 0.08);
   }
   .ninaero-button--outline {
+    border-color: var(--button-outline-edge);
     background-color: var(--background);
   }
   .ninaero-button--ghost {
@@ -452,8 +447,7 @@
     outline-color: var(--button-focus);
   }
   .ninaero-button[aria-invalid=true] {
-    border-color: var(--destructive);
-    outline-color: var(--destructive);
+    border-color: var(--button-destructive-edge);
   }
   .ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost) {
     transform: translateY(var(--button-press-shift));
@@ -503,6 +497,9 @@
     }
     .ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost) {
       box-shadow: none;
+    }
+    .ninaero-button[aria-invalid=true] {
+      border-color: ButtonText;
     }
     .ninaero-button:focus-visible {
       outline-color: Highlight;

@@ -127,7 +127,6 @@ export const accentSemanticTokens = {
   border: "var(--accent-border)",
   input: "var(--accent-outline)",
   "sidebar-border": "var(--accent-border)",
-  "button-paper-edge": "var(--accent-outline)",
   "sidebar-primary": "var(--button-primary-fill)",
   "sidebar-primary-foreground": "var(--button-primary-ink)",
   "sidebar-accent": "var(--accent-soft)",

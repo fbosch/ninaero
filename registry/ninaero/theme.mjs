@@ -95,6 +95,8 @@ export const theme = {
     ...accentPresets[defaultAccent].light,
     ...accentSemanticTokens,
     "button-paper-fill": "#f5f8fa",
+    "button-paper-edge": "#788b95",
+    "button-outline-edge": "#7b858a",
     "button-paper-hover": "#e6f0f4",
     "button-paper-ink": "#253b46",
     "button-paper-pressed": "#d9e5eb",
@@ -133,6 +135,8 @@ export const theme = {
     ...accentPresets[defaultAccent].dark,
     ...accentSemanticTokens,
     "button-paper-fill": "#263641",
+    "button-paper-edge": "#6b8290",
+    "button-outline-edge": "#8a9195",
     "button-paper-hover": "#314854",
     "button-paper-ink": "#e5f1f5",
     "button-paper-pressed": "#20303a",
@@ -187,9 +191,9 @@ export const theme = {
       },
       ".ninaero-button--secondary, .ninaero-button--outline": {
         color: "var(--button-paper-ink)",
-        "border-color": "var(--button-paper-edge)",
       },
       ".ninaero-button--secondary": {
+        "border-color": "var(--button-paper-edge)",
         "background-color": "var(--button-paper-fill)",
         "background-image":
           "linear-gradient(180deg, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
@@ -204,6 +208,7 @@ export const theme = {
         "box-shadow": `inset 0 1px 0 var(--button-destructive-highlight), inset 0 -1px 0 var(--button-destructive-shade), ${elevations.control}`,
       },
       ".ninaero-button--outline": {
+        "border-color": "var(--button-outline-edge)",
         "background-color": "var(--background)",
       },
       ".ninaero-button--ghost": {
@@ -221,8 +226,7 @@ export const theme = {
         "outline-color": "var(--button-focus)",
       },
       ".ninaero-button[aria-invalid=true]": {
-        "border-color": "var(--destructive)",
-        "outline-color": "var(--destructive)",
+        "border-color": "var(--button-destructive-edge)",
       },
       [buttonPressSelector]: {
         transform: "translateY(var(--button-press-shift))",
@@ -279,6 +283,9 @@ export const theme = {
         },
         [buttonPressSelector]: {
           "box-shadow": "none",
+        },
+        ".ninaero-button[aria-invalid=true]": {
+          "border-color": "ButtonText",
         },
         ".ninaero-button:focus-visible": {
           "outline-color": "Highlight",

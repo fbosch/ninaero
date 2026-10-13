@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  experimental: {
+    // shortcut: bypass stale generated-CSS entries in the dev filesystem cache.
+    // Re-enable when regenerated Button CSS survives a cached dev-server restart.
+    turbopackFileSystemCacheForDev: false,
+  },
   turbopack: {
     rules: {
       "*.css": {
