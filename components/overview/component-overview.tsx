@@ -3,6 +3,7 @@
 import { ArrowUpRightIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useId, useRef, useState } from "react";
+
 import {
   type ComponentName,
   componentGroups,
@@ -20,6 +21,7 @@ import {
 } from "@/registry/ninaero/ui/dialog";
 import { Input } from "@/registry/ninaero/ui/input";
 import { Label } from "@/registry/ninaero/ui/label";
+
 import { ComponentPreview } from "./component-preview";
 
 export function ComponentOverview() {
@@ -34,10 +36,7 @@ export function ComponentOverview() {
       items: group.items.filter((item) => matchesComponent(item, query)),
     }))
     .filter((group) => group.items.length > 0);
-  const count = visibleGroups.reduce(
-    (total, group) => total + group.items.length,
-    0,
-  );
+  const count = visibleGroups.reduce((total, group) => total + group.items.length, 0);
   const selectedItem = overviewItems.find((item) => item.name === selected);
 
   return (
@@ -57,9 +56,7 @@ export function ComponentOverview() {
               className="flex min-h-10 items-center justify-between gap-3 rounded-md px-3 hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring"
             >
               {group.title}
-              <span className="text-muted-foreground">
-                {group.items.length}
-              </span>
+              <span className="text-muted-foreground">{group.items.length}</span>
             </a>
           ))}
         </nav>
@@ -119,11 +116,7 @@ export function ComponentOverview() {
               Theme
             </a>
             {visibleGroups.map((group) => (
-              <a
-                key={group.id}
-                href={`#${group.id}`}
-                className="underline underline-offset-4"
-              >
+              <a key={group.id} href={`#${group.id}`} className="underline underline-offset-4">
                 {group.title}
               </a>
             ))}
@@ -136,10 +129,7 @@ export function ComponentOverview() {
           className="scroll-mt-6 space-y-5"
         >
           <div className="flex items-baseline gap-3">
-            <h2
-              id="theme-overview-heading"
-              className="text-xl font-semibold tracking-tight"
-            >
+            <h2 id="theme-overview-heading" className="text-xl font-semibold tracking-tight">
               Theme
             </h2>
             <span className="text-sm text-muted-foreground">1 item</span>
@@ -148,22 +138,13 @@ export function ComponentOverview() {
             <div className="overview-thumbnail" aria-hidden="true">
               <div className="w-full space-y-3">
                 <div className="grid grid-cols-5 gap-2">
-                  {[
-                    "bg-background",
-                    "bg-card",
-                    "bg-primary",
-                    "bg-secondary",
-                    "bg-accent",
-                  ].map((color) => (
-                    <div
-                      key={color}
-                      className={`h-14 rounded-lg border ${color}`}
-                    />
-                  ))}
+                  {["bg-background", "bg-card", "bg-primary", "bg-secondary", "bg-accent"].map(
+                    (color) => (
+                      <div key={color} className={`h-14 rounded-lg border ${color}`} />
+                    ),
+                  )}
                 </div>
-                <p className="text-sm font-medium">
-                  Light and dark, from one token source.
-                </p>
+                <p className="text-sm font-medium">Light and dark, from one token source.</p>
               </div>
             </div>
             <h3 className="font-medium">Ninaero theme</h3>
@@ -171,10 +152,7 @@ export function ComponentOverview() {
               Neutral surfaces, semantic colors, and shared light/dark tokens.
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
-              <a
-                href="/#tokens-heading"
-                className="underline underline-offset-4"
-              >
+              <a href="/#tokens-heading" className="underline underline-offset-4">
                 Theme workshop
               </a>
               <a href="/r/theme.json" className="underline underline-offset-4">
@@ -193,20 +171,14 @@ export function ComponentOverview() {
           >
             <div className="space-y-2">
               <div className="flex flex-wrap items-baseline gap-3">
-                <h2
-                  id={`${group.id}-heading`}
-                  className="text-xl font-semibold tracking-tight"
-                >
+                <h2 id={`${group.id}-heading`} className="text-xl font-semibold tracking-tight">
                   {group.title}
                 </h2>
                 <span className="text-sm text-muted-foreground">
-                  {group.items.length}{" "}
-                  {group.items.length === 1 ? "item" : "items"}
+                  {group.items.length} {group.items.length === 1 ? "item" : "items"}
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                {group.description}
-              </p>
+              <p className="text-sm text-muted-foreground">{group.description}</p>
             </div>
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
               {group.items.map((item) => (
@@ -261,8 +233,7 @@ export function ComponentOverview() {
                       aria-label={`Registry JSON for ${componentTitle(item.name)}`}
                       className="inline-flex min-h-9 items-center gap-1 text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
                     >
-                      Registry JSON{" "}
-                      <ArrowUpRightIcon className="size-3" aria-hidden="true" />
+                      Registry JSON <ArrowUpRightIcon className="size-3" aria-hidden="true" />
                     </a>
                   </div>
                 </article>
@@ -292,21 +263,14 @@ export function ComponentOverview() {
           className="max-h-[85svh] overflow-auto sm:max-w-2xl"
         >
           <DialogHeader>
-            <DialogTitle>
-              {selected ? componentTitle(selected) : "Component preview"}
-            </DialogTitle>
+            <DialogTitle>{selected ? componentTitle(selected) : "Component preview"}</DialogTitle>
             <DialogDescription>{selectedItem?.description}</DialogDescription>
           </DialogHeader>
           <div className="overview-live py-6">
-            {selected ? (
-              <ComponentPreview key={selected} name={selected} interactive />
-            ) : null}
+            {selected ? <ComponentPreview key={selected} name={selected} interactive /> : null}
           </div>
           {selected ? (
-            <a
-              href={`/r/${selected}.json`}
-              className="text-sm underline underline-offset-4"
-            >
+            <a href={`/r/${selected}.json`} className="text-sm underline underline-offset-4">
               Registry JSON for {componentTitle(selected)}
             </a>
           ) : null}

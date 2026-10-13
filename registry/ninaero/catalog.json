@@ -601,15 +601,7 @@
       "name": "sidebar",
       "type": "registry:ui",
       "packages": ["cn"],
-      "items": [
-        "button",
-        "input",
-        "separator",
-        "sheet",
-        "skeleton",
-        "tooltip",
-        "use-mobile"
-      ],
+      "items": ["button", "input", "separator", "sheet", "skeleton", "tooltip", "use-mobile"],
       "files": [
         {
           "path": "registry/ninaero/ui/sidebar.tsx",

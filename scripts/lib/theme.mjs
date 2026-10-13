@@ -16,9 +16,7 @@ function parseRegistryUrl(value) {
     parsed.search ||
     parsed.hash
   ) {
-    throw new Error(
-      "REGISTRY_URL must be an HTTP(S) URL without credentials, query, or fragment.",
-    );
+    throw new Error("REGISTRY_URL must be an HTTP(S) URL without credentials, query, or fragment.");
   }
   return { url: parsed.href.replace(/\/$/, ""), origin: parsed.origin };
 }
@@ -59,18 +57,13 @@ export function renderThemeCss(theme) {
   ].join("\n\n");
 }
 
-export function createRegistry(
-  theme,
-  dependencies,
-  components,
-  registryUrl = defaultRegistryUrl,
-) {
+export function createRegistry(theme, dependencies, components, registryUrl = defaultRegistryUrl) {
   const { url, origin } = parseRegistryUrl(registryUrl);
   const itemUrl = (name) => `${url}/${name}.json`;
+  const fontName = "font-nunito-sans";
   const packages = (names) =>
     names.map((name) => {
-      if (!dependencies[name])
-        throw new Error(`Missing package dependency: ${name}`);
+      if (!dependencies[name]) throw new Error(`Missing package dependency: ${name}`);
       return `${name}@${dependencies[name]}`;
     });
 
@@ -83,12 +76,19 @@ export function createRegistry(
         $schema: "https://ui.shadcn.com/schema/registry-item.json",
         name: "theme",
         title: "Ninaero theme",
-        description:
-          "Shared light and dark tokens with Ninaero squircle Button styling.",
+        description: "Shared light and dark tokens with Ninaero squircle Button styling.",
         type: "registry:theme",
         dependencies: packages(["shadcn", "tw-animate-css"]),
+        registryDependencies: [itemUrl(fontName)],
         cssVars: { theme: theme.theme, light: theme.light, dark: theme.dark },
         css: theme.css,
+      },
+      {
+        $schema: "https://ui.shadcn.com/schema/registry-item.json",
+        name: fontName,
+        title: "Nunito Sans",
+        type: "registry:font",
+        font: theme.font,
       },
       ...components.map((component) => ({
         name: component.name,
@@ -104,18 +104,14 @@ export function createRegistry(
       {
         name: "ninaero",
         title: "Ninaero baseline",
-        description:
-          "Complete Base UI component catalogue and shared theme tokens.",
+        description: "Complete Base UI component catalogue and shared theme tokens.",
         type: "registry:base",
         config: {
           style: "base-nova",
           iconLibrary: "lucide",
           tailwind: { baseColor: "neutral", cssVariables: true },
         },
-        registryDependencies: [
-          "theme",
-          ...components.map(({ name }) => name),
-        ].map(itemUrl),
+        registryDependencies: ["theme", ...components.map(({ name }) => name)].map(itemUrl),
       },
     ],
   });

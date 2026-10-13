@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  createContext,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+
 import { readAccent, saveAccent } from "@/lib/accent-preference.mjs";
 import {
   type AccentName,

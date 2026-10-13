@@ -2,6 +2,7 @@
 
 import { FolderIcon, HomeIcon } from "lucide-react";
 import type { CSSProperties } from "react";
+
 import {
   MessageScroller,
   MessageScrollerButton,
@@ -28,20 +29,13 @@ import {
 
 export function ResizablePreview() {
   return (
-    <ResizablePanelGroup
-      orientation="horizontal"
-      className="h-36 w-full rounded-lg border"
-    >
+    <ResizablePanelGroup orientation="horizontal" className="h-36 w-full rounded-lg border">
       <ResizablePanel defaultSize="40%" minSize="20%">
-        <div className="flex h-full items-center justify-center text-sm">
-          Panel one
-        </div>
+        <div className="flex h-full items-center justify-center text-sm">Panel one</div>
       </ResizablePanel>
       <ResizableHandle withHandle aria-label="Resize example panels" />
       <ResizablePanel defaultSize="60%" minSize="20%">
-        <div className="flex h-full items-center justify-center text-sm">
-          Panel two
-        </div>
+        <div className="flex h-full items-center justify-center text-sm">Panel two</div>
       </ResizablePanel>
     </ResizablePanelGroup>
   );
@@ -65,10 +59,7 @@ export function SidebarPreview() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  isActive
-                  render={<a href="/components">Components</a>}
-                >
+                <SidebarMenuButton isActive render={<a href="/components">Components</a>}>
                   <FolderIcon />
                   <span>Components</span>
                 </SidebarMenuButton>
@@ -98,9 +89,7 @@ export function MessageScrollerPreview() {
           <MessageScrollerContent className="gap-3">
             {messages.map((message) => (
               <MessageScrollerItem key={message}>
-                <p className="rounded-lg bg-muted px-3 py-2 text-sm">
-                  {message}
-                </p>
+                <p className="rounded-lg bg-muted px-3 py-2 text-sm">{message}</p>
               </MessageScrollerItem>
             ))}
           </MessageScrollerContent>

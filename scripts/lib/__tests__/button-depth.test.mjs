@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+
 import { accentRules } from "../../../registry/ninaero/accents.mjs";
 import { elevations, theme } from "../../../registry/ninaero/theme.mjs";
 
@@ -41,12 +42,8 @@ for (const [variant, material] of [
   test(`${variant} has a top highlight, lower bevel, and shallow cast shadow`, () => {
     const rules = components[`.ninaero-button--${variant}`];
     assert.equal(rules["background-color"], `var(--button-${material}-fill)`);
-    assert.ok(
-      rules["background-image"].includes(`var(--button-${material}-highlight)`),
-    );
-    assert.ok(
-      rules["background-image"].includes(`var(--button-${material}-shade)`),
-    );
+    assert.ok(rules["background-image"].includes(`var(--button-${material}-highlight)`));
+    assert.ok(rules["background-image"].includes(`var(--button-${material}-shade)`));
     assert.ok(rules["box-shadow"].includes("inset 0 1px 0"));
     assert.ok(rules["box-shadow"].includes("inset 0 -1px 0"));
     assert.ok(rules["box-shadow"].endsWith(elevations.control));
@@ -65,10 +62,7 @@ for (const [variant, material] of [
       assert.ok(selector.includes(":not([data-disabled])"));
       assert.ok(selector.includes(":not([aria-disabled=true])"));
     }
-    assert.equal(
-      hover[hoverSelector]["background-color"],
-      `var(--button-${material}-hover)`,
-    );
+    assert.equal(hover[hoverSelector]["background-color"], `var(--button-${material}-hover)`);
     assert.equal(
       components[pressedSelector]["background-color"],
       `var(--button-${material}-pressed)`,
@@ -96,10 +90,7 @@ for (const [variant, material] of [
               ];
         for (const background of backgrounds) {
           const ratio = contrast(ink, background);
-          assert.ok(
-            ratio >= 4.5,
-            `${state} ${background}: ${ratio.toFixed(2)}:1`,
-          );
+          assert.ok(ratio >= 4.5, `${state} ${background}: ${ratio.toFixed(2)}:1`);
         }
       }
     });
@@ -116,11 +107,7 @@ test("destructive is a semantic red material, independent of accent presets", as
     assert.ok(contrast(palette["button-destructive-edge"], background) >= 3);
   }
   for (const rules of Object.values(accentRules)) {
-    assert.ok(
-      Object.keys(rules).every(
-        (key) => !key.startsWith("--button-destructive-"),
-      ),
-    );
+    assert.ok(Object.keys(rules).every((key) => !key.startsWith("--button-destructive-")));
   }
   const source = await readFile(
     new URL("../../../registry/ninaero/ui/button.tsx", import.meta.url),
@@ -132,20 +119,12 @@ test("destructive is a semantic red material, independent of accent presets", as
 
 test("new depth rules are published alongside the original Button primitive", async () => {
   const publishedTheme = JSON.parse(
-    await readFile(
-      new URL("../../../public/r/theme.json", import.meta.url),
-      "utf8",
-    ),
+    await readFile(new URL("../../../public/r/theme.json", import.meta.url), "utf8"),
   );
   assert.deepEqual(publishedTheme.css, theme.css);
   const publishedButton = JSON.parse(
-    await readFile(
-      new URL("../../../public/r/button.json", import.meta.url),
-      "utf8",
-    ),
+    await readFile(new URL("../../../public/r/button.json", import.meta.url), "utf8"),
   );
-  const source = publishedButton.files.find((file) =>
-    file.path.endsWith("button.tsx"),
-  ).content;
+  const source = publishedButton.files.find((file) => file.path.endsWith("button.tsx")).content;
   assert.ok(source.includes('destructive: "ninaero-button--destructive"'));
 });

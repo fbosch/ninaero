@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { type ComponentType, useId, useState } from "react";
+
 import type { ControlName, PreviewProps } from "@/lib/component-overview";
 import { Button } from "@/registry/ninaero/ui/button";
 import { ButtonGroup } from "@/registry/ninaero/ui/button-group";
@@ -22,27 +23,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/registry/ninaero/ui/command";
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from "@/registry/ninaero/ui/field";
+import { Field, FieldDescription, FieldLabel } from "@/registry/ninaero/ui/field";
 import { Input } from "@/registry/ninaero/ui/input";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/registry/ninaero/ui/input-group";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/registry/ninaero/ui/input-otp";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/registry/ninaero/ui/input-group";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/registry/ninaero/ui/input-otp";
 import { Label } from "@/registry/ninaero/ui/label";
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/registry/ninaero/ui/native-select";
+import { NativeSelect, NativeSelectOption } from "@/registry/ninaero/ui/native-select";
 import { RadioGroup, RadioGroupItem } from "@/registry/ninaero/ui/radio-group";
 import {
   Select,
@@ -55,10 +41,7 @@ import { Slider } from "@/registry/ninaero/ui/slider";
 import { Switch } from "@/registry/ninaero/ui/switch";
 import { Textarea } from "@/registry/ninaero/ui/textarea";
 import { Toggle } from "@/registry/ninaero/ui/toggle";
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/registry/ninaero/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@/registry/ninaero/ui/toggle-group";
 
 const CalendarPreview = dynamic(() => import("./calendar-preview"));
 const QuestionnairePreview = dynamic(() => import("./questionnaire-preview"));
@@ -68,19 +51,11 @@ function ButtonPreview({ interactive }: PreviewProps) {
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap gap-2">
-        <Button onClick={() => interactive && setLast("Primary")}>
-          Primary
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => interactive && setLast("Secondary")}
-        >
+        <Button onClick={() => interactive && setLast("Primary")}>Primary</Button>
+        <Button variant="secondary" onClick={() => interactive && setLast("Secondary")}>
           Secondary
         </Button>
-        <Button
-          variant="outline"
-          onClick={() => interactive && setLast("Outline")}
-        >
+        <Button variant="outline" onClick={() => interactive && setLast("Outline")}>
           Outline
         </Button>
       </div>
@@ -108,11 +83,7 @@ function ButtonGroupPreview({ interactive }: PreviewProps) {
           </Button>
         ))}
       </ButtonGroup>
-      {interactive && (
-        <output className="block text-xs text-muted-foreground">
-          View: {view}
-        </output>
-      )}
+      {interactive && <output className="block text-xs text-muted-foreground">View: {view}</output>}
     </div>
   );
 }
@@ -154,18 +125,12 @@ function CommandPreview({ interactive }: PreviewProps) {
   return (
     <div className="w-full max-w-64 rounded-lg border">
       <Command>
-        <CommandInput
-          placeholder="Find an action"
-          aria-label="Find an action"
-        />
+        <CommandInput placeholder="Find an action" aria-label="Find an action" />
         <CommandList>
           <CommandEmpty>No matching actions</CommandEmpty>
           <CommandGroup heading="Actions">
             {["Copy", "Paste", "Select all"].map((action) => (
-              <CommandItem
-                key={action}
-                onSelect={() => interactive && setSelected(action)}
-              >
+              <CommandItem key={action} onSelect={() => interactive && setSelected(action)}>
                 {action}
               </CommandItem>
             ))}
@@ -238,9 +203,7 @@ function InputOTPPreview({ interactive }: PreviewProps) {
       </InputOTP>
       {interactive && (
         <output className="block text-xs text-muted-foreground">
-          {value.length === 4
-            ? "Code entered (not verified)"
-            : "Enter four digits"}
+          {value.length === 4 ? "Code entered (not verified)" : "Enter four digits"}
         </output>
       )}
     </div>
@@ -323,9 +286,7 @@ function SliderPreview({ interactive }: PreviewProps) {
         value={value}
         onValueChange={(next) => setValue(Array.isArray(next) ? next[0] : next)}
       />
-      {interactive && (
-        <p className="text-xs text-muted-foreground">Example setting only</p>
-      )}
+      {interactive && <p className="text-xs text-muted-foreground">Example setting only</p>}
     </div>
   );
 }
@@ -360,12 +321,7 @@ function TogglePreview() {
 
 function ToggleGroupPreview() {
   return (
-    <ToggleGroup
-      defaultValue={["left"]}
-      variant="outline"
-      spacing={0}
-      aria-label="Text alignment"
-    >
+    <ToggleGroup defaultValue={["left"]} variant="outline" spacing={0} aria-label="Text alignment">
       <ToggleGroupItem value="left">Left</ToggleGroupItem>
       <ToggleGroupItem value="center">Center</ToggleGroupItem>
       <ToggleGroupItem value="right">Right</ToggleGroupItem>

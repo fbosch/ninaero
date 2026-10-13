@@ -1,12 +1,9 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+
 import { accentRules } from "../../../registry/ninaero/accents.mjs";
-import {
-  buttonRecessShadow,
-  elevations,
-  theme,
-} from "../../../registry/ninaero/theme.mjs";
+import { buttonRecessShadow, elevations, theme } from "../../../registry/ninaero/theme.mjs";
 import { renderThemeCss } from "../theme.mjs";
 
 const components = theme.css["@layer components"];
@@ -53,8 +50,7 @@ test("control cast shadows soften their falloff without losing depth", () => {
   assert.ok(Math.max(...control.map((layer) => layer.y)) <= 4);
   assert.ok(Math.max(...control.map((layer) => layer.blur)) <= 10);
   const overlappingOpacity =
-    1 -
-    control.reduce((remaining, layer) => remaining * (1 - layer.opacity), 1);
+    1 - control.reduce((remaining, layer) => remaining * (1 - layer.opacity), 1);
   assert.ok(overlappingOpacity >= 0.25 && overlappingOpacity <= 0.35);
 });
 
@@ -65,15 +61,10 @@ test("all raised Buttons share the same cast shadow, with independent material b
     assert.ok(shadow.endsWith(elevations.control));
   }
   for (const variant of ["outline", "ghost", "link"]) {
-    assert.equal(
-      components[`.ninaero-button--${variant}`]["box-shadow"],
-      undefined,
-    );
+    assert.equal(components[`.ninaero-button--${variant}`]["box-shadow"], undefined);
   }
   assert.equal(
-    components[".ninaero-button--secondary, .ninaero-button--outline"][
-      "box-shadow"
-    ],
+    components[".ninaero-button--secondary, .ninaero-button--outline"]["box-shadow"],
     undefined,
   );
 });
@@ -88,10 +79,7 @@ test("shadow colors belong to receiving surfaces, not accent or destructive fill
     assert.equal(palette["button-destructive-shadow"], undefined);
   }
   assert.notEqual(theme.light["shadow-color"], theme.dark["shadow-color"]);
-  assert.equal(
-    components[".ninaero-surface-paper"]["--shadow-color"],
-    "var(--shadow-color-paper)",
-  );
+  assert.equal(components[".ninaero-surface-paper"]["--shadow-color"], "var(--shadow-color-paper)");
   for (const rules of Object.values(accentRules)) {
     assert.ok(Object.keys(rules).every((key) => !key.includes("shadow")));
   }
@@ -123,9 +111,7 @@ test("pressing collapses cast shadows while reduced motion keeps static feedback
   )[1];
   assert.equal(disabled["box-shadow"], "none");
   assert.equal(
-    components["@media (forced-colors: active)"][".ninaero-button"][
-      "box-shadow"
-    ],
+    components["@media (forced-colors: active)"][".ninaero-button"]["box-shadow"],
     "none",
   );
 });
@@ -162,10 +148,7 @@ test("modals are elevated above menus and the chart tooltip", async () => {
 
 test("registry publication includes the same elevations and receiving-surface rule", async () => {
   const published = JSON.parse(
-    await readFile(
-      new URL("../../../public/r/theme.json", import.meta.url),
-      "utf8",
-    ),
+    await readFile(new URL("../../../public/r/theme.json", import.meta.url), "utf8"),
   );
   assert.deepEqual(published.css, theme.css);
   assert.deepEqual(published.cssVars.theme, theme.theme);

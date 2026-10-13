@@ -1,6 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { posix } from "node:path";
+
 import ts from "typescript";
+
 import { registryCommand } from "./registry-command.mjs";
 import { defaultRegistryUrl, normalizeRegistryUrl } from "./theme.mjs";
 
@@ -35,8 +37,7 @@ function parseSource(path, content) {
 
 function readPropertyName(name) {
   if (ts.isIdentifier(name)) return name.text;
-  if (ts.isStringLiteralLike(name) || ts.isNumericLiteral(name))
-    return name.text;
+  if (ts.isStringLiteralLike(name) || ts.isNumericLiteral(name)) return name.text;
   return undefined;
 }
 
@@ -92,15 +93,10 @@ function moduleSpecifierFromDynamic(expression) {
       ts.isPropertyAccessExpression(expression.expression) &&
       expression.expression.name.text === "then"
     ) {
-      const imported = moduleSpecifierFromDynamic(
-        expression.expression.expression,
-      );
+      const imported = moduleSpecifierFromDynamic(expression.expression.expression);
       if (!imported) return undefined;
       const callback = expression.arguments[0];
-      if (
-        !callback ||
-        (!ts.isArrowFunction(callback) && !ts.isFunctionExpression(callback))
-      ) {
+      if (!callback || (!ts.isArrowFunction(callback) && !ts.isFunctionExpression(callback))) {
         return imported;
       }
       let body = callback.body;
@@ -128,13 +124,11 @@ function findMapProperty(source, name) {
     if (!ts.isVariableStatement(statement)) continue;
     for (const declaration of statement.declarationList.declarations) {
       if (!ts.isIdentifier(declaration.name)) continue;
-      const object =
-        declaration.initializer && unwrapExpression(declaration.initializer);
+      const object = declaration.initializer && unwrapExpression(declaration.initializer);
       if (!object || !ts.isObjectLiteralExpression(object)) continue;
       for (const property of object.properties) {
         if (!ts.isPropertyAssignment(property) || !property.name) continue;
-        if (readPropertyName(property.name) === name)
-          return property.initializer;
+        if (readPropertyName(property.name) === name) return property.initializer;
       }
     }
   }
@@ -168,20 +162,15 @@ function findImportedPreview(mapPath, mapSource, name, previewSources) {
   if (!declaration || !ts.isVariableStatement(declaration)) return undefined;
 
   const binding = declaration.declarationList.declarations.find(
-    (candidate) =>
-      ts.isIdentifier(candidate.name) && candidate.name.text === value.text,
+    (candidate) => ts.isIdentifier(candidate.name) && candidate.name.text === value.text,
   );
   if (!binding?.initializer) return undefined;
   const dynamic = moduleSpecifierFromDynamic(binding.initializer);
   if (!dynamic) return undefined;
 
-  const targetPath = posix.normalize(
-    posix.join(posix.dirname(mapPath), dynamic.path),
-  );
+  const targetPath = posix.normalize(posix.join(posix.dirname(mapPath), dynamic.path));
   const resolvedPath =
-    targetPath.endsWith(".tsx") || targetPath.endsWith(".ts")
-      ? targetPath
-      : `${targetPath}.tsx`;
+    targetPath.endsWith(".tsx") || targetPath.endsWith(".ts") ? targetPath : `${targetPath}.tsx`;
   const targetContent = previewSources[resolvedPath];
   if (targetContent === undefined) {
     throw new Error(`Missing preview source for ${name}: ${resolvedPath}`);
@@ -204,18 +193,11 @@ function findImportedPreview(mapPath, mapSource, name, previewSources) {
 function findExportedPreview(source, exportName) {
   for (const statement of source.statements) {
     if (exportName === "default" && ts.isFunctionDeclaration(statement)) {
-      if (
-        statement.modifiers?.some(
-          (modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword,
-        )
-      ) {
+      if (statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword)) {
         return statement;
       }
     }
-    if (
-      ts.isFunctionDeclaration(statement) &&
-      statement.name?.text === exportName
-    ) {
+    if (ts.isFunctionDeclaration(statement) && statement.name?.text === exportName) {
       return statement;
     }
     if (ts.isVariableStatement(statement)) {
@@ -255,8 +237,7 @@ function isInteractivePreview(node) {
   if (ts.isVariableDeclaration(node) && node.initializer) {
     functionLike = unwrapExpression(node.initializer);
   }
-  if (!ts.isFunctionLike(functionLike) || !functionLike.parameters.length)
-    return false;
+  if (!ts.isFunctionLike(functionLike) || !functionLike.parameters.length) return false;
   const parameter = functionLike.parameters[0];
   if (
     parameter.type &&
@@ -269,8 +250,7 @@ function isInteractivePreview(node) {
   const binding = parameter.name;
   if (!ts.isObjectBindingPattern(binding)) return false;
   return binding.elements.some(
-    (element) =>
-      readPropertyName(element.propertyName ?? element.name) === "interactive",
+    (element) => readPropertyName(element.propertyName ?? element.name) === "interactive",
   );
 }
 
@@ -287,44 +267,30 @@ function aliasConsumerImport(specifier) {
 function importLocalNames(importClause) {
   const names = [];
   if (importClause.name) names.push(importClause.name.text);
-  if (
-    importClause.namedBindings &&
-    ts.isNamespaceImport(importClause.namedBindings)
-  ) {
+  if (importClause.namedBindings && ts.isNamespaceImport(importClause.namedBindings)) {
     names.push(importClause.namedBindings.name.text);
   } else if (importClause.namedBindings) {
-    for (const element of importClause.namedBindings.elements)
-      names.push(element.name.text);
+    for (const element of importClause.namedBindings.elements) names.push(element.name.text);
   }
   return names;
 }
 
 function renderImport(statement, source, refs) {
   const clause = statement.importClause;
-  const rewritten = JSON.stringify(
-    aliasConsumerImport(statement.moduleSpecifier.text),
-  );
-  const suffix = source.text.slice(
-    statement.moduleSpecifier.end,
-    statement.end,
-  );
+  const rewritten = JSON.stringify(aliasConsumerImport(statement.moduleSpecifier.text));
+  const suffix = source.text.slice(statement.moduleSpecifier.end, statement.end);
   if (!clause) return `import ${rewritten}${suffix}`;
 
   const bindings = [];
-  if (clause.name && refs.has(clause.name.text))
-    bindings.push(clause.name.text);
+  if (clause.name && refs.has(clause.name.text)) bindings.push(clause.name.text);
   if (clause.namedBindings && ts.isNamespaceImport(clause.namedBindings)) {
     if (refs.has(clause.namedBindings.name.text)) {
       bindings.push(clause.namedBindings.getText(source));
     }
   } else if (clause.namedBindings) {
-    const elements = clause.namedBindings.elements.filter((element) =>
-      refs.has(element.name.text),
-    );
+    const elements = clause.namedBindings.elements.filter((element) => refs.has(element.name.text));
     if (elements.length) {
-      bindings.push(
-        `{ ${elements.map((element) => element.getText(source)).join(", ")} }`,
-      );
+      bindings.push(`{ ${elements.map((element) => element.getText(source)).join(", ")} }`);
     }
   }
   if (!bindings.length) return undefined;
@@ -346,12 +312,7 @@ function buildExample(componentName, preview) {
     const names = referencedNames(current);
     for (const name of names) {
       const statement = declarations.get(name);
-      if (
-        !statement ||
-        statement === current ||
-        includedStatements.has(statement)
-      )
-        continue;
+      if (!statement || statement === current || includedStatements.has(statement)) continue;
       includedStatements.add(statement);
       pending.push(statement);
     }
@@ -364,10 +325,7 @@ function buildExample(componentName, preview) {
   const imports = [];
   let needsPreviewProps = false;
   for (const statement of source.statements) {
-    if (
-      !ts.isImportDeclaration(statement) ||
-      !ts.isStringLiteralLike(statement.moduleSpecifier)
-    )
+    if (!ts.isImportDeclaration(statement) || !ts.isStringLiteralLike(statement.moduleSpecifier))
       continue;
     const specifier = statement.moduleSpecifier.text;
     if (specifier === "@/lib/component-overview") {
@@ -390,9 +348,7 @@ function buildExample(componentName, preview) {
     .filter(Boolean);
   const previewText = sourceDeclarationFor(node, source);
   if (!previewText)
-    throw new Error(
-      `Cannot serialize preview function for ${componentName} (${path})`,
-    );
+    throw new Error(`Cannot serialize preview function for ${componentName} (${path})`);
 
   const renderName =
     ts.isFunctionDeclaration(node) && node.name
@@ -417,9 +373,7 @@ function buildExample(componentName, preview) {
 
   return [
     directive,
-    needsPreviewProps
-      ? "type PreviewProps = { interactive?: boolean };"
-      : undefined,
+    needsPreviewProps ? "type PreviewProps = { interactive?: boolean };" : undefined,
     ...imports,
     ...dependencySource,
     previewDeclaration,
@@ -433,8 +387,7 @@ function exportedBindings(source) {
   const declarations = topLevelDeclarations(source);
   const bindings = new Map();
   const add = (name, localName, isReExport = false) => {
-    if (!bindings.has(name))
-      bindings.set(name, { name, localName, isReExport });
+    if (!bindings.has(name)) bindings.set(name, { name, localName, isReExport });
   };
 
   for (const statement of source.statements) {
@@ -456,8 +409,7 @@ function exportedBindings(source) {
       add(isDefault ? "default" : statement.name.text, statement.name.text);
     } else if (exported && ts.isVariableStatement(statement)) {
       for (const declaration of statement.declarationList.declarations) {
-        if (ts.isIdentifier(declaration.name))
-          add(declaration.name.text, declaration.name.text);
+        if (ts.isIdentifier(declaration.name)) add(declaration.name.text, declaration.name.text);
       }
     } else if (
       ts.isExportDeclaration(statement) &&
@@ -478,9 +430,7 @@ function exportedBindings(source) {
   }
   return [...bindings.values()].map((binding) => ({
     ...binding,
-    declaration: binding.isReExport
-      ? undefined
-      : declarations.get(binding.localName),
+    declaration: binding.isReExport ? undefined : declarations.get(binding.localName),
   }));
 }
 
@@ -490,17 +440,13 @@ function functionLikeFor(declaration) {
     const first = declaration.declarationList.declarations[0];
     if (first?.initializer) {
       const initializer = unwrapExpression(first.initializer);
-      if (
-        ts.isArrowFunction(initializer) ||
-        ts.isFunctionExpression(initializer)
-      )
+      if (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer))
         return initializer;
     }
   }
   if (ts.isVariableDeclaration(declaration) && declaration.initializer) {
     const initializer = unwrapExpression(declaration.initializer);
-    if (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer))
-      return initializer;
+    if (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer)) return initializer;
   }
   return undefined;
 }
@@ -523,10 +469,7 @@ function apiForSource(path, content) {
     if (isReExport || !declaration) {
       return { name, kind: "re-export", props: "", defaults: [] };
     }
-    if (
-      ts.isTypeAliasDeclaration(declaration) ||
-      ts.isInterfaceDeclaration(declaration)
-    ) {
+    if (ts.isTypeAliasDeclaration(declaration) || ts.isInterfaceDeclaration(declaration)) {
       return { name, kind: "type", props: "", defaults: [] };
     }
     const functionLike = functionLikeFor(declaration);
@@ -552,10 +495,7 @@ function sourceText(sources, path, description) {
 export async function readPreviewSources(rootURL) {
   return Object.fromEntries(
     await Promise.all(
-      previewPaths.map(async (path) => [
-        path,
-        await readFile(new URL(path, rootURL), "utf8"),
-      ]),
+      previewPaths.map(async (path) => [path, await readFile(new URL(path, rootURL), "utf8")]),
     ),
   );
 }
@@ -584,9 +524,7 @@ export function createComponentDocs(
         findMapProperty(mapSources.get(path), component.name),
       );
       if (!mapPath)
-        throw new Error(
-          `Missing preview mapping for registry component: ${component.name}`,
-        );
+        throw new Error(`Missing preview mapping for registry component: ${component.name}`);
       const preview = findImportedPreview(
         mapPath,
         mapSources.get(mapPath),
@@ -594,19 +532,11 @@ export function createComponentDocs(
         previewSources,
       );
       if (!preview)
-        throw new Error(
-          `Cannot resolve preview for registry component: ${component.name}`,
-        );
-      const api = files.flatMap(({ path, content }) =>
-        apiForSource(path, content),
-      );
+        throw new Error(`Cannot resolve preview for registry component: ${component.name}`);
+      const api = files.flatMap(({ path, content }) => apiForSource(path, content));
       return {
         name: component.name,
-        installCommand: registryCommand(
-          "add",
-          component.name,
-          normalizedRegistryUrl,
-        ),
+        installCommand: registryCommand("add", component.name, normalizedRegistryUrl),
         example: buildExample(component.name, preview),
         files,
         api,

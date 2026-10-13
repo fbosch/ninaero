@@ -1,11 +1,8 @@
 "use client";
 
 import { Bar, BarChart, XAxis } from "recharts";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/registry/ninaero/ui/chart";
+
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/registry/ninaero/ui/chart";
 
 const data = [
   { day: "Mon", visits: 24 },

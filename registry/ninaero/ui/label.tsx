@@ -3,12 +3,7 @@
 import { cn } from "cn";
 import type * as React from "react";
 
-function Label({
-  className,
-  htmlFor,
-  children,
-  ...props
-}: React.ComponentProps<"label">) {
+function Label({ className, htmlFor, children, ...props }: React.ComponentProps<"label">) {
   return (
     <label
       htmlFor={htmlFor}

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+
 import { CodeBlock } from "@/components/docs/code-block";
 import { presetInstallCommand } from "@/lib/component-documentation";
 import { overviewItems } from "@/lib/component-overview";
 
 export const metadata: Metadata = {
   title: "Getting started | Ninaero",
-  description:
-    "Install Ninaero's shared theme and browse documentation for every component.",
+  description: "Install Ninaero's shared theme and browse documentation for every component.",
 };
 
 const renderExample = `import Link from "next/link";
@@ -25,16 +25,12 @@ export default function DocsPage() {
   return (
     <article className="space-y-10">
       <header className="space-y-4">
-        <p className="text-xs font-medium text-muted-foreground">
-          Documentation
-        </p>
-        <h1 className="text-4xl font-semibold tracking-tight">
-          Getting started
-        </h1>
+        <p className="text-xs font-medium text-muted-foreground">Documentation</p>
+        <h1 className="text-4xl font-semibold tracking-tight">Getting started</h1>
         <p className="max-w-2xl leading-relaxed text-muted-foreground">
-          Install the Ninaero theme and components through the shadcn registry.
-          Each of the {overviewItems.length} components has a page with a live
-          preview, install command, usage example, API signatures, and source.
+          Install the Ninaero theme and components through the shadcn registry. Each of the{" "}
+          {overviewItems.length} components has a page with a live preview, install command, usage
+          example, API signatures, and source.
         </p>
       </header>
 
@@ -43,18 +39,13 @@ export default function DocsPage() {
           Quick start
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          For a new project, initialize shadcn with the complete Ninaero preset.
-          It installs the shared theme, every component, and supporting hooks
-          and utilities.
+          For a new project, initialize shadcn with the complete Ninaero preset. It installs the
+          shared theme, every component, and supporting hooks and utilities.
         </p>
-        <CodeBlock
-          code={presetInstallCommand}
-          label="Complete preset"
-          language="bash"
-        />
+        <CodeBlock code={presetInstallCommand} label="Complete preset" language="bash" />
         <p className="text-sm text-muted-foreground">
-          When using the local registry, keep the Ninaero server running while
-          the CLI fetches its files.
+          When using the local registry, keep the Ninaero server running while the CLI fetches its
+          files.
         </p>
       </section>
 
@@ -63,9 +54,8 @@ export default function DocsPage() {
           Install one component
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          In an initialized shadcn/ui project, use the install command on the
-          component's page. The CLI resolves its shared theme, package
-          dependencies, and related registry items.
+          In an initialized shadcn/ui project, use the install command on the component's page. The
+          CLI resolves its shared theme, package dependencies, and related registry items.
         </p>
         <div className="flex flex-wrap gap-4 text-sm">
           <Link href="/docs/button" className="underline underline-offset-4">
@@ -85,16 +75,14 @@ export default function DocsPage() {
           Edit the installed source
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          The CLI copies component files into your project and merges theme
-          tokens into the CSS file configured in{" "}
-          <code className="text-foreground">components.json</code>. Those files
-          are yours to edit. Documentation examples use the standard{" "}
+          The CLI copies component files into your project and merges theme tokens into the CSS file
+          configured in <code className="text-foreground">components.json</code>. Those files are
+          yours to edit. Documentation examples use the standard{" "}
           <code className="text-foreground">@/components/ui</code> alias.
         </p>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Base UI components use the{" "}
-          <code className="text-foreground">render</code> prop to render another
-          element. For a button rendered as a link, set{" "}
+          Base UI components use the <code className="text-foreground">render</code> prop to render
+          another element. For a button rendered as a link, set{" "}
           <code className="text-foreground">nativeButton</code> to false.
         </p>
         <CodeBlock code={renderExample} label="Render a button as a link" />
@@ -106,12 +94,8 @@ export default function DocsPage() {
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
           The preview and registry both use{" "}
-          <code className="text-foreground">registry/ninaero/theme.mjs</code>.
-          Read the{" "}
-          <Link
-            href="/docs/theme"
-            className="text-foreground underline underline-offset-4"
-          >
+          <code className="text-foreground">registry/ninaero/theme.mjs</code>. Read the{" "}
+          <Link href="/docs/theme" className="text-foreground underline underline-offset-4">
             theme guide
           </Link>{" "}
           before editing generated CSS.

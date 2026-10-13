@@ -1,9 +1,4 @@
-import {
-  accentPresets,
-  accentRules,
-  accentSemanticTokens,
-  defaultAccent,
-} from "./accents.mjs";
+import { accentPresets, accentRules, accentSemanticTokens, defaultAccent } from "./accents.mjs";
 
 const buttonPressSelector =
   ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost)";
@@ -28,7 +23,16 @@ export const buttonRecessShadow = [
   "inset 0 1px 2px var(--button-recess-shade)",
   "inset 0 -1px 0 var(--button-recess-highlight)",
 ].join(", ");
+const sansFont = {
+  family: "'Nunito Sans', ui-sans-serif, system-ui, sans-serif",
+  provider: "google",
+  import: "Nunito_Sans",
+  variable: "--font-nunito-sans",
+  subsets: ["latin", "latin-ext"],
+};
+
 export const theme = {
+  font: sansFont,
   theme: {
     "shadow-sm": elevations.control,
     "shadow-md": elevations.floating,
@@ -36,7 +40,7 @@ export const theme = {
     "shadow-xl": elevations.dialog,
     "shadow-2xl": elevations.dialog,
     "font-heading": "var(--font-sans)",
-    "font-sans": "ui-sans-serif, system-ui, sans-serif",
+    "font-sans": `var(${sansFont.variable}, ${sansFont.family})`,
     "color-sidebar-ring": "var(--sidebar-ring)",
     "color-sidebar-border": "var(--sidebar-border)",
     "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
@@ -198,8 +202,7 @@ export const theme = {
         "--button-recess-fill": "var(--button-primary-pressed)",
         color: "var(--button-primary-ink)",
         "background-color": "var(--button-primary-fill)",
-        "background-image":
-          "linear-gradient(180deg, var(--button-highlight), transparent 65%)",
+        "background-image": "linear-gradient(180deg, var(--button-highlight), transparent 65%)",
         "border-color": "var(--button-primary-edge)",
         "box-shadow": `inset 0 1px 0 var(--button-highlight), ${elevations.control}`,
       },

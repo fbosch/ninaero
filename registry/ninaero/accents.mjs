@@ -136,18 +136,16 @@ export const accentSemanticTokens = {
 
 function variables(palette) {
   return Object.fromEntries(
-    Object.entries({ ...palette, ...accentSemanticTokens }).map(
-      ([key, value]) => [`--${key}`, value],
-    ),
+    Object.entries({ ...palette, ...accentSemanticTokens }).map(([key, value]) => [
+      `--${key}`,
+      value,
+    ]),
   );
 }
 
 export const accentRules = Object.fromEntries(
   Object.entries(accentPresets).flatMap(([name, preset]) => [
     [`[data-accent="${name}"]`, variables(preset.light)],
-    [
-      `.dark[data-accent="${name}"], .dark [data-accent="${name}"]`,
-      variables(preset.dark),
-    ],
+    [`.dark[data-accent="${name}"], .dark [data-accent="${name}"]`, variables(preset.dark)],
   ]),
 );

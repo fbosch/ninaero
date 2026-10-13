@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+
 import ts from "typescript";
-import catalog from "../../../registry/ninaero/catalog.json" with {
-  type: "json",
-};
+
+import catalog from "../../../registry/ninaero/catalog.json" with { type: "json" };
 import { readCatalogSources, resolveCatalog } from "../catalog.mjs";
 import { createComponentDocs, readPreviewSources } from "../component-docs.mjs";
 
@@ -59,10 +59,7 @@ test("documentation covers every UI registry component with the exact item contr
         content: catalogSources[path],
       })),
     );
-    assert.ok(
-      item.example.includes("export default function Demo()"),
-      component.name,
-    );
+    assert.ok(item.example.includes("export default function Demo()"), component.name);
     assert.ok(
       item.api.every(
         ({ kind, props, defaults }) =>
@@ -96,19 +93,12 @@ test("usage examples are consumer-facing modules without private preview imports
       "export function ResizablePreview() {\n  return",
       "export function ResizablePreview() {\n  useIsMobile();\n  return",
     );
-  const hookAliasDocs = createComponentDocs(
-    [componentNamed("resizable")],
-    catalogSources,
-    {
-      ...previewSources,
-      "components/overview/layout-previews.tsx": layoutSource,
-    },
-  );
+  const hookAliasDocs = createComponentDocs([componentNamed("resizable")], catalogSources, {
+    ...previewSources,
+    "components/overview/layout-previews.tsx": layoutSource,
+  });
   assert.match(hookAliasDocs.items[0].example, /@\/hooks\/use-mobile/);
-  assert.doesNotMatch(
-    hookAliasDocs.items[0].example,
-    /@\/registry\/ninaero\/hooks/,
-  );
+  assert.doesNotMatch(hookAliasDocs.items[0].example, /@\/registry\/ninaero\/hooks/);
 });
 
 test("chart example contains its local data dependencies and uses its actual preview", () => {
@@ -120,14 +110,8 @@ test("chart example contains its local data dependencies and uses its actual pre
 });
 
 test("interactive preview props and dynamic preview exports resolve to complete examples", () => {
-  assert.match(
-    docsByName.get("sonner").example,
-    /<SonnerPreview interactive \/>/,
-  );
-  assert.match(
-    docsByName.get("toast").example,
-    /<ToastPreview interactive \/>/,
-  );
+  assert.match(docsByName.get("sonner").example, /<SonnerPreview interactive \/>/);
+  assert.match(docsByName.get("toast").example, /<ToastPreview interactive \/>/);
   for (const name of [
     "calendar",
     "questionnaire",
@@ -137,10 +121,7 @@ test("interactive preview props and dynamic preview exports resolve to complete 
     "sidebar",
     "message-scroller",
   ]) {
-    assert.ok(
-      docsByName.get(name).example.includes("export default function Demo()"),
-      name,
-    );
+    assert.ok(docsByName.get(name).example.includes("export default function Demo()"), name);
   }
 });
 
@@ -156,12 +137,7 @@ test("missing component and preview sources fail loudly", () => {
   const missingPreviewSource = { ...previewSources };
   delete missingPreviewSource["components/overview/calendar-preview.tsx"];
   assert.throws(
-    () =>
-      createComponentDocs(
-        [componentNamed("calendar")],
-        catalogSources,
-        missingPreviewSource,
-      ),
+    () => createComponentDocs([componentNamed("calendar")], catalogSources, missingPreviewSource),
     /Missing preview source for calendar/,
   );
 });
@@ -195,27 +171,17 @@ test("API extraction reports exported signatures, defaults, values, and named re
     { name: "variant", value: '"default"' },
     { name: "size", value: '"default"' },
   ]);
-  assert.equal(
-    button.api.find(({ name }) => name === "buttonVariants").kind,
-    "value",
-  );
-  assert.equal(
-    docsByName.get("chart").api.find(({ name }) => name === "ChartConfig").kind,
-    "type",
-  );
+  assert.equal(button.api.find(({ name }) => name === "buttonVariants").kind, "value");
+  assert.equal(docsByName.get("chart").api.find(({ name }) => name === "ChartConfig").kind, "type");
 
   const component = componentNamed("button");
   const sourcePath = component.files[0].path;
   const reExportSources = {
     ...catalogSources,
-    [sourcePath]:
-      'export { ButtonPrimitive as Button } from "@base-ui/react/button";\n',
+    [sourcePath]: 'export { ButtonPrimitive as Button } from "@base-ui/react/button";\n',
   };
-  const reExportedButton = createComponentDocs(
-    [component],
-    reExportSources,
-    previewSources,
-  ).items[0].api[0];
+  const reExportedButton = createComponentDocs([component], reExportSources, previewSources)
+    .items[0].api[0];
   assert.deepEqual(reExportedButton, {
     name: "Button",
     kind: "re-export",
@@ -225,9 +191,7 @@ test("API extraction reports exported signatures, defaults, values, and named re
 });
 
 test("all generated usage examples compile together with strict consumer aliases", async () => {
-  const configPath = fileURLToPath(
-    new URL("../../../tsconfig.json", import.meta.url),
-  );
+  const configPath = fileURLToPath(new URL("../../../tsconfig.json", import.meta.url));
   const configFile = ts.readConfigFile(configPath, ts.sys.readFile);
   assert.equal(configFile.error, undefined);
   const projectRoot = fileURLToPath(root);
@@ -259,32 +223,14 @@ test("all generated usage examples compile together with strict consumer aliases
   const readFileOriginal = host.readFile.bind(host);
   const fileExistsOriginal = host.fileExists.bind(host);
   const getSourceFileOriginal = host.getSourceFile.bind(host);
-  host.readFile = (fileName) =>
-    virtualFiles.get(fileName) ?? readFileOriginal(fileName);
-  host.fileExists = (fileName) =>
-    virtualFiles.has(fileName) || fileExistsOriginal(fileName);
-  host.getSourceFile = (
-    fileName,
-    languageVersion,
-    onError,
-    shouldCreateNewSourceFile,
-  ) => {
+  host.readFile = (fileName) => virtualFiles.get(fileName) ?? readFileOriginal(fileName);
+  host.fileExists = (fileName) => virtualFiles.has(fileName) || fileExistsOriginal(fileName);
+  host.getSourceFile = (fileName, languageVersion, onError, shouldCreateNewSourceFile) => {
     const content = virtualFiles.get(fileName);
     if (content !== undefined) {
-      return ts.createSourceFile(
-        fileName,
-        content,
-        languageVersion,
-        true,
-        ts.ScriptKind.TSX,
-      );
+      return ts.createSourceFile(fileName, content, languageVersion, true, ts.ScriptKind.TSX);
     }
-    return getSourceFileOriginal(
-      fileName,
-      languageVersion,
-      onError,
-      shouldCreateNewSourceFile,
-    );
+    return getSourceFileOriginal(fileName, languageVersion, onError, shouldCreateNewSourceFile);
   };
   const program = ts.createProgram({
     rootNames: [...virtualFiles.keys()],
@@ -292,9 +238,7 @@ test("all generated usage examples compile together with strict consumer aliases
     host,
   });
   const diagnostics = ts.getPreEmitDiagnostics(program);
-  const errors = diagnostics.filter(
-    ({ category }) => category === ts.DiagnosticCategory.Error,
-  );
+  const errors = diagnostics.filter(({ category }) => category === ts.DiagnosticCategory.Error);
   assert.equal(
     errors.length,
     0,

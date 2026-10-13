@@ -11,6 +11,7 @@ import {
   XIcon,
 } from "lucide-react";
 import type * as React from "react";
+
 import { Button } from "@/registry/ninaero/ui/button";
 
 const toast = ToastPrimitive.createToastManager();
@@ -86,10 +87,7 @@ function ToastTitle({ className, ...props }: ToastPrimitive.Title.Props) {
   );
 }
 
-function ToastDescription({
-  className,
-  ...props
-}: ToastPrimitive.Description.Props) {
+function ToastDescription({ className, ...props }: ToastPrimitive.Description.Props) {
   return (
     <ToastPrimitive.Description
       data-slot="toast-description"
@@ -191,11 +189,7 @@ function ToastList() {
   ));
 }
 
-function Toaster({
-  children,
-  toastManager = toast,
-  ...props
-}: ToastPrimitive.Provider.Props) {
+function Toaster({ children, toastManager = toast, ...props }: ToastPrimitive.Provider.Props) {
   return (
     <ToastProvider toastManager={toastManager} {...props}>
       {children}

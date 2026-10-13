@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+
 import {
   accentPresets,
   accentRules,
@@ -25,9 +26,7 @@ function contrast(a, b) {
 
 test("default accent comes from the preset source in both modes", () => {
   for (const mode of ["light", "dark"]) {
-    for (const [key, value] of Object.entries(
-      accentPresets[defaultAccent][mode],
-    )) {
+    for (const [key, value] of Object.entries(accentPresets[defaultAccent][mode])) {
       assert.equal(theme[mode][key], value);
     }
     for (const [key, value] of Object.entries(accentSemanticTokens)) {
@@ -49,28 +48,19 @@ test("preset rules share the registry output and keep paper, ink, and destructiv
     "button-outline-edge",
   ];
   const published = JSON.parse(
-    await readFile(
-      new URL("../../../public/r/theme.json", import.meta.url),
-      "utf8",
-    ),
+    await readFile(new URL("../../../public/r/theme.json", import.meta.url), "utf8"),
   );
   assert.deepEqual(published.css, theme.css);
   for (const [selector, values] of Object.entries(accentRules)) {
     assert.deepEqual(theme.css[selector], values);
     assert.ok(css.includes(selector));
     for (const key of forbidden) assert.equal(values[`--${key}`], undefined);
-    for (const [key, value] of Object.entries(values))
-      assert.ok(css.includes(`${key}: ${value};`));
+    for (const [key, value] of Object.entries(values)) assert.ok(css.includes(`${key}: ${value};`));
   }
 });
 
 test("only Cyan, Indigo, Lavender, and Slate are offered as accents", () => {
-  assert.deepEqual(Object.keys(accentPresets), [
-    "cyan",
-    "indigo",
-    "lavender",
-    "slate",
-  ]);
+  assert.deepEqual(Object.keys(accentPresets), ["cyan", "indigo", "lavender", "slate"]);
 });
 
 test("structural borders and control outlines follow each preset in both modes", () => {
@@ -108,9 +98,7 @@ test("invalid Button borders and forced-colors outlines retain semantic colors",
     "var(--button-destructive-edge)",
   );
   assert.equal(
-    components["@media (forced-colors: active)"][".ninaero-button"][
-      "border-color"
-    ],
+    components["@media (forced-colors: active)"][".ninaero-button"]["border-color"],
     "ButtonText",
   );
 });
@@ -119,16 +107,10 @@ for (const [name, preset] of Object.entries(accentPresets)) {
     const palette = preset[mode];
     test(`${name} ${mode}: primary text and selected text meet 4.5:1 in all states`, () => {
       for (const state of ["fill", "hover", "pressed"]) {
-        const ratio = contrast(
-          palette["button-primary-ink"],
-          palette[`button-primary-${state}`],
-        );
+        const ratio = contrast(palette["button-primary-ink"], palette[`button-primary-${state}`]);
         assert.ok(ratio >= 4.5, `${state}: ${ratio.toFixed(2)}:1`);
       }
-      const ratio = contrast(
-        palette["button-link-ink"],
-        palette["accent-soft"],
-      );
+      const ratio = contrast(palette["button-link-ink"], palette["accent-soft"]);
       assert.ok(ratio >= 4.5, `selected text: ${ratio.toFixed(2)}:1`);
     });
     test(`${name} ${mode}: links, focus, and primary boundaries have sufficient contrast`, () => {
@@ -146,10 +128,7 @@ for (const [name, preset] of Object.entries(accentPresets)) {
         mode === "light"
           ? `[data-accent="${name}"]`
           : `.dark[data-accent="${name}"], .dark [data-accent="${name}"]`;
-      assert.equal(
-        accentRules[selector]["--button-primary-fill"],
-        palette["button-primary-fill"],
-      );
+      assert.equal(accentRules[selector]["--button-primary-fill"], palette["button-primary-fill"]);
     });
   }
 }

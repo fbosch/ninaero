@@ -2,6 +2,7 @@
 
 import type { ComponentType } from "react";
 import { useState } from "react";
+
 import type { NavigationName, PreviewProps } from "@/lib/component-overview";
 import {
   Accordion,
@@ -58,12 +59,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/registry/ninaero/ui/pagination";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/ninaero/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/ninaero/ui/tabs";
 
 function AccordionPreview() {
   return (
@@ -71,9 +67,7 @@ function AccordionPreview() {
       <Accordion defaultValue={["details"]}>
         <AccordionItem value="details">
           <AccordionTrigger>What is included?</AccordionTrigger>
-          <AccordionContent>
-            Buttons, menus, and other interface components.
-          </AccordionContent>
+          <AccordionContent>Buttons, menus, and other interface components.</AccordionContent>
         </AccordionItem>
         <AccordionItem value="usage">
           <AccordionTrigger>Where can I use them?</AccordionTrigger>
@@ -129,9 +123,7 @@ function ContextMenuPreview() {
           Right-click here or press Shift+F10
         </ContextMenuTrigger>
         <ContextMenuContent>
-          <ContextMenuItem onClick={() => setChoice("Copy selected")}>
-            Copy sample
-          </ContextMenuItem>
+          <ContextMenuItem onClick={() => setChoice("Copy selected")}>Copy sample</ContextMenuItem>
           <ContextMenuItem onClick={() => setChoice("Inspect selected")}>
             Inspect sample
           </ContextMenuItem>
@@ -149,9 +141,7 @@ function DropdownMenuPreview() {
   return (
     <div className="space-y-2">
       <DropdownMenu>
-        <DropdownMenuTrigger render={<Button variant="outline" />}>
-          Choose view
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger render={<Button variant="outline" />}>Choose view</DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem onClick={() => setChoice("Grid view selected")}>
             Grid view
@@ -176,20 +166,14 @@ function MenubarPreview() {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => setChoice("Grid selected")}>
-              Grid
-            </MenubarItem>
-            <MenubarItem onClick={() => setChoice("List selected")}>
-              List
-            </MenubarItem>
+            <MenubarItem onClick={() => setChoice("Grid selected")}>Grid</MenubarItem>
+            <MenubarItem onClick={() => setChoice("List selected")}>List</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>Help</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={() => setChoice("Help selected")}>
-              About this example
-            </MenubarItem>
+            <MenubarItem onClick={() => setChoice("Help selected")}>About this example</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
@@ -208,9 +192,7 @@ function NavigationMenuPreview() {
           <NavigationMenuTrigger>Explore</NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="grid w-56 gap-1">
-              <NavigationMenuLink href="/components">
-                All components
-              </NavigationMenuLink>
+              <NavigationMenuLink href="/components">All components</NavigationMenuLink>
               <NavigationMenuLink href="/">Home</NavigationMenuLink>
             </div>
           </NavigationMenuContent>

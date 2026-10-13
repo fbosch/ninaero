@@ -191,8 +191,7 @@ export const componentGroups = [
       },
       {
         name: "direction",
-        description:
-          "Directional context for left-to-right and right-to-left layouts.",
+        description: "Directional context for left-to-right and right-to-left layouts.",
       },
       {
         name: "empty",
@@ -216,8 +215,7 @@ export const componentGroups = [
       },
       {
         name: "message-scroller",
-        description:
-          "A scrollable conversation with a return-to-bottom control.",
+        description: "A scrollable conversation with a return-to-bottom control.",
       },
       {
         name: "progress",
@@ -256,15 +254,10 @@ export const componentGroups = [
 ] as const;
 
 export type ControlName = (typeof componentGroups)[0]["items"][number]["name"];
-export type NavigationName =
-  (typeof componentGroups)[1]["items"][number]["name"];
+export type NavigationName = (typeof componentGroups)[1]["items"][number]["name"];
 export type OverlayName = (typeof componentGroups)[2]["items"][number]["name"];
 export type DisplayName = (typeof componentGroups)[3]["items"][number]["name"];
-export type ComponentName =
-  | ControlName
-  | NavigationName
-  | OverlayName
-  | DisplayName;
+export type ComponentName = ControlName | NavigationName | OverlayName | DisplayName;
 
 export type PreviewProps = { interactive?: boolean };
 

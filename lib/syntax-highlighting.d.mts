@@ -6,7 +6,4 @@ export type HighlightToken = {
 };
 
 export function sourceLanguage(filename: string): string;
-export function highlightCode(
-  code: string,
-  language: string,
-): Promise<HighlightToken[]>;
+export function highlightCode(code: string, language: string): Promise<HighlightToken[]>;

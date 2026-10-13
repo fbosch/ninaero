@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import type { PreviewProps } from "@/lib/component-overview";
 import { Calendar } from "@/registry/ninaero/ui/calendar";
 
@@ -16,13 +17,8 @@ export default function CalendarPreview({ interactive }: PreviewProps) {
         className="mx-auto"
       />
       {interactive && (
-        <p
-          className="text-center text-xs text-muted-foreground"
-          aria-live="polite"
-        >
-          {selected
-            ? `Selected: ${selected.toLocaleDateString()}`
-            : "Choose a date"}
+        <p className="text-center text-xs text-muted-foreground" aria-live="polite">
+          {selected ? `Selected: ${selected.toLocaleDateString()}` : "Choose a date"}
         </p>
       )}
     </div>

@@ -3,6 +3,7 @@
 import type { ComponentType } from "react";
 import { useState } from "react";
 import { toast as sonnerToast } from "sonner";
+
 import type { OverlayName, PreviewProps } from "@/lib/component-overview";
 import {
   AlertDialog,
@@ -35,11 +36,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/registry/ninaero/ui/drawer";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/registry/ninaero/ui/hover-card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/registry/ninaero/ui/hover-card";
 import {
   Popover,
   PopoverContent,
@@ -59,24 +56,15 @@ import {
   SheetTrigger,
 } from "@/registry/ninaero/ui/sheet";
 import { Toaster as SonnerToaster } from "@/registry/ninaero/ui/sonner";
-import {
-  Toaster as BaseToaster,
-  createToastManager,
-} from "@/registry/ninaero/ui/toast";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/registry/ninaero/ui/tooltip";
+import { Toaster as BaseToaster, createToastManager } from "@/registry/ninaero/ui/toast";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/ninaero/ui/tooltip";
 
 function AlertDialogPreview() {
   const [confirmed, setConfirmed] = useState(false);
   return (
     <div className="space-y-2">
       <AlertDialog>
-        <AlertDialogTrigger render={<Button variant="outline" />}>
-          Reset sample
-        </AlertDialogTrigger>
+        <AlertDialogTrigger render={<Button variant="outline" />}>Reset sample</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Reset this sample?</AlertDialogTitle>
@@ -86,10 +74,7 @@ function AlertDialogPreview() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogCancel
-              variant="default"
-              onClick={() => setConfirmed(true)}
-            >
+            <AlertDialogCancel variant="default" onClick={() => setConfirmed(true)}>
               Reset sample
             </AlertDialogCancel>
           </AlertDialogFooter>
@@ -105,15 +90,11 @@ function AlertDialogPreview() {
 function DialogPreview() {
   return (
     <Dialog>
-      <DialogTrigger render={<Button variant="outline" />}>
-        Open dialog
-      </DialogTrigger>
+      <DialogTrigger render={<Button variant="outline" />}>Open dialog</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Example dialog</DialogTitle>
-          <DialogDescription>
-            A focused surface for a short message.
-          </DialogDescription>
+          <DialogDescription>A focused surface for a short message.</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>Done</DialogClose>
@@ -126,15 +107,11 @@ function DialogPreview() {
 function DrawerPreview() {
   return (
     <Drawer>
-      <DrawerTrigger render={<Button variant="outline" />}>
-        Open drawer
-      </DrawerTrigger>
+      <DrawerTrigger render={<Button variant="outline" />}>Open drawer</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Example drawer</DrawerTitle>
-          <DrawerDescription>
-            A panel with some sample details.
-          </DrawerDescription>
+          <DrawerDescription>A panel with some sample details.</DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
           <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
@@ -147,10 +124,7 @@ function DrawerPreview() {
 function HoverCardPreview() {
   return (
     <HoverCard>
-      <HoverCardTrigger
-        href="/components"
-        className="text-sm underline underline-offset-4"
-      >
+      <HoverCardTrigger href="/components" className="text-sm underline underline-offset-4">
         Explore components
       </HoverCardTrigger>
       <HoverCardContent>
@@ -164,15 +138,11 @@ function HoverCardPreview() {
 function PopoverPreview() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button variant="outline" />}>
-        Show details
-      </PopoverTrigger>
+      <PopoverTrigger render={<Button variant="outline" />}>Show details</PopoverTrigger>
       <PopoverContent>
         <PopoverHeader>
           <PopoverTitle>Example details</PopoverTitle>
-          <PopoverDescription>
-            This panel is anchored to its button.
-          </PopoverDescription>
+          <PopoverDescription>This panel is anchored to its button.</PopoverDescription>
         </PopoverHeader>
       </PopoverContent>
     </Popover>
@@ -182,15 +152,11 @@ function PopoverPreview() {
 function SheetPreview() {
   return (
     <Sheet>
-      <SheetTrigger render={<Button variant="outline" />}>
-        Open sheet
-      </SheetTrigger>
+      <SheetTrigger render={<Button variant="outline" />}>Open sheet</SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Example sheet</SheetTitle>
-          <SheetDescription>
-            A panel at the edge of the screen.
-          </SheetDescription>
+          <SheetDescription>A panel at the edge of the screen.</SheetDescription>
         </SheetHeader>
         <SheetFooter>
           <SheetClose render={<Button variant="outline" />}>Close</SheetClose>
@@ -213,9 +179,7 @@ function SonnerPreview({ interactive = false }: PreviewProps) {
       >
         Show notification
       </Button>
-      <p className="text-xs text-muted-foreground">
-        A short notification appears after selection.
-      </p>
+      <p className="text-xs text-muted-foreground">A short notification appears after selection.</p>
       {interactive ? <SonnerToaster position="bottom-right" /> : null}
     </div>
   );
@@ -236,9 +200,7 @@ function ToastPreview({ interactive = false }: PreviewProps) {
       >
         Show toast
       </Button>
-      <p className="text-xs text-muted-foreground">
-        A short message appears after selection.
-      </p>
+      <p className="text-xs text-muted-foreground">A short message appears after selection.</p>
       {interactive ? <BaseToaster toastManager={manager} /> : null}
     </div>
   );
@@ -247,9 +209,7 @@ function ToastPreview({ interactive = false }: PreviewProps) {
 function TooltipPreview() {
   return (
     <Tooltip>
-      <TooltipTrigger render={<Button variant="outline" />}>
-        Hover or focus here
-      </TooltipTrigger>
+      <TooltipTrigger render={<Button variant="outline" />}>Hover or focus here</TooltipTrigger>
       <TooltipContent>Details for this control</TooltipContent>
     </Tooltip>
   );

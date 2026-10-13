@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import type { PreviewProps } from "@/lib/component-overview";
 import {
   Questionnaire,
@@ -29,12 +30,8 @@ export default function QuestionnairePreview({ interactive }: PreviewProps) {
         <QuestionnaireItem name="format" required>
           <QuestionnaireTitle>Which format do you prefer?</QuestionnaireTitle>
           <QuestionnaireChoices>
-            <QuestionnaireChoice value="short">
-              Short updates
-            </QuestionnaireChoice>
-            <QuestionnaireChoice value="detailed">
-              Detailed updates
-            </QuestionnaireChoice>
+            <QuestionnaireChoice value="short">Short updates</QuestionnaireChoice>
+            <QuestionnaireChoice value="detailed">Detailed updates</QuestionnaireChoice>
           </QuestionnaireChoices>
           <QuestionnaireActions>
             <QuestionnaireNext>Next</QuestionnaireNext>

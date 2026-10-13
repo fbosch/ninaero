@@ -15,15 +15,12 @@ import {
 export function DialogPreview() {
   return (
     <Dialog>
-      <DialogTrigger render={<Button variant="outline" />}>
-        Open dialog
-      </DialogTrigger>
+      <DialogTrigger render={<Button variant="outline" />}>Open dialog</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Dialog preview</DialogTitle>
           <DialogDescription>
-            Check the overlay, surface, typography, and keyboard focus in each
-            color mode.
+            Check the overlay, surface, typography, and keyboard focus in each color mode.
           </DialogDescription>
         </DialogHeader>
         <p className="text-sm text-muted-foreground">

@@ -1,15 +1,9 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import {
-  accentPresets,
-  accentRules,
-} from "../../../registry/ninaero/accents.mjs";
-import {
-  buttonRecessShadow,
-  elevations,
-  theme,
-} from "../../../registry/ninaero/theme.mjs";
+
+import { accentPresets, accentRules } from "../../../registry/ninaero/accents.mjs";
+import { buttonRecessShadow, elevations, theme } from "../../../registry/ninaero/theme.mjs";
 import { renderThemeCss } from "../theme.mjs";
 
 const components = theme.css["@layer components"];
@@ -24,9 +18,7 @@ function linearRgb(hex) {
     .match(/.{2}/g)
     .map((value) => {
       const channel = Number.parseInt(value, 16) / 255;
-      return channel <= 0.04045
-        ? channel / 12.92
-        : ((channel + 0.055) / 1.055) ** 2.4;
+      return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
     });
 }
 
@@ -93,10 +85,7 @@ test("recess colors are derived on each Button from its own pressed material", (
     [".ninaero-button--secondary, .ninaero-button--outline", "paper"],
     [".ninaero-button--destructive", "destructive"],
   ]) {
-    assert.equal(
-      components[selector]["--button-recess-fill"],
-      `var(--button-${material}-pressed)`,
-    );
+    assert.equal(components[selector]["--button-recess-fill"], `var(--button-${material}-pressed)`);
   }
   for (const rules of Object.values(accentRules)) {
     assert.equal(rules["--button-recess-shade"], undefined);
@@ -139,8 +128,7 @@ for (const mode of ["light", "dark"]) {
   for (const [material, fill, ink] of materials) {
     test(`${material} ${mode}: inset tones keep material hue and 4.5:1 label contrast`, () => {
       const lab = toOklab(linearRgb(fill));
-      const shadeWeight =
-        Number.parseFloat(theme[mode]["button-recess-shade-weight"]) / 100;
+      const shadeWeight = Number.parseFloat(theme[mode]["button-recess-shade-weight"]) / 100;
       const highlightWeight =
         Number.parseFloat(theme[mode]["button-recess-highlight-weight"]) / 100;
       assert.ok(shadeWeight > 0 && shadeWeight < 0.1);
@@ -154,10 +142,7 @@ for (const mode of ["light", "dark"]) {
         ["highlight", highlight],
       ]) {
         assert.ok(Math.hypot(tone[1], tone[2]) < Math.hypot(lab[1], lab[2]));
-        assert.ok(
-          Math.abs(Math.atan2(tone[2], tone[1]) - Math.atan2(lab[2], lab[1])) <
-            0.000001,
-        );
+        assert.ok(Math.abs(Math.atan2(tone[2], tone[1]) - Math.atan2(lab[2], lab[1])) < 0.000001);
         const ratio = contrast(linearRgb(ink), fromOklab(tone));
         assert.ok(ratio >= 4.5, `${name}: ${ratio.toFixed(2)}:1`);
       }
@@ -167,21 +152,13 @@ for (const mode of ["light", "dark"]) {
 
 test("registry CSS publishes the material-derived inset recipe and theme weights", async () => {
   const published = JSON.parse(
-    await readFile(
-      new URL("../../../public/r/theme.json", import.meta.url),
-      "utf8",
-    ),
+    await readFile(new URL("../../../public/r/theme.json", import.meta.url), "utf8"),
   );
   assert.deepEqual(published.css, theme.css);
   for (const mode of ["light", "dark"]) {
-    for (const token of [
-      "button-recess-shade-weight",
-      "button-recess-highlight-weight",
-    ]) {
+    for (const token of ["button-recess-shade-weight", "button-recess-highlight-weight"]) {
       assert.equal(published.cssVars[mode][token], theme[mode][token]);
     }
   }
-  assert.ok(
-    renderThemeCss(theme).includes(`box-shadow: ${buttonRecessShadow};`),
-  );
+  assert.ok(renderThemeCss(theme).includes(`box-shadow: ${buttonRecessShadow};`));
 });

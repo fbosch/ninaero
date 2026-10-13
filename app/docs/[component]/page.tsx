@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
 import { ComponentContent } from "@/components/docs/component-content";
-import {
-  docsRegistryUrl,
-  getComponentDocumentation,
-} from "@/lib/component-documentation";
-import {
-  componentTitle,
-  isComponentName,
-  overviewItems,
-} from "@/lib/component-overview";
+import { docsRegistryUrl, getComponentDocumentation } from "@/lib/component-documentation";
+import { componentTitle, isComponentName, overviewItems } from "@/lib/component-overview";
 
 export const dynamicParams = false;
 

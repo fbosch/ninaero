@@ -10,13 +10,13 @@ This document records the agreed visual direction. Button is the first fully sty
 
 ## Reference hierarchy
 
-| Role | Reference traits | Application | Boundary |
-| --- | --- | --- | --- |
-| Core | DS-like organization, fine paper lines, compact layouts | Page backgrounds and content structure | Use one quiet paper pattern at a time. Keep dense content on plain backgrounds. |
-| Supporting controls | Wii framing, shallow shading, cyan edging, and the moodboard's squircle requirement | Controls, navigation, and panel frames | Use squircle corner curves on rectangular controls. Ordinary circular-arc corners and pill shapes are not substitutes. |
-| Signature accent | Glass rims, soft highlights, localized glow | Primary actions, selected elements, and floating layers | Keep most controls matte. Glass must clarify importance or layering. |
-| Optional artwork | Flipnote outlines, sparse color, discrete dithered shading | Empty states and occasional header illustrations | Use original artwork. Do not pixelate routine text, icons, or controls. |
-| Outside the everyday theme | Dense ASCII/ANSI patterns, perspective-grid orbs, geometric spectacle | Occasional standalone artwork | Keep these out of forms, tables, and navigation. |
+| Role                       | Reference traits                                                                    | Application                                             | Boundary                                                                                                               |
+| -------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Core                       | DS-like organization, fine paper lines, compact layouts                             | Page backgrounds and content structure                  | Use one quiet paper pattern at a time. Keep dense content on plain backgrounds.                                        |
+| Supporting controls        | Wii framing, shallow shading, cyan edging, and the moodboard's squircle requirement | Controls, navigation, and panel frames                  | Use squircle corner curves on rectangular controls. Ordinary circular-arc corners and pill shapes are not substitutes. |
+| Signature accent           | Glass rims, soft highlights, localized glow                                         | Primary actions, selected elements, and floating layers | Keep most controls matte. Glass must clarify importance or layering.                                                   |
+| Optional artwork           | Flipnote outlines, sparse color, discrete dithered shading                          | Empty states and occasional header illustrations        | Use original artwork. Do not pixelate routine text, icons, or controls.                                                |
+| Outside the everyday theme | Dense ASCII/ANSI patterns, perspective-grid orbs, geometric spectacle               | Occasional standalone artwork                           | Keep these out of forms, tables, and navigation.                                                                       |
 
 The lined announcement-bar reference is the clearest bridge between paper and lightly raised controls. The DS reference itself has square controls and pixel edges. Ninaero deliberately combines handheld organization with the squircle geometry called for in the moodboard annotations.
 
@@ -31,30 +31,30 @@ The lined announcement-bar reference is the clearest bridge between paper and li
 
 ## Color and typography
 
-| Role | Direction |
-| --- | --- |
-| Light background | Cool off-white paper |
-| Content panels | Paper-white, opaque fills |
-| Text and strong edges | Clear, dark ink |
-| Main accent | Cyan-blue |
-| Selection | Pale cyan fill with a defined edge |
-| Feedback colors | Additional colors communicate meaning rather than decorate each component |
-| Dark background | Deep ink-blue with lighter framed panels |
+| Role                  | Direction                                                                 |
+| --------------------- | ------------------------------------------------------------------------- |
+| Light background      | Cool off-white paper                                                      |
+| Content panels        | Paper-white, opaque fills                                                 |
+| Text and strong edges | Clear, dark ink                                                           |
+| Main accent           | Cyan-blue                                                                 |
+| Selection             | Pale cyan fill with a defined edge                                        |
+| Feedback colors       | Additional colors communicate meaning rather than decorate each component |
+| Dark background       | Deep ink-blue with lighter framed panels                                  |
 
-Use a readable sans serif for interface text. Pixel lettering belongs in optional artwork, not labels, paragraphs, or error messages. Choose the font family after comparing it in the first specimen.
+Use Nunito Sans for interface text and headings. Its open, softly shaped letterforms suit the paper surfaces and shallow controls without copying Nintendo lettering. Keep existing component weights and sizes; refine the type scale in the specimens. Pixel lettering belongs in optional artwork, not labels, paragraphs, or error messages.
 
 Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It should not become a separate neon dashboard. Adjust texture, fills, and highlights for readability instead of mechanically inverting the light theme.
 
 ## Component recipes
 
-| Component | Treatment |
-| --- | --- |
-| Buttons | Squircle corner curves, a fine edge, and shallow depth. Give the primary action a restrained cyan highlight. Reduce the depth on press. |
-| Inputs and tables | Plain opaque fills, clear ink, fine dividers, and an explicit focus outline. No texture or blur behind their content. |
-| Tabs and selection | Pale cyan fill with a defined edge. Keep selection recognizable without glow. |
-| Cards | Paper-white panels with quiet framing. Reserve stronger depth for elements that need to stand apart. |
-| Popovers and dialogs | Opaque readable interiors, with an optional translucent rim or restrained backdrop blur. |
-| Empty states | Optional original Flipnote-inspired illustration or localized dithering, separate from the working controls. |
+| Component            | Treatment                                                                                                                               |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Buttons              | Squircle corner curves, a fine edge, and shallow depth. Give the primary action a restrained cyan highlight. Reduce the depth on press. |
+| Inputs and tables    | Plain opaque fills, clear ink, fine dividers, and an explicit focus outline. No texture or blur behind their content.                   |
+| Tabs and selection   | Pale cyan fill with a defined edge. Keep selection recognizable without glow.                                                           |
+| Cards                | Paper-white panels with quiet framing. Reserve stronger depth for elements that need to stand apart.                                    |
+| Popovers and dialogs | Opaque readable interiors, with an optional translucent rim or restrained backdrop blur.                                                |
+| Empty states         | Optional original Flipnote-inspired illustration or localized dithering, separate from the working controls.                            |
 
 A cyan highlight is not a reason to add blur. Prefer a fill, edge, or small highlight first. Use translucency only where the element's position over another layer matters.
 
@@ -74,12 +74,12 @@ Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomea
 
 Use a compact elevation scale rather than tuning every component independently.
 
-| Level | Use | Shadow treatment |
-| --- | --- | --- |
-| Flat | Page content, tables, and ordinary paper panels | No cast shadow. Use spacing and borders for separation. |
-| Control | Raised Primary, Secondary, and Destructive buttons | A tight contact shadow plus a small, softer outer layer. Keep the bevel separate. |
-| Floating | Popovers and menus | Increase downward offset and blur together; reduce each layer's opacity as the object rises. |
-| Dialog | A modal above the working content | The broadest layered shadow, with lower per-layer opacity. Keep the scrim a separate treatment. |
+| Level    | Use                                                | Shadow treatment                                                                                |
+| -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Flat     | Page content, tables, and ordinary paper panels    | No cast shadow. Use spacing and borders for separation.                                         |
+| Control  | Raised Primary, Secondary, and Destructive buttons | A tight contact shadow plus a small, softer outer layer. Keep the bevel separate.               |
+| Floating | Popovers and menus                                 | Increase downward offset and blur together; reduce each layer's opacity as the object rises.    |
+| Dialog   | A modal above the working content                  | The broadest layered shadow, with lower per-layer opacity. Keep the scrim a separate treatment. |
 
 Build each cast shadow from a few layers with progressively larger offsets and blur radii. Avoid one large, uniform blur that reads as a fuzzy border. Layer opacity accumulates, so judge the combined shadow rather than copying the same opacity across elevation levels.
 
@@ -122,7 +122,9 @@ These are design requirements. They have not yet been verified in a themed inter
 
 ## Shared theme constraints
 
-The workshop at `/`, overview at `/components`, documentation at `/docs`, and installed registry components should express the same direction in light and dark modes.
+The homepage at `/` has a concise introduction and one composed interface example. `/examples` lists composed interfaces; each example has its own preview and code page. `/components` remains the catalogue and `/docs` remains documentation. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
+
+Keep navigation and example pages minimal: no empty categories, duplicate catalogue, token wall, or state matrix on the homepage. Appearance controls use progressive disclosure. Workshop navigation is secondary. Examples are preview compositions, not installable registry blocks unless explicitly added to the registry.
 
 - Keep shared tokens and theme rules in `registry/ninaero/theme.mjs`.
 - Keep installable component styling in `registry/ninaero/ui/`.
@@ -153,7 +155,7 @@ A successful specimen has a clear hierarchy with the decorative effects removed.
 ## Decisions still open
 
 - Exact light and dark palette values.
-- Font family and type scale.
+- Type scale.
 - Final squircle corner extent, border weights, and shadow values.
 - Paper-pattern spacing and opacity.
 - Where translucency is useful, and its strength.
@@ -167,14 +169,14 @@ The source moodboard is in the Obsidian vault at `Projects/Ninaero/Moodboard.can
 
 Image filenames below are relative to `Projects/Ninaero/attachments/`. Canvas node IDs identify the selected references.
 
-| Reference | Filename | Canvas node ID |
-| --- | --- | --- |
-| Handheld structure | `nintendo ds.png` | `c83010f550fe1ca8` |
-| Rounded framing and cyan edging | `nintendo wii.png` | `bb171bd7f0580645` |
+| Reference                         | Filename                          | Canvas node ID     |
+| --------------------------------- | --------------------------------- | ------------------ |
+| Handheld structure                | `nintendo ds.png`                 | `c83010f550fe1ca8` |
+| Rounded framing and cyan edging   | `nintendo wii.png`                | `bb171bd7f0580645` |
 | Paper and raised framing together | `Pasted image 20261012153817.png` | `a24694601a4c40ef` |
-| Ruled paper | `lined paper.png` | `1327a50e3e61200e` |
-| Glass pill rim | `Pasted image 20261012154402.png` | `efaad4b8934b154a` |
-| Flipnote outlines | `Pasted image 20261012154930.png` | `6262b605c14756c0` |
-| Dithered shading | `Pasted image 20261012154220.png` | `0662d08130f07c9f` |
+| Ruled paper                       | `lined paper.png`                 | `1327a50e3e61200e` |
+| Glass pill rim                    | `Pasted image 20261012154402.png` | `efaad4b8934b154a` |
+| Flipnote outlines                 | `Pasted image 20261012154930.png` | `6262b605c14756c0` |
+| Dithered shading                  | `Pasted image 20261012154220.png` | `0662d08130f07c9f` |
 
 These are research references, not assets to ship. Borrow their visual traits rather than copying Nintendo branding, character art, or complete screens.

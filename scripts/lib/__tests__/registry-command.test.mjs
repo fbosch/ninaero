@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+
 import { registryCommand } from "../registry-command.mjs";
 
 test("commands use the normalized registry URL and quote the whole argument", () => {
@@ -27,13 +28,7 @@ test("preset and individual commands escape apostrophes and preserve literal she
 
 test("commands reject unsupported actions, item paths, and invalid URLs", () => {
   assert.throws(() => registryCommand("delete", "button"), /action/);
-  for (const name of [
-    "../button",
-    "button.json",
-    "button;echo",
-    "button/other",
-    "",
-  ]) {
+  for (const name of ["../button", "button.json", "button;echo", "button/other", ""]) {
     assert.throws(() => registryCommand("add", name), /item name/);
   }
   assert.throws(() => registryCommand("add", "button", "file:///tmp/r"));

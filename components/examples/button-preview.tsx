@@ -2,6 +2,7 @@
 
 import { PlusIcon } from "lucide-react";
 import { useId, useState } from "react";
+
 import { useAccent } from "@/components/accent-provider";
 import { accentNames, accentPresets } from "@/registry/ninaero/accents.mjs";
 import { Button } from "@/registry/ninaero/ui/button";
@@ -30,12 +31,9 @@ export function ButtonPreview() {
     <div className="grid gap-6 lg:grid-cols-2">
       <div className="button-specimen ninaero-surface-paper flex flex-col justify-center gap-5 p-6">
         <div className="space-y-2">
-          <p className="text-sm font-medium">
-            Paper + {accentPresets[accent].label.toLowerCase()}
-          </p>
+          <p className="text-sm font-medium">Paper + {accentPresets[accent].label.toLowerCase()}</p>
           <p className="text-sm">
-            Test the button with a pointer or keyboard. Each activation
-            increments the counter.
+            Test the button with a pointer or keyboard. Each activation increments the counter.
           </p>
         </div>
         <div className="space-y-2">
@@ -43,10 +41,7 @@ export function ButtonPreview() {
           <Input id={inputId} placeholder="Compare with a plain input" />
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <Button
-            size="lg"
-            onClick={() => setActivations((count) => count + 1)}
-          >
+          <Button size="lg" onClick={() => setActivations((count) => count + 1)}>
             <PlusIcon data-icon="inline-start" />
             Test action
           </Button>
@@ -59,17 +54,15 @@ export function ButtonPreview() {
             Reset counter
           </Button>
         </div>
-        <output className="text-sm tabular-nums">
-          Activations: {activations}
-        </output>
+        <output className="text-sm tabular-nums">Activations: {activations}</output>
         <p className="text-xs">The counter is preview-only and is not saved.</p>
       </div>
       <div className="space-y-5">
         <fieldset className="space-y-3">
           <legend className="text-sm font-medium">Compare accents</legend>
           <p className="text-xs text-muted-foreground">
-            Choose an accent to apply it across the workshop, catalogue, and
-            docs. Compare each in light and dark mode.
+            Choose an accent to apply it across the workshop, catalogue, and docs. Compare each in
+            light and dark mode.
           </p>
           <div className="grid grid-cols-2 gap-3">
             {accentNames.map((name) => (
@@ -139,8 +132,8 @@ export function ButtonPreview() {
           </ButtonGroup>
         </div>
         <p className="squircle-support-note text-xs text-muted-foreground">
-          This browser does not support CSS squircle corners. Buttons display
-          ordinary rounded corners here.
+          This browser does not support CSS squircle corners. Buttons display ordinary rounded
+          corners here.
         </p>
       </div>
     </div>

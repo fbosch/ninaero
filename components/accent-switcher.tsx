@@ -1,12 +1,9 @@
 "use client";
 
 import { useId } from "react";
+
 import { useAccent } from "@/components/accent-provider";
-import {
-  accentNames,
-  accentPresets,
-  isAccent,
-} from "@/registry/ninaero/accents.mjs";
+import { accentNames, accentPresets, isAccent } from "@/registry/ninaero/accents.mjs";
 
 export function AccentSwitcher() {
   const id = useId();

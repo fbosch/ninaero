@@ -1,16 +1,10 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+
 import catalog from "../registry/ninaero/catalog.json" with { type: "json" };
 import { theme } from "../registry/ninaero/theme.mjs";
 import { readCatalogSources, resolveCatalog } from "./lib/catalog.mjs";
-import {
-  createComponentDocs,
-  readPreviewSources,
-} from "./lib/component-docs.mjs";
-import {
-  createRegistry,
-  defaultRegistryUrl,
-  renderThemeCss,
-} from "./lib/theme.mjs";
+import { createComponentDocs, readPreviewSources } from "./lib/component-docs.mjs";
+import { createRegistry, defaultRegistryUrl, renderThemeCss } from "./lib/theme.mjs";
 
 const root = new URL("../", import.meta.url);
 let manifest;
@@ -42,9 +36,6 @@ await Promise.all([
     `${JSON.stringify(documentation, null, 2)}\n`,
   ),
   writeFile(new URL("app/globals.css", root), renderThemeCss(theme)),
-  writeFile(
-    new URL("registry.json", root),
-    `${JSON.stringify(registry, null, 2)}\n`,
-  ),
+  writeFile(new URL("registry.json", root), `${JSON.stringify(registry, null, 2)}\n`),
 ]);
 console.log(`Generated theme CSS and registry for ${registry.homepage}.`);

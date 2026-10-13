@@ -2,15 +2,10 @@
 
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { useState } from "react";
+
 import { Button } from "@/registry/ninaero/ui/button";
 
-export function CodeBlockHeader({
-  code,
-  label,
-}: {
-  code: string;
-  label: string;
-}) {
+export function CodeBlockHeader({ code, label }: { code: string; label: string }) {
   const [result, setResult] = useState<{
     code: string;
     state: "copying" | "copied" | "error";
@@ -48,11 +43,7 @@ export function CodeBlockHeader({
           disabled={state === "copying"}
           aria-label={`Copy ${label}`}
         >
-          {state === "copied" ? (
-            <CheckIcon aria-hidden="true" />
-          ) : (
-            <CopyIcon aria-hidden="true" />
-          )}{" "}
+          {state === "copied" ? <CheckIcon aria-hidden="true" /> : <CopyIcon aria-hidden="true" />}{" "}
           Copy
         </Button>
       </div>

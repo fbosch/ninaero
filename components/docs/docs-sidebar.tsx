@@ -3,11 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useId, useState } from "react";
-import {
-  componentGroups,
-  componentTitle,
-  matchesComponent,
-} from "@/lib/component-overview";
+
+import { componentGroups, componentTitle, matchesComponent } from "@/lib/component-overview";
 import { Button } from "@/registry/ninaero/ui/button";
 import { Input } from "@/registry/ninaero/ui/input";
 import { Label } from "@/registry/ninaero/ui/label";
@@ -85,11 +82,7 @@ export function DocsSidebar() {
           </output>
         </div>
         {groups.map((group) => (
-          <section
-            key={group.id}
-            aria-labelledby={`docs-${group.id}`}
-            className="space-y-2"
-          >
+          <section key={group.id} aria-labelledby={`docs-${group.id}`} className="space-y-2">
             <h2 id={`docs-${group.id}`} className="px-3 text-xs font-semibold">
               {group.title}
             </h2>
@@ -113,9 +106,7 @@ export function DocsSidebar() {
           </section>
         ))}
         {count === 0 ? (
-          <p className="px-3 text-sm text-muted-foreground">
-            No components match this search.
-          </p>
+          <p className="px-3 text-sm text-muted-foreground">No components match this search.</p>
         ) : null}
       </nav>
     </>

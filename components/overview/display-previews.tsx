@@ -3,12 +3,9 @@
 import { FileTextIcon, InboxIcon, MessageCircleIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
+
 import type { DisplayName, PreviewProps } from "@/lib/component-overview";
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/registry/ninaero/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/registry/ninaero/ui/alert";
 import { AspectRatio } from "@/registry/ninaero/ui/aspect-ratio";
 import {
   Attachment,
@@ -17,17 +14,9 @@ import {
   AttachmentMedia,
   AttachmentTitle,
 } from "@/registry/ninaero/ui/attachment";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarGroup,
-} from "@/registry/ninaero/ui/avatar";
+import { Avatar, AvatarFallback, AvatarGroup } from "@/registry/ninaero/ui/avatar";
 import { Badge } from "@/registry/ninaero/ui/badge";
-import {
-  Bubble,
-  BubbleContent,
-  BubbleGroup,
-} from "@/registry/ninaero/ui/bubble";
+import { Bubble, BubbleContent, BubbleGroup } from "@/registry/ninaero/ui/bubble";
 import {
   Card,
   CardContent,
@@ -51,11 +40,7 @@ import {
   ItemTitle,
 } from "@/registry/ninaero/ui/item";
 import { Kbd, KbdGroup } from "@/registry/ninaero/ui/kbd";
-import {
-  Marker,
-  MarkerContent,
-  MarkerIcon,
-} from "@/registry/ninaero/ui/marker";
+import { Marker, MarkerContent, MarkerIcon } from "@/registry/ninaero/ui/marker";
 import {
   Message,
   MessageAvatar,
@@ -63,11 +48,7 @@ import {
   MessageFooter,
   MessageHeader,
 } from "@/registry/ninaero/ui/message";
-import {
-  Progress,
-  ProgressLabel,
-  ProgressValue,
-} from "@/registry/ninaero/ui/progress";
+import { Progress, ProgressLabel, ProgressValue } from "@/registry/ninaero/ui/progress";
 import { ScrollArea } from "@/registry/ninaero/ui/scroll-area";
 import { Separator } from "@/registry/ninaero/ui/separator";
 import { Skeleton } from "@/registry/ninaero/ui/skeleton";
@@ -102,8 +83,7 @@ const SidebarPreview = dynamic(
   { loading: PreviewLoading },
 );
 const MessageScrollerPreview = dynamic(
-  () =>
-    import("./layout-previews").then((module) => module.MessageScrollerPreview),
+  () => import("./layout-previews").then((module) => module.MessageScrollerPreview),
   { loading: PreviewLoading },
 );
 
@@ -133,9 +113,7 @@ export const displayPreviews = {
       <Alert>
         <MessageCircleIcon />
         <AlertTitle>Theme preview</AlertTitle>
-        <AlertDescription>
-          Compare the neutral surfaces and text contrast.
-        </AlertDescription>
+        <AlertDescription>Compare the neutral surfaces and text contrast.</AlertDescription>
       </Alert>
     );
   },
@@ -156,9 +134,7 @@ export const displayPreviews = {
         </AttachmentMedia>
         <AttachmentContent>
           <AttachmentTitle>example-tokens.json</AttachmentTitle>
-          <AttachmentDescription>
-            JSON · sample attachment
-          </AttachmentDescription>
+          <AttachmentDescription>JSON · sample attachment</AttachmentDescription>
         </AttachmentContent>
       </Attachment>
     );
@@ -207,9 +183,7 @@ export const displayPreviews = {
           <CardDescription>The same tokens, on every surface.</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">
-            A compact card specimen.
-          </p>
+          <p className="text-sm text-muted-foreground">A compact card specimen.</p>
         </CardContent>
       </Card>
     );
@@ -256,9 +230,7 @@ export const displayPreviews = {
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Theme tokens</ItemTitle>
-          <ItemDescription>
-            A shared palette for every component.
-          </ItemDescription>
+          <ItemDescription>A shared palette for every component.</ItemDescription>
         </ItemContent>
       </Item>
     );
@@ -370,9 +342,7 @@ export const displayPreviews = {
           {surfaces.map((surface) => (
             <TableRow key={surface.token}>
               <TableCell>{surface.token}</TableCell>
-              <TableCell className="text-muted-foreground">
-                {surface.role}
-              </TableCell>
+              <TableCell className="text-muted-foreground">{surface.role}</TableCell>
             </TableRow>
           ))}
         </TableBody>

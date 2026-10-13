@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { posix } from "node:path";
+
 import ts from "typescript";
 
 function withoutExtension(path) {
@@ -7,12 +8,7 @@ function withoutExtension(path) {
 }
 
 function imports(path, content) {
-  const source = ts.createSourceFile(
-    path,
-    content,
-    ts.ScriptTarget.Latest,
-    true,
-  );
+  const source = ts.createSourceFile(path, content, ts.ScriptTarget.Latest, true);
   const specifiers = new Set();
   function visit(node) {
     if (
@@ -37,17 +33,10 @@ function imports(path, content) {
 }
 
 export async function readCatalogSources(catalog, root) {
-  const paths = [
-    ...new Set(
-      catalog.items.flatMap((item) => item.files.map((file) => file.path)),
-    ),
-  ];
+  const paths = [...new Set(catalog.items.flatMap((item) => item.files.map((file) => file.path)))];
   return Object.fromEntries(
     await Promise.all(
-      paths.map(async (path) => [
-        path,
-        await readFile(new URL(path, root), "utf8"),
-      ]),
+      paths.map(async (path) => [path, await readFile(new URL(path, root), "utf8")]),
     ),
   );
 }
@@ -65,18 +54,14 @@ export function resolveCatalog(catalog, sources) {
     const items = new Set(item.items);
     for (const file of item.files) {
       const content = sources[file.path];
-      if (content === undefined)
-        throw new Error(`Missing catalogue source: ${file.path}`);
+      if (content === undefined) throw new Error(`Missing catalogue source: ${file.path}`);
       for (const specifier of imports(file.path, content)) {
         if (specifier.startsWith("@/") || specifier.startsWith(".")) {
           const path = specifier.startsWith("@/")
             ? specifier.slice(2)
             : posix.join(posix.dirname(file.path), specifier);
           const owner = owners.get(withoutExtension(path));
-          if (!owner)
-            throw new Error(
-              `Unregistered import in ${file.path}: ${specifier}`,
-            );
+          if (!owner) throw new Error(`Unregistered import in ${file.path}: ${specifier}`);
           if (owner !== item.name) items.add(owner);
         } else if (
           specifier !== "react" &&
@@ -95,9 +80,7 @@ export function resolveCatalog(catalog, sources) {
     }
     for (const dependency of items) {
       if (!names.has(dependency)) {
-        throw new Error(
-          `Unknown registry dependency of ${item.name}: ${dependency}`,
-        );
+        throw new Error(`Unknown registry dependency of ${item.name}: ${dependency}`);
       }
     }
     return {

@@ -1,9 +1,8 @@
 import assert from "node:assert/strict";
 import { readdir } from "node:fs/promises";
 import test from "node:test";
-import catalog from "../../../registry/ninaero/catalog.json" with {
-  type: "json",
-};
+
+import catalog from "../../../registry/ninaero/catalog.json" with { type: "json" };
 import { readCatalogSources, resolveCatalog } from "../catalog.mjs";
 
 const root = new URL("../../../", import.meta.url);

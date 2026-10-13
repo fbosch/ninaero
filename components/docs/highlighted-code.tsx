@@ -1,8 +1,6 @@
 import type { CSSProperties } from "react";
-import {
-  type HighlightToken,
-  highlightCode,
-} from "@/lib/syntax-highlighting.mjs";
+
+import { type HighlightToken, highlightCode } from "@/lib/syntax-highlighting.mjs";
 
 type TokenStyle = CSSProperties & {
   "--syntax-light"?: string;

@@ -9,6 +9,7 @@ import {
 import { cn } from "cn";
 import { ArrowDownIcon } from "lucide-react";
 import type * as React from "react";
+
 import { Button } from "@/registry/ninaero/ui/button";
 
 function MessageScrollerProvider(
