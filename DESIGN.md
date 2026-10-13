@@ -165,7 +165,11 @@ Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Bot
 
 ### Input fields
 
-Input uses native squircle corner curves with a smaller `0.5rem` corner extent than Button. Keep the field rectangular and flat, with an opaque neutral fill and a fine neutral edge. Invalid fields use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque. Do not add Button bevels, cast shadows, glass, or paper texture inside a field.
+Input and Textarea use native squircle corner curves with a `0.875rem` corner extent and `0.75rem` horizontal padding, close to Button's proportions. Keep the field rectangular, with an opaque neutral fill and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes; keep at least 3:1 contrast against the adjacent paper and field fills. A faint upper-interior shade and lower-interior highlight give it a shallow paper recess without raising it above the page. Derive both tones from the field fill, using black mixes of 4% in light mode and 6% in dark mode, and white mixes of 6% and 8%. Placeholder ink must retain contrast against both inset tones.
+
+Invalid fields retain this material and use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
+
+Textarea keeps its `4rem` minimum height, `0.5rem` vertical padding, native resizing, and content-based sizing. Inside InputGroup, suppress its inner border, inset lighting, and focus outline so the group owns the frame.
 
 The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero's squircle corners are a deliberate theme choice. DS nickname-field geometry has not been independently verified.
 

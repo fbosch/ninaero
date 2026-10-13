@@ -84,6 +84,11 @@ export const theme = {
     background: "oklch(1 0 0)",
     "neutral-border": "#dfdfdf",
     "neutral-input": "#838383",
+    "input-edge": "#8f8f8f",
+    "input-placeholder": "oklch(0.535 0 0)",
+    "input-disabled-fill": "var(--muted)",
+    "input-recess-shade-weight": "4%",
+    "input-recess-highlight-weight": "6%",
     foreground: "oklch(0.145 0 0)",
     card: "oklch(1 0 0)",
     "card-foreground": "oklch(0.145 0 0)",
@@ -132,6 +137,11 @@ export const theme = {
     background: "oklch(0.145 0 0)",
     "neutral-border": "#424242",
     "neutral-input": "#909090",
+    "input-edge": "#6f6f6f",
+    "input-placeholder": "var(--muted-foreground)",
+    "input-disabled-fill": "var(--card)",
+    "input-recess-shade-weight": "6%",
+    "input-recess-highlight-weight": "8%",
     foreground: "oklch(0.985 0 0)",
     card: "oklch(0.205 0 0)",
     "card-foreground": "oklch(0.985 0 0)",
@@ -211,27 +221,38 @@ export const theme = {
           "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
         "background-size": "24px 24px",
       },
-      ".ninaero-input": {
-        "--input-corner": "0.5rem",
+      ".ninaero-input, .ninaero-textarea": {
+        "--input-corner": "0.875rem",
+        "--input-recess-shade":
+          "color-mix(in oklab, var(--card), black var(--input-recess-shade-weight))",
+        "--input-recess-highlight":
+          "color-mix(in oklab, var(--card), white var(--input-recess-highlight-weight))",
         "border-radius": "var(--input-corner)",
         "corner-shape": "squircle",
-        border: "1px solid var(--input)",
+        border: "1px solid var(--input-edge)",
         color: "var(--card-foreground)",
         "background-color": "var(--card)",
+        "box-shadow":
+          "inset 0 1px 2px var(--input-recess-shade), inset 0 -1px 0 var(--input-recess-highlight)",
         outline: "2px solid transparent",
         "outline-offset": "3px",
         transition: "background-color 80ms ease-out, border-color 80ms ease-out",
       },
-      ".ninaero-input:focus-visible": {
+      ".ninaero-input::placeholder, .ninaero-textarea::placeholder": {
+        color: "var(--input-placeholder)",
+        opacity: "1",
+      },
+      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible": {
         "outline-color": "var(--ring)",
       },
-      ".ninaero-input[aria-invalid=true]": {
+      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true]": {
         "border-color": "var(--destructive)",
       },
-      ".ninaero-input:disabled": {
+      ".ninaero-input:disabled, .ninaero-textarea:disabled": {
         "border-color": "var(--border)",
-        "background-color": "var(--muted)",
+        "background-color": "var(--input-disabled-fill)",
         color: "var(--muted-foreground)",
+        "box-shadow": "none",
       },
       ".ninaero-popover": {
         "border-radius": "1.25rem",
@@ -400,7 +421,7 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
-        ".ninaero-input": {
+        ".ninaero-input, .ninaero-textarea": {
           transition: "none",
         },
         ".ninaero-toggle": {
@@ -416,18 +437,22 @@ export const theme = {
           "background-image": "none",
           "background-color": "Canvas",
         },
-        ".ninaero-input": {
+        ".ninaero-input, .ninaero-textarea": {
           "border-color": "CanvasText",
           "background-color": "Canvas",
           color: "CanvasText",
+          "box-shadow": "none",
         },
-        ".ninaero-input[aria-invalid=true]": {
+        ".ninaero-input::placeholder, .ninaero-textarea::placeholder": {
+          color: "GrayText",
+        },
+        ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true]": {
           "border-color": "CanvasText",
         },
-        ".ninaero-input:focus-visible": {
+        ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible": {
           "outline-color": "Highlight",
         },
-        ".ninaero-input:disabled": {
+        ".ninaero-input:disabled, .ninaero-textarea:disabled": {
           "border-color": "GrayText",
           "background-color": "Canvas",
           color: "GrayText",

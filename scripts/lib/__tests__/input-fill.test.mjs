@@ -12,13 +12,13 @@ const source = await readFile(
 const classes = source.match(/className=\{cn\(\s*"([^"]+)"/)[1].split(" ");
 
 const components = theme.css["@layer components"];
-const input = components[".ninaero-input"];
-const disabled = components[".ninaero-input:disabled"];
+const input = components[".ninaero-input, .ninaero-textarea"];
+const disabled = components[".ninaero-input:disabled, .ninaero-textarea:disabled"];
 test("Input uses an opaque neutral content fill in either theme", () => {
   assert.ok(classes.includes("ninaero-input"));
   assert.equal(input["background-color"], "var(--card)");
   assert.equal(input.color, "var(--card-foreground)");
-  assert.equal(input.border, "1px solid var(--input)");
+  assert.equal(input.border, "1px solid var(--input-edge)");
   assert.ok(!classes.some((value) => /(^|:)bg-/.test(value) && !value.startsWith("file:")));
   for (const mode of ["light", "dark"]) {
     for (const token of ["card", "muted"]) {
@@ -28,7 +28,7 @@ test("Input uses an opaque neutral content fill in either theme", () => {
 });
 
 test("disabled Input stays opaque and signals its state without fading the whole field", () => {
-  assert.equal(disabled["background-color"], "var(--muted)");
+  assert.equal(disabled["background-color"], "var(--input-disabled-fill)");
   assert.equal(disabled.color, "var(--muted-foreground)");
   assert.equal(disabled["border-color"], "var(--border)");
   assert.ok(classes.includes("disabled:cursor-not-allowed"));
@@ -38,9 +38,14 @@ test("disabled Input stays opaque and signals its state without fading the whole
 });
 
 test("Input preserves a separate focus outline and semantic invalid border", () => {
-  assert.equal(components[".ninaero-input:focus-visible"]["outline-color"], "var(--ring)");
   assert.equal(
-    components[".ninaero-input[aria-invalid=true]"]["border-color"],
+    components[".ninaero-input:focus-visible, .ninaero-textarea:focus-visible"]["outline-color"],
+    "var(--ring)",
+  );
+  assert.equal(
+    components[".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true]"][
+      "border-color"
+    ],
     "var(--destructive)",
   );
   assert.equal(input.outline, "2px solid transparent");
@@ -50,7 +55,16 @@ test("Input preserves a separate focus outline and semantic invalid border", () 
 
 test("accent presets do not recolor Input's neutral fill", () => {
   for (const rules of Object.values(accentRules)) {
-    for (const token of ["--card", "--card-foreground", "--muted"]) {
+    for (const token of [
+      "--card",
+      "--card-foreground",
+      "--muted",
+      "--input-edge",
+      "--input-placeholder",
+      "--input-disabled-fill",
+      "--input-recess-shade-weight",
+      "--input-recess-highlight-weight",
+    ]) {
       assert.equal(rules[token], undefined);
     }
   }
