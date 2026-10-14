@@ -221,6 +221,8 @@ The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/medi
 
 ### Dialogs
 
+Dialog and AlertDialog use the same installed theme classes for their frame and scrim. Keep their Base UI primitives and behavior separate.
+
 Use broad, soft corners like the Wii Menu prompt reference, with a `3rem` native squircle corner extent. This is Ninaero's chosen geometry, not a measurement of Nintendo's original UI. Give the frame a shallow paper/plastic finish with an opaque neutral fill, faint top-to-bottom shading, a fine grayscale edge, an upper inset highlight, and a lower inset shade. Combine these with the shared dialog cast shadow. Keep the panel matte; reserve accent and glass treatment for primary actions and focus.
 
 Use one continuous panel without a contrasting footer band or divider. The outer frame owns the 24px inset; group content and actions with 24px of space, and keep 8px between actions. Dialog titles use 20px type with a 24px line height. Give actions a useful minimum width, using Button's large size for short prompt actions. Center short system prompts and keep forms left-aligned. Inset the corner close button by 16px and reserve header space for it only when present. Preserve existing focus management and do not clip shadows or keyboard outlines. Forced-colors mode removes decorative lighting and retains a system-color boundary.

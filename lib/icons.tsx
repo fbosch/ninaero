@@ -39,7 +39,7 @@ function createIcon(icon: IconData) {
     ...icon,
     body: icon.body.replace(/\sstroke-width="[^"]*"/g, ""),
   };
-  return function MageIcon({ width = 24, height = 24, strokeWidth = 2.25, ...props }: IconProps) {
+  return function MageIcon({ width = 24, height = 24, strokeWidth = 2, ...props }: IconProps) {
     const labelled = Boolean(props["aria-label"] || props["aria-labelledby"]);
 
     return (
