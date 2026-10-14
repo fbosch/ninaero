@@ -34,12 +34,12 @@ for (const name of names) {
     },
   });
   assert.equal(compiled.diagnostics.length, 0, `${name} compiles`);
-  const module = { exports: {} };
+  const evaluatedModule = { exports: {} };
   runInNewContext(
     compiled.outputText,
     {
-      exports: module.exports,
-      module,
+      exports: evaluatedModule.exports,
+      module: evaluatedModule,
       require(specifier) {
         const dependency = specifier.match(/^@\/registry\/ninaero\/ui\/([^/]+)$/)?.[1];
         if (!dependency) return require(specifier);
@@ -49,7 +49,7 @@ for (const name of names) {
     },
     { filename },
   );
-  modules.set(name, module.exports);
+  modules.set(name, evaluatedModule.exports);
 }
 
 const { Button } = modules.get("button");
