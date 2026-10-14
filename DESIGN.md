@@ -171,6 +171,10 @@ Shadow color inherits from `--shadow-color`. The `ninaero-surface-paper` class s
 
 ## Interaction and accessibility
 
+Ninaero's motion is bubbly and playful. Opening layers expand with a small overshoot and settle into place. Use a single soft bounce rather than repeated wobbling, rotation, or continuous floating. Keep text entry, keyboard focus, and selection steady.
+
+Begin feedback immediately. Larger layers may take 220 to 280ms to settle; dismissals should finish in 120 to 160ms. Animate transform and opacity instead of layout. Repeated actions must retarget from the current visual state without restarting a canned sequence. Reduced motion removes movement and decorative fades while preserving state changes and focus.
+
 - Respond to presses immediately. Do not delay an action or state update until a decorative animation finishes.
 - Keep motion brief and tied to the action. Respect reduced-motion preferences and retain clear static states.
 - Give keyboard focus a visible outline. Glow alone is not a focus indicator.
@@ -215,6 +219,14 @@ Select retains its default and small trigger heights and Base UI's positioning a
 
 The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero's squircle corners are a deliberate theme choice. DS nickname-field geometry has not been independently verified.
 
+### Dialogs
+
+Use broad, soft corners like the Wii Menu prompt reference, with a `3rem` native squircle corner extent. This is Ninaero's chosen geometry, not a measurement of Nintendo's original UI. The footer uses the same corner extent and curve so its fill follows the outer frame.
+
+Dialog content and footer use the 24px panel inset, with 24px between content groups and 8px between actions. Inset the corner close button by 16px. Preserve the opaque neutral fill, grayscale frame, dialog-level shadow, and existing focus management. Do not clip shadows or keyboard outlines.
+
+Dialog opens from 92% scale and 8px below its resting position, with a 260ms elastic transform transition and a 140ms fade. The easing supplies one small overshoot before settling. Closing uses a 140ms shrink to 96% scale and a 4px downward shift with a fade. The scrim fades in over 160ms and out over 140ms without bouncing. CSS transitions let interrupted opening and closing continue from the current position. Under reduced motion, both layers change immediately.
+
 ## First design specimen
 
 1. Mock up one compact form with tabs, an input, a primary button, and a popover. Begin with paper backgrounds and matte controls.
@@ -231,7 +243,7 @@ A successful specimen has a clear hierarchy with the decorative effects removed.
 - Final squircle corner extent, border weights, and shadow values.
 - Paper-pattern spacing and opacity.
 - Where translucency is useful, and its strength.
-- Motion timing and the original illustration style.
+- Motion timing for remaining components and the original illustration style.
 
 Refine these from the specimen rather than treating moodboard images as ready-made tokens. A Button specimen is available in the workshop; broader themed components still need their own browser and interaction checks.
 
