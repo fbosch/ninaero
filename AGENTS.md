@@ -16,6 +16,12 @@ Ninaero is an installable shadcn/ui theme with a local workshop and component do
 - Keep Dialog and AlertDialog in separate shadcn source files backed by their own Base UI primitives. Reuse installed theme CSS and tokens for visual consistency; do not replace them with a shared React modal wrapper or import one implementation into the other.
 - Preserve primitive-specific roles, dismissal, and focus behavior when restyling. AlertDialog blocks outside-click dismissal and uses explicit actions. Keep Cancel backed by its Close primitive and leave Action completion and closure to the caller. Do not add Dialog's corner close button or make every alert destructive.
 
+## Tests
+
+- Test observable Ninaero behavior and consumer-facing contracts through real production code. Prefer meaningful input/output and failure cases over implementation details.
+- Do not assert source text, class names, selectors, exact CSS/markup, internal component structure, or generated artifacts merely matching their source. Do not emulate React hooks or stub UI components to inspect implementation details.
+- Keep behavioral coverage for validation, dependency resolution, contrast calculations, and consumer compilation or installation. Verify interactions with real components and styling visually, not with string assertions.
+
 ## Checks and deployment
 
 - For code changes, use `pnpm check` for the full build, lint, typecheck, and test sequence. The build generates registry and documentation data first. See [README.md](README.md#checks) for individual checks.

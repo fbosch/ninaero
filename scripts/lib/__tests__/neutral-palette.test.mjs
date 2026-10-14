@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { accentPresets } from "../../../registry/ninaero/accents.mjs";
@@ -66,11 +65,9 @@ function luminance(color) {
   const channels = color
     .slice(1)
     .match(/../g)
-    .map((channel) => Number.parseInt(channel, 16) / 255);
-  const linear = channels.map((channel) =>
-    channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
-  );
-  return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+    .map((channel) => Number.parseInt(channel, 16) / 255)
+    .map((channel) => (channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4));
+  return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
 }
 
 function contrast(first, second) {
@@ -78,7 +75,7 @@ function contrast(first, second) {
   return (high + 0.05) / (low + 0.05);
 }
 
-test("base materials, ordinary edges, ink, patterns, and cast shadows are grayscale in every accent and mode", () => {
+test("neutral materials and ordinary edges remain grayscale across accents and modes", () => {
   for (const mode of ["light", "dark"]) {
     for (const [name, preset] of Object.entries(accentPresets)) {
       const palette = { ...theme[mode], ...preset[mode] };
@@ -92,18 +89,7 @@ test("base materials, ordinary edges, ink, patterns, and cast shadows are graysc
   }
 });
 
-test("popover and menu materials use the neutral card palette independently of Button materials", () => {
-  for (const mode of ["light", "dark"]) {
-    assert.equal(theme[mode].popover, "var(--card)");
-    assert.equal(theme[mode]["popover-foreground"], "var(--card-foreground)");
-  }
-  const popover = theme.css["@layer components"][".ninaero-popover"];
-  assert.equal(popover.border, "1px solid var(--border)");
-  assert.equal(popover["background-color"], "var(--popover)");
-  assert.equal(popover.color, "var(--popover-foreground)");
-});
-
-test("neutral overlay text and matte Button labels retain at least 4.5:1 contrast", () => {
+test("neutral overlay text and matte Button labels retain 4.5:1 contrast", () => {
   for (const mode of ["light", "dark"]) {
     const palette = theme[mode];
     for (const token of ["popover-foreground", "muted-foreground"]) {
@@ -117,7 +103,7 @@ test("neutral overlay text and matte Button labels retain at least 4.5:1 contras
   }
 });
 
-test("neutral control edges retain at least 3:1 contrast on their resting materials", () => {
+test("neutral control edges retain 3:1 contrast on their resting materials", () => {
   for (const mode of ["light", "dark"]) {
     const palette = theme[mode];
     for (const token of ["neutral-input", "button-paper-edge", "button-outline-edge"]) {
@@ -127,26 +113,4 @@ test("neutral control edges retain at least 3:1 contrast on their resting materi
       }
     }
   }
-});
-
-test("workshop frames use shared neutral borders rather than hard-coded blue edges", async () => {
-  const site = await readFile(new URL("../../../app/site.css", import.meta.url), "utf8");
-  const specimen = site.match(/\.button-specimen\s*\{([^}]+)\}/)?.[1];
-  assert.ok(specimen);
-  assert.match(specimen, /border:\s*1px solid var\(--border\)/);
-  assert.doesNotMatch(site, /\.dark \.button-specimen/);
-});
-
-test("code blocks use neutral backing and base text without removing syntax-highlight colors", async () => {
-  const site = await readFile(new URL("../../../app/site.css", import.meta.url), "utf8");
-  const code = site.match(/\.syntax-code\s*\{([^}]+)\}/)?.[1];
-  const dark = site.match(/\.dark \.syntax-code\s*\{([^}]+)\}/)?.[1];
-  assert.ok(code);
-  assert.ok(dark);
-  assert.match(code, /background:\s*var\(--card\)/);
-  assert.match(code, /color:\s*var\(--card-foreground\)/);
-  assert.match(dark, /background:\s*var\(--muted\)/);
-  assert.doesNotMatch(dark, /#[\da-f]+/i);
-  assert.match(site, /color:\s*var\(--syntax-light, inherit\)/);
-  assert.match(site, /color:\s*var\(--syntax-dark, inherit\)/);
 });

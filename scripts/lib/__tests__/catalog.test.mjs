@@ -9,14 +9,13 @@ const root = new URL("../../../", import.meta.url);
 const sources = await readCatalogSources(catalog, root);
 const resolved = resolveCatalog(catalog, sources);
 
-test("the snapshot covers every installed UI component and supporting hook", async () => {
+test("the catalog lists every installable UI component source and supporting hook", async () => {
   const files = (await readdir(new URL("registry/ninaero/ui/", root))).sort();
   const declared = catalog.items
     .filter((item) => item.type === "registry:ui")
     .flatMap((item) => item.files.map((file) => file.path.split("/").at(-1)))
     .sort();
   assert.deepEqual(declared, files);
-  assert.equal(declared.length, 62);
   assert.deepEqual(
     catalog.excluded.map(({ name }) => name),
     ["form"],
