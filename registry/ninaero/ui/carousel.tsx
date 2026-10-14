@@ -2,9 +2,9 @@
 
 import { cn } from "cn";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import * as React from "react";
 
+import { ChevronLeftIcon, ChevronRightIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 type CarouselApi = UseEmblaCarouselType[1];

@@ -2,9 +2,9 @@
 
 import { Questionnaire as QuestionnairePrimitive } from "@shadcn/react/questionnaire";
 import { cn } from "cn";
-import { CheckIcon } from "lucide-react";
 import type * as React from "react";
 
+import { CheckIcon } from "@/lib/icons";
 import { type Button, buttonVariants } from "@/registry/ninaero/ui/button";
 
 function Questionnaire({

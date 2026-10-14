@@ -93,6 +93,9 @@ export const theme = {
     card: "oklch(1 0 0)",
     "card-foreground": "oklch(0.145 0 0)",
     popover: "var(--card)",
+    "dialog-fill-shade": "color-mix(in oklab, var(--popover) 98%, black)",
+    "dialog-highlight": "#ffffffb3",
+    "dialog-shade": "#0000000d",
     "popover-foreground": "var(--card-foreground)",
     secondary: "oklch(0.97 0 0)",
     "secondary-foreground": "oklch(0.205 0 0)",
@@ -146,6 +149,9 @@ export const theme = {
     card: "oklch(0.205 0 0)",
     "card-foreground": "oklch(0.985 0 0)",
     popover: "var(--card)",
+    "dialog-fill-shade": "color-mix(in oklab, var(--popover) 92%, black)",
+    "dialog-highlight": "#ffffff24",
+    "dialog-shade": "#00000040",
     "popover-foreground": "var(--card-foreground)",
     secondary: "oklch(0.269 0 0)",
     "secondary-foreground": "oklch(0.985 0 0)",
@@ -262,6 +268,10 @@ export const theme = {
         "--dialog-corner": "3rem",
         "border-radius": "var(--dialog-corner)",
         "corner-shape": "squircle",
+        border: "1px solid color-mix(in oklab, var(--foreground) 18%, var(--popover))",
+        "background-color": "var(--popover)",
+        "background-image": "linear-gradient(180deg, var(--popover), var(--dialog-fill-shade))",
+        "box-shadow": `inset 0 1px 0 var(--dialog-highlight), inset 0 -1px 2px var(--dialog-shade), ${elevations.dialog}`,
         opacity: "1",
         transform: "translateY(0) scale(1)",
         "transform-origin": "center",
@@ -287,10 +297,8 @@ export const theme = {
         opacity: "0",
         "transition-duration": "140ms",
       },
-      ".ninaero-dialog-footer": {
-        "border-bottom-left-radius": "var(--dialog-corner)",
-        "border-bottom-right-radius": "var(--dialog-corner)",
-        "corner-shape": "squircle",
+      '.ninaero-dialog:has(> [data-slot="dialog-close"]) [data-slot="dialog-header"]': {
+        "padding-inline-end": "2rem",
       },
       ".ninaero-popover": {
         "border-radius": "1.25rem",
@@ -527,6 +535,13 @@ export const theme = {
         },
       },
       "@media (forced-colors: active)": {
+        ".ninaero-dialog": {
+          "border-color": "CanvasText",
+          "background-color": "Canvas",
+          "background-image": "none",
+          color: "CanvasText",
+          "box-shadow": "none",
+        },
         ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
           "background-image": "none",
           "background-color": "Canvas",

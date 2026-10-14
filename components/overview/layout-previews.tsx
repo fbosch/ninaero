@@ -1,8 +1,8 @@
 "use client";
 
-import { FolderIcon, HomeIcon } from "lucide-react";
 import type { CSSProperties } from "react";
 
+import { FolderIcon, HomeIcon } from "@/lib/icons";
 import {
   MessageScroller,
   MessageScrollerButton,

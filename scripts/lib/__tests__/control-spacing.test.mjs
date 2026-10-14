@@ -18,6 +18,22 @@ const sources = new Map(
   ),
 );
 const modules = new Map();
+const iconSource = await readFile(new URL("../../../lib/icons.tsx", import.meta.url), "utf8");
+const iconModule = ts
+  .transpileModule(iconSource, {
+    compilerOptions: {
+      module: ts.ModuleKind.ESNext,
+      jsx: ts.JsxEmit.ReactJSX,
+      target: ts.ScriptTarget.ES2022,
+    },
+  })
+  .outputText.replace(
+    /from "([^"]+)"/g,
+    (_, specifier) => `from "${import.meta.resolve(specifier)}"`,
+  );
+const icons = await import(
+  `data:text/javascript;base64,${Buffer.from(iconModule).toString("base64")}`
+);
 
 for (const name of names) {
   const filename = fileURLToPath(
@@ -41,6 +57,7 @@ for (const name of names) {
       exports: evaluatedModule.exports,
       module: evaluatedModule,
       require(specifier) {
+        if (specifier === "@/lib/icons") return icons;
         const dependency = specifier.match(/^@\/registry\/ninaero\/ui\/([^/]+)$/)?.[1];
         if (!dependency) return require(specifier);
         assert.ok(modules.has(dependency), `${name}: loaded ${dependency}`);

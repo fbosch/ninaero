@@ -766,6 +766,19 @@
       ]
     },
     {
+      "name": "icons",
+      "type": "registry:lib",
+      "packages": [],
+      "items": [],
+      "files": [
+        {
+          "path": "lib/icons.tsx",
+          "type": "registry:lib",
+          "target": "@lib/icons.tsx"
+        }
+      ]
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "packages": ["cn"],

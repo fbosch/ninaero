@@ -1,9 +1,9 @@
 "use client";
 
-import { CheckIcon } from "lucide-react";
 import { useId } from "react";
 
 import { useAccent } from "@/components/accent-provider";
+import { CheckIcon } from "@/lib/icons";
 import { accentNames, accentPresets, isAccent } from "@/registry/ninaero/accents.mjs";
 import { ToggleGroup, ToggleGroupItem } from "@/registry/ninaero/ui/toggle-group";
 

@@ -1,9 +1,9 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
 import { useId, useState } from "react";
 
 import { useAccent } from "@/components/accent-provider";
+import { PlusIcon } from "@/lib/icons";
 import { accentNames, accentPresets } from "@/registry/ninaero/accents.mjs";
 import { Button } from "@/registry/ninaero/ui/button";
 import { ButtonGroup } from "@/registry/ninaero/ui/button-group";

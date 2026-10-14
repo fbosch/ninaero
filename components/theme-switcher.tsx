@@ -1,11 +1,11 @@
 "use client";
 
-import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useId } from "react";
 
 import { useAccent } from "@/components/accent-provider";
 import { AccentSwitcher } from "@/components/accent-switcher";
+import { MonitorIcon, MoonIcon, SunIcon } from "@/lib/icons";
 import { ToggleGroup, ToggleGroupItem } from "@/registry/ninaero/ui/toggle-group";
 
 const colorModes = [

@@ -76,6 +76,9 @@
           "card": "oklch(1 0 0)",
           "card-foreground": "oklch(0.145 0 0)",
           "popover": "var(--card)",
+          "dialog-fill-shade": "color-mix(in oklab, var(--popover) 98%, black)",
+          "dialog-highlight": "#ffffffb3",
+          "dialog-shade": "#0000000d",
           "popover-foreground": "var(--card-foreground)",
           "secondary": "oklch(0.97 0 0)",
           "secondary-foreground": "oklch(0.205 0 0)",
@@ -148,6 +151,9 @@
           "card": "oklch(0.205 0 0)",
           "card-foreground": "oklch(0.985 0 0)",
           "popover": "var(--card)",
+          "dialog-fill-shade": "color-mix(in oklab, var(--popover) 92%, black)",
+          "dialog-highlight": "#ffffff24",
+          "dialog-shade": "#00000040",
           "popover-foreground": "var(--card-foreground)",
           "secondary": "oklch(0.269 0 0)",
           "secondary-foreground": "oklch(0.985 0 0)",
@@ -458,6 +464,10 @@
             "--dialog-corner": "3rem",
             "border-radius": "var(--dialog-corner)",
             "corner-shape": "squircle",
+            "border": "1px solid color-mix(in oklab, var(--foreground) 18%, var(--popover))",
+            "background-color": "var(--popover)",
+            "background-image": "linear-gradient(180deg, var(--popover), var(--dialog-fill-shade))",
+            "box-shadow": "inset 0 1px 0 var(--dialog-highlight), inset 0 -1px 2px var(--dialog-shade), 0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
             "opacity": "1",
             "transform": "translateY(0) scale(1)",
             "transform-origin": "center",
@@ -483,10 +493,8 @@
             "opacity": "0",
             "transition-duration": "140ms"
           },
-          ".ninaero-dialog-footer": {
-            "border-bottom-left-radius": "var(--dialog-corner)",
-            "border-bottom-right-radius": "var(--dialog-corner)",
-            "corner-shape": "squircle"
+          ".ninaero-dialog:has(> [data-slot=\"dialog-close\"]) [data-slot=\"dialog-header\"]": {
+            "padding-inline-end": "2rem"
           },
           ".ninaero-popover": {
             "border-radius": "1.25rem",
@@ -702,6 +710,13 @@
             }
           },
           "@media (forced-colors: active)": {
+            ".ninaero-dialog": {
+              "border-color": "CanvasText",
+              "background-color": "Canvas",
+              "background-image": "none",
+              "color": "CanvasText",
+              "box-shadow": "none"
+            },
             ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
               "background-image": "none",
               "background-color": "Canvas"
@@ -836,11 +851,11 @@
       "title": "Ninaero accordion",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -966,11 +981,11 @@
       "title": "Ninaero breadcrumb",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1044,12 +1059,12 @@
       "dependencies": [
         "cn@^0.4.0",
         "date-fns@^4.4.0",
-        "lucide-react@^1.55.0",
         "react-day-picker@^10.0.2"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1081,12 +1096,12 @@
       "title": "Ninaero carousel",
       "dependencies": [
         "cn@^0.4.0",
-        "embla-carousel-react@^8.6.0",
-        "lucide-react@^1.55.0"
+        "embla-carousel-react@^8.6.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1120,11 +1135,11 @@
       "title": "Ninaero checkbox",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1156,12 +1171,12 @@
       "title": "Ninaero combobox",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
         "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json",
         "http://localhost:3000/r/input-group.json"
       ],
       "files": [
@@ -1177,12 +1192,12 @@
       "title": "Ninaero command",
       "dependencies": [
         "cmdk@^1.1.1",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
         "http://localhost:3000/r/dialog.json",
+        "http://localhost:3000/r/icons.json",
         "http://localhost:3000/r/input-group.json"
       ],
       "files": [
@@ -1198,11 +1213,11 @@
       "title": "Ninaero context-menu",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1217,12 +1232,12 @@
       "title": "Ninaero dialog",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1272,11 +1287,11 @@
       "title": "Ninaero dropdown-menu",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1386,11 +1401,11 @@
       "title": "Ninaero input-otp",
       "dependencies": [
         "cn@^0.4.0",
-        "input-otp@^1.5.0",
-        "lucide-react@^1.55.0"
+        "input-otp@^1.5.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1478,12 +1493,12 @@
       "title": "Ninaero menubar",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/dropdown-menu.json"
+        "http://localhost:3000/r/dropdown-menu.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1515,12 +1530,12 @@
       "title": "Ninaero message-scroller",
       "dependencies": [
         "@shadcn/react@^0.3.1",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1534,11 +1549,11 @@
       "name": "native-select",
       "title": "Ninaero native-select",
       "dependencies": [
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1554,11 +1569,11 @@
       "dependencies": [
         "@base-ui/react@^1.9.0",
         "class-variance-authority@^0.7.1",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1572,12 +1587,12 @@
       "name": "pagination",
       "title": "Ninaero pagination",
       "dependencies": [
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1628,12 +1643,12 @@
       "title": "Ninaero questionnaire",
       "dependencies": [
         "@shadcn/react@^0.3.1",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1702,11 +1717,11 @@
       "title": "Ninaero select",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1739,12 +1754,12 @@
       "title": "Ninaero sheet",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1760,12 +1775,12 @@
       "dependencies": [
         "@base-ui/react@^1.9.0",
         "class-variance-authority@^0.7.1",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
         "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json",
         "http://localhost:3000/r/input.json",
         "http://localhost:3000/r/separator.json",
         "http://localhost:3000/r/sheet.json",
@@ -1820,12 +1835,12 @@
       "name": "sonner",
       "title": "Ninaero sonner",
       "dependencies": [
-        "lucide-react@^1.55.0",
         "next-themes@^0.4.6",
         "sonner@^2.0.8"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1839,11 +1854,11 @@
       "name": "spinner",
       "title": "Ninaero spinner",
       "dependencies": [
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -1929,12 +1944,12 @@
       "title": "Ninaero toast",
       "dependencies": [
         "@base-ui/react@^1.9.0",
-        "cn@^0.4.0",
-        "lucide-react@^1.55.0"
+        "cn@^0.4.0"
       ],
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
-        "http://localhost:3000/r/button.json"
+        "http://localhost:3000/r/button.json",
+        "http://localhost:3000/r/icons.json"
       ],
       "files": [
         {
@@ -2013,6 +2028,23 @@
         }
       ],
       "type": "registry:hook"
+    },
+    {
+      "name": "icons",
+      "title": "Ninaero icons",
+      "dependencies": [
+        "@iconify-icons/mage@^2.0.0",
+        "@iconify/react@^6.0.2"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "lib/icons.tsx",
+          "type": "registry:lib",
+          "target": "@lib/icons.tsx"
+        }
+      ],
+      "type": "registry:lib"
     },
     {
       "name": "utils",
@@ -2099,6 +2131,7 @@
         "http://localhost:3000/r/toggle-group.json",
         "http://localhost:3000/r/tooltip.json",
         "http://localhost:3000/r/use-mobile.json",
+        "http://localhost:3000/r/icons.json",
         "http://localhost:3000/r/utils.json"
       ],
       "type": "registry:base",

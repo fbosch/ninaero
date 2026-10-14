@@ -221,9 +221,9 @@ The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/medi
 
 ### Dialogs
 
-Use broad, soft corners like the Wii Menu prompt reference, with a `3rem` native squircle corner extent. This is Ninaero's chosen geometry, not a measurement of Nintendo's original UI. The footer uses the same corner extent and curve so its fill follows the outer frame.
+Use broad, soft corners like the Wii Menu prompt reference, with a `3rem` native squircle corner extent. This is Ninaero's chosen geometry, not a measurement of Nintendo's original UI. Give the frame a shallow paper/plastic finish with an opaque neutral fill, faint top-to-bottom shading, a fine grayscale edge, an upper inset highlight, and a lower inset shade. Combine these with the shared dialog cast shadow. Keep the panel matte; reserve accent and glass treatment for primary actions and focus.
 
-Dialog content and footer use the 24px panel inset, with 24px between content groups and 8px between actions. Inset the corner close button by 16px. Preserve the opaque neutral fill, grayscale frame, dialog-level shadow, and existing focus management. Do not clip shadows or keyboard outlines.
+Use one continuous panel without a contrasting footer band or divider. The outer frame owns the 24px inset; group content and actions with 24px of space, and keep 8px between actions. Dialog titles use 20px type with a 24px line height. Give actions a useful minimum width, using Button's large size for short prompt actions. Center short system prompts and keep forms left-aligned. Inset the corner close button by 16px and reserve header space for it only when present. Preserve existing focus management and do not clip shadows or keyboard outlines. Forced-colors mode removes decorative lighting and retains a system-color boundary.
 
 Dialog opens from 92% scale and 8px below its resting position, with a 260ms elastic transform transition and a 140ms fade. The easing supplies one small overshoot before settling. Closing uses a 140ms shrink to 96% scale and a 4px downward shift with a fade. The scrim fades in over 160ms and out over 140ms without bouncing. CSS transitions let interrupted opening and closing continue from the current position. Under reduced motion, both layers change immediately.
 

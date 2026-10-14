@@ -1,10 +1,10 @@
 "use client";
 
-import { SlidersHorizontalIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { SlidersHorizontalIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 import {
   Popover,

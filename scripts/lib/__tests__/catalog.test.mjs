@@ -32,7 +32,7 @@ test("source imports supplement upstream package and registry dependencies", () 
   assert.ok(sidebar.items.includes("use-mobile"));
   assert.ok(sidebar.items.includes("tooltip"));
   const calendar = resolved.find(({ name }) => name === "calendar");
-  assert.ok(calendar.packages.includes("lucide-react"));
+  assert.ok(calendar.items.includes("icons"));
   const sonner = resolved.find(({ name }) => name === "sonner");
   assert.ok(sonner.packages.includes("sonner"));
   assert.ok(sonner.packages.includes("next-themes"));

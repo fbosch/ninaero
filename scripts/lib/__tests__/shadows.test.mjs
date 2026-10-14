@@ -132,7 +132,7 @@ test("existing shadow utilities use the finite shared scale and resolve surface 
 
 test("modals are elevated above menus and the chart tooltip", async () => {
   for (const [name, utility] of [
-    ["dialog", "shadow-xl"],
+    ["dialog", "ninaero-dialog"],
     ["alert-dialog", "shadow-xl"],
     ["sheet", "shadow-xl"],
     ["popover", "ninaero-popover"],

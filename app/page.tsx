@@ -1,10 +1,10 @@
-import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 import { CodeBlock } from "@/components/docs/code-block";
 import { HeroAccentPicker } from "@/components/examples/hero-accent-picker";
 import { SettingsPreview } from "@/components/examples/settings-preview";
 import { presetInstallCommand } from "@/lib/component-documentation";
+import { ArrowRightIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
             <header className="min-w-0 space-y-6">
               <h1 className="text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
                 An optimistic, nostalgic theme{" "}
-                <span className="block text-muted-foreground">for modern web interfaces.</span>
+                <span className="block text-muted-foreground">for a friendlier web.</span>
               </h1>
               <div className="flex flex-wrap items-center gap-3">
                 <Button size="lg" nativeButton={false} render={<Link href="/docs" />}>

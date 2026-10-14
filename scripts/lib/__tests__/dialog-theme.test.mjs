@@ -31,52 +31,76 @@ test("Dialog uses broad native squircle corners without clipping focus or shadow
     assert.equal(frame[property], undefined);
 });
 
-test("Dialog footer follows the same corner extent without a competing radius", () => {
-  const rule = components[".ninaero-dialog-footer"];
-  assert.equal(rule["border-bottom-left-radius"], "var(--dialog-corner)");
-  assert.equal(rule["border-bottom-right-radius"], "var(--dialog-corner)");
-  assert.equal(rule["corner-shape"], "squircle");
-  assert.equal(rule["--dialog-corner"], undefined);
-  assert.ok(classes(footer).includes("ninaero-dialog-footer"));
+test("Dialog footer shares the panel instead of adding a separate band", () => {
+  assert.equal(components[".ninaero-dialog-footer"], undefined);
+  for (const value of ["-mx-6", "-mb-6", "p-6", "border-t", "bg-muted/50", "ninaero-dialog-footer"])
+    assert.ok(!classes(footer).includes(value));
+  assert.ok(classes(footer).includes("[&>button]:min-w-24"));
+  assert.ok(classes(footer).includes("gap-2"));
   assert.ok(!classes(footer).some((value) => value.startsWith("rounded-")));
 });
 
-test("Dialog content and footer share 24px panel insets and grouped spacing", () => {
+test("Dialog groups content with one 24px outer inset and reserves room for the close control", () => {
   assert.ok(classes(content).includes("p-6"));
   assert.ok(classes(content).includes("gap-6"));
-  for (const value of ["-mx-6", "-mb-6", "p-6", "gap-2"])
-    assert.ok(classes(footer).includes(value));
   assert.match(content, /className="absolute top-4 right-4"/);
+  assert.deepEqual(
+    components['.ninaero-dialog:has(> [data-slot="dialog-close"]) [data-slot="dialog-header"]'],
+    { "padding-inline-end": "2rem" },
+  );
+  assert.match(source, /font-heading text-xl leading-6 font-medium/);
 });
 
-test("Dialog keeps its neutral material, responsive bounds, and Base UI primitives", () => {
-  for (const value of [
-    "bg-popover",
-    "text-popover-foreground",
-    "shadow-xl",
-    "ring-1",
-    "ring-foreground/10",
-    "max-w-[calc(100%-2rem)]",
-    "sm:max-w-sm",
-  ]) {
-    assert.ok(classes(content).includes(value));
+test("Dialog uses a continuous neutral material with shallow lighting and layered elevation", () => {
+  const frame = components[".ninaero-dialog"];
+  assert.equal(
+    frame.border,
+    "1px solid color-mix(in oklab, var(--foreground) 18%, var(--popover))",
+  );
+  assert.equal(frame["background-color"], "var(--popover)");
+  assert.equal(
+    frame["background-image"],
+    "linear-gradient(180deg, var(--popover), var(--dialog-fill-shade))",
+  );
+  assert.match(
+    frame["box-shadow"],
+    /^inset 0 1px 0 var\(--dialog-highlight\), inset 0 -1px 2px var\(--dialog-shade\), /,
+  );
+  assert.ok(frame["box-shadow"].includes(theme.theme["shadow-xl"]));
+  for (const mode of ["light", "dark"]) {
+    assert.match(
+      theme[mode]["dialog-fill-shade"],
+      /^color-mix\(in oklab, var\(--popover\) \d+%, black\)$/,
+    );
+    assert.equal(theme[mode]["dialog-highlight"].slice(1, 7), "ffffff");
+    assert.equal(theme[mode]["dialog-shade"].slice(1, 7), "000000");
   }
-  for (const value of ["border-t", "bg-muted/50"]) assert.ok(classes(footer).includes(value));
+  assert.ok(!classes(content).some((value) => /^(bg-|shadow-|ring-)/.test(value)));
+});
+
+test("Dialog keeps responsive bounds, caller overrides, and Base UI primitives", () => {
+  for (const value of ["text-popover-foreground", "max-w-[calc(100%-2rem)]", "sm:max-w-sm"])
+    assert.ok(classes(content).includes(value));
   assert.match(content, /<DialogPrimitive\.Popup/);
   assert.match(content, /<DialogPrimitive\.Close/);
   assert.match(content, /showCloseButton = true/);
+  assert.match(content, /className,\s*\)/);
 });
 
-test("Generated theme CSS includes both Dialog corner recipes", () => {
+test("Generated theme CSS includes Dialog material and a forced-colors boundary", () => {
   const css = renderThemeCss(theme);
   assert.match(
     css,
     /\.ninaero-dialog \{[^}]*--dialog-corner: 3rem;[^}]*border-radius: var\(--dialog-corner\);[^}]*corner-shape: squircle;/,
   );
-  assert.match(
-    css,
-    /\.ninaero-dialog-footer \{[^}]*border-bottom-left-radius: var\(--dialog-corner\);[^}]*border-bottom-right-radius: var\(--dialog-corner\);[^}]*corner-shape: squircle;/,
-  );
+  assert.ok(css.includes("inset 0 1px 0 var(--dialog-highlight)"));
+  assert.deepEqual(components["@media (forced-colors: active)"][".ninaero-dialog"], {
+    "border-color": "CanvasText",
+    "background-color": "Canvas",
+    "background-image": "none",
+    color: "CanvasText",
+    "box-shadow": "none",
+  });
 });
 
 test("Dialog opening uses an elastic transform with a bounded single overshoot", () => {

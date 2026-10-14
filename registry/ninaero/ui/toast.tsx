@@ -2,6 +2,8 @@
 
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import { cn } from "cn";
+import type * as React from "react";
+
 import {
   CircleCheckIcon,
   InfoIcon,
@@ -9,9 +11,7 @@ import {
   OctagonXIcon,
   TriangleAlertIcon,
   XIcon,
-} from "lucide-react";
-import type * as React from "react";
-
+} from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 const toast = ToastPrimitive.createToastManager();

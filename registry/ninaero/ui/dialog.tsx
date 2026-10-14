@@ -2,9 +2,9 @@
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { cn } from "cn";
-import { XIcon } from "lucide-react";
 import type * as React from "react";
 
+import { XIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
@@ -50,7 +50,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "ninaero-dialog fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-6 bg-popover p-6 text-sm text-popover-foreground shadow-xl ring-1 ring-foreground/10 outline-none sm:max-w-sm",
+          "ninaero-dialog fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-6 p-6 text-sm text-popover-foreground outline-none sm:max-w-sm",
           className,
         )}
         {...props}
@@ -88,14 +88,16 @@ function DialogFooter({
     <div
       data-slot="dialog-footer"
       className={cn(
-        "ninaero-dialog-footer -mx-6 -mb-6 flex flex-col-reverse gap-2 border-t bg-muted/50 p-6 sm:flex-row sm:justify-end",
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end [&>button]:min-w-24",
         className,
       )}
       {...props}
     >
       {children}
       {showCloseButton && (
-        <DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>
+        <DialogPrimitive.Close render={<Button variant="secondary" size="lg" />}>
+          Close
+        </DialogPrimitive.Close>
       )}
     </div>
   );
@@ -105,7 +107,7 @@ function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("font-heading text-base leading-none font-medium", className)}
+      className={cn("font-heading text-xl leading-6 font-medium", className)}
       {...props}
     />
   );

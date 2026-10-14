@@ -1,10 +1,10 @@
 "use client";
 
-import { FileTextIcon, InboxIcon, MessageCircleIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
 import type { DisplayName, PreviewProps } from "@/lib/component-overview";
+import { FileTextIcon, InboxIcon, MessageCircleIcon } from "@/lib/icons";
 import { Alert, AlertDescription, AlertTitle } from "@/registry/ninaero/ui/alert";
 import { AspectRatio } from "@/registry/ninaero/ui/aspect-ratio";
 import {

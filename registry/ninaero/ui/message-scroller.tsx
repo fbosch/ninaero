@@ -7,9 +7,9 @@ import {
   useMessageScrollerVisibility,
 } from "@shadcn/react/message-scroller";
 import { cn } from "cn";
-import { ArrowDownIcon } from "lucide-react";
 import type * as React from "react";
 
+import { ArrowDownIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 function MessageScrollerProvider(

@@ -1,8 +1,8 @@
 "use client";
 
-import { CheckIcon, CopyIcon } from "lucide-react";
 import { useState } from "react";
 
+import { CheckIcon, CopyIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 export function CodeBlockHeader({ code, label }: { code: string; label: string }) {

@@ -1,6 +1,5 @@
 "use client";
 
-import { ArrowUpRightIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useId, useRef, useState } from "react";
 
@@ -11,6 +10,7 @@ import {
   matchesComponent,
   overviewItems,
 } from "@/lib/component-overview";
+import { ArrowUpRightIcon, SearchIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 import {
   Dialog,

@@ -2,9 +2,9 @@
 
 import { Combobox as ComboboxPrimitive } from "@base-ui/react";
 import { cn } from "cn";
-import { CheckIcon, ChevronDownIcon, XIcon } from "lucide-react";
 import * as React from "react";
 
+import { CheckIcon, ChevronDownIcon, XIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 import {
   InputGroup,
