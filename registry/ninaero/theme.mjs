@@ -18,9 +18,9 @@ export const elevations = {
     "0 2px 3px hsl(var(--shadow-color) / 0.08)",
   ].join(", "),
   floating: [
-    "0 2px 2px hsl(var(--shadow-color) / 0.14)",
-    "0 4px 6px hsl(var(--shadow-color) / 0.10)",
-    "0 8px 14px hsl(var(--shadow-color) / 0.05)",
+    "0 1px 3px hsl(var(--shadow-color) / 0.08)",
+    "0 4px 8px hsl(var(--shadow-color) / 0.06)",
+    "0 8px 16px hsl(var(--shadow-color) / 0.03)",
   ].join(", "),
   dialog: [
     "0 2px 3px hsl(var(--shadow-color) / 0.12)",

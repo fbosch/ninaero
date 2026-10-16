@@ -13,11 +13,11 @@
 @theme inline {
   --shadow-flat: 0 0 #0000;
   --shadow-control: 0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08);
-  --shadow-floating: 0 2px 2px hsl(var(--shadow-color) / 0.14), 0 4px 6px hsl(var(--shadow-color) / 0.10), 0 8px 14px hsl(var(--shadow-color) / 0.05);
+  --shadow-floating: 0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03);
   --shadow-dialog: 0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04);
   --shadow-sm: 0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08);
-  --shadow-md: 0 2px 2px hsl(var(--shadow-color) / 0.14), 0 4px 6px hsl(var(--shadow-color) / 0.10), 0 8px 14px hsl(var(--shadow-color) / 0.05);
-  --shadow-lg: 0 2px 2px hsl(var(--shadow-color) / 0.14), 0 4px 6px hsl(var(--shadow-color) / 0.10), 0 8px 14px hsl(var(--shadow-color) / 0.05);
+  --shadow-md: 0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03);
+  --shadow-lg: 0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03);
   --shadow-xl: 0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04);
   --shadow-2xl: 0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04);
   --font-heading: var(--font-sans);
@@ -439,7 +439,7 @@
   .ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover {
     --shadow-flat: 0 0 #0000;
     --shadow-control: 0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08);
-    --shadow-floating: 0 2px 2px hsl(var(--shadow-color) / 0.14), 0 4px 6px hsl(var(--shadow-color) / 0.10), 0 8px 14px hsl(var(--shadow-color) / 0.05);
+    --shadow-floating: 0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03);
     --shadow-dialog: 0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04);
   }
   .ninaero-surface-paper {
