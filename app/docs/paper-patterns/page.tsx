@@ -51,7 +51,7 @@ const backgroundPatterns = [
   },
   {
     title: "Notebook",
-    description: "Dense ruling with section dividers, vertical guides, and marked intersections.",
+    description: "A repeating SVG tile with fine rules, square cells, and marked intersections.",
     defaultSpacing: "6px",
     samples: [
       { className: "ninaero-paper-notebook-4", spacing: "4px" },
@@ -60,6 +60,12 @@ const backgroundPatterns = [
     ],
     example: '<div aria-hidden="true" className="ninaero-paper-notebook-8 h-60" />',
   },
+];
+
+const ditherSamples = [
+  { className: "ninaero-dither-4", spacing: "4px" },
+  { className: "ninaero-dither-8", spacing: "8px" },
+  { className: "ninaero-dither-12", spacing: "12px" },
 ];
 
 const responsiveExample =
@@ -72,8 +78,8 @@ export default function BackgroundDetailsPage() {
         <p className="text-xs font-medium text-muted-foreground">Theme documentation</p>
         <h1 className="text-4xl type-display">Background details</h1>
         <p className="max-w-2xl type-prose text-muted-foreground">
-          Ninaero includes four opt-in CSS textures for page backgrounds and preview areas. Use one
-          pattern per region, and keep the page&apos;s neutral fill beneath it.
+          Ninaero includes five opt-in textures for page backgrounds and preview areas. Use one
+          pattern per region, and keep the page&apos;s existing fill beneath it.
         </p>
       </header>
 
@@ -94,8 +100,9 @@ export default function BackgroundDetailsPage() {
           stay fixed when the interval changes.
         </p>
         <p className="text-sm type-prose text-muted-foreground">
-          Notebook&apos;s suffix sets its fine-line interval. The major rules and vertical guides
-          scale with it. Its 6px default has 80px major rules and 114px vertical guides.
+          Notebook uses a repeating SVG tile. Its suffix sets the fine-line interval, with 20
+          intervals per square cell. The 6px default gives 120px cells, with the fine lines aligned
+          across every cell boundary.
         </p>
       </section>
 
@@ -157,6 +164,41 @@ export default function BackgroundDetailsPage() {
         <p className="text-sm type-prose text-muted-foreground">
           Keep complete class names in your source so Tailwind can detect them. When choosing sizes
           in JavaScript, select from full class strings instead of building a class name from parts.
+        </p>
+      </section>
+
+      <section aria-labelledby="dither-heading" className="flex flex-col gap-4">
+        <h2 id="dither-heading" className="text-xl type-heading">
+          Diamond dither overlay
+        </h2>
+        <p className="text-sm type-prose text-muted-foreground">
+          This SVG mesh has a transparent background and neutral ink, so it keeps the surface&apos;s
+          existing color. Use <code className="text-foreground">ninaero-dither</code> for an 8px
+          tile, or add a numeric suffix to change the tile size. The examples below keep the same
+          muted fill.
+        </p>
+        <div className="grid grid-cols-3 gap-3">
+          {ditherSamples.map((sample) => (
+            <figure key={sample.className} className="flex min-w-0 flex-col gap-2">
+              <div
+                aria-hidden="true"
+                className={`h-40 rounded-md border bg-muted ${sample.className}`}
+              />
+              <figcaption className="flex flex-col gap-1 text-sm">
+                <span>{sample.spacing} tile</span>
+                <code className="text-xs break-all text-muted-foreground">{sample.className}</code>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <CodeBlock
+          code={'<div aria-hidden="true" className="ninaero-dither-8 h-40 bg-muted" />'}
+          label="Transparent dither over a muted surface"
+          language="tsx"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          Keep this texture in decorative areas. Avoid dense text and controls, and use it instead
+          of another paper pattern rather than layering textures.
         </p>
       </section>
 

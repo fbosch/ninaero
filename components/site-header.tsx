@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { AccentSwitcher } from "@/components/accent-switcher";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { GameboyFillIcon } from "@/lib/icons";
+import { CoinBFillIcon } from "@/lib/icons";
 
 const destinations = [["/docs", "Docs"]] as const;
 
@@ -14,10 +14,10 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 px-5 py-5 sm:px-8">
         <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-5 text-sm">
           <Link href="/" className="type-title inline-flex items-center gap-2">
-            <GameboyFillIcon width={20} height={20} />
+            <CoinBFillIcon width={20} height={20} />
             Ninaero
           </Link>
           {destinations.map(([href, label]) => {

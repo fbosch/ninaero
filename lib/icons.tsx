@@ -7,6 +7,7 @@ import chevronDownIconData from "@iconify-icons/mage/chevron-down";
 import chevronLeftIconData from "@iconify-icons/mage/chevron-left";
 import chevronRightIconData from "@iconify-icons/mage/chevron-right";
 import chevronUpIconData from "@iconify-icons/mage/chevron-up";
+import coinBFillIconData from "@iconify-icons/mage/coin-b-fill";
 import copyIconData from "@iconify-icons/mage/copy";
 import moreHorizontalIconData from "@iconify-icons/mage/dots-horizontal";
 import triangleAlertIconData from "@iconify-icons/mage/exclamation-triangle";
@@ -14,7 +15,6 @@ import filePlus2IconData from "@iconify-icons/mage/file-plus";
 import fileTextIconData from "@iconify-icons/mage/file-records";
 import slidersHorizontalIconData from "@iconify-icons/mage/filter";
 import folderIconData from "@iconify-icons/mage/folder";
-import gameboyFillIconData from "@iconify-icons/mage/gameboy-fill";
 import homeIconData from "@iconify-icons/mage/home";
 import inboxIconData from "@iconify-icons/mage/inbox";
 import infoIconData from "@iconify-icons/mage/information-circle";
@@ -84,14 +84,14 @@ export const PanelLeftIcon = /* @__PURE__ */ createIcon(panelLeftIconData);
 export const PlusIcon = /* @__PURE__ */ createIcon(plusIconData);
 export const SearchIcon = /* @__PURE__ */ createIcon(searchIconData);
 export const SlidersHorizontalIcon = /* @__PURE__ */ createIcon(slidersHorizontalIconData);
-export function GameboyFillIcon({ width = 24, height = 24, strokeWidth = 2, ...props }: IconProps) {
+export function CoinBFillIcon({ width = 24, height = 24, strokeWidth = 2, ...props }: IconProps) {
   const gradientId = useId();
   const labelled = Boolean(props["aria-label"] || props["aria-labelledby"]);
   const gradientIcon = {
-    ...gameboyFillIconData,
+    ...coinBFillIconData,
     body:
       `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--primary)" /><stop offset="100%" stop-color="var(--ring)" /></linearGradient></defs>` +
-      gameboyFillIconData.body.replaceAll('fill="currentColor"', `fill="url(#${gradientId})"`),
+      coinBFillIconData.body.replaceAll('fill="currentColor"', `fill="url(#${gradientId})"`),
   };
 
   return (

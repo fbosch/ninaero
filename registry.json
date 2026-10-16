@@ -153,7 +153,9 @@
           "paper-fill": "#f9f9f9",
           "paper-rule": "#79797914",
           "paper-dot": "#79797929",
-          "paper-rule-strong": "#79797940"
+          "paper-rule-strong": "#79797940",
+          "paper-notebook-image": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%206H120%20M0%2012H120%20M0%2018H120%20M0%2024H120%20M0%2030H120%20M0%2036H120%20M0%2042H120%20M0%2048H120%20M0%2054H120%20M0%2060H120%20M0%2066H120%20M0%2072H120%20M0%2078H120%20M0%2084H120%20M0%2090H120%20M0%2096H120%20M0%20102H120%20M0%20108H120%20M0%20114H120%22%20stroke%3D%22%2379797914%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200H120V120H0Z%22%20stroke%3D%22%2379797940%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200h0%20M120%200h0%20M0%20120h0%20M120%20120h0%22%20stroke%3D%22%2379797940%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")",
+          "dither-image": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22none%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200L8%208M8%200L0%208%22%20stroke%3D%22%2379797940%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")"
         },
         "dark": {
           "background": "oklch(0.145 0 0)",
@@ -238,7 +240,9 @@
           "paper-fill": "#232323",
           "paper-rule": "#cecece0f",
           "paper-dot": "#cecece24",
-          "paper-rule-strong": "#cecece30"
+          "paper-rule-strong": "#cecece30",
+          "paper-notebook-image": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%206H120%20M0%2012H120%20M0%2018H120%20M0%2024H120%20M0%2030H120%20M0%2036H120%20M0%2042H120%20M0%2048H120%20M0%2054H120%20M0%2060H120%20M0%2066H120%20M0%2072H120%20M0%2078H120%20M0%2084H120%20M0%2090H120%20M0%2096H120%20M0%20102H120%20M0%20108H120%20M0%20114H120%22%20stroke%3D%22%23cecece0f%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200H120V120H0Z%22%20stroke%3D%22%23cecece30%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200h0%20M120%200h0%20M0%20120h0%20M120%20120h0%22%20stroke%3D%22%23cecece30%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")",
+          "dither-image": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22none%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200L8%208M8%200L0%208%22%20stroke%3D%22%23cecece30%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")"
         }
       },
       "css": {
@@ -678,10 +682,10 @@
           "--ninaero-paper-step": "6px",
           "--shadow-color": "var(--shadow-color-paper)",
           "background-color": "var(--paper-fill)",
-          "--ninaero-notebook-height": "calc(var(--ninaero-paper-step) * 40 / 3)",
-          "--ninaero-notebook-width": "calc(var(--ninaero-paper-step) * 19)",
-          "background-image": "radial-gradient(circle at 3px calc(var(--ninaero-notebook-height) - 3px), var(--paper-rule-strong) 0 2px, transparent 3px), linear-gradient(90deg, transparent 0 2px, var(--paper-rule-strong) 2px 4px, transparent 4px var(--ninaero-notebook-width)), linear-gradient(transparent 0 calc(var(--ninaero-notebook-height) - 4px), var(--paper-rule-strong) calc(var(--ninaero-notebook-height) - 4px) calc(var(--ninaero-notebook-height) - 2px), transparent calc(var(--ninaero-notebook-height) - 2px)), repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--paper-rule) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
-          "background-size": "var(--ninaero-notebook-width) var(--ninaero-notebook-height)",
+          "--ninaero-notebook-size": "calc(var(--ninaero-paper-step) * 20)",
+          "background-image": "var(--paper-notebook-image)",
+          "background-size": "var(--ninaero-notebook-size) var(--ninaero-notebook-size)",
+          "background-repeat": "repeat",
           "@media (forced-colors: active)": {
             "background-image": "none",
             "background-color": "Canvas"
@@ -691,13 +695,31 @@
           "--ninaero-paper-step": "max(1px, calc(--value(number, [number]) * 1px))",
           "--shadow-color": "var(--shadow-color-paper)",
           "background-color": "var(--paper-fill)",
-          "--ninaero-notebook-height": "calc(var(--ninaero-paper-step) * 40 / 3)",
-          "--ninaero-notebook-width": "calc(var(--ninaero-paper-step) * 19)",
-          "background-image": "radial-gradient(circle at 3px calc(var(--ninaero-notebook-height) - 3px), var(--paper-rule-strong) 0 2px, transparent 3px), linear-gradient(90deg, transparent 0 2px, var(--paper-rule-strong) 2px 4px, transparent 4px var(--ninaero-notebook-width)), linear-gradient(transparent 0 calc(var(--ninaero-notebook-height) - 4px), var(--paper-rule-strong) calc(var(--ninaero-notebook-height) - 4px) calc(var(--ninaero-notebook-height) - 2px), transparent calc(var(--ninaero-notebook-height) - 2px)), repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--paper-rule) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
-          "background-size": "var(--ninaero-notebook-width) var(--ninaero-notebook-height)",
+          "--ninaero-notebook-size": "calc(var(--ninaero-paper-step) * 20)",
+          "background-image": "var(--paper-notebook-image)",
+          "background-size": "var(--ninaero-notebook-size) var(--ninaero-notebook-size)",
+          "background-repeat": "repeat",
           "@media (forced-colors: active)": {
             "background-image": "none",
             "background-color": "Canvas"
+          }
+        },
+        "@utility ninaero-dither": {
+          "--ninaero-dither-step": "8px",
+          "background-image": "var(--dither-image)",
+          "background-size": "var(--ninaero-dither-step) var(--ninaero-dither-step)",
+          "background-repeat": "repeat",
+          "@media (forced-colors: active)": {
+            "background-image": "none"
+          }
+        },
+        "@utility ninaero-dither-*": {
+          "--ninaero-dither-step": "max(1px, calc(--value(number, [number]) * 1px))",
+          "background-image": "var(--dither-image)",
+          "background-size": "var(--ninaero-dither-step) var(--ninaero-dither-step)",
+          "background-repeat": "repeat",
+          "@media (forced-colors: active)": {
+            "background-image": "none"
           }
         },
         "@utility type-display": {

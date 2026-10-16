@@ -47,6 +47,51 @@ const sansFont = {
   roundness: 100,
 };
 
+const paperPalettes = {
+  light: {
+    "paper-fill": "#f9f9f9",
+    "paper-rule": "#79797914",
+    "paper-dot": "#79797929",
+    "paper-rule-strong": "#79797940",
+  },
+  dark: {
+    "paper-fill": "#232323",
+    "paper-rule": "#cecece0f",
+    "paper-dot": "#cecece24",
+    "paper-rule-strong": "#cecece30",
+  },
+};
+
+const notebookIntervals = 20;
+const notebookStep = 6;
+
+function notebookImage(palette) {
+  const size = notebookIntervals * notebookStep;
+  const rules = Array.from(
+    { length: notebookIntervals - 1 },
+    (_, index) => `M0 ${(index + 1) * notebookStep}H${size}`,
+  ).join(" ");
+  const fixedStroke = 'vector-effect="non-scaling-stroke"';
+  // Round caps on zero-length paths keep junctions the same size as the tile scales.
+  const svg = [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none">`,
+    `<path d="${rules}" stroke="${palette["paper-rule"]}" stroke-width="1" ${fixedStroke}/>`,
+    `<path d="M0 0H${size}V${size}H0Z" stroke="${palette["paper-rule-strong"]}" stroke-width="2" ${fixedStroke}/>`,
+    `<path d="M0 0h0 M${size} 0h0 M0 ${size}h0 M${size} ${size}h0" stroke="${palette["paper-rule-strong"]}" stroke-width="6" stroke-linecap="round" ${fixedStroke}/>`,
+    "</svg>",
+  ].join("");
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+function ditherImage(palette) {
+  const svg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" shape-rendering="crispEdges">',
+    `<path d="M0 0L8 8M8 0L0 8" stroke="${palette["paper-rule-strong"]}" stroke-width="1" vector-effect="non-scaling-stroke"/>`,
+    "</svg>",
+  ].join("");
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
 const paperPatterns = {
   ruled: {
     spacing: 24,
@@ -71,18 +116,12 @@ const paperPatterns = {
     },
   },
   notebook: {
-    spacing: 6,
+    spacing: notebookStep,
     styles: {
-      "--ninaero-notebook-height": "calc(var(--ninaero-paper-step) * 40 / 3)",
-      "--ninaero-notebook-width": "calc(var(--ninaero-paper-step) * 19)",
-      "background-image": [
-        "radial-gradient(circle at 3px calc(var(--ninaero-notebook-height) - 3px), var(--paper-rule-strong) 0 2px, transparent 3px)",
-        "linear-gradient(90deg, transparent 0 2px, var(--paper-rule-strong) 2px 4px, transparent 4px var(--ninaero-notebook-width))",
-        "linear-gradient(transparent 0 calc(var(--ninaero-notebook-height) - 4px), var(--paper-rule-strong) calc(var(--ninaero-notebook-height) - 4px) calc(var(--ninaero-notebook-height) - 2px), transparent calc(var(--ninaero-notebook-height) - 2px))",
-        "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--paper-rule) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
-      ].join(", "),
-      // Share a tile so fine rules restart consistently at every major separator.
-      "background-size": "var(--ninaero-notebook-width) var(--ninaero-notebook-height)",
+      "--ninaero-notebook-size": `calc(var(--ninaero-paper-step) * ${notebookIntervals})`,
+      "background-image": "var(--paper-notebook-image)",
+      "background-size": "var(--ninaero-notebook-size) var(--ninaero-notebook-size)",
+      "background-repeat": "repeat",
     },
   },
 };
@@ -113,6 +152,13 @@ const paperUtilities = Object.fromEntries(
     ];
   }),
 );
+const ditherStyles = {
+  "background-image": "var(--dither-image)",
+  "background-size": "var(--ninaero-dither-step) var(--ninaero-dither-step)",
+  "background-repeat": "repeat",
+  "@media (forced-colors: active)": { "background-image": "none" },
+};
+
 export const theme = {
   font: sansFont,
   theme: {
@@ -230,10 +276,9 @@ export const theme = {
     "button-highlight": "#ffffff80",
     "shadow-color": "0deg 0% 24%",
     "shadow-color-paper": "0deg 0% 28%",
-    "paper-fill": "#f9f9f9",
-    "paper-rule": "#79797914",
-    "paper-dot": "#79797929",
-    "paper-rule-strong": "#79797940",
+    ...paperPalettes.light,
+    "paper-notebook-image": notebookImage(paperPalettes.light),
+    "dither-image": ditherImage(paperPalettes.light),
   },
   dark: {
     background: "oklch(0.145 0 0)",
@@ -296,14 +341,21 @@ export const theme = {
     "button-highlight": "#ffffff33",
     "shadow-color": "0deg 0% 3%",
     "shadow-color-paper": "0deg 0% 5%",
-    "paper-fill": "#232323",
-    "paper-rule": "#cecece0f",
-    "paper-dot": "#cecece24",
-    "paper-rule-strong": "#cecece30",
+    ...paperPalettes.dark,
+    "paper-notebook-image": notebookImage(paperPalettes.dark),
+    "dither-image": ditherImage(paperPalettes.dark),
   },
   css: {
     ...accentRules,
     ...paperUtilities,
+    "@utility ninaero-dither": {
+      "--ninaero-dither-step": "8px",
+      ...ditherStyles,
+    },
+    "@utility ninaero-dither-*": {
+      "--ninaero-dither-step": "max(1px, calc(--value(number, [number]) * 1px))",
+      ...ditherStyles,
+    },
     "@utility type-display": {
       "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {},
     },
