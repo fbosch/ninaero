@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { AccentSwitcher } from "@/components/accent-switcher";
-import { NinaeroMark } from "@/components/ninaero-mark";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const destinations = [["/docs", "Docs"]] as const;
@@ -20,7 +19,9 @@ export function SiteHeader() {
           className="flex shrink-0 flex-wrap items-center gap-5 text-sm"
         >
           <Link href="/" className="type-title inline-flex items-center gap-2">
-            <NinaeroMark width={20} height={20} />
+            <span aria-hidden="true" className="text-xl leading-none">
+              🐠
+            </span>
             Ninaero
           </Link>
           {destinations.map(([href, label]) => {

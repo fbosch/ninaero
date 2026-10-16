@@ -147,11 +147,9 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     }
 
     function enabled() {
-      return !document.hidden && !reducedMotion.matches && !forcedColors.matches;
-    }
-
-    function canAnimate() {
-      return enabled() && (!pausedRef.current || held !== null);
+      return (
+        !pausedRef.current && !document.hidden && !reducedMotion.matches && !forcedColors.matches
+      );
     }
 
     function endHold(action: "launch" | "cancel" | "pop") {
@@ -200,7 +198,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
 
     function animate(time: number) {
       frame = 0;
-      if (!canAnimate()) return;
+      if (!enabled()) return;
       const elapsed = previousTime === null ? 0 : Math.min((time - previousTime) / 1000, 0.05);
       previousTime = time;
       if (held && elapsed > 0) {
@@ -211,12 +209,10 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
           if (held.bubble.radius >= maxBubbleRadius) endHold("pop");
         }
       }
-      if (!pausedRef.current) {
-        stepBubbles(bubbles, width, height, elapsed, simulationTime);
-        simulationTime += elapsed;
-      }
+      stepBubbles(bubbles, width, height, elapsed, simulationTime);
+      simulationTime += elapsed;
       paint();
-      if (canAnimate()) frame = requestAnimationFrame(animate);
+      if (enabled()) frame = requestAnimationFrame(animate);
     }
 
     function syncAnimation() {
@@ -230,7 +226,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
         endHold("cancel");
         clearBubblePops(popLayer);
       }
-      if (canAnimate()) frame = requestAnimationFrame(animate);
+      if (enabled()) frame = requestAnimationFrame(animate);
     }
 
     function onPointerDown(event: PointerEvent) {
