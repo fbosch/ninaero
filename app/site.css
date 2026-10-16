@@ -7,14 +7,14 @@ html.dark {
 }
 
 .home-page {
-  /* Back to front: waves (-4), bubbles (-3), glass (-2), dots (-1), then content. */
+  /* Back to front: waves (-5), dots (-4), bubbles (-3), glass (-2), then content. */
   overflow: clip;
 }
 
 .home-paper {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: -4;
   pointer-events: none;
   background-color: transparent;
 }

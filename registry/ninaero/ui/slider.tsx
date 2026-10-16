@@ -29,7 +29,7 @@ function Slider({
       <SliderPrimitive.Control className="ninaero-slider-control relative flex w-full touch-none items-center select-none data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
         <SliderPrimitive.Track
           data-slot="slider-track"
-          className="ninaero-slider-track relative grow overflow-hidden rounded-full select-none data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
+          className="ninaero-slider-track relative grow overflow-hidden rounded-full select-none data-horizontal:h-2 data-horizontal:w-full data-vertical:h-full data-vertical:w-2"
         >
           <SliderPrimitive.Indicator
             data-slot="slider-range"
@@ -48,7 +48,7 @@ function Slider({
             aria-invalid={props["aria-invalid"]}
             getAriaLabel={getAriaLabel}
             getAriaValueText={getAriaValueText}
-            className="ninaero-slider-thumb relative block size-4 shrink-0 rounded-full border select-none after:absolute after:-inset-2"
+            className="ninaero-slider-thumb relative block h-5 w-8 shrink-0 rounded-full border select-none after:absolute after:-inset-3"
           />
         ))}
       </SliderPrimitive.Control>

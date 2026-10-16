@@ -10,10 +10,13 @@ export default function SliderWorkshopPage() {
       <header className="flex flex-col gap-3">
         <h1 className="text-3xl type-display">Sliders</h1>
         <p className="text-muted-foreground">
-          Neutral tracks, accent ranges, and raised circular thumbs.
+          Accent-glass ranges and horizontal squircle grabbers.
         </p>
         <p className="text-sm text-muted-foreground">
           These settings are examples and are not saved.
+        </p>
+        <p className="text-sm text-muted-foreground supports-[corner-shape:squircle]:hidden">
+          This browser uses rounded grabbers instead of native squircles.
         </p>
       </header>
       <SliderSpecimens />

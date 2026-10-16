@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 
 import {
   bubbleShape,
@@ -16,8 +16,10 @@ import {
   updateBubbleWarp,
   type Bubble,
 } from "@/lib/bubble-physics.mjs";
+import { bubbleRefractionStrength } from "@/lib/bubble-refraction.mjs";
 
 import { clearBubblePops, showBubblePop } from "./bubble-pop";
+import { bubbleRefractionTexture } from "./bubble-refraction";
 
 import styles from "./home-bubbles.module.css";
 
@@ -38,10 +40,38 @@ type HeldBubble = {
 };
 
 export function HomeBubbles({ paused }: { paused: boolean }) {
+  const refractionId = useId();
+  const refractionImageRef = useRef<SVGFEImageElement>(null);
   const pausedRef = useRef(paused);
   const fieldRef = useRef<HTMLDivElement>(null);
   const popLayerRef = useRef<HTMLDivElement>(null);
   const resumeRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    const field = fieldRef.current;
+    const map = refractionImageRef.current;
+    if (!field || !map || !CSS.supports("backdrop-filter", `url("#${refractionId}")`)) return;
+    const texture = bubbleRefractionTexture();
+    if (!texture) return;
+    let active = true;
+    const image = new Image();
+    image.src = texture;
+    void image
+      .decode()
+      .then(() => {
+        if (!active) return;
+        map.setAttribute("href", texture);
+        field.style.setProperty("--bubble-refraction", `url("#${refractionId}")`);
+      })
+      .catch(() => {
+        // This optional enhancement leaves the plain glass fill intact if decoding fails.
+        if (active) field.style.removeProperty("--bubble-refraction");
+      });
+    return () => {
+      active = false;
+      field.style.removeProperty("--bubble-refraction");
+    };
+  }, [refractionId]);
 
   useEffect(() => {
     const fieldElement = fieldRef.current;
@@ -299,6 +329,9 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       width = nextWidth;
       height = nextHeight;
       paint();
+      if (initialLayout && !reducedMotion.matches && !forcedColors.matches) {
+        entrances.start(bubbles);
+      }
       syncAnimation();
     });
     observer.observe(field);
@@ -320,6 +353,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       endHold("cancel");
       clearBubblePops(popLayer);
       observer.disconnect();
+      entrances.clear();
       resumeRef.current = null;
       reducedMotion.removeEventListener("change", syncAnimation);
       forcedColors.removeEventListener("change", syncAnimation);
@@ -342,13 +376,47 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
 
   return (
     <>
+      <svg className={styles.filterDefinitions} aria-hidden="true" focusable="false">
+        <defs>
+          <filter
+            id={refractionId}
+            x="-10%"
+            y="-10%"
+            width="120%"
+            height="120%"
+            filterUnits="objectBoundingBox"
+            primitiveUnits="objectBoundingBox"
+            colorInterpolationFilters="sRGB"
+          >
+            <feImage
+              ref={refractionImageRef}
+              x="0"
+              y="0"
+              width="1"
+              height="1"
+              preserveAspectRatio="none"
+              result="displacement"
+            />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="displacement"
+              scale={bubbleRefractionStrength}
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
       <div ref={fieldRef} className={styles.field} aria-hidden="true">
         {slots.map((slot) => (
           <span key={slot} className={styles.bubble} hidden>
-            <span className={styles.bubbleShape} />
-            <svg className={styles.bubbleRim} aria-hidden="true" focusable="false">
-              <ellipse strokeWidth={rimWidth} vectorEffect="non-scaling-stroke" />
-            </svg>
+            <span className={styles.bubbleLens} />
+            <span className={styles.bubbleSurface}>
+              <span className={styles.bubbleShape} />
+              <svg className={styles.bubbleRim} aria-hidden="true" focusable="false">
+                <ellipse strokeWidth={rimWidth} vectorEffect="non-scaling-stroke" />
+              </svg>
+            </span>
           </span>
         ))}
         <div ref={popLayerRef} className={styles.popLayer} />

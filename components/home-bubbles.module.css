@@ -10,6 +10,27 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.filterDefinitions {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubbleLens {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform: rotate(var(--bubble-angle)) scale(var(--bubble-scale-x), var(--bubble-scale-y));
+  backdrop-filter: var(--bubble-refraction, none);
+}
+
+.bubbleSurface {
+  position: absolute;
+  inset: 0;
   opacity: 0.9;
   filter: drop-shadow(0 4px 6px #00000012);
 }

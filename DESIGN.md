@@ -42,7 +42,7 @@ Use Josh W. Comeau's [Next-level frosted glass with backdrop-filter](https://www
 - Treat blur radius, visible shape, and edge feathering as separate choices. Use a rounded mask with a broad, smooth falloff for the homepage. Intersecting horizontal and vertical fades can leave boxy corners. Its blur continues beneath the header without a top fade; only the sides and bottom blend into the page. The site-only mask lives in `public/home-glass-mask.svg`.
 - Keep fill opacity independent of blur strength. Use the actual page background for a neutral tint, rather than a lighter card gradient that reveals a rectangular panel. For the homepage, use an untinted, moderate blur that keeps bubble silhouettes visible rather than hiding them. Use less blur in light mode so faint bubble edges remain visible. Code blocks and form controls keep their opaque fills.
 - Extending a backdrop does not recover pixels outside the viewport. If scrolling produces flicker at a viewport edge, conceal that edge with a page-colored gradient, as the article demonstrates. Do not weaken the blur with a transparency fade over the heading.
-- Keep textures that should stay sharp above the blurred layer. On the homepage, paint accent waves first, then bubbles, glass, dotted paper and content. Keep the dots transparent between marks and use the shared paper utility without duplicating its pattern recipe.
+- On the homepage, paint accent waves first, then dotted paper, bubbles, hero glass and content. Dots and waves behind a bubble can refract; dots beneath the hero glass intentionally soften. Keep dots transparent between marks and use the shared paper utility without duplicating its pattern recipe. Unsupported SVG backdrop filters retain the plain glass bubble appearance.
 - A separate, lower-radius blur strip can create a glass rim. Reserve it for deliberately framed glass; the homepage's readability layer has no rim.
 
 Provide a readable neutral fill when backdrop filtering is unavailable, and remove decorative glass in forced-colors mode. Review moving objects crossing the sides, bottom corners, and top boundary in light and dark modes, across accent presets and narrow layouts. Check focus and pointer interactions with the oversized layer present. Automated checks do not establish smooth compositing or text contrast over moving backdrops.
@@ -280,7 +280,7 @@ Use squircle detailing for action buttons and Dialog/AlertDialog frames, not eve
 | Regular rounded overlay corners                 | Drawer, Sheet, Popover, Hover Card, Tooltip, Dropdown Menu, Context Menu, Command, Menubar, and Navigation Menu panels                                                        |
 | Regular rounded content corners                 | Card, Alert, Empty, Toast, Sonner, Attachment, Bubble, Message, Item, Kbd, Code Block, Table and Data Table containers, Chart containers, Sidebar panels, and Carousel frames |
 
-Avatar, Radio Group, Switch, Slider thumbs, Progress, Spinner, and pill-shaped Badges keep their conventional circles or pills. Structural components such as Field, Label, Separator, Breadcrumb, Typography, Trace, Accordion, and Collapsible need no independent framed silhouette. Skeletons match the shape they represent.
+Avatar, Radio Group, Switch, Progress, Spinner, and pill-shaped Badges keep their conventional circles or pills. Structural components such as Field, Label, Separator, Breadcrumb, Typography, Trace, Accordion, and Collapsible need no independent framed silhouette. Skeletons match the shape they represent.
 
 Choose corners by role rather than the underlying React component. A Date Picker trigger or Calendar day cell remains a field or selection control even when implemented with Button. Embedded input accessories use regular corners inside the field's frame. Genuine action buttons inside a panel keep squircles.
 
@@ -290,7 +290,7 @@ The installed `ninaero-rounded-control` class gives a composed Button convention
 
 #### Rendering squircles
 
-Button, Dialog, and AlertDialog use native CSS `corner-shape: squircle` with a nonzero `border-radius` to define the corner extent. This produces superellipse curves without a clipping mask, extra DOM, or JavaScript measurement. Shadows and focus outlines remain outside the component.
+Button, Dialog, AlertDialog, and Slider thumbs use native CSS `corner-shape: squircle` with a nonzero `border-radius` to define the corner extent. This produces superellipse curves without a clipping mask, extra DOM, or JavaScript measurement. Shadows and focus outlines remain outside the component.
 
 True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded action buttons and dialog frames, which do not fulfill their intended squircle geometry. The Button workshop identifies that limitation. No polyfill is included. Conventional rounded fields and other panels do not depend on squircle support.
 
@@ -316,9 +316,9 @@ The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/medi
 
 ### Sliders
 
-Keep the 4px track neutral and shallowly recessed, with a solid accent fill for the selected range. Put the material shading on the 16px circular thumb. Give it a neutral top-to-bottom face, a small upper highlight, and the shared control shadow. Pressing or dragging flattens the active thumb without changing its size or delaying its position updates.
+Keep the 8px recessed channel neutral. Use the chosen accent's glass gradient colors for the selected range. Grabbers stay neutral and use horizontal native squircles in both orientations, with a localized upper reflection, a soft lower bevel and the shared control shadow, with the same neutral border as secondary Button and no extra inset outline. Keep the overhead lighting consistent on vertical sliders. Pressing or dragging collapses only the active grabber's shine and cast shadow, without changing its size or delaying position updates. Squircle grabbers have the same native browser-support requirement as Button.
 
-Keep the pointer target at least 32px and leave the thumb's shadow and keyboard-focus outline unclipped. Disabled sliders keep their values and lose decorative lighting. Invalid states use a semantic-red thumb boundary, separate from the accent focus outline. Reduced motion removes material transitions. Forced-colors mode uses system colors without gradients or shadows.
+Keep the pointer target at least 32px and leave the thumb's shadow and keyboard-focus outline unclipped. Disabled sliders keep their values and lose decorative lighting. Invalid states use semantic-red grip marks, separate from the accent focus outline. Reduced motion removes material transitions. Forced-colors mode uses system colors without gradients or shadows.
 
 ### Tabs
 
@@ -335,7 +335,6 @@ Dialog and AlertDialog use the same installed theme classes for their frame and 
 Use native squircle corners at `3rem` (48px). This is Ninaero's chosen geometry, not a measurement of Nintendo's original UI. Give the frame a shallow paper/plastic finish with an opaque neutral fill, faint top-to-bottom shading, a fine grayscale edge, an upper inset highlight, and a lower inset shade. Combine these with the shared dialog cast shadow. Keep the panel matte; reserve accent and glass treatment for primary actions and focus.
 
 Use one continuous panel without a contrasting footer band or divider. The outer frame owns the 24px inset; group content and actions with 24px of space, and keep 8px between actions. Dialog titles use 20px type with a 24px line height. Give actions a useful minimum width, using Button's large size for short prompt actions. Center short system prompts and keep forms left-aligned. Inset the corner close button by 16px and reserve header space for it only when present. Preserve existing focus management and do not clip shadows or keyboard outlines. Forced-colors mode removes decorative lighting and retains a system-color boundary.
-
 Dialog opens from 92% scale and 8px below its resting position, with a 260ms elastic transform transition and a 140ms fade. The easing supplies one small overshoot before settling. Closing uses a 140ms shrink to 96% scale and a 4px downward shift with a fade. The scrim fades in over 160ms and out over 140ms without bouncing. CSS transitions let interrupted opening and closing continue from the current position. Under reduced motion, both layers change immediately.
 
 ## First design specimen
