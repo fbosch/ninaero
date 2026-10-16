@@ -121,6 +121,8 @@ Typography roles live in `registry/ninaero/theme.mjs` as `type-*` utilities. Kee
 | `type-label`   | Buttons, tabs, navigation, and field labels | 550    | 20px        | Normal         |
 | `type-caption` | Small supporting text                       | 400    | 16px        | Normal         |
 
+Large hero headings may opt into `ninaero-display-ink`, a two-stop neutral ink gradient with a faint downward glyph shadow. Keep the top lighter than the bottom in both modes, with no colored glow or pronounced bevel. The homepage uses this treatment only on its neutral heading text; its muted accent tagline stays solid. Section headings, card and dialog titles, and control text remain solid. In forced-colors mode, remove the gradient and shadow and use system text colors.
+
 Use tighter tracking only for headings and titles. Keep control text, body copy, and small supporting text at normal spacing. Compact controls override the label line height to 16px. Dialog and AlertDialog titles keep their 24px line height, and textareas keep their responsive 24px / 20px line heights. Ruled prose must explicitly keep the matching 24px line height. Allow labels, descriptions, and errors to wrap without clipping. Use semibold emphasis within body copy without changing its line height.
 
 Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It should not become a separate neon dashboard. Adjust texture, fills, and highlights for readability instead of mechanically inverting the light theme.
@@ -154,7 +156,7 @@ Use [Josh W. Comeau's Make Beautiful Gradients](https://www.joshwcomeau.com/css/
 
 Keep raised controls lighter at the top and darker below, consistent with the shared overhead light. Use stop positions or an eased distribution to soften the transition without creating a stripe. Keep crisp rims and bevels separate from the smooth face shading. Pressed controls follow the recessed-lighting rules below; gradients must not imply a second light source.
 
-Gradients remain local to existing material treatments and restrained glass accents. Keep fields plain and opaque, ordinary panels matte, and text solid rather than gradient-filled. The article's [Gradient Generator](https://www.joshwcomeau.com/gradient-generator/) is an authoring aid, not a runtime dependency. Its color stops can also serve radial or conic gradients, but those shapes need a specific lighting or artwork purpose.
+Gradients remain local to existing material treatments and restrained glass accents. Keep fields plain and opaque, ordinary panels matte, and text solid except for opt-in hero display ink. The article's [Gradient Generator](https://www.joshwcomeau.com/gradient-generator/) is an authoring aid, not a runtime dependency. Its color stops can also serve radial or conic gradients, but those shapes need a specific lighting or artwork purpose.
 
 Define shared recipes in `registry/ninaero/theme.mjs` and accent-specific colors in `registry/ninaero/accents.mjs`. Check interpolation support in target browsers before relying on it; if a required browser lacks it, use precomputed stops or a readable solid fill. Do not add runtime JavaScript to calculate decorative gradients.
 

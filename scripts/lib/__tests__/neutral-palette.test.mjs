@@ -7,6 +7,9 @@ import { theme } from "../../../registry/ninaero/theme.mjs";
 const neutralRoles = [
   "background",
   "foreground",
+  "display-ink-top",
+  "display-ink-bottom",
+  "display-ink-shadow",
   "card",
   "card-foreground",
   "popover",
@@ -110,6 +113,21 @@ test("neutral control edges retain 3:1 contrast on their resting materials", () 
       for (const fill of ["card", "paper-fill", "button-paper-fill"]) {
         const ratio = contrast(resolve(palette, token), resolve(palette, fill));
         assert.ok(ratio >= 3, `${mode} ${token} on ${fill}: ${ratio.toFixed(2)}:1`);
+      }
+    }
+  }
+});
+
+test("hero ink retains 4.5:1 contrast throughout neutral shading in every preset and mode", () => {
+  for (const mode of ["light", "dark"]) {
+    for (const [name, preset] of Object.entries(accentPresets)) {
+      const palette = { ...theme[mode], ...preset[mode] };
+      // Achromatic Oklab interpolation is monotonic, so the endpoints bound the full gradient.
+      for (const ink of ["display-ink-top", "display-ink-bottom"]) {
+        for (const fill of ["background", "card", "paper-fill"]) {
+          const ratio = contrast(resolve(palette, ink), resolve(palette, fill));
+          assert.ok(ratio >= 4.5, `${mode} ${name} ${ink} on ${fill}: ${ratio.toFixed(2)}:1`);
+        }
       }
     }
   }

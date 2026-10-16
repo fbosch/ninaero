@@ -41,9 +41,7 @@ export default function TabsWorkshopPage() {
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-3">
         <h1 className="text-3xl type-display">Tabs</h1>
-        <p className="text-muted-foreground">
-          Neutral selection stays quieter than the primary action.
-        </p>
+        <p className="text-muted-foreground">Compare tab selection with the primary action.</p>
         <p className="text-sm text-muted-foreground">
           Use arrow keys to move focus and Enter or Space to select a tab. Security is unavailable.
         </p>

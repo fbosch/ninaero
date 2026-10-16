@@ -13,7 +13,7 @@ export default function Home() {
           <div className="max-w-3xl">
             <header className="min-w-0 space-y-6">
               <h1 className="text-balance text-5xl type-display sm:text-6xl">
-                An optimistic, nostalgic theme{" "}
+                <span className="ninaero-display-ink block">An optimistic, nostalgic theme</span>{" "}
                 <span className="home-tagline block">for a friendlier web.</span>
               </h1>
               <div className="flex flex-wrap items-center gap-3">

@@ -65,7 +65,7 @@ const paperPalettes = {
 const notebookIntervals = 20;
 const notebookStep = 6;
 
-function notebookImage(palette) {
+function notebookMask() {
   const size = notebookIntervals * notebookStep;
   const rules = Array.from(
     { length: notebookIntervals - 1 },
@@ -75,21 +75,44 @@ function notebookImage(palette) {
   // Round caps on zero-length paths keep junctions the same size as the tile scales.
   const svg = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none">`,
-    `<path d="${rules}" stroke="${palette["paper-rule"]}" stroke-width="1" ${fixedStroke}/>`,
-    `<path d="M0 0H${size}V${size}H0Z" stroke="${palette["paper-rule-strong"]}" stroke-width="2" ${fixedStroke}/>`,
-    `<path d="M0 0h0 M${size} 0h0 M0 ${size}h0 M${size} ${size}h0" stroke="${palette["paper-rule-strong"]}" stroke-width="6" stroke-linecap="round" ${fixedStroke}/>`,
+    `<path d="${rules}" stroke="white" stroke-opacity="0.3125" stroke-width="1" ${fixedStroke}/>`,
+    `<path d="M0 0H${size}V${size}H0Z" stroke="white" stroke-width="2" ${fixedStroke}/>`,
+    `<path d="M0 0h0 M${size} 0h0 M0 ${size}h0 M${size} ${size}h0" stroke="white" stroke-width="6" stroke-linecap="round" ${fixedStroke}/>`,
     "</svg>",
   ].join("");
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
-function ditherImage(palette) {
+function ditherMask() {
   const svg = [
     '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" shape-rendering="crispEdges">',
-    `<path d="M0 0L8 8M8 0L0 8" stroke="${palette["paper-rule-strong"]}" stroke-width="1" vector-effect="non-scaling-stroke"/>`,
+    '<path d="M0 0L8 8M8 0L0 8" stroke="white" stroke-width="1" vector-effect="non-scaling-stroke"/>',
     "</svg>",
   ].join("");
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+function maskedPattern(mask, size) {
+  return {
+    position: "relative",
+    isolation: "isolate",
+    // Keep the decorative SVG behind content without masking the container or its fill.
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      inset: "0",
+      "z-index": "-1",
+      "pointer-events": "none",
+      "border-radius": "inherit",
+      "corner-shape": "inherit",
+      "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
+      "mask-image": `var(--${mask})`,
+      "mask-mode": "alpha",
+      "mask-size": `${size} ${size}`,
+      "mask-repeat": "repeat",
+      "@media (forced-colors: active)": { display: "none" },
+    },
+  };
 }
 
 const paperPatterns = {
@@ -97,13 +120,14 @@ const paperPatterns = {
     spacing: 24,
     styles: {
       "background-image":
-        "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--paper-rule) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
+        "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--ninaero-pattern-ink, var(--paper-rule)) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
     },
   },
   dotted: {
     spacing: 16,
     styles: {
-      "background-image": "radial-gradient(circle, var(--paper-dot) 1px, transparent 1px)",
+      "background-image":
+        "radial-gradient(circle, var(--ninaero-pattern-ink, var(--paper-dot)) 1px, transparent 1px)",
       "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
     },
   },
@@ -111,7 +135,7 @@ const paperPatterns = {
     spacing: 24,
     styles: {
       "background-image":
-        "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
+        "linear-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px), linear-gradient(90deg, var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px)",
       "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
     },
   },
@@ -119,9 +143,7 @@ const paperPatterns = {
     spacing: notebookStep,
     styles: {
       "--ninaero-notebook-size": `calc(var(--ninaero-paper-step) * ${notebookIntervals})`,
-      "background-image": "var(--paper-notebook-image)",
-      "background-size": "var(--ninaero-notebook-size) var(--ninaero-notebook-size)",
-      "background-repeat": "repeat",
+      ...maskedPattern("paper-notebook-mask", "var(--ninaero-notebook-size)"),
     },
   },
 };
@@ -152,12 +174,8 @@ const paperUtilities = Object.fromEntries(
     ];
   }),
 );
-const ditherStyles = {
-  "background-image": "var(--dither-image)",
-  "background-size": "var(--ninaero-dither-step) var(--ninaero-dither-step)",
-  "background-repeat": "repeat",
-  "@media (forced-colors: active)": { "background-image": "none" },
-};
+const ditherStyles = maskedPattern("dither-mask", "var(--ninaero-dither-step)");
+const patternInkColor = '--value(--color-*, "transparent", [color])';
 
 export const theme = {
   font: sansFont,
@@ -232,6 +250,9 @@ export const theme = {
     "input-recess-shade-weight": "6%",
     "input-recess-highlight-weight": "35%",
     foreground: "oklch(0.145 0 0)",
+    "display-ink-top": "oklch(0.32 0 0)",
+    "display-ink-bottom": "oklch(0.22 0 0)",
+    "display-ink-shadow": "#00000014",
     card: "oklch(1 0 0)",
     "card-foreground": "oklch(0.145 0 0)",
     popover: "var(--card)",
@@ -277,8 +298,8 @@ export const theme = {
     "shadow-color": "0deg 0% 24%",
     "shadow-color-paper": "0deg 0% 28%",
     ...paperPalettes.light,
-    "paper-notebook-image": notebookImage(paperPalettes.light),
-    "dither-image": ditherImage(paperPalettes.light),
+    "paper-notebook-mask": notebookMask(),
+    "dither-mask": ditherMask(),
   },
   dark: {
     background: "oklch(0.145 0 0)",
@@ -300,6 +321,9 @@ export const theme = {
     "input-recess-shade-weight": "12%",
     "input-recess-highlight-weight": "7%",
     foreground: "oklch(0.985 0 0)",
+    "display-ink-top": "oklch(0.985 0 0)",
+    "display-ink-bottom": "oklch(0.88 0 0)",
+    "display-ink-shadow": "#00000040",
     card: "oklch(0.205 0 0)",
     "card-foreground": "oklch(0.985 0 0)",
     popover: "var(--card)",
@@ -342,12 +366,20 @@ export const theme = {
     "shadow-color": "0deg 0% 3%",
     "shadow-color-paper": "0deg 0% 5%",
     ...paperPalettes.dark,
-    "paper-notebook-image": notebookImage(paperPalettes.dark),
-    "dither-image": ditherImage(paperPalettes.dark),
   },
   css: {
     ...accentRules,
     ...paperUtilities,
+    "@utility ninaero-pattern-ink-*": {
+      "--ninaero-pattern-ink": patternInkColor,
+      // Tailwind omits each optional override when its modifier type does not match.
+      "&": {
+        "--ninaero-pattern-ink": `--alpha(${patternInkColor} / calc(--modifier(number) * 1%))`,
+        "&": {
+          "--ninaero-pattern-ink": `--alpha(${patternInkColor} / --modifier([number], [percentage]))`,
+        },
+      },
+    },
     "@utility ninaero-dither": {
       "--ninaero-dither-step": "8px",
       ...ditherStyles,
@@ -358,6 +390,27 @@ export const theme = {
     },
     "@utility type-display": {
       "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {},
+    },
+    "@utility ninaero-display-ink": {
+      "background-image":
+        "linear-gradient(to bottom in oklab, var(--display-ink-top), var(--display-ink-bottom))",
+      "background-clip": "text",
+      color: "transparent",
+      // Shadow the clipped gradient glyphs without painting through their transparent text fill.
+      filter: "drop-shadow(0 1px 1px var(--display-ink-shadow))",
+      "&::selection": {
+        "background-color": "var(--accent)",
+        color: "var(--accent-foreground)",
+      },
+      "@media (forced-colors: active)": {
+        "background-image": "none",
+        color: "CanvasText",
+        filter: "none",
+        "&::selection": {
+          "background-color": "Highlight",
+          color: "HighlightText",
+        },
+      },
     },
     "@utility type-heading": {
       "@apply font-[650] leading-[1.25] tracking-[-0.015em]": {},

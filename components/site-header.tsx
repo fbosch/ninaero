@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { AccentSwitcher } from "@/components/accent-switcher";
+import { NinaeroMark } from "@/components/ninaero-mark";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { CoinBFillIcon } from "@/lib/icons";
 
 const destinations = [["/docs", "Docs"]] as const;
 
@@ -14,10 +14,13 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <div className="mx-auto flex max-w-7xl flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 px-5 py-5 sm:px-8">
-        <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-5 text-sm">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-5 sm:px-8">
+        <nav
+          aria-label="Main navigation"
+          className="flex shrink-0 flex-wrap items-center gap-5 text-sm"
+        >
           <Link href="/" className="type-title inline-flex items-center gap-2">
-            <CoinBFillIcon width={20} height={20} />
+            <NinaeroMark width={20} height={20} />
             Ninaero
           </Link>
           {destinations.map(([href, label]) => {
@@ -37,7 +40,7 @@ export function SiteHeader() {
         <div
           role="group"
           aria-label="Appearance"
-          className="ninaero-surface-paper flex shrink-0 items-start gap-2"
+          className="ninaero-surface-paper ml-auto flex shrink-0 items-start gap-2"
         >
           <AccentSwitcher />
           <ThemeSwitcher />

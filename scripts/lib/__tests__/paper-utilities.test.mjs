@@ -54,6 +54,7 @@ for (const name of [
         `${name}-8`,
         `${name}-6.5`,
         `${name}-[10.5]`,
+        `${name}-(number:--workshop-pattern-step)`,
         `md:${name}-16`,
         `dark:${name}-12`,
         `forced-colors:${name}-8`,
@@ -62,6 +63,34 @@ for (const name of [
     assert.doesNotThrow(() => compiler.build([]));
   });
 }
+
+test("installed patterns compile semantic, palette, arbitrary, and variable ink colors with opacity", async () => {
+  const colors = [
+    "ninaero-pattern-ink-primary",
+    "ninaero-pattern-ink-primary/20",
+    "ninaero-pattern-ink-foreground/12.5",
+    "ninaero-pattern-ink-slate-500/0",
+    "ninaero-pattern-ink-slate-500/100",
+    "ninaero-pattern-ink-[#5c7185]/35",
+    "ninaero-pattern-ink-[oklch(0.7_0.15_200)]/30",
+    "ninaero-pattern-ink-(color:--consumer-ink)/40",
+    "ninaero-pattern-ink-transparent",
+    "ninaero-pattern-ink-[currentColor]/[0.25]",
+    "ninaero-pattern-ink-primary/[35%]",
+    "dark:ninaero-pattern-ink-primary/30",
+    "md:ninaero-pattern-ink-foreground/20",
+  ];
+  for (const pattern of [
+    "ninaero-paper-ruled-8",
+    "ninaero-paper-dotted-8",
+    "ninaero-paper-grid-8",
+    "ninaero-paper-notebook-8",
+    "ninaero-dither-8",
+  ]) {
+    const compiler = await compileConsumer([pattern, ...colors].join(" "));
+    assert.doesNotThrow(() => compiler.build([]));
+  }
+});
 
 test("zero and subpixel interval arguments compile for consumers", async () => {
   const compiler = await compileConsumer(
@@ -72,4 +101,9 @@ test("zero and subpixel interval arguments compile for consumers", async () => {
 
 test("pattern size arguments reject nonnumeric values", async () => {
   await assert.rejects(compileConsumer("ninaero-paper-grid-large"), /unknown utility/i);
+});
+
+test("ink utilities reject unknown colors and nonnumeric opacity modifiers", async () => {
+  await assert.rejects(compileConsumer("ninaero-pattern-ink-loud"), /unknown utility/i);
+  await assert.rejects(compileConsumer("ninaero-pattern-ink-primary/loud"), /unknown utility/i);
 });

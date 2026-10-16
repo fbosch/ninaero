@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Background details | Ninaero",
   description:
-    "Configurable ruled, dotted, grid, and notebook backgrounds with Tailwind utilities.",
+    "Configurable paper patterns and diamond dithering with Tailwind spacing and ink colors.",
 };
 
 const backgroundPatterns = [
@@ -66,6 +66,21 @@ const ditherSamples = [
   { className: "ninaero-dither-4", spacing: "4px" },
   { className: "ninaero-dither-8", spacing: "8px" },
   { className: "ninaero-dither-12", spacing: "12px" },
+];
+
+const colorSamples = [
+  {
+    label: "Semantic accent",
+    className: "ninaero-paper-notebook-6 ninaero-pattern-ink-primary/25",
+  },
+  {
+    label: "Palette color",
+    className: "ninaero-paper-grid-16 ninaero-pattern-ink-slate-500/30",
+  },
+  {
+    label: "Arbitrary color",
+    className: "ninaero-dither-8 ninaero-pattern-ink-[#5c7185]/35",
+  },
 ];
 
 const responsiveExample =
@@ -167,15 +182,54 @@ export default function BackgroundDetailsPage() {
         </p>
       </section>
 
+      <section aria-labelledby="pattern-colors-heading" className="flex flex-col gap-4">
+        <h2 id="pattern-colors-heading" className="text-xl type-heading">
+          Set the ink color
+        </h2>
+        <p className="text-sm type-prose text-muted-foreground">
+          Combine any pattern with <code className="text-foreground">ninaero-pattern-ink-*</code>.
+          Use semantic colors such as primary, Tailwind palette colors such as slate-500, or an
+          arbitrary color in brackets. Add an opacity modifier such as /25 for 25% ink. Responsive
+          and dark variants work too. Set the fill separately with bg-* utilities.
+        </p>
+        <div className="grid grid-cols-3 gap-3">
+          {colorSamples.map((sample) => (
+            <figure key={sample.className} className="flex min-w-0 flex-col gap-2">
+              <div
+                aria-hidden="true"
+                className={`h-48 rounded-md border bg-muted ${sample.className}`}
+              />
+              <figcaption className="flex flex-col gap-1 text-sm">
+                <span>{sample.label}</span>
+                <code className="text-xs break-all text-muted-foreground">{sample.className}</code>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <CodeBlock
+          code={
+            '<div aria-hidden="true" className="ninaero-paper-notebook-6 ninaero-pattern-ink-primary/25 h-48 bg-muted" />'
+          }
+          label="Notebook with translucent accent ink"
+          language="tsx"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          Omitting the ink class keeps the neutral light and dark defaults. Notebook&apos;s fine
+          rules remain lighter than its dividers. Ink classes do not change the fill or text color.
+          Notebook and dither use the container&apos;s ::before pseudo-element for their SVG mask;
+          leave it available for the texture.
+        </p>
+      </section>
+
       <section aria-labelledby="dither-heading" className="flex flex-col gap-4">
         <h2 id="dither-heading" className="text-xl type-heading">
           Diamond dither overlay
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          This SVG mesh has a transparent background and neutral ink, so it keeps the surface&apos;s
-          existing color. Use <code className="text-foreground">ninaero-dither</code> for an 8px
-          tile, or add a numeric suffix to change the tile size. The examples below keep the same
-          muted fill.
+          This SVG mesh has a transparent background and neutral default ink, so it keeps the
+          surface&apos;s existing color. Use <code className="text-foreground">ninaero-dither</code>{" "}
+          for an 8px tile, or add a numeric suffix to change the tile size. The examples below keep
+          the same muted fill.
         </p>
         <div className="grid grid-cols-3 gap-3">
           {ditherSamples.map((sample) => (
@@ -217,7 +271,7 @@ export default function BackgroundDetailsPage() {
             another.
           </li>
           <li>
-            The background fill and pattern ink stay grayscale across accent presets. Forced-colors
+            Defaults stay grayscale across accent presets; ink classes opt into color. Forced-colors
             mode removes the textures, so content must remain clear without them.
           </li>
         </ul>
