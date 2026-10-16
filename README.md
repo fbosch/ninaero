@@ -41,7 +41,9 @@ Components include the shared theme and their dependencies.
 - Shared Mage icons: `lib/icons.tsx`
 - Preview-only examples: `components/examples/`
 
-Run `pnpm registry:build` after source changes. Do not edit `app/globals.css`, `registry.json`, `generated/component-docs.json`, or `public/r/` directly.
+`pnpm dev` rebuilds the theme CSS, component docs, and installable registry when their sources change. Next.js refreshes the app without a server restart. If generation fails, fix the source and save again to retry.
+
+Run `pnpm registry:build` for a one-off rebuild outside the dev server. Do not edit `app/globals.css`, `registry.json`, `generated/component-docs.json`, or `public/r/` directly.
 
 See [DESIGN.md](DESIGN.md) for visual guidelines. Check light and dark modes, keyboard focus, hover, pressed, disabled, and invalid states.
 

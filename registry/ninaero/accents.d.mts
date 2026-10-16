@@ -1,4 +1,12 @@
-export type AccentName = "cyan" | "indigo" | "lavender" | "slate";
+export type AccentName =
+  | "cyan"
+  | "indigo"
+  | "lavender"
+  | "slate"
+  | "lagoon"
+  | "sky"
+  | "blossom"
+  | "lime";
 export type AccentPalette = Record<string, string>;
 export const defaultAccent: AccentName;
 export const accentStorageKey: string;

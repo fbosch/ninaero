@@ -10,6 +10,7 @@ const specimens = [
   ["buttons", "Buttons", "Variants, sizes, press feedback, and accent comparisons."],
   ["inputs", "Inputs", "Editable, disabled, and invalid states."],
   ["dialog", "Dialog", "Overlay surfaces and keyboard focus."],
+  ["tabs", "Tabs", "Neutral selection, keyboard focus, and action hierarchy."],
   ["tokens", "Tokens", "Shared semantic colors."],
 ] as const;
 

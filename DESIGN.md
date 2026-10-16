@@ -6,7 +6,7 @@ Ninaero combines a Nintendo handheld-inspired layout with paper details and rest
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, and Slate alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Destructive states keep semantic red. Green, yellow, orange, and red remain reserved for status colors.
+This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, Slate, Lagoon, Sky, Blossom, and Lime alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Status colors remain independent of the accent, and destructive states keep semantic red.
 
 ## Reference hierarchy
 
@@ -71,21 +71,22 @@ Preserve each component's role-based corners, material depth, responsive text si
 
 ### Paper patterns
 
-Use the Paper Details group in the moodboard as the source for all three variants. These are CSS textures, not image assets to copy into the theme.
+Use the Paper Details group in the moodboard for the ruled, dotted, and grid variants; use the supplied Nintendo DS notebook image for the notebook variant. These are CSS textures, not image assets to copy into the theme.
 
-| Pattern | Use                            | Shared class           |
-| ------- | ------------------------------ | ---------------------- |
-| Ruled   | Line-aligned prose only        | `ninaero-paper-ruled`  |
-| Dotted  | Homepage background            | `ninaero-paper-dotted` |
-| Grid    | Component catalogue thumbnails | `ninaero-paper-grid`   |
+| Pattern  | Use                               | Shared class             |
+| -------- | --------------------------------- | ------------------------ |
+| Ruled    | Line-aligned prose only           | `ninaero-paper-ruled`    |
+| Dotted   | Homepage background               | `ninaero-paper-dotted`   |
+| Grid     | Component catalogue thumbnails    | `ninaero-paper-grid`     |
+| Notebook | Decorative page and preview areas | `ninaero-paper-notebook` |
 
 The homepage uses `bg-background` to keep the neutral page fill beneath its dots. Changing the texture must not introduce a blue-tinted background.
 
 Use ruled paper only for paragraphs and other continuous text. Match the rule interval to the text's line height and offset the background so each text line sits between the rules on a consistent baseline. Keep paragraph spacing in whole line-height increments. The current 24px ruling requires a matching 24px line height. Check alignment after wrapping, responsive type changes, and text resizing. If alignment cannot be maintained, use a plain background.
 
-Do not use ruling behind forms, control specimens, tables, navigation, or mixed component layouts. Dotted and grid patterns may appear on page backgrounds and preview backdrops; forms, tables, and code blocks keep opaque, plain fills. A grid is one pattern made from horizontal and vertical rules; do not add dots or ruling over it. Separate sections with space instead of adding decorative divider lines.
+Do not use ruling behind forms, control specimens, tables, navigation, or mixed component layouts. Dotted and grid patterns may appear on page backgrounds and preview backdrops. Use the notebook pattern only as a decorative background or preview backdrop, not behind forms, text, or controls. Keep forms, tables, and code blocks on opaque, plain fills. A grid is one pattern made from horizontal and vertical rules; do not add dots or ruling over it. Separate sections with space instead of adding decorative divider lines.
 
-Define pattern fills, ink, and CSS recipes in `registry/ninaero/theme.mjs` so consumers can use the same opt-in classes. Paper fills and pattern ink stay grayscale and independent of the Cyan, Indigo, Lavender, and Slate accents. Tune the pattern ink separately in light and dark modes, and remove decorative textures in forced-colors mode. The initial spacing is 24px for ruling and grid, and 16px for dots. Spacing and ink strength still need visual review.
+Define pattern fills, ink, and CSS recipes in `registry/ninaero/theme.mjs` so consumers can use the same opt-in classes. Paper fills and pattern ink stay grayscale and independent of all accent presets. Tune the pattern ink separately in light and dark modes, and remove decorative textures in forced-colors mode. The initial spacing is 24px for ruling and grid, 16px for dots, and 6px for notebook lines with 80px major rules, 114px vertical guides, and marked intersections. Spacing and ink strength still need visual review.
 
 ## Color and typography
 
@@ -127,7 +128,8 @@ Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It shou
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | Buttons              | Squircle corner curves, a fine edge, and shallow depth. Give the primary action a restrained cyan highlight. Reduce the depth on press. |
 | Inputs and tables    | Plain opaque fills, clear ink, fine dividers, and an explicit focus outline. No texture or blur behind their content.                   |
-| Tabs and selection   | Pale cyan fill with a defined edge. Keep selection recognizable without glow.                                                           |
+| Tabs                 | Brighter neutral selection on a recessed track, with a fine edge and less depth than Button. Keep accent for keyboard focus.            |
+| Other selection      | Pale accent fill with a defined edge. Keep selection recognizable without glow.                                                         |
 | Cards                | Paper-white panels with quiet framing. Reserve stronger depth for elements that need to stand apart.                                    |
 | Popovers and dialogs | Opaque grayscale interiors and neutral frames in both modes. Optional rims or backdrop blur must not tint the panel blue.               |
 | Empty states         | Optional original Flipnote-inspired illustration or localized dithering, separate from the working controls.                            |
@@ -225,9 +227,9 @@ These are design requirements. They have not yet been verified in a themed inter
 
 ## Shared theme constraints
 
-The homepage at `/` has a concise introduction, accent choices, and an install command; it does not feature a composed interface example. `/docs` contains component documentation and a searchable component list in its sidebar. The standalone `/components` and `/examples` pages and their example routes are removed. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
+The homepage at `/` has a concise introduction and an install command; it does not feature a composed interface example. `/docs` contains component documentation and a searchable component list in its sidebar. The standalone `/components` and `/examples` pages and their example routes are removed. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
 
-Borrow Afterglow's homepage structure: a prominent heading, visible accent choices, and an install command. Use faint dots on the neutral homepage background. Keep grid in catalogue previews and reserve ruling for line-aligned prose. Separate sections with space, not decorative divider lines. Retain borders for controls. Keep catalogues, token swatches, state matrices, and composed examples off the homepage. The header exposes an accent dropdown and a compact, icon-only System, Dark, Light Button Group; accent choices are also available in the hero. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
+Borrow Afterglow's homepage structure: a prominent heading and an install command. Use faint dots on the neutral homepage background. Keep grid in catalogue previews and reserve ruling for line-aligned prose. Separate sections with space, not decorative divider lines. Retain borders for controls. Keep catalogues, token swatches, state matrices, and composed examples off the homepage. Keep the accent Select in the header only. Tint the hero tagline with a muted version of the selected accent; keep the main heading and page background neutral. The header also has a compact, icon-only System, Dark, Light Button Group. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
 
 - Keep shared tokens and theme rules in `registry/ninaero/theme.mjs`.
 - Keep installable component styling in `registry/ninaero/ui/`.
@@ -282,6 +284,14 @@ Textarea keeps its `4rem` minimum height, `0.5rem` vertical padding, native resi
 Select uses the shared default field height, retains its compact trigger size, and preserves Base UI's positioning and keyboard behavior. Its menu uses the shared neutral floating frame with regular rounded `radius-xl` corners, currently `0.875rem`. Selected options have a pale accent fill, a defined edge, and a check mark. Highlighted options use an inset outline that stays inside the menu. Disabled options remain opaque with muted ink. Keep their highlight visible when Base UI focuses them for inspection; they cannot be selected. Reduced motion removes popup and chevron transitions; forced-colors mode preserves selection and highlights with system colors.
 
 The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded, distinct from squircle action buttons and dialog frames. DS nickname-field geometry has not been independently verified.
+
+### Tabs
+
+Tabs use conventional rounded corners and a compact 32px horizontal track. Keep the track neutral and shallowly recessed. Give the selected tab a brighter neutral face with soft top-to-bottom shading, a localized upper glass reflection, a crisp top rim, a narrow lower edge, and a small contact shadow. Keep its depth below Button and reserve saturated accent fills for primary actions so navigation does not compete with them.
+
+Selection stays neutral across accent presets. Use stronger label contrast with the persistent frame or selection marker to identify the selected tab. Underline tabs keep their labels unboxed and use a soft 4px neutral marker with rounded ends, a broad upper reflection, and a diffuse contact shadow. Keep the marker borderless and its lower face at least 3:1 against the surrounding panel; the lighter upper reflection is decorative. Dark mode uses gray rather than white. Place the horizontal marker below the label and the vertical marker at the trailing edge. Hover changes label emphasis; press flattens the marker's lighting without filling or recessing the label area.
+
+Keyboard focus has a separate accent outline on tabs and panels; leave it unclipped. Feedback stays immediate without moving labels or animating panels. Reduced motion removes material transitions. Forced-colors mode removes decorative rail lighting and uses system selection, boundary, and focus colors.
 
 ### Dialogs
 

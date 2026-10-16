@@ -6,6 +6,16 @@ html.dark {
   color-scheme: dark;
 }
 
+.home-tagline {
+  color: color-mix(in srgb, var(--button-link-ink) 65%, var(--muted-foreground));
+}
+
+@media (forced-colors: active) {
+  .home-tagline {
+    color: CanvasText;
+  }
+}
+
 .site-header {
   /* Keep the cast shadow above opaque page backgrounds. */
   position: relative;

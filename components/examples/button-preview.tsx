@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 
 import { useAccent } from "@/components/accent-provider";
-import { PlusIcon } from "@/lib/icons";
+import { CheckIcon, PlusIcon } from "@/lib/icons";
 import { accentNames, accentPresets } from "@/registry/ninaero/accents.mjs";
 import { Button } from "@/registry/ninaero/ui/button";
 import { ButtonGroup } from "@/registry/ninaero/ui/button-group";
@@ -19,7 +19,7 @@ const variants = [
   ["link", "Link"],
 ] as const;
 
-const sizes = ["xs", "sm", "default", "lg"] as const;
+const sizes = ["xs", "sm", "default", "lg", "xl"] as const;
 const iconSizes = ["icon-xs", "icon-sm", "icon", "icon-lg"] as const;
 
 export function ButtonPreview() {
@@ -66,23 +66,21 @@ export function ButtonPreview() {
           </p>
           <div className="grid grid-cols-2 gap-3">
             {accentNames.map((name) => (
-              <div
+              <Button
                 key={name}
                 data-accent={name}
-                className="space-y-2 rounded-lg border bg-card p-3"
+                className="relative w-full"
+                disabled={!mounted}
+                aria-pressed={accent === name}
+                onClick={() => setAccent(name)}
               >
-                <Button
-                  className="w-full"
-                  disabled={!mounted}
-                  aria-pressed={accent === name}
-                  onClick={() => setAccent(name)}
-                >
-                  {accentPresets[name].label}
-                </Button>
-                <p className="min-h-4 text-center text-xs text-muted-foreground">
-                  {accent === name ? "Selected" : ""}
-                </p>
-              </div>
+                <CheckIcon
+                  className="absolute left-3 top-1/2 -translate-y-1/2 opacity-0 data-[selected=true]:opacity-100"
+                  data-selected={accent === name}
+                  aria-hidden="true"
+                />
+                {accentPresets[name].label}
+              </Button>
             ))}
           </div>
         </fieldset>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm registry:build && next dev",
+    "dev": "node scripts/dev.mjs",
     "build": "pnpm registry:build && next build",
     "start": "next start",
     "registry:build": "node scripts/build-registry.mjs && shadcn build",

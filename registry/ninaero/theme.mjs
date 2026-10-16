@@ -9,6 +9,8 @@ const raisedButtonGroupSelector = [
   `:has(> ${raisedButtonSelector}:not(:disabled):not([data-disabled]):not([aria-disabled=true]))`,
   `:not(:has(> :not(${raisedButtonSelector}, [data-slot=button-group-separator])))`,
 ].join("");
+const segmentedTabSelector =
+  ".ninaero-tabs-list[data-variant=default] > .ninaero-tabs-trigger:where(:not(:disabled):not([data-disabled]):not([aria-disabled=true]))";
 
 export const elevations = {
   // A transparent layer composes with inset bevels; none cannot appear in a shadow list.
@@ -106,6 +108,19 @@ export const theme = {
     "input-fill": "oklch(0.975 0 0)",
     "input-placeholder": "oklch(0.5 0 0)",
     "input-disabled-fill": "var(--muted)",
+    "tabs-track-fill": "#ededed",
+    "tabs-track-shade": "#0000000a",
+    "tabs-active-fill": "#f6f6f6",
+    "tabs-active-top": "#ffffff",
+    "tabs-active-bottom": "#e1e1e1",
+    "tabs-active-edge": "#7f7f7f",
+    "tabs-active-highlight": "#ffffff80",
+    "tabs-hover-fill": "#e3e3e3",
+    "tabs-ink": "#616161",
+    "tabs-marker-top": "#c4c4c4",
+    "tabs-marker-fill": "#888888",
+    "tabs-marker-bottom": "#808080",
+    "tabs-marker-highlight": "#ffffff14",
     "input-recess-shade-weight": "6%",
     "input-recess-highlight-weight": "35%",
     foreground: "oklch(0.145 0 0)",
@@ -156,6 +171,7 @@ export const theme = {
     "paper-fill": "#f9f9f9",
     "paper-rule": "#79797914",
     "paper-dot": "#79797929",
+    "paper-rule-strong": "#79797940",
   },
   dark: {
     background: "oklch(0.145 0 0)",
@@ -165,6 +181,19 @@ export const theme = {
     "input-fill": "oklch(0.18 0 0)",
     "input-placeholder": "var(--muted-foreground)",
     "input-disabled-fill": "var(--input-fill)",
+    "tabs-track-fill": "#242424",
+    "tabs-track-shade": "#00000040",
+    "tabs-active-fill": "#3a3a3a",
+    "tabs-active-top": "#454545",
+    "tabs-active-bottom": "#2e2e2e",
+    "tabs-active-edge": "#aaaaaa",
+    "tabs-active-highlight": "#ffffff1a",
+    "tabs-hover-fill": "#303030",
+    "tabs-ink": "#b5b5b5",
+    "tabs-marker-top": "#a8a8a8",
+    "tabs-marker-fill": "#888888",
+    "tabs-marker-bottom": "#808080",
+    "tabs-marker-highlight": "#ffffff0f",
     "input-recess-shade-weight": "12%",
     "input-recess-highlight-weight": "7%",
     foreground: "oklch(0.985 0 0)",
@@ -212,6 +241,7 @@ export const theme = {
     "paper-fill": "#232323",
     "paper-rule": "#cecece0f",
     "paper-dot": "#cecece24",
+    "paper-rule-strong": "#cecece30",
   },
   css: {
     ...accentRules,
@@ -240,6 +270,12 @@ export const theme = {
       "*": {
         "@apply border-border outline-ring/50": {},
       },
+      "@media (forced-colors: none)": {
+        "::selection": {
+          "background-color": "var(--accent)",
+          color: "var(--accent-foreground)",
+        },
+      },
       body: {
         "@apply bg-background text-foreground": {},
       },
@@ -256,7 +292,7 @@ export const theme = {
       ".ninaero-surface-paper": {
         "--shadow-color": "var(--shadow-color-paper)",
       },
-      ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
+      ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid, .ninaero-paper-notebook": {
         "--shadow-color": "var(--shadow-color-paper)",
         "background-color": "var(--paper-fill)",
       },
@@ -272,6 +308,15 @@ export const theme = {
         "background-image":
           "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
         "background-size": "24px 24px",
+      },
+      ".ninaero-paper-notebook": {
+        "background-image": [
+          "radial-gradient(circle at 2px 78px, var(--paper-rule-strong) 0 2px, transparent 3px)",
+          "repeating-linear-gradient(90deg, transparent 0 2px, var(--paper-rule-strong) 2px 4px, transparent 4px 114px)",
+          "repeating-linear-gradient(transparent 0 78px, var(--paper-rule-strong) 78px 80px)",
+          "repeating-linear-gradient(transparent 0 5px, var(--paper-rule) 5px 6px)",
+        ].join(", "),
+        "background-size": "114px 80px, 114px 80px, auto, auto",
       },
       ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
         "--input-corner": "0.75rem",
@@ -408,6 +453,106 @@ export const theme = {
       ".ninaero-select-item[data-disabled]": {
         color: "var(--muted-foreground)",
       },
+      ".ninaero-tabs-list": {
+        "border-radius": "var(--radius-lg)",
+        "corner-shape": "round",
+        border: "1px solid var(--border)",
+        "background-color": "var(--tabs-track-fill)",
+        "box-shadow": "inset 0 1px 3px var(--tabs-track-shade)",
+      },
+      ".ninaero-tabs-trigger": {
+        "border-radius": "var(--radius-md)",
+        "corner-shape": "round",
+        border: "1px solid transparent",
+        color: "var(--tabs-ink)",
+        "background-color": "transparent",
+        outline: "2px solid transparent",
+        "outline-offset": "2px",
+        transition:
+          "background-color 100ms ease-out, border-color 100ms ease-out, box-shadow 100ms ease-out, color 100ms ease-out",
+      },
+      ".ninaero-tabs-trigger[data-active]": {
+        color: "var(--foreground)",
+      },
+      [`${segmentedTabSelector}[data-active]`]: {
+        "border-color": "var(--tabs-active-edge)",
+        "background-color": "var(--tabs-active-fill)",
+        "background-image":
+          "radial-gradient(ellipse at 50% -45% in oklab, var(--tabs-active-highlight), transparent 75%), linear-gradient(180deg in oklab, var(--tabs-active-top), var(--tabs-active-fill) 48%, var(--tabs-active-bottom))",
+        "box-shadow":
+          "inset 0 1px 0 var(--tabs-active-highlight), inset 0 -1px 0 var(--tabs-active-bottom), 0 1px 2px hsl(var(--shadow-color) / 0.2)",
+      },
+      [`${segmentedTabSelector}:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])`]:
+        {
+          "background-color": "var(--tabs-hover-fill)",
+          "background-image": "none",
+          "box-shadow": "inset 0 1px 2px var(--tabs-track-shade)",
+        },
+      ".ninaero-tabs-trigger:disabled, .ninaero-tabs-trigger[data-disabled], .ninaero-tabs-trigger[aria-disabled=true]":
+        {
+          color: "var(--muted-foreground)",
+          "background-image": "none",
+          "box-shadow": "none",
+          cursor: "not-allowed",
+        },
+      ".ninaero-tabs-content": {
+        outline: "2px solid transparent",
+        "outline-offset": "3px",
+      },
+      ".ninaero-tabs-trigger:focus-visible, .ninaero-tabs-content:focus-visible": {
+        "outline-color": "var(--ring)",
+      },
+      ".ninaero-tabs-list[data-variant=line]": {
+        "border-radius": "0",
+        border: "0",
+        "background-color": "transparent",
+        "box-shadow": "none",
+      },
+      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger": {
+        "border-color": "transparent",
+        "background-color": "transparent",
+        "background-image": "none",
+        "box-shadow": "none",
+      },
+      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger::after": {
+        content: '""',
+        position: "absolute",
+        "inset-inline": "0.75rem",
+        "inset-block-end": "0",
+        height: "4px",
+        "box-sizing": "border-box",
+        "border-radius": "2px",
+        border: "0",
+        "background-color": "var(--tabs-marker-fill)",
+        "background-image":
+          "linear-gradient(180deg in oklab, var(--tabs-marker-top), var(--tabs-marker-fill) 58%, var(--tabs-marker-bottom))",
+        "box-shadow":
+          "inset 0 1px 0 var(--tabs-marker-highlight), 0 1px 3px hsl(var(--shadow-color) / 0.16)",
+        "pointer-events": "none",
+        opacity: "0",
+      },
+      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-active]::after": {
+        opacity: "1",
+      },
+      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where(:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]))::after":
+        {
+          "background-image": "none",
+          "box-shadow": "none",
+        },
+      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where(:disabled, [data-disabled], [aria-disabled=true])::after":
+        {
+          "background-color": "var(--muted-foreground)",
+          "background-image": "none",
+          "box-shadow": "none",
+        },
+      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-orientation=vertical]::after":
+        {
+          "inset-inline-start": "auto",
+          "inset-inline-end": "0",
+          "inset-block": "4px",
+          width: "4px",
+          height: "auto",
+        },
       ".ninaero-toggle": {
         "--toggle-corner": "var(--radius-md)",
         "--button-recess-fill": "var(--button-paper-pressed)",
@@ -545,6 +690,14 @@ export const theme = {
         "--button-cast-shadow": "var(--shadow-flat)",
       },
       "@media (hover: hover)": {
+        ".ninaero-tabs-trigger:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([data-active])":
+          {
+            color: "var(--foreground)",
+          },
+        [`${segmentedTabSelector}:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([data-active])`]:
+          {
+            "background-color": "var(--tabs-hover-fill)",
+          },
         ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])":
           {
             "background-color": "var(--button-paper-hover)",
@@ -586,6 +739,9 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
+        ".ninaero-tabs-trigger": {
+          transition: "none",
+        },
         ".ninaero-dialog, .ninaero-dialog[data-starting-style], .ninaero-dialog[data-ending-style], .ninaero-dialog-overlay, .ninaero-dialog-overlay[data-starting-style], .ninaero-dialog-overlay[data-ending-style]":
           {
             animation: "none",
@@ -613,6 +769,63 @@ export const theme = {
         },
       },
       "@media (forced-colors: active)": {
+        ".ninaero-tabs-list": {
+          "border-color": "CanvasText",
+          "background-color": "Canvas",
+          "box-shadow": "none",
+        },
+        ".ninaero-tabs-trigger": {
+          color: "ButtonText",
+          "background-color": "ButtonFace",
+          "box-shadow": "none",
+        },
+        [`${segmentedTabSelector}[data-active]`]: {
+          "border-color": "Highlight",
+          "background-color": "Highlight",
+          "background-image": "none",
+          color: "HighlightText",
+          "box-shadow": "none",
+        },
+        [`${segmentedTabSelector}:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([data-active]), ${segmentedTabSelector}:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])`]:
+          {
+            "background-color": "ButtonFace",
+            color: "ButtonText",
+            "box-shadow": "none",
+          },
+        [`${segmentedTabSelector}[data-active]:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])`]:
+          {
+            "background-color": "Highlight",
+            color: "HighlightText",
+          },
+        ".ninaero-tabs-list[data-variant=line]": {
+          "background-color": "Canvas",
+          "box-shadow": "none",
+        },
+        ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger": {
+          "border-color": "transparent",
+          "background-color": "Canvas",
+          "box-shadow": "none",
+        },
+        ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger::after": {
+          "background-color": "Highlight",
+          "background-image": "none",
+          "box-shadow": "none",
+        },
+        ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where(:disabled, [data-disabled], [aria-disabled=true])::after":
+          {
+            "background-color": "GrayText",
+          },
+        ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-active]": {
+          color: "Highlight",
+        },
+        ".ninaero-tabs-trigger:disabled, .ninaero-tabs-trigger[data-disabled], .ninaero-tabs-trigger[aria-disabled=true]":
+          {
+            color: "GrayText",
+            "box-shadow": "none",
+          },
+        ".ninaero-tabs-trigger:focus-visible, .ninaero-tabs-content:focus-visible": {
+          "outline-color": "Highlight",
+        },
         ".ninaero-dialog": {
           "border-color": "CanvasText",
           "background-color": "Canvas",
@@ -620,10 +833,11 @@ export const theme = {
           color: "CanvasText",
           "box-shadow": "none",
         },
-        ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid": {
-          "background-image": "none",
-          "background-color": "Canvas",
-        },
+        ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid, .ninaero-paper-notebook":
+          {
+            "background-image": "none",
+            "background-color": "Canvas",
+          },
         ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
           "border-color": "CanvasText",
           "background-color": "Canvas",

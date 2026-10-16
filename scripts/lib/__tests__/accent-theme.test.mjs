@@ -19,7 +19,16 @@ function contrast(first, second) {
 }
 
 test("the available accent presets remain an explicit consumer choice", () => {
-  assert.deepEqual(Object.keys(accentPresets), ["cyan", "indigo", "lavender", "slate"]);
+  assert.deepEqual(Object.keys(accentPresets), [
+    "cyan",
+    "indigo",
+    "lavender",
+    "slate",
+    "lagoon",
+    "sky",
+    "blossom",
+    "lime",
+  ]);
 });
 
 for (const [name, preset] of Object.entries(accentPresets)) {

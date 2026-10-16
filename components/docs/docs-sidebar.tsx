@@ -48,6 +48,7 @@ export function DocsSidebar() {
           {[
             { href: "/docs", label: "Introduction" },
             { href: "/docs/theme", label: "Theming" },
+            { href: "/docs/paper-patterns", label: "Background details" },
           ].map(({ href, label }) => (
             <Link
               key={href}
