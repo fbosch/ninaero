@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { CodeBlock } from "@/components/docs/code-block";
+import { patternGuidance } from "@/lib/pattern-guidance";
 import {
   Card,
   CardContent,
@@ -18,59 +19,119 @@ export const metadata: Metadata = {
 const backgroundPatterns = [
   {
     title: "Ruled",
-    description: "Use behind continuous prose. Match the line height to the rule interval.",
+    guidance: patternGuidance.ruled,
+    placement:
+      "Apply the pattern to rendered prose. Keep line height and padding aligned to the rules.",
     defaultSpacing: "24px",
     samples: [
       { className: "ninaero-paper-ruled-16", spacing: "16px" },
       { className: "ninaero-paper-ruled-24", spacing: "24px" },
       { className: "ninaero-paper-ruled-32", spacing: "32px" },
     ],
-    example: '<p className="ninaero-paper-ruled-24 leading-6">Line-aligned prose.</p>',
+    example: `<p className="ninaero-paper-ruled-24 ninaero-pattern-ink-foreground/10 bg-background p-[24px] text-base leading-[24px]">
+  A journal entry with a fixed 24px line height.
+  Wrapped lines stay aligned with the ruling.
+</p>`,
   },
   {
     title: "Dotted",
-    description: "Use on page backgrounds, such as the homepage.",
+    guidance: patternGuidance.dotted,
+    placement: "Place a decorative layer behind your whiteboard or sketchpad content.",
     defaultSpacing: "16px",
     samples: [
       { className: "ninaero-paper-dotted-8", spacing: "8px" },
       { className: "ninaero-paper-dotted-16", spacing: "16px" },
       { className: "ninaero-paper-dotted-24", spacing: "24px" },
     ],
-    example: '<main className="ninaero-paper-dotted-16 bg-background">...</main>',
+    example: `import type { ReactNode } from "react";
+
+function SketchSurface({ children }: { children: ReactNode }) {
+  return (
+    <div className="relative h-64 overflow-hidden rounded-lg bg-background">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 ninaero-paper-dotted-16 ninaero-pattern-ink-foreground/12 bg-transparent"
+      />
+      <div className="relative h-full">{children}</div>
+    </div>
+  );
+}`,
   },
   {
     title: "Grid",
-    description: "Use behind catalogue thumbnails and component previews.",
+    guidance: patternGuidance.grid,
+    placement: "Use as a backdrop behind the drawing layer or opaque diagram nodes.",
     defaultSpacing: "24px",
     samples: [
       { className: "ninaero-paper-grid-12", spacing: "12px" },
       { className: "ninaero-paper-grid-24", spacing: "24px" },
       { className: "ninaero-paper-grid-40", spacing: "40px" },
     ],
-    example: '<div aria-hidden="true" className="ninaero-paper-grid-24 h-48" />',
+    example: `import type { ReactNode } from "react";
+
+function DiagramSurface({ children }: { children: ReactNode }) {
+  return (
+    <div className="relative h-64 overflow-hidden rounded-lg bg-background">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 ninaero-paper-grid-24 ninaero-pattern-ink-foreground/8 bg-transparent"
+      />
+      <div className="relative h-full">{children}</div>
+    </div>
+  );
+}`,
   },
   {
     title: "Notebook",
-    description: "A repeating SVG tile with fine rules, square cells, and marked intersections.",
+    guidance: patternGuidance.notebook,
+    placement: "Use behind cover artwork, with any title on a separate opaque background.",
     defaultSpacing: "6px",
     samples: [
       { className: "ninaero-paper-notebook-4", spacing: "4px" },
       { className: "ninaero-paper-notebook-6", spacing: "6px" },
       { className: "ninaero-paper-notebook-8", spacing: "8px" },
     ],
-    example: '<div aria-hidden="true" className="ninaero-paper-notebook-8 h-60" />',
+    example: `<header className="relative overflow-hidden rounded-lg bg-muted p-6">
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0 ninaero-paper-notebook-6 ninaero-pattern-ink-foreground/10 bg-transparent"
+  />
+  <h2 className="relative inline-block rounded-md bg-background px-3 py-2 font-medium">
+    Learning journal
+  </h2>
+</header>`,
   },
   {
     title: "Checker",
-    description: "Alternating ink and transparent squares for decorative backgrounds and overlays.",
+    guidance: patternGuidance.checker,
+    placement:
+      "Apply to the preview container so transparent image pixels reveal the checks beneath.",
     defaultSpacing: "12px squares",
     samples: [
       { className: "ninaero-checker-8", spacing: "8px squares" },
       { className: "ninaero-checker-12", spacing: "12px squares" },
       { className: "ninaero-checker-24", spacing: "24px squares" },
     ],
+    example: `function AssetPreview({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="h-64 rounded-lg ninaero-checker-8 ninaero-pattern-ink-foreground/15 bg-muted p-6">
+      <img src={src} alt={alt} className="h-full w-full object-contain" />
+    </div>
+  );
+}`,
+  },
+  {
+    title: "Wide checker",
+    guidance: patternGuidance["checker-wide"],
+    placement: "Use in a decorative band beside or above content, not behind reading text.",
+    defaultSpacing: "24 × 12px checks",
+    samples: [
+      { className: "ninaero-checker-wide-8", spacing: "16 × 8px checks" },
+      { className: "ninaero-checker-wide-12", spacing: "24 × 12px checks" },
+      { className: "ninaero-checker-wide-24", spacing: "48 × 24px checks" },
+    ],
     example:
-      '<div aria-hidden="true" className="h-48 ninaero-checker-12 ninaero-pattern-ink-primary/20 bg-muted" />',
+      '<div aria-hidden="true" className="h-20 rounded-lg ninaero-checker-wide-12 ninaero-pattern-ink-foreground/12 bg-muted" />',
   },
 ];
 
@@ -105,7 +166,7 @@ export default function BackgroundDetailsPage() {
         <p className="text-xs font-medium text-muted-foreground">Theme documentation</p>
         <h1 className="text-4xl type-display">Background details</h1>
         <p className="max-w-2xl type-prose text-muted-foreground">
-          Ninaero includes six opt-in textures for page backgrounds and preview areas. Use one
+          Ninaero includes seven opt-in textures for page backgrounds and preview areas. Use one
           pattern per region, and keep the page&apos;s existing fill beneath it.
         </p>
       </header>
@@ -136,18 +197,27 @@ export default function BackgroundDetailsPage() {
           repeating tile with two ink squares and two transparent squares. Use a background utility
           to set the fill beneath the checks.
         </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          Wide checker keeps a 2:1 width-to-height ratio. Its suffix sets the height:{" "}
+          <code className="text-foreground">ninaero-checker-wide-12</code> draws 24 × 12px checks,
+          with a 48 × 24px repeating tile.
+        </p>
       </section>
 
       <section aria-labelledby="paper-patterns-heading" className="flex flex-col gap-4">
         <h2 id="paper-patterns-heading" className="text-xl type-heading">
-          Compare sizes
+          Usage recipes and sizes
         </h2>
+        <p className="text-sm type-prose text-muted-foreground">
+          Start with an optional recipe for your application, then adjust the size, ink opacity, and
+          fill. These examples provide visual backgrounds, not editor or layout behavior.
+        </p>
         <div className="flex flex-col gap-6">
           {backgroundPatterns.map((pattern) => (
             <Card key={pattern.title} size="sm">
               <CardHeader>
                 <CardTitle>{pattern.title}</CardTitle>
-                <CardDescription>{pattern.description}</CardDescription>
+                <CardDescription>{pattern.guidance.suggestedUse}</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col gap-4">
                 <p className="text-sm text-muted-foreground">
@@ -169,11 +239,15 @@ export default function BackgroundDetailsPage() {
                     </figure>
                   ))}
                 </div>
+                <p className="text-sm type-prose text-muted-foreground">{pattern.placement}</p>
                 <CodeBlock
                   code={pattern.example}
-                  label={`${pattern.title} pattern example`}
+                  label={`${pattern.title} usage recipe`}
                   language="tsx"
                 />
+                <p className="text-sm type-prose text-muted-foreground">
+                  {pattern.guidance.caution}
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -243,6 +317,9 @@ export default function BackgroundDetailsPage() {
           Diamond dither overlay
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
+          {patternGuidance.dither.suggestedUse}
+        </p>
+        <p className="text-sm type-prose text-muted-foreground">
           This SVG mesh has a transparent background and neutral default ink, so it keeps the
           surface&apos;s existing color. Use <code className="text-foreground">ninaero-dither</code>{" "}
           for an 8px tile, or add a numeric suffix to change the tile size. The examples below keep
@@ -263,14 +340,13 @@ export default function BackgroundDetailsPage() {
           ))}
         </div>
         <CodeBlock
-          code={'<div aria-hidden="true" className="ninaero-dither-8 h-40 bg-muted" />'}
-          label="Transparent dither over a muted surface"
+          code={`<div aria-hidden="true" className="relative h-48 overflow-hidden rounded-lg bg-muted">
+  <div className="absolute inset-x-0 bottom-0 h-1/2 ninaero-dither-8 ninaero-pattern-ink-foreground/20" />
+</div>`}
+          label="Illustration shading with a localized dither layer"
           language="tsx"
         />
-        <p className="text-sm type-prose text-muted-foreground">
-          Keep this texture in decorative areas. Avoid dense text and controls, and use it instead
-          of another paper pattern rather than layering textures.
-        </p>
+        <p className="text-sm type-prose text-muted-foreground">{patternGuidance.dither.caution}</p>
       </section>
 
       <section aria-labelledby="paper-guidance-heading" className="flex flex-col gap-4">
@@ -286,6 +362,14 @@ export default function BackgroundDetailsPage() {
             Keep forms, controls, tables, and code blocks on plain, opaque backgrounds. Use Notebook
             as a decorative backdrop, not behind text. Do not layer different patterns over one
             another.
+          </li>
+          <li>
+            Canvas patterns do not provide snapping or track pan and zoom. Keep their spacing and
+            position synchronized with your application&apos;s drawing coordinates.
+          </li>
+          <li>
+            Put transparency checks behind media, not over it. Use aria-hidden only on decorative
+            layers, never on containers with meaningful text, images, or controls.
           </li>
           <li>
             Defaults stay grayscale across accent presets; ink classes opt into color. Forced-colors

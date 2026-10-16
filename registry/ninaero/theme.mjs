@@ -187,6 +187,10 @@ const checkerStyles = {
   "background-size": "calc(var(--ninaero-checker-step) * 2) calc(var(--ninaero-checker-step) * 2)",
   "@media (forced-colors: active)": { "background-image": "none" },
 };
+const wideCheckerStyles = {
+  ...checkerStyles,
+  "background-size": "calc(var(--ninaero-checker-step) * 4) calc(var(--ninaero-checker-step) * 2)",
+};
 const patternInkColor = '--value(--color-*, "transparent", [color])';
 
 export const theme = {
@@ -406,6 +410,14 @@ export const theme = {
     "@utility ninaero-checker-*": {
       "--ninaero-checker-step": "max(1px, calc(--value(number, [number]) * 1px))",
       ...checkerStyles,
+    },
+    "@utility ninaero-checker-wide": {
+      "--ninaero-checker-step": "12px",
+      ...wideCheckerStyles,
+    },
+    "@utility ninaero-checker-wide-*": {
+      "--ninaero-checker-step": "max(1px, calc(--value(number, [number]) * 1px))",
+      ...wideCheckerStyles,
     },
     "@utility ninaero-dither": {
       "--ninaero-dither-step": "8px",
@@ -680,21 +692,19 @@ export const theme = {
         "box-shadow": "none",
       },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger::after": {
-        "--tabs-marker-fill":
-          "color-mix(in oklab, var(--button-primary-fill) 70%, var(--button-primary-edge))",
-        "--tabs-marker-edge-shadow": "inset 0 -1px 0 var(--button-primary-edge)",
+        "--tabs-marker-fill": "var(--button-primary-edge)",
         content: '""',
         position: "absolute",
         "inset-inline": "0.75rem",
         "inset-block-end": "0",
-        height: "6px",
+        height: "4px",
         "box-sizing": "border-box",
-        "border-radius": "3px",
+        "border-radius": "2px",
         border: "0",
         "background-color": "var(--tabs-marker-fill)",
         "background-image":
-          "linear-gradient(180deg in oklab, color-mix(in oklab, var(--tabs-marker-fill), white 30%), var(--tabs-marker-fill))",
-        "box-shadow": "var(--tabs-marker-edge-shadow), 0 1px 2px hsl(var(--shadow-color) / 0.1)",
+          "linear-gradient(180deg in oklab, color-mix(in oklab, var(--tabs-marker-fill), white 10%), var(--tabs-marker-fill))",
+        "box-shadow": "0 1px 2px hsl(var(--shadow-color) / 0.16)",
         "pointer-events": "none",
         opacity: "0",
       },
@@ -715,16 +725,11 @@ export const theme = {
         },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-orientation=vertical]::after":
         {
-          "--tabs-marker-edge-shadow": "inset -1px 0 0 var(--button-primary-edge)",
           "inset-inline-start": "auto",
           "inset-inline-end": "0",
           "inset-block": "4px",
-          width: "6px",
+          width: "4px",
           height: "auto",
-        },
-      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where([data-orientation=vertical]):dir(rtl)::after":
-        {
-          "--tabs-marker-edge-shadow": "inset 1px 0 0 var(--button-primary-edge)",
         },
       ".ninaero-toggle": {
         "--toggle-corner": "var(--radius-md)",

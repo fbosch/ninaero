@@ -6,6 +6,52 @@ html.dark {
   color-scheme: dark;
 }
 
+.home-page {
+  /* Back to front: waves (-4), bubbles (-3), glass (-2), dots (-1), then content. */
+  overflow: clip;
+}
+
+.home-paper {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: transparent;
+}
+
+.home-hero {
+  --home-glass-blur: 6px;
+  max-width: 48rem;
+}
+
+.dark .home-hero {
+  --home-glass-blur: 16px;
+}
+
+.home-hero::before {
+  /* Overscan the feathered mask so nearby bubbles contribute before crossing it. */
+  content: "";
+  position: absolute;
+  inset: -16rem;
+  top: -20rem;
+  z-index: -2;
+  pointer-events: none;
+  backdrop-filter: blur(var(--home-glass-blur)) saturate(1.15);
+  mask: url("/home-glass-mask.svg") center / 100% 100% no-repeat;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .home-hero::before {
+    background: var(--background);
+  }
+}
+
+@media (forced-colors: active) {
+  .home-hero::before {
+    display: none;
+  }
+}
+
 .home-tagline {
   color: color-mix(in srgb, var(--button-link-ink) 65%, var(--muted-foreground));
 }

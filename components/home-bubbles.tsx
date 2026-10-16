@@ -1,0 +1,339 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
+import {
+  bubbleShape,
+  createBubbles,
+  dragBubble,
+  growBubble,
+  maxBubbleRadius,
+  maxBubbles,
+  releaseBubble,
+  resizeBubbles,
+  spawnBubble,
+  stepBubbles,
+  updateBubbleWarp,
+  type Bubble,
+} from "@/lib/bubble-physics.mjs";
+
+import { clearBubblePops, showBubblePop } from "./bubble-pop";
+
+import styles from "./home-bubbles.module.css";
+
+const slots = Array.from({ length: maxBubbles }, (_, i) => i);
+const rimWidth = 1.5;
+
+type HeldBubble = {
+  bubble: Bubble;
+  pointerId: number;
+  targetX: number;
+  targetY: number;
+  offsetX: number;
+  offsetY: number;
+  vx: number;
+  vy: number;
+  created: boolean;
+  originalVelocity: { vx: number; vy: number };
+};
+
+export function HomeBubbles({ paused }: { paused: boolean }) {
+  const pausedRef = useRef(paused);
+  const fieldRef = useRef<HTMLDivElement>(null);
+  const popLayerRef = useRef<HTMLDivElement>(null);
+  const resumeRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    const fieldElement = fieldRef.current;
+    const surfaceElement = fieldElement?.closest("main");
+    const popElement = popLayerRef.current;
+    if (!fieldElement || !surfaceElement || !popElement) return;
+    const field = fieldElement;
+    const surface = surfaceElement;
+    const popLayer = popElement;
+
+    const elements = Array.from(field.querySelectorAll<HTMLSpanElement>(":scope > span"));
+    const outlines = Array.from(field.querySelectorAll("ellipse"));
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const forcedColors = window.matchMedia("(forced-colors: active)");
+    let bubbles: Bubble[] = [];
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let previousTime: number | null = null;
+    let simulationTime = 0;
+    let held: HeldBubble | null = null;
+
+    function paint() {
+      elements.forEach((element, index) => {
+        const bubble = bubbles[index];
+        element.hidden = !bubble;
+        if (!bubble) return;
+        element.style.width = `${bubble.radius * 2}px`;
+        element.style.height = `${bubble.radius * 2}px`;
+        const shape = bubbleShape(bubble);
+        const outline = outlines[index];
+        outline.setAttribute("cx", String(bubble.radius));
+        outline.setAttribute("cy", String(bubble.radius));
+        outline.setAttribute(
+          "rx",
+          String(Math.max(0, bubble.radius * shape.scaleX - rimWidth / 2)),
+        );
+        outline.setAttribute(
+          "ry",
+          String(Math.max(0, bubble.radius * shape.scaleY - rimWidth / 2)),
+        );
+        element.style.transform = `translate(${bubble.x - bubble.radius}px, ${bubble.y - bubble.radius}px)`;
+        element.style.setProperty("--bubble-angle", `${shape.angle}rad`);
+        element.style.setProperty("--bubble-counter-angle", `${-shape.angle}rad`);
+        element.style.setProperty("--bubble-scale-x", String(shape.scaleX));
+        element.style.setProperty("--bubble-scale-y", String(shape.scaleY));
+        element.style.setProperty("--bubble-inverse-x", String(1 / shape.scaleX));
+        element.style.setProperty("--bubble-inverse-y", String(1 / shape.scaleY));
+      });
+    }
+
+    function enabled() {
+      return !document.hidden && !reducedMotion.matches && !forcedColors.matches;
+    }
+
+    function canAnimate() {
+      return enabled() && (!pausedRef.current || held !== null);
+    }
+
+    function endHold(action: "launch" | "cancel" | "pop") {
+      if (!held) return;
+      const current = held;
+      const { bubble, pointerId } = current;
+      held = null;
+      if (action === "launch") {
+        const velocity = Math.hypot(current.vx, current.vy) > 8 ? current : undefined;
+        releaseBubble(bubble, velocity);
+      } else if (action === "pop" || current.created) {
+        if (action === "pop" && enabled()) {
+          showBubblePop(
+            popLayer,
+            { ...bubble, vx: current.vx, vy: current.vy },
+            {
+              pop: styles.pop,
+              popRing: styles.popRing,
+              popDroplet: styles.popDroplet,
+            },
+          );
+        }
+        bubbles.splice(bubbles.indexOf(bubble), 1);
+      } else {
+        releaseBubble(bubble, current.originalVelocity);
+      }
+      if (surface.hasPointerCapture(pointerId)) surface.releasePointerCapture(pointerId);
+      paint();
+    }
+
+    function sampleDrag(elapsed: number) {
+      if (!held || elapsed <= 0) return;
+      const movement = dragBubble(
+        held.bubble,
+        bubbles,
+        width,
+        height,
+        held.targetX,
+        held.targetY,
+        elapsed,
+      );
+      const smoothing = 1 - Math.exp(-18 * elapsed);
+      held.vx += (movement.dx / elapsed - held.vx) * smoothing;
+      held.vy += (movement.dy / elapsed - held.vy) * smoothing;
+    }
+
+    function animate(time: number) {
+      frame = 0;
+      if (!canAnimate()) return;
+      const elapsed = previousTime === null ? 0 : Math.min((time - previousTime) / 1000, 0.05);
+      previousTime = time;
+      if (held && elapsed > 0) {
+        sampleDrag(elapsed);
+        updateBubbleWarp(held.bubble, held.vx, held.vy, elapsed);
+        if (held.created) {
+          growBubble(held.bubble, bubbles, width, height, elapsed);
+          if (held.bubble.radius >= maxBubbleRadius) endHold("pop");
+        }
+      }
+      if (!pausedRef.current) {
+        stepBubbles(bubbles, width, height, elapsed, simulationTime);
+        simulationTime += elapsed;
+      }
+      paint();
+      if (canAnimate()) frame = requestAnimationFrame(animate);
+    }
+
+    function syncAnimation() {
+      cancelAnimationFrame(frame);
+      previousTime = null;
+      if (!enabled()) {
+        endHold("cancel");
+        clearBubblePops(popLayer);
+      }
+      if (canAnimate()) frame = requestAnimationFrame(animate);
+    }
+
+    function onPointerDown(event: PointerEvent) {
+      if (!enabled() || held || !event.isPrimary || event.button !== 0) return;
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || !target.matches("main, div, section")) return;
+      if (
+        target.closest("a, button, input, textarea, select, pre, code, [role], [contenteditable]")
+      )
+        return;
+      const bounds = field.getBoundingClientRect();
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      const existing = bubbles.find(
+        (bubble) => Math.hypot(x - bubble.x, y - bubble.y) <= bubble.radius,
+      );
+      const bubble = existing ?? spawnBubble(bubbles, width, height, x, y);
+      if (!bubble) return;
+      held = {
+        bubble,
+        pointerId: event.pointerId,
+        targetX: bubble.x,
+        targetY: bubble.y,
+        offsetX: bubble.x - x,
+        offsetY: bubble.y - y,
+        vx: 0,
+        vy: 0,
+        created: !existing,
+        originalVelocity: { vx: bubble.vx, vy: bubble.vy },
+      };
+      bubble.held = true;
+      bubble.vx = 0;
+      bubble.vy = 0;
+      bubble.dragVX = 0;
+      bubble.dragVY = 0;
+      surface.setPointerCapture(event.pointerId);
+      if (event.pointerType === "mouse") event.preventDefault();
+      paint();
+      syncAnimation();
+    }
+
+    function onPointerMove(event: PointerEvent) {
+      if (!held || held.pointerId !== event.pointerId) return;
+      const bounds = field.getBoundingClientRect();
+      held.targetX = event.clientX - bounds.left + held.offsetX;
+      held.targetY = event.clientY - bounds.top + held.offsetY;
+    }
+
+    function onPointerUp(event: PointerEvent) {
+      if (event.pointerId !== held?.pointerId) return;
+      onPointerMove(event);
+      const elapsed = Math.max(
+        1 / 240,
+        Math.min(0.05, (performance.now() - (previousTime ?? performance.now())) / 1000),
+      );
+      sampleDrag(elapsed);
+      endHold("launch");
+      syncAnimation();
+    }
+
+    function onPointerCancel(event: PointerEvent) {
+      if (event.pointerId !== held?.pointerId) return;
+      endHold("cancel");
+      syncAnimation();
+    }
+
+    function cancelHold() {
+      endHold("cancel");
+      syncAnimation();
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") cancelHold();
+    }
+
+    const observer = new ResizeObserver(([entry]) => {
+      const nextWidth = entry.contentRect.width;
+      const nextHeight = entry.contentRect.height;
+      if (nextWidth <= 0 || nextHeight <= 0 || (nextWidth === width && nextHeight === height))
+        return;
+      endHold("launch");
+      clearBubblePops(popLayer);
+      if (width === 0) bubbles = createBubbles(nextWidth, nextHeight);
+      else {
+        const popped = resizeBubbles(bubbles, nextWidth, nextHeight);
+        if (enabled()) {
+          for (const bubble of popped) {
+            showBubblePop(
+              popLayer,
+              {
+                ...bubble,
+                x: Math.min(nextWidth, Math.max(0, bubble.x)),
+                y: Math.min(nextHeight, Math.max(0, bubble.y)),
+              },
+              {
+                pop: styles.pop,
+                popRing: styles.popRing,
+                popDroplet: styles.popDroplet,
+              },
+            );
+          }
+        }
+      }
+      width = nextWidth;
+      height = nextHeight;
+      paint();
+      syncAnimation();
+    });
+    observer.observe(field);
+    resumeRef.current = syncAnimation;
+    reducedMotion.addEventListener("change", syncAnimation);
+    forcedColors.addEventListener("change", syncAnimation);
+    document.addEventListener("visibilitychange", syncAnimation);
+    surface.addEventListener("pointerdown", onPointerDown);
+    surface.addEventListener("pointermove", onPointerMove);
+    surface.addEventListener("pointerup", onPointerUp);
+    surface.addEventListener("pointercancel", onPointerCancel);
+    surface.addEventListener("lostpointercapture", onPointerCancel);
+    window.addEventListener("blur", cancelHold);
+    window.addEventListener("scroll", cancelHold, { passive: true });
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      endHold("cancel");
+      clearBubblePops(popLayer);
+      observer.disconnect();
+      resumeRef.current = null;
+      reducedMotion.removeEventListener("change", syncAnimation);
+      forcedColors.removeEventListener("change", syncAnimation);
+      document.removeEventListener("visibilitychange", syncAnimation);
+      surface.removeEventListener("pointerdown", onPointerDown);
+      surface.removeEventListener("pointermove", onPointerMove);
+      surface.removeEventListener("pointerup", onPointerUp);
+      surface.removeEventListener("pointercancel", onPointerCancel);
+      surface.removeEventListener("lostpointercapture", onPointerCancel);
+      window.removeEventListener("blur", cancelHold);
+      window.removeEventListener("scroll", cancelHold);
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    resumeRef.current?.();
+  }, [paused]);
+
+  return (
+    <>
+      <div ref={fieldRef} className={styles.field} aria-hidden="true">
+        {slots.map((slot) => (
+          <span key={slot} className={styles.bubble} hidden>
+            <span className={styles.bubbleShape} />
+            <svg className={styles.bubbleRim} aria-hidden="true" focusable="false">
+              <ellipse strokeWidth={rimWidth} vectorEffect="non-scaling-stroke" />
+            </svg>
+          </span>
+        ))}
+        <div ref={popLayerRef} className={styles.popLayer} />
+      </div>
+    </>
+  );
+}

@@ -1,6 +1,6 @@
 # Ninaero
 
-An optimistic, nostalgic theme for a friendlier web.
+An optimistic, nostalgic theme for a comfier world wide web.
 
 Built with shadcn/ui, Base UI, and Tailwind CSS v4.
 

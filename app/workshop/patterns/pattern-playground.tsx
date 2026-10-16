@@ -3,6 +3,7 @@
 import { cn } from "cn";
 import { useId, useState, type CSSProperties } from "react";
 
+import { patternGuidance } from "@/lib/pattern-guidance";
 import { Button } from "@/registry/ninaero/ui/button";
 import {
   CodeBlock,
@@ -72,6 +73,14 @@ const patterns = [
     previewClass: "ninaero-checker-(number:--workshop-pattern-step)",
     spacing: 12,
     description: "Width and height of each square. Alternating squares are transparent.",
+  },
+  {
+    value: "checker-wide",
+    label: "Wide checker",
+    utility: "ninaero-checker-wide",
+    previewClass: "ninaero-checker-wide-(number:--workshop-pattern-step)",
+    spacing: 12,
+    description: "Height of each check. Width is twice the height.",
   },
 ] as const;
 
@@ -146,7 +155,11 @@ export function PatternPlayground() {
               }
             }}
           >
-            <SelectTrigger id={`${id}-pattern`} className="w-full">
+            <SelectTrigger
+              id={`${id}-pattern`}
+              className="w-full"
+              aria-describedby={`${id}-pattern-use`}
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -157,6 +170,9 @@ export function PatternPlayground() {
               ))}
             </SelectContent>
           </Select>
+          <FieldDescription id={`${id}-pattern-use`}>
+            Suggested use: {patternGuidance[pattern.value].suggestedUse}
+          </FieldDescription>
         </Field>
         <Field>
           <FieldLabel htmlFor={`${id}-ink`}>Ink color</FieldLabel>
@@ -257,6 +273,12 @@ export function PatternPlayground() {
             style={style}
           />
         </div>
+        {pattern.value === "checker" && background.value === "image" ? (
+          <p className="text-sm type-prose text-muted-foreground">
+            This raster preview uses a decorative overlay. For transparency previews, place the
+            checkerboard behind your media.
+          </p>
+        ) : null}
       </figure>
       <CodeBlock>
         <CodeBlockHeader>

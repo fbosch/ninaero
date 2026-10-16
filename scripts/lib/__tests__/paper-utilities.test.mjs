@@ -45,6 +45,7 @@ for (const name of [
   "ninaero-paper-notebook",
   "ninaero-dither",
   "ninaero-checker",
+  "ninaero-checker-wide",
 ]) {
   test(`${name} consumer utilities compile standalone defaults, numeric intervals, and variants`, async () => {
     const compiler = await compileConsumer(
@@ -88,6 +89,7 @@ test("installed patterns compile semantic, palette, arbitrary, and variable ink 
     "ninaero-paper-notebook-8",
     "ninaero-dither-8",
     "ninaero-checker-8",
+    "ninaero-checker-wide-8",
   ]) {
     const compiler = await compileConsumer([pattern, ...colors].join(" "));
     assert.doesNotThrow(() => compiler.build([]));
@@ -96,7 +98,7 @@ test("installed patterns compile semantic, palette, arbitrary, and variable ink 
 
 test("zero and subpixel interval arguments compile for consumers", async () => {
   const compiler = await compileConsumer(
-    "ninaero-paper-grid-0 ninaero-paper-notebook-0.5 ninaero-dither-0 ninaero-dither-12.5 ninaero-checker-0 ninaero-checker-0.5",
+    "ninaero-paper-grid-0 ninaero-paper-notebook-0.5 ninaero-dither-0 ninaero-dither-12.5 ninaero-checker-0 ninaero-checker-0.5 ninaero-checker-wide-0 ninaero-checker-wide-0.5",
   );
   assert.doesNotThrow(() => compiler.build([]));
 });
@@ -104,6 +106,7 @@ test("zero and subpixel interval arguments compile for consumers", async () => {
 test("pattern size arguments reject nonnumeric values", async () => {
   await assert.rejects(compileConsumer("ninaero-paper-grid-large"), /unknown utility/i);
   await assert.rejects(compileConsumer("ninaero-checker-large"), /unknown utility/i);
+  await assert.rejects(compileConsumer("ninaero-checker-wide-large"), /unknown utility/i);
 });
 
 test("ink utilities reject unknown colors and nonnumeric opacity modifiers", async () => {

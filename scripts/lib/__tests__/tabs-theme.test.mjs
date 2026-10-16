@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { accentPresets } from "../../../registry/ninaero/accents.mjs";
+import { mixOklab } from "../../../registry/ninaero/glass-materials.mjs";
 import { theme } from "../../../registry/ninaero/theme.mjs";
 
 function luminance(color) {
@@ -77,7 +78,7 @@ test("selected tab boundaries retain 3:1 contrast against the track and raised m
   }
 });
 
-test("underline labels and accent markers retain contrast on page and card surfaces", () => {
+test("underline labels and accent marker shading retain contrast on page and card surfaces", () => {
   for (const [name, preset] of Object.entries(accentPresets)) {
     for (const mode of ["light", "dark"]) {
       const palette = { ...theme[mode], ...preset[mode] };
@@ -86,8 +87,17 @@ test("underline labels and accent markers retain contrast on page and card surfa
           const ratio = contrast(ink, background);
           assert.ok(ratio >= 4.5, `${name} ${mode} underline label: ${ratio.toFixed(2)}:1`);
         }
-        const marker = contrast(palette["button-primary-edge"], background);
-        assert.ok(marker >= 3, `${name} ${mode} selection marker: ${marker.toFixed(2)}:1`);
+        for (const tone of [
+          palette["button-primary-edge"],
+          mixOklab(palette["button-primary-edge"], "#ffffff", 0.05),
+          mixOklab(palette["button-primary-edge"], "#ffffff", 0.1),
+        ]) {
+          const marker = contrast(tone, background);
+          assert.ok(
+            marker >= 3,
+            `${name} ${mode} selection marker ${tone}: ${marker.toFixed(2)}:1`,
+          );
+        }
       }
     }
   }

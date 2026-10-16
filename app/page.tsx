@@ -1,20 +1,28 @@
 import Link from "next/link";
 
 import { CodeBlock } from "@/components/docs/code-block";
+import { HomeBackground } from "@/components/home-background";
 import { presetInstallCommand } from "@/lib/component-documentation";
 import { ArrowRightIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 export default function Home() {
   return (
-    <main id="main" className="ninaero-paper-dotted bg-background min-h-[calc(100svh-4.5rem)]">
+    <main
+      id="main"
+      className="home-page relative isolate bg-background min-h-[calc(100svh-4.5rem)]"
+    >
+      <div
+        aria-hidden="true"
+        className="home-paper ninaero-paper-dotted ninaero-pattern-ink-foreground/20 dark:ninaero-pattern-ink-foreground/8"
+      />
       <div className="mx-auto max-w-6xl space-y-12 px-5 py-8 sm:px-8 lg:py-12">
-        <section className="home-hero relative isolate space-y-8">
-          <div className="max-w-3xl">
+        <section className="home-hero relative space-y-8">
+          <div className="max-w-4xl">
             <header className="min-w-0 space-y-6">
               <h1 className="text-balance text-5xl type-display sm:text-6xl">
-                <span className="ninaero-display-ink block">An optimistic, nostalgic theme</span>{" "}
-                <span className="home-tagline block">for a friendlier web.</span>
+                <span className="ninaero-display-ink block">An optimistic & nostalgic theme</span>{" "}
+                <span className="home-tagline block">for a comfier world wide web.</span>
               </h1>
               <div className="flex flex-wrap items-center gap-3">
                 <Button
@@ -54,6 +62,7 @@ export default function Home() {
           here.
         </p>
       </div>
+      <HomeBackground />
     </main>
   );
 }

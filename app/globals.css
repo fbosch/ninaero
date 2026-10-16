@@ -868,6 +868,22 @@
     background-image: none;
   }
 }
+@utility ninaero-checker-wide {
+  --ninaero-checker-step: 12px;
+  background-image: conic-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 25%, transparent 0 50%, var(--ninaero-pattern-ink, var(--paper-rule)) 0 75%, transparent 0);
+  background-size: calc(var(--ninaero-checker-step) * 4) calc(var(--ninaero-checker-step) * 2);
+  @media (forced-colors: active) {
+    background-image: none;
+  }
+}
+@utility ninaero-checker-wide-* {
+  --ninaero-checker-step: max(1px, calc(--value(number, [number]) * 1px));
+  background-image: conic-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 25%, transparent 0 50%, var(--ninaero-pattern-ink, var(--paper-rule)) 0 75%, transparent 0);
+  background-size: calc(var(--ninaero-checker-step) * 4) calc(var(--ninaero-checker-step) * 2);
+  @media (forced-colors: active) {
+    background-image: none;
+  }
+}
 @utility ninaero-dither {
   --ninaero-dither-step: 8px;
   position: relative;
@@ -1164,19 +1180,18 @@
     box-shadow: none;
   }
   .ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger::after {
-    --tabs-marker-fill: color-mix(in oklab, var(--button-primary-fill) 70%, var(--button-primary-edge));
-    --tabs-marker-edge-shadow: inset 0 -1px 0 var(--button-primary-edge);
+    --tabs-marker-fill: var(--button-primary-edge);
     content: "";
     position: absolute;
     inset-inline: 0.75rem;
     inset-block-end: 0;
-    height: 6px;
+    height: 4px;
     box-sizing: border-box;
-    border-radius: 3px;
+    border-radius: 2px;
     border: 0;
     background-color: var(--tabs-marker-fill);
-    background-image: linear-gradient(180deg in oklab, color-mix(in oklab, var(--tabs-marker-fill), white 30%), var(--tabs-marker-fill));
-    box-shadow: var(--tabs-marker-edge-shadow), 0 1px 2px hsl(var(--shadow-color) / 0.1);
+    background-image: linear-gradient(180deg in oklab, color-mix(in oklab, var(--tabs-marker-fill), white 10%), var(--tabs-marker-fill));
+    box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.16);
     pointer-events: none;
     opacity: 0;
   }
@@ -1194,15 +1209,11 @@
     box-shadow: none;
   }
   .ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-orientation=vertical]::after {
-    --tabs-marker-edge-shadow: inset -1px 0 0 var(--button-primary-edge);
     inset-inline-start: auto;
     inset-inline-end: 0;
     inset-block: 4px;
-    width: 6px;
+    width: 4px;
     height: auto;
-  }
-  .ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where([data-orientation=vertical]):dir(rtl)::after {
-    --tabs-marker-edge-shadow: inset 1px 0 0 var(--button-primary-edge);
   }
   .ninaero-toggle {
     --toggle-corner: var(--radius-md);

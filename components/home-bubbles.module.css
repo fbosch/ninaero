@@ -1,0 +1,100 @@
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 6px #00000012);
+}
+
+.bubbleShape {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  transform: rotate(var(--bubble-angle)) scale(var(--bubble-scale-x), var(--bubble-scale-y));
+}
+
+.bubbleShape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* Invert the outline transform so reflections stay in world-space lighting. */
+  transform: scale(var(--bubble-inverse-x), var(--bubble-inverse-y))
+    rotate(var(--bubble-counter-angle));
+  background:
+    radial-gradient(
+      ellipse 110% 65% at 25% -5%,
+      rgb(255 255 255 / 0.8),
+      rgb(255 255 255 / 0.22) 45%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 65% 100%,
+      color-mix(in oklab, var(--primary) 35%, transparent),
+      color-mix(in oklab, var(--ring) 14%, transparent) 50%,
+      transparent 80%
+    ),
+    radial-gradient(
+      circle,
+      transparent 48%,
+      color-mix(in oklab, var(--primary) 12%, transparent) 80%,
+      color-mix(in oklab, var(--ring) 10%, transparent)
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--primary) 12%, transparent),
+      rgb(255 255 255 / 0.01) 45%,
+      color-mix(in oklab, var(--ring) 9%, transparent)
+    );
+}
+
+.bubbleRim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: color-mix(in oklab, var(--ring) 45%, var(--primary));
+  stroke-opacity: 0.7;
+  transform: rotate(var(--bubble-angle));
+}
+
+.popLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.pop,
+.popRing,
+.popDroplet {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.popRing {
+  border: 2px dashed color-mix(in oklab, var(--primary) 55%, var(--foreground) 25%);
+  border-radius: 50%;
+}
+
+.popDroplet {
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--primary) 65%, var(--foreground) 35%);
+  box-shadow: inset 0 1px 1px #fffc;
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .field {
+    display: none;
+  }
+}
