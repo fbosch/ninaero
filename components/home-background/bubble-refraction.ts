@@ -1,4 +1,4 @@
-import { bubbleRefractionPixels } from "@/lib/bubble-refraction.mjs";
+import { bubbleRefractionPixels } from "./bubble-refraction.mjs";
 
 let texture: string | undefined;
 

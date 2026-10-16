@@ -33,6 +33,8 @@ pnpm dlx shadcn@latest add http://localhost:3000/r/button.json
 
 Components include the shared theme and their dependencies.
 
+The homepage's bubbles and waves belong to the presentation website. Installing Ninaero does not include their animation code, styles, or assets.
+
 ## Edit the theme
 
 - Tokens and shared CSS: `registry/ninaero/theme.mjs`
@@ -40,6 +42,7 @@ Components include the shared theme and their dependencies.
 - Installable components and hooks: `registry/ninaero/ui/` and `registry/ninaero/hooks/`
 - Shared Mage icons: `lib/icons.tsx`
 - Preview-only examples: `components/examples/`
+- Homepage bubbles, waves, and their tests: `components/home-background/` (website-only)
 
 `pnpm dev` rebuilds the theme CSS, component docs, and installable registry when their sources change. Next.js refreshes the app without a server restart. If generation fails, fix the source and save again to retry.
 

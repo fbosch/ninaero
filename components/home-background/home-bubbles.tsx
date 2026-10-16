@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef } from "react";
 
+import { createBubbleEntrances } from "./bubble-entrance";
 import {
   bubbleShape,
   createBubbles,
@@ -15,12 +16,10 @@ import {
   stepBubbles,
   updateBubbleWarp,
   type Bubble,
-} from "@/lib/bubble-physics.mjs";
-import { bubbleRefractionStrength } from "@/lib/bubble-refraction.mjs";
-
-import { createBubbleEntrances } from "./bubble-entrance";
+} from "./bubble-physics.mjs";
 import { clearBubblePops, showBubblePop } from "./bubble-pop";
 import { bubbleRefractionTexture } from "./bubble-refraction";
+import { bubbleRefractionStrength } from "./bubble-refraction.mjs";
 
 import styles from "./home-bubbles.module.css";
 

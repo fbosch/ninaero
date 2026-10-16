@@ -2,8 +2,8 @@
 
 import { useEffect, useId, useRef } from "react";
 
-import { ambientMotionRate } from "@/lib/home-motion.mjs";
-import { createWavePaths, waveLayers, waveViewBox } from "@/lib/home-waves.mjs";
+import { ambientMotionRate } from "./home-motion.mjs";
+import { createWavePaths, waveLayers, waveViewBox } from "./home-waves.mjs";
 
 import styles from "./home-background.module.css";
 

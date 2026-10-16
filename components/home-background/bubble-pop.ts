@@ -1,4 +1,4 @@
-import type { Bubble } from "@/lib/bubble-physics.mjs";
+import type { Bubble } from "./bubble-physics.mjs";
 
 type PopClasses = { pop: string; popRing: string; popDroplet: string };
 

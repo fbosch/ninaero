@@ -11,7 +11,7 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "node --test components/examples/__tests__/*.test.mjs lib/__tests__/*.test.mjs registry/ninaero/__tests__/*.test.mjs scripts/lib/__tests__/*.test.mjs",
+    "test": "node --test components/examples/__tests__/*.test.mjs components/home-background/__tests__/*.test.mjs lib/__tests__/*.test.mjs registry/ninaero/__tests__/*.test.mjs scripts/lib/__tests__/*.test.mjs",
     "check": "pnpm build && pnpm lint && pnpm format:check && pnpm typecheck && pnpm test"
   },
   "dependencies": {

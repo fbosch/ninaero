@@ -1,5 +1,5 @@
-import { maxBubbleRadius, type Bubble } from "@/lib/bubble-physics.mjs";
-import { ambientMotionRate } from "@/lib/home-motion.mjs";
+import { maxBubbleRadius, type Bubble } from "./bubble-physics.mjs";
+import { ambientMotionRate } from "./home-motion.mjs";
 
 export function createBubbleEntrances(lenses: Element[], surfaces: Element[]) {
   const active = new Map<Bubble, Animation[]>();
