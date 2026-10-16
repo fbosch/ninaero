@@ -254,6 +254,9 @@ export const theme = {
     "input-fill": "oklch(0.975 0 0)",
     "input-placeholder": "oklch(0.5 0 0)",
     "input-disabled-fill": "var(--muted)",
+    "slider-thumb-top": "#ffffff",
+    "slider-thumb-bottom": "#dedede",
+    "slider-thumb-edge": "#737373",
     "tabs-track-fill": "#ededed",
     "tabs-track-shade": "#0000000a",
     "tabs-active-fill": "#f6f6f6",
@@ -326,6 +329,9 @@ export const theme = {
     "input-fill": "oklch(0.18 0 0)",
     "input-placeholder": "var(--muted-foreground)",
     "input-disabled-fill": "var(--input-fill)",
+    "slider-thumb-top": "#4a4a4a",
+    "slider-thumb-bottom": "#303030",
+    "slider-thumb-edge": "#aaaaaa",
     "tabs-track-fill": "#242424",
     "tabs-track-shade": "#00000040",
     "tabs-active-fill": "#3a3a3a",
@@ -490,7 +496,7 @@ export const theme = {
     },
     "@layer components": {
       // Resolve color-dependent tokens locally so receiving-material colors can inherit.
-      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover":
+      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-slider-thumb":
         elevationVariables,
       ".ninaero-surface-paper": {
         "--shadow-color": "var(--shadow-color-paper)",
@@ -543,6 +549,60 @@ export const theme = {
         "background-color": "transparent",
         "box-shadow": "none",
         outline: "none",
+      },
+      ".ninaero-slider-control": {
+        "min-block-size": "2rem",
+      },
+      ".ninaero-slider-control[data-orientation=vertical]": {
+        "min-inline-size": "2rem",
+      },
+      ".ninaero-slider-track": {
+        "background-color": "var(--input-fill)",
+        "box-shadow":
+          "inset 0 1px 2px color-mix(in oklab, var(--input-fill), black var(--input-recess-shade-weight)), inset 0 0 0 1px var(--input-edge)",
+      },
+      ".ninaero-slider-range": {
+        "background-color": "var(--button-primary-edge)",
+      },
+      ".ninaero-slider-thumb": {
+        "corner-shape": "round",
+        "border-color": "var(--slider-thumb-edge)",
+        "background-color": "var(--slider-thumb-top)",
+        "background-image":
+          "linear-gradient(180deg in oklab, var(--slider-thumb-top), var(--slider-thumb-bottom))",
+        "box-shadow":
+          "inset 0 1px 0 color-mix(in oklab, var(--slider-thumb-top), white 6%), var(--shadow-control)",
+        outline: "none",
+        transition:
+          "border-color 80ms ease-out, background-color 80ms ease-out, box-shadow 80ms ease-out",
+      },
+      ".ninaero-slider:where(:not([data-disabled]):not([aria-disabled=true]):not([data-invalid]):not([aria-invalid=true])) .ninaero-slider-thumb:where(:hover)":
+        {
+          "border-color": "color-mix(in oklab, var(--slider-thumb-edge), var(--foreground) 20%)",
+        },
+      ".ninaero-slider-thumb:where(:active, [data-dragging]):where(:focus-within)": {
+        "background-color": "var(--slider-thumb-bottom)",
+        "background-image": "none",
+        "box-shadow": "inset 0 1px 2px color-mix(in oklab, var(--slider-thumb-bottom), black 6%)",
+      },
+      ".ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
+        outline: "2px solid var(--ring)",
+        "outline-offset": "3px",
+      },
+      ".ninaero-slider:where([data-invalid], [aria-invalid=true]) .ninaero-slider-thumb": {
+        "border-color": "var(--destructive)",
+      },
+      ".ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-track": {
+        "box-shadow": "inset 0 0 0 1px var(--border)",
+      },
+      ".ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-range": {
+        "background-color": "var(--muted-foreground)",
+      },
+      ".ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-thumb": {
+        "border-color": "var(--border)",
+        "background-color": "var(--muted)",
+        "background-image": "none",
+        "box-shadow": "none",
       },
       ".ninaero-dialog": {
         "--dialog-corner": "3rem",
@@ -917,6 +977,7 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
+        ".ninaero-slider-thumb": { transition: "none" },
         ".ninaero-tabs-trigger": {
           transition: "none",
         },
@@ -948,6 +1009,31 @@ export const theme = {
       },
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
+        ".ninaero-slider": { "forced-color-adjust": "none" },
+        ".ninaero-slider .ninaero-slider-track": {
+          border: "1px solid CanvasText",
+          "background-color": "Canvas",
+          "box-shadow": "none",
+        },
+        ".ninaero-slider .ninaero-slider-range": {
+          "background-color": "Highlight",
+        },
+        ".ninaero-slider .ninaero-slider-thumb": {
+          "border-color": "ButtonText",
+          "background-color": "ButtonFace",
+          "background-image": "none",
+          "box-shadow": "none",
+        },
+        ".ninaero-slider .ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
+          "outline-color": "Highlight",
+        },
+        ".ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-track, .ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-thumb":
+          {
+            "border-color": "GrayText",
+          },
+        ".ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-range": {
+          "background-color": "GrayText",
+        },
         ".ninaero-tabs-list": {
           "border-color": "CanvasText",
           "background-color": "Canvas",

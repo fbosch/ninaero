@@ -11,6 +11,7 @@ const specimens = [
   ["inputs", "Inputs", "Editable, disabled, and invalid states."],
   ["dialog", "Dialog", "Overlay surfaces and keyboard focus."],
   ["tabs", "Tabs", "Neutral selection, keyboard focus, and action hierarchy."],
+  ["slider", "Sliders", "Single values, ranges, drag feedback, and keyboard focus."],
   ["patterns", "Patterns", "Paper textures, checkerboards, spacing, ink colors, and fills."],
   ["tokens", "Tokens", "Shared semantic colors."],
 ] as const;

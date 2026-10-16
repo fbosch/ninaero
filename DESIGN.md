@@ -314,6 +314,12 @@ Select uses the shared default field height, retains its compact trigger size, a
 
 The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded, distinct from squircle action buttons and dialog frames. DS nickname-field geometry has not been independently verified.
 
+### Sliders
+
+Keep the 4px track neutral and shallowly recessed, with a solid accent fill for the selected range. Put the material shading on the 16px circular thumb. Give it a neutral top-to-bottom face, a small upper highlight, and the shared control shadow. Pressing or dragging flattens the active thumb without changing its size or delaying its position updates.
+
+Keep the pointer target at least 32px and leave the thumb's shadow and keyboard-focus outline unclipped. Disabled sliders keep their values and lose decorative lighting. Invalid states use a semantic-red thumb boundary, separate from the accent focus outline. Reduced motion removes material transitions. Forced-colors mode uses system colors without gradients or shadows.
+
 ### Tabs
 
 Segmented tabs use conventional rounded corners and a compact 32px horizontal track. Keep the track neutral and shallowly recessed. Give the selected tab a brighter neutral face with soft top-to-bottom shading, a localized upper glass reflection, a crisp top rim, a narrow lower edge, and a small contact shadow. Keep its depth below Button so navigation does not compete with primary actions.

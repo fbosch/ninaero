@@ -16,8 +16,7 @@ export function HomeWaves({ paused }: { paused: boolean }) {
   useEffect(() => {
     const field = fieldRef.current;
     if (!field) return;
-    const bodies = field.querySelectorAll<SVGPathElement>("[data-wave-body]");
-    const crests = field.querySelectorAll<SVGPathElement>("[data-wave-crest]");
+    const paths = field.querySelectorAll<SVGPathElement>("[data-wave-path]");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const forcedColors = window.matchMedia("(forced-colors: active)");
     let frame = 0;
@@ -29,12 +28,12 @@ export function HomeWaves({ paused }: { paused: boolean }) {
 
     function animate(time: number) {
       if (!canAnimate()) return;
-      if (previousTime !== null) timeRef.current += Math.min((time - previousTime) / 1000, 0.05);
+      if (previousTime !== null) {
+        timeRef.current += Math.min((time - previousTime) / 1000, 0.05) * 0.25;
+      }
       previousTime = time;
       waveLayers.forEach((layer, index) => {
-        const paths = createWavePaths(layer, timeRef.current);
-        bodies[index].setAttribute("d", paths.body);
-        crests[index].setAttribute("d", paths.crest);
+        paths[index].setAttribute("d", createWavePaths(layer, timeRef.current).body);
       });
       frame = requestAnimationFrame(animate);
     }
@@ -61,7 +60,7 @@ export function HomeWaves({ paused }: { paused: boolean }) {
   return (
     <div ref={fieldRef} className={styles.waves} aria-hidden="true">
       <svg
-        viewBox={`0 0 ${waveViewBox.width} ${waveViewBox.height}`}
+        viewBox={`0 ${waveViewBox.height / 2} ${waveViewBox.width} ${waveViewBox.height / 2}`}
         preserveAspectRatio="none"
         focusable="false"
       >
@@ -77,15 +76,15 @@ export function HomeWaves({ paused }: { paused: boolean }) {
             <stop offset="0.35" stopColor="var(--wave-highlight)" stopOpacity="0.85" />
             <stop offset="1" stopColor="var(--wave-color)" stopOpacity="0.35" />
           </linearGradient>
-          {initialWaves.map(({ crest }, index) => (
-            <path key={index} id={`${id}-crest-${index}`} data-wave-crest="" d={crest} />
+          {initialWaves.map(({ body }, index) => (
+            <path key={index} id={`${id}-wave-${index}`} data-wave-path="" d={body} />
           ))}
         </defs>
-        {initialWaves.map(({ body }, index) => (
+        {initialWaves.map((_, index) => (
           <g key={index} className={styles.ribbon}>
-            <path data-wave-body="" d={body} fill={`url(#${id}-body)`} />
+            <use href={`#${id}-wave-${index}`} fill={`url(#${id}-body)`} />
             <use
-              href={`#${id}-crest-${index}`}
+              href={`#${id}-wave-${index}`}
               className={styles.glow}
               fill="none"
               stroke={`url(#${id}-rim)`}
@@ -93,7 +92,7 @@ export function HomeWaves({ paused }: { paused: boolean }) {
               vectorEffect="non-scaling-stroke"
             />
             <use
-              href={`#${id}-crest-${index}`}
+              href={`#${id}-wave-${index}`}
               fill="none"
               stroke={`url(#${id}-rim)`}
               strokeWidth="1.5"

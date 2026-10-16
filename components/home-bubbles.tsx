@@ -54,6 +54,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
 
     const elements = Array.from(field.querySelectorAll<HTMLSpanElement>(":scope > span"));
     const outlines = Array.from(field.querySelectorAll("ellipse"));
+    const painted = elements.map(() => ({ radius: NaN, angle: NaN, scaleX: NaN, scaleY: NaN }));
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const forcedColors = window.matchMedia("(forced-colors: active)");
     let bubbles: Bubble[] = [];
@@ -67,29 +68,47 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     function paint() {
       elements.forEach((element, index) => {
         const bubble = bubbles[index];
-        element.hidden = !bubble;
+        if (element.hidden !== !bubble) element.hidden = !bubble;
         if (!bubble) return;
-        element.style.width = `${bubble.radius * 2}px`;
-        element.style.height = `${bubble.radius * 2}px`;
+        const previous = painted[index];
+        const radiusChanged = previous.radius !== bubble.radius;
         const shape = bubbleShape(bubble);
         const outline = outlines[index];
-        outline.setAttribute("cx", String(bubble.radius));
-        outline.setAttribute("cy", String(bubble.radius));
-        outline.setAttribute(
-          "rx",
-          String(Math.max(0, bubble.radius * shape.scaleX - rimWidth / 2)),
-        );
-        outline.setAttribute(
-          "ry",
-          String(Math.max(0, bubble.radius * shape.scaleY - rimWidth / 2)),
-        );
+        if (radiusChanged) {
+          element.style.width = `${bubble.radius * 2}px`;
+          element.style.height = `${bubble.radius * 2}px`;
+          outline.setAttribute("cx", String(bubble.radius));
+          outline.setAttribute("cy", String(bubble.radius));
+        }
+        if (radiusChanged || previous.scaleX !== shape.scaleX) {
+          outline.setAttribute(
+            "rx",
+            String(Math.max(0, bubble.radius * shape.scaleX - rimWidth / 2)),
+          );
+        }
+        if (radiusChanged || previous.scaleY !== shape.scaleY) {
+          outline.setAttribute(
+            "ry",
+            String(Math.max(0, bubble.radius * shape.scaleY - rimWidth / 2)),
+          );
+        }
         element.style.transform = `translate(${bubble.x - bubble.radius}px, ${bubble.y - bubble.radius}px)`;
-        element.style.setProperty("--bubble-angle", `${shape.angle}rad`);
-        element.style.setProperty("--bubble-counter-angle", `${-shape.angle}rad`);
-        element.style.setProperty("--bubble-scale-x", String(shape.scaleX));
-        element.style.setProperty("--bubble-scale-y", String(shape.scaleY));
-        element.style.setProperty("--bubble-inverse-x", String(1 / shape.scaleX));
-        element.style.setProperty("--bubble-inverse-y", String(1 / shape.scaleY));
+        if (previous.angle !== shape.angle) {
+          element.style.setProperty("--bubble-angle", `${shape.angle}rad`);
+          element.style.setProperty("--bubble-counter-angle", `${-shape.angle}rad`);
+        }
+        if (previous.scaleX !== shape.scaleX) {
+          element.style.setProperty("--bubble-scale-x", String(shape.scaleX));
+          element.style.setProperty("--bubble-inverse-x", String(1 / shape.scaleX));
+        }
+        if (previous.scaleY !== shape.scaleY) {
+          element.style.setProperty("--bubble-scale-y", String(shape.scaleY));
+          element.style.setProperty("--bubble-inverse-y", String(1 / shape.scaleY));
+        }
+        previous.radius = bubble.radius;
+        previous.angle = shape.angle;
+        previous.scaleX = shape.scaleX;
+        previous.scaleY = shape.scaleY;
       });
     }
 
