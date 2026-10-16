@@ -69,13 +69,13 @@ export function HomeWaves({ paused }: { paused: boolean }) {
           <linearGradient id={`${id}-body`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="var(--wave-highlight)" stopOpacity="0.5" />
             <stop offset="0.04" stopColor="var(--wave-color)" stopOpacity="0.25" />
-            <stop offset="0.3" stopColor="var(--wave-color)" stopOpacity="0.12" />
-            <stop offset="1" stopColor="var(--wave-color)" stopOpacity="0.04" />
+            <stop offset="0.3" stopColor="var(--wave-meadow)" stopOpacity="0.12" />
+            <stop offset="1" stopColor="var(--wave-meadow)" stopOpacity="0.04" />
           </linearGradient>
           <linearGradient id={`${id}-rim`} x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stopColor="var(--wave-highlight)" stopOpacity="0.2" />
             <stop offset="0.35" stopColor="var(--wave-highlight)" stopOpacity="0.85" />
-            <stop offset="1" stopColor="var(--wave-color)" stopOpacity="0.35" />
+            <stop offset="1" stopColor="var(--wave-meadow)" stopOpacity="0.35" />
           </linearGradient>
           {initialWaves.map(({ body }, index) => (
             <path key={index} id={`${id}-wave-${index}`} data-wave-path="" d={body} />

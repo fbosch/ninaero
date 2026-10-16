@@ -6,15 +6,17 @@ import { presetInstallCommand } from "@/lib/component-documentation";
 import { ArrowRightIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
+import styles from "@/components/home-background/home-background.module.css";
+
 export default function Home() {
   return (
     <main
       id="main"
-      className="home-page relative isolate bg-background min-h-[calc(100svh-4.5rem)]"
+      className={`home-page relative isolate bg-background min-h-[calc(100svh-4.5rem)] ${styles.scene}`}
     >
       <div
         aria-hidden="true"
-        className="home-paper ninaero-paper-dotted ninaero-pattern-ink-foreground/20 dark:ninaero-pattern-ink-foreground/8"
+        className="home-paper ninaero-paper-dotted ninaero-pattern-ink-foreground/12 dark:ninaero-pattern-ink-foreground/8"
       />
       <div className="mx-auto max-w-6xl space-y-12 px-5 py-8 sm:px-8 lg:py-12">
         <section className="home-hero relative space-y-8">
@@ -41,7 +43,7 @@ export default function Home() {
               <h2 id="install-heading" className="text-sm type-title tracking-normal">
                 Install Ninaero
               </h2>
-              <p className="text-sm text-muted-foreground">
+              <p className={`text-sm ${styles.description}`}>
                 Add the theme and components to your project.
               </p>
             </div>
@@ -57,7 +59,7 @@ export default function Home() {
             </Button>
           </section>
         </section>
-        <p className="squircle-support-note text-xs text-muted-foreground">
+        <p className={`squircle-support-note text-xs ${styles.description}`}>
           This browser does not support CSS squircle corners. Buttons use ordinary rounded corners
           here.
         </p>

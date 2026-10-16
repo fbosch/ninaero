@@ -6,6 +6,7 @@ import { PauseIcon, PlayIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
 import { HomeBubbles } from "./home-bubbles";
+import { HomeSky } from "./home-sky";
 import { HomeWaves } from "./home-waves";
 
 import styles from "./home-background.module.css";
@@ -15,6 +16,7 @@ export function HomeBackground() {
 
   return (
     <>
+      <HomeSky />
       <HomeWaves paused={paused} />
       <HomeBubbles paused={paused} />
       <div className={styles.controls}>

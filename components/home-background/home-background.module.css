@@ -1,17 +1,112 @@
+.scene {
+  --home-companion: #92bd55;
+}
+
+[data-accent="indigo"] .scene {
+  --home-companion: #59b9cf;
+}
+
+[data-accent="lavender"] .scene {
+  --home-companion: #d992b5;
+}
+
+[data-accent="slate"] .scene {
+  --home-companion: #91ad91;
+}
+
+[data-accent="lagoon"] .scene {
+  --home-companion: #bdcb65;
+}
+
+[data-accent="sky"] .scene {
+  --home-companion: #76cba6;
+}
+
+[data-accent="blossom"] .scene {
+  --home-companion: #eab082;
+}
+
+[data-accent="lime"] .scene {
+  --home-companion: #71c9c8;
+}
+
+.sky {
+  --sky-top: color-mix(in oklab, var(--ring) 55%, var(--primary));
+  --sky-air: color-mix(in oklab, var(--primary) 70%, white);
+  --sky-horizon: color-mix(in oklab, var(--primary) 8%, white);
+  --sky-ground: color-mix(in oklab, var(--home-companion) 50%, white);
+  --sky-cloud: rgb(255 255 255 / 0.65);
+  --sky-reading: white;
+  --sky-reading-field: radial-gradient(
+    ellipse 70% 55% at 30% 42%,
+    var(--sky-reading) 40%,
+    transparent
+  );
+  position: absolute;
+  inset: 0;
+  z-index: -6;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    var(--sky-reading-field),
+    linear-gradient(
+      180deg in oklab,
+      var(--sky-top),
+      var(--sky-air) 42%,
+      var(--sky-horizon) 74%,
+      var(--sky-ground)
+    );
+}
+
+.clouds {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.description {
+  color: color-mix(in oklab, var(--muted-foreground) 85%, var(--foreground));
+}
+
+[class~="dark"] .sky {
+  --sky-top: color-mix(in oklab, var(--primary) 14%, var(--background));
+  --sky-air: color-mix(in oklab, var(--ring) 12%, var(--background));
+  --sky-horizon: color-mix(in oklab, var(--primary) 7%, var(--background));
+  --sky-ground: color-mix(in oklab, var(--home-companion) 18%, var(--background));
+  --sky-cloud: rgb(255 255 255 / 0.045);
+  --sky-reading: color-mix(in oklab, var(--background) 80%, transparent);
+}
+
+[data-accent="cyan"] .sky {
+  --sky-top: #5ba7e0;
+  --sky-air: #9dd9ee;
+  --sky-horizon: #f5fbff;
+  --sky-ground: #c9e094;
+}
+
+[class~="dark"][data-accent="cyan"] .sky {
+  --sky-top: #171f27;
+  --sky-air: #1b282e;
+  --sky-horizon: #242f31;
+  --sky-ground: #252e23;
+}
+
 .waves {
   --wave-color: color-mix(in oklab, var(--ring) 55%, var(--primary));
   --wave-highlight: color-mix(in oklab, var(--primary) 55%, white);
+  --wave-meadow: var(--home-companion);
+  --wave-meadow-wash: color-mix(in oklab, var(--wave-meadow) 14%, transparent);
+  --wave-sky-wash: color-mix(in oklab, var(--primary) 20%, transparent);
   position: absolute;
   inset: 0;
   z-index: -5;
   overflow: hidden;
   opacity: 0.45;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse at 85% 90%,
-    color-mix(in oklab, var(--primary) 20%, transparent),
-    transparent 70%
-  );
+  background:
+    radial-gradient(ellipse at 15% 100%, var(--wave-meadow-wash), transparent 65%),
+    radial-gradient(ellipse at 85% 90%, var(--wave-sky-wash), transparent 70%);
   mask-image: linear-gradient(to bottom, transparent, black 30%);
 }
 
@@ -47,11 +142,35 @@
   opacity: 0.3;
 }
 
+[data-accent="cyan"] .waves {
+  --wave-color: #438ec4;
+  --wave-highlight: #edfaff;
+  --wave-sky-wash: color-mix(in oklab, var(--wave-color) 16%, transparent);
+  opacity: 0.55;
+}
+
+[class~="dark"][data-accent="cyan"] .waves {
+  --wave-color: #4c819f;
+  --wave-highlight: #a2c9d6;
+  --wave-meadow: #6c8250;
+  opacity: 0.25;
+}
+
 .controls {
   position: fixed;
   right: max(1.25rem, env(safe-area-inset-right));
   bottom: max(1.25rem, env(safe-area-inset-bottom));
   z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .sky {
+    --sky-reading-field: radial-gradient(
+      ellipse 155% 50% at 50% 46%,
+      var(--sky-reading) 60%,
+      transparent
+    );
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -61,6 +180,7 @@
 }
 
 @media (forced-colors: active) {
+  .sky,
   .waves,
   .controls {
     display: none;
