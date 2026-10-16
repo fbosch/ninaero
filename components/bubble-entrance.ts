@@ -1,4 +1,5 @@
 import { maxBubbleRadius, type Bubble } from "@/lib/bubble-physics.mjs";
+import { ambientMotionRate } from "@/lib/home-motion.mjs";
 
 export function createBubbleEntrances(lenses: Element[], surfaces: Element[]) {
   const active = new Map<Bubble, Animation[]>();
@@ -28,9 +29,12 @@ export function createBubbleEntrances(lenses: Element[], surfaces: Element[]) {
       const spread = Math.min(2400, targets.length * 400);
       const variation = (index * 0.61803398875) % 1;
       const duration = Math.round(
-        1000 + Math.min(bubble.radius / maxBubbleRadius, 1) * 500 + variation * 140,
+        (1000 + Math.min(bubble.radius / maxBubbleRadius, 1) * 500 + variation * 140) /
+          ambientMotionRate,
       );
-      const delay = Math.round(spread * progress ** 0.75 + Math.sin(index * 2.4) * 65);
+      const delay = Math.round(
+        (spread * progress ** 0.75 + Math.sin(index * 2.4) * 65) / ambientMotionRate,
+      );
       const timing: KeyframeAnimationOptions = {
         duration,
         delay,

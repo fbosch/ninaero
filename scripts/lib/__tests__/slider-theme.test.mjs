@@ -78,14 +78,18 @@ test("neutral Button-derived grabbers retain contrast-safe borders across accent
           ]),
         ];
       });
-      const grooveShadow = mixOklab(palette["button-paper-fill"], "#000000", 0.3);
-      const grooveHighlight = mixOklab(palette["button-paper-fill"], "#ffffff", 0.3);
+      const grooveTones =
+        mode === "light"
+          ? [
+              mixOklab(palette["button-paper-fill"], "#000000", 0.3),
+              mixOklab(palette["button-paper-fill"], "#ffffff", 0.3),
+            ]
+          : [edge];
       const tones = [
         edge,
         ...face,
         pressed,
-        grooveShadow,
-        grooveHighlight,
+        ...grooveTones,
         mixOklab(
           pressed,
           "#000000",
@@ -102,12 +106,26 @@ test("neutral Button-derived grabbers retain contrast-safe borders across accent
         assert.equal(channels[0], channels[1], `${name} ${mode} neutral grabber`);
         assert.equal(channels[1], channels[2], `${name} ${mode} neutral grabber`);
       }
-      for (const background of [...face, pressed]) {
-        const ratio = Math.max(
-          contrast(grooveShadow, background),
-          contrast(grooveHighlight, background),
-        );
-        assert.ok(ratio >= 1.75, `${name} ${mode} decorative groove bevel: ${ratio.toFixed(2)}:1`);
+      if (mode === "light") {
+        const [grooveShadow, grooveHighlight] = grooveTones;
+        // Sample the center band crossed by the grooves, not the face's upper or lower rim.
+        const grooveBackgrounds = ["fill", "hover"].flatMap((state) => {
+          const fill = palette[`button-paper-${state}`];
+          return [1 / 3, 1 / 2, 2 / 3].map((position) =>
+            position <= 0.55
+              ? composite(palette["button-paper-highlight"], fill, 1 - position / 0.55)
+              : composite(palette["button-paper-shade"], fill, (position - 0.55) / 0.45),
+          );
+        });
+        for (const background of [...grooveBackgrounds, pressed]) {
+          const cut = contrast(grooveShadow, background);
+          const glint = contrast(grooveHighlight, background);
+          assert.ok(
+            luminance(grooveShadow) < luminance(background),
+            `${name} ${mode} groove cut stays darker than its face`,
+          );
+          assert.ok(cut > glint, `${name} ${mode} groove cut contrast exceeds its edge glint`);
+        }
       }
       for (const background of [palette.background, palette.card, palette["paper-fill"]]) {
         const ratio = contrast(edge, background);

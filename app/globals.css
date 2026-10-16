@@ -1051,8 +1051,8 @@
   }
   .ninaero-slider-range {
     background-color: var(--button-primary-fill);
-    background-image: linear-gradient(180deg in oklab, var(--glass-mark-face-100), var(--glass-mark-face-0));
-    box-shadow: inset 0 1px 2px color-mix(in oklab, var(--button-primary-pressed), black 6%);
+    background-image: linear-gradient(180deg in oklab, var(--glass-mark-face-0), var(--glass-mark-face-50) 48%, var(--glass-mark-face-100));
+    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--glass-mark-face-0), white 25%), inset 0 -1px 0 color-mix(in oklab, var(--glass-mark-face-100), black 8%);
   }
   .ninaero-slider-thumb {
     --slider-grip-ink: color-mix(in oklab, var(--button-paper-fill), black 30%);
@@ -1066,16 +1066,21 @@
     outline: none;
     transition: border-color 80ms ease-out, background-color 80ms ease-out, box-shadow 80ms ease-out;
   }
+  .dark .ninaero-slider-thumb {
+    --slider-grip-ink: var(--button-paper-edge);
+  }
   .ninaero-slider-thumb::before {
     content: "";
-    position: absolute;
-    inset: calc(50% - 3px) auto auto calc(50% - 5px);
-    width: 10px;
-    height: 6px;
     background-image: repeating-linear-gradient(90deg, var(--slider-grip-ink) 0 1px, var(--slider-grip-highlight) 1px 2px, transparent 2px 4px);
     mask-image: linear-gradient(180deg, transparent, black 0.5px, black calc(100% - 0.5px), transparent);
     opacity: 1;
     pointer-events: none;
+  }
+  .dark .ninaero-slider-thumb::before {
+    background-color: var(--slider-grip-ink);
+    background-image: none;
+    mask-image: repeating-linear-gradient(90deg, black 0 1px, transparent 1px 4px), linear-gradient(180deg, transparent, black 0.5px, black calc(100% - 0.5px), transparent);
+    mask-composite: intersect;
   }
   .ninaero-slider:where(:not([data-disabled]):not([aria-disabled=true]):not([data-invalid]):not([aria-invalid=true])) .ninaero-slider-thumb:where(:hover:not(:active):not([data-dragging])) {
     background-color: var(--button-paper-hover);
