@@ -3,57 +3,67 @@
 import { useId } from "react";
 
 import { useAccent } from "@/components/accent-provider";
-import { CheckIcon } from "@/lib/icons";
 import { accentNames, accentPresets, isAccent } from "@/registry/ninaero/accents.mjs";
-import { ToggleGroup, ToggleGroupItem } from "@/registry/ninaero/ui/toggle-group";
+import { Field, FieldLabel } from "@/registry/ninaero/ui/field";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/registry/ninaero/ui/select";
+
+const accentItems = accentNames.map((value) => ({ value, label: accentPresets[value].label }));
 
 export function AccentSwitcher() {
   const id = useId();
   const { accent, mounted, saved, setAccent } = useAccent();
 
   return (
-    <fieldset className="space-y-2">
-      <legend id={id} className="text-xs text-muted-foreground">
+    <Field className="w-auto sm:w-32">
+      <FieldLabel htmlFor={id} className="sr-only">
         Accent
-      </legend>
-      <ToggleGroup
-        aria-labelledby={id}
-        value={[accent]}
-        multiple={false}
+      </FieldLabel>
+      <Select
+        items={accentItems}
+        value={accent}
         disabled={!mounted}
-        spacing={1}
-        size="lg"
-        onValueChange={(values) => {
-          // A preference stays selected when its active toggle is pressed again.
-          if (values.length === 0) return;
-          const value = values[0];
+        onValueChange={(value) => {
           if (!isAccent(value)) throw new Error(`Unknown accent: ${value}`);
           setAccent(value);
         }}
-        className="grid w-full grid-cols-2"
       >
-        {accentNames.map((name) => (
-          <ToggleGroupItem
-            key={name}
-            value={name}
-            className="justify-start gap-2 px-2 text-sm font-normal"
-          >
-            <span
-              aria-hidden="true"
-              data-accent={name}
-              className="size-3.5 shrink-0 rounded-full"
-              style={{ backgroundColor: "var(--button-primary-fill)" }}
-            />
-            {accentPresets[name].label}
-            {accent === name ? <CheckIcon aria-hidden="true" className="ml-auto size-3.5" /> : null}
-          </ToggleGroupItem>
-        ))}
-      </ToggleGroup>
+        <SelectTrigger id={id} size="sm" aria-describedby={!saved ? `${id}-error` : undefined}>
+          <span
+            aria-hidden="true"
+            data-accent={accent}
+            className="size-3.5 shrink-0 rounded-full"
+            style={{ backgroundColor: "var(--button-primary-fill)" }}
+          />
+          <SelectValue className="sr-only sm:not-sr-only" />
+        </SelectTrigger>
+        <SelectContent align="end" alignItemWithTrigger={false}>
+          <SelectGroup>
+            {accentNames.map((name) => (
+              <SelectItem key={name} value={name}>
+                <span
+                  aria-hidden="true"
+                  data-accent={name}
+                  className="size-3.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: "var(--button-primary-fill)" }}
+                />
+                {accentPresets[name].label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
       {!saved ? (
-        <output aria-live="polite" className="block text-xs text-muted-foreground">
+        <output id={`${id}-error`} aria-live="polite" className="text-xs text-muted-foreground">
           Unable to save accent preference.
         </output>
       ) : null}
-    </fieldset>
+    </Field>
   );
 }

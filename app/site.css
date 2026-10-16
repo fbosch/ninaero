@@ -23,13 +23,6 @@ html.dark {
   background: linear-gradient(to bottom, var(--muted), var(--card));
 }
 
-.site-appearance-trigger {
-  --shadow-color: 0deg 0% 45%;
-}
-
-.dark .site-appearance-trigger {
-  --shadow-color: 0deg 0% 7%;
-}
 @media (forced-colors: active) {
   .site-header,
   .dark .site-header {

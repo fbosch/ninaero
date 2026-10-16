@@ -3,6 +3,13 @@ import Link from "next/link";
 
 import { CodeBlock } from "@/components/docs/code-block";
 import { theme } from "@/registry/ninaero/theme.mjs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/ninaero/ui/card";
 
 export const metadata: Metadata = {
   title: "Theme | Ninaero",
@@ -16,6 +23,13 @@ const swatches = [
   { title: "Secondary", className: "bg-secondary" },
   { title: "Muted", className: "bg-muted" },
   { title: "Accent", className: "bg-accent" },
+];
+
+const elevationExamples = [
+  { label: "Flat", className: "shadow-flat", usage: "Page content" },
+  { label: "Control", className: "shadow-control", usage: "Raised buttons" },
+  { label: "Floating", className: "shadow-floating", usage: "Menus and popovers" },
+  { label: "Dialog", className: "shadow-dialog", usage: "Modal panels" },
 ];
 
 export default function ThemeDocsPage() {
@@ -74,6 +88,42 @@ export default function ThemeDocsPage() {
         >
           Compare accent buttons in the workshop
         </Link>
+      </section>
+      <section aria-labelledby="theme-elevation-heading" className="space-y-4">
+        <h2 id="theme-elevation-heading" className="text-xl font-semibold">
+          Elevation
+        </h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Choose a shadow by the element&apos;s distance from the paper beneath it. Elevation does
+          not change stacking order. Use z-index separately for overlays.
+        </p>
+        <div
+          role="group"
+          aria-label="Elevation examples"
+          className="ninaero-surface-paper grid grid-cols-2 gap-6 pb-8 lg:grid-cols-4"
+        >
+          {elevationExamples.map((elevation) => (
+            <Card key={elevation.label} size="sm" className={elevation.className}>
+              <CardHeader>
+                <CardTitle>{elevation.label}</CardTitle>
+                <CardDescription>{elevation.usage}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <code className="text-xs break-all">{elevation.className}</code>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Groups made entirely of raised buttons share one control shadow; their buttons keep their
+          pressed states. The header uses the paper shadow-color context so the cast blends with its
+          neutral background.
+        </p>
+        <CodeBlock
+          code={'<Card className="shadow-floating">...</Card>'}
+          label="Semantic elevation utility"
+          language="tsx"
+        />
       </section>
       <section aria-labelledby="theme-edit-heading" className="space-y-4">
         <h2 id="theme-edit-heading" className="text-xl font-semibold">

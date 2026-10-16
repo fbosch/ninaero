@@ -15,7 +15,7 @@ function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="input-group"
       role="group"
       className={cn(
-        "ninaero-input-group group/input-group relative flex h-8 w-full min-w-0 items-center has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-start]]:[&>input]:pt-0 has-[>[data-align=block-end]]:[&>input]:pb-0 has-[>[data-align=block-start]]:[&>textarea]:pt-0 has-[>[data-align=block-end]]:[&>textarea]:pb-0 has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=inline-start]]:[&>input]:pl-2",
+        "ninaero-input-group group/input-group relative flex h-(--field-height) w-full min-w-0 items-center has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-start]]:[&>input]:pt-0 has-[>[data-align=block-end]]:[&>input]:pb-0 has-[>[data-align=block-start]]:[&>textarea]:pt-0 has-[>[data-align=block-end]]:[&>textarea]:pb-0 has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=inline-start]]:[&>input]:pl-2",
         className,
       )}
       {...props}
@@ -28,10 +28,10 @@ const inputGroupAddonVariants = cva(
   {
     variants: {
       align: {
-        "inline-start": "order-first pl-3",
-        "inline-end": "order-last pr-3",
-        "block-start": "order-first w-full justify-start px-3 py-2",
-        "block-end": "order-last w-full justify-start px-3 py-2",
+        "inline-start": "order-first pl-(--field-padding-inline)",
+        "inline-end": "order-last pr-(--field-padding-inline)",
+        "block-start": "order-first w-full justify-start px-(--field-padding-inline) py-2",
+        "block-end": "order-last w-full justify-start px-(--field-padding-inline) py-2",
       },
     },
     defaultVariants: {

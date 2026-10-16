@@ -41,7 +41,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "ninaero-select-trigger flex w-fit items-center justify-between gap-2 px-3 py-1 text-sm leading-5 whitespace-nowrap select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:gap-1 data-[size=sm]:px-2 data-[size=sm]:text-[0.8rem] data-[size=sm]:leading-4 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 data-[size=sm]:*:data-[slot=select-value]:gap-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "ninaero-select-trigger flex w-fit items-center justify-between gap-2 px-(--field-padding-inline) py-1 text-sm leading-5 whitespace-nowrap select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-[size=default]:h-(--field-height) data-[size=sm]:h-7 data-[size=sm]:gap-1 data-[size=sm]:px-2 data-[size=sm]:text-[0.8rem] data-[size=sm]:leading-4 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 data-[size=sm]:*:data-[slot=select-value]:gap-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}

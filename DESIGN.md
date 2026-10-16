@@ -2,7 +2,7 @@
 
 ## Handheld paper with glass accents
 
-Ninaero combines a Nintendo handheld-inspired layout with paper details and restrained glass highlights. The everyday UI uses neutral white and gray backgrounds, clear ink, squircle action buttons, restrained rounded fields and panels, and small cyan accents.
+Ninaero combines a Nintendo handheld-inspired layout with paper details and restrained glass highlights. The everyday UI uses neutral white and gray backgrounds, clear ink, squircle action buttons and dialog frames, restrained rounded fields and content panels, and small cyan accents.
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
@@ -10,13 +10,13 @@ This document records the agreed visual direction. Button is the first fully sty
 
 ## Reference hierarchy
 
-| Role                       | Reference traits                                                      | Application                                             | Boundary                                                                                                                                                                                                      |
-| -------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Core                       | DS-like organization, ruled, dotted, and grid paper, compact layouts  | Page backgrounds and content structure                  | Use one quiet paper pattern at a time. Keep dense content on plain backgrounds.                                                                                                                               |
-| Supporting controls        | Wii framing and shallow shading                                       | Controls, navigation, and panel frames                  | Keep ordinary edges neutral; reserve accent edges for selected states and focus. Use native squircle corners only on action buttons. Fields, selection controls, and panels use conventional rounded corners. |
-| Signature accent           | Glass rims, soft highlights, localized glow                           | Primary actions, selected elements, and floating layers | Keep most controls matte. Glass must clarify importance or layering.                                                                                                                                          |
-| Optional artwork           | Flipnote outlines, sparse color, discrete dithered shading            | Empty states and occasional header illustrations        | Use original artwork. Do not pixelate routine text, icons, or controls.                                                                                                                                       |
-| Outside the everyday theme | Dense ASCII/ANSI patterns, perspective-grid orbs, geometric spectacle | Occasional standalone artwork                           | Keep these out of forms, tables, and navigation.                                                                                                                                                              |
+| Role                       | Reference traits                                                      | Application                                             | Boundary                                                                                                                                                                                                                                     |
+| -------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Core                       | DS-like organization, ruled, dotted, and grid paper, compact layouts  | Page backgrounds and content structure                  | Use one quiet paper pattern at a time. Keep dense content on plain backgrounds.                                                                                                                                                              |
+| Supporting controls        | Wii framing and shallow shading                                       | Controls, navigation, and panel frames                  | Keep ordinary edges neutral; reserve accent edges for selected states and focus. Use native squircle corners on action buttons and Dialog/AlertDialog frames. Fields, selection controls, and other panels use conventional rounded corners. |
+| Signature accent           | Glass rims, soft highlights, localized glow                           | Primary actions, selected elements, and floating layers | Keep most controls matte. Glass must clarify importance or layering.                                                                                                                                                                         |
+| Optional artwork           | Flipnote outlines, sparse color, discrete dithered shading            | Empty states and occasional header illustrations        | Use original artwork. Do not pixelate routine text, icons, or controls.                                                                                                                                                                      |
+| Outside the everyday theme | Dense ASCII/ANSI patterns, perspective-grid orbs, geometric spectacle | Occasional standalone artwork                           | Keep these out of forms, tables, and navigation.                                                                                                                                                                                             |
 
 The lined announcement-bar reference is the clearest bridge between paper and lightly raised controls. The DS reference itself has square controls and pixel edges. Ninaero deliberately combines handheld organization with squircle geometry on action buttons.
 
@@ -24,7 +24,7 @@ The lined announcement-bar reference is the clearest bridge between paper and li
 
 - Use faint dots on the homepage and grid in catalogue previews. Reserve ruling for line-aligned prose. Choose one pattern per region; never layer different paper variants. Keep the existing page color when selecting a pattern.
 - Keep forms, inputs, tables, and code blocks on opaque, plain backgrounds. Paper texture must not interfere with their content.
-- Reserve squircle corners for action buttons and standalone icon buttons. Use conventional rounded corners for fields, selection controls, and panels. Preserve straight alignment in lists, tables, and compact forms.
+- Use squircle corners for action buttons, standalone icon buttons, and Dialog/AlertDialog frames. Fields, selection controls, and other panels keep conventional rounded corners. Preserve straight alignment in lists, tables, and compact forms.
 - Keep cards and ordinary controls mostly matte. Avoid heavy bevels, console bezels, and large glossy gradients.
 - Put glass on a small number of important elements. Readable content stays opaque even when its rim or backdrop is translucent.
 - Keep crisp dithering and smooth blur on separate objects. They describe different materials and should not compete within one control.
@@ -50,20 +50,20 @@ Keep one owner for each gap. A field's 8px label gap sits inside the 16px field 
 
 #### Control geometry
 
-Keep the existing compact heights. Match default Button, Input, and Select rows at 32px, and align field text at a 12px horizontal inset.
+Default fields use shared `field-height` and `field-padding-inline` tokens, currently 36px and 16px. Define them once in `registry/ninaero/theme.mjs`, independently of Tailwind's global spacing step. Button keeps its own size scale; use its 36px `lg` size alongside default fields when rows need to align. Small Select triggers remain compact.
 
 | Control             | Height        | Horizontal inset | Internal spacing                     |
 | ------------------- | ------------- | ---------------- | ------------------------------------ |
 | Button xs / sm      | 24px / 28px   | 8px              | 4px icon-to-label gap                |
 | Button default / lg | 32px / 36px   | 12px / 16px      | 8px icon-to-label gap                |
-| Input               | 32px          | 12px             | 4px vertical inset, 20px line height |
-| Select default      | 32px          | 12px             | 4px vertical inset, 8px content gaps |
+| Input               | 36px          | 16px             | 4px vertical inset, 20px line height |
+| Select default      | 36px          | 16px             | 4px vertical inset, 8px content gaps |
 | Select sm           | 28px          | 8px              | 4px vertical inset and content gaps  |
-| Textarea            | At least 64px | 12px             | 8px vertical inset                   |
+| Textarea            | At least 64px | 16px             | 8px vertical inset                   |
 
 Icon-only buttons stay square and center their glyphs. Default and large icon-bearing buttons may reduce the icon-side inset by 4px; compact buttons keep their 8px inset. Use a 20px line height for ordinary control labels and 16px for compact labels. Textareas keep the existing responsive text sizing and 24px / 20px line heights on narrow / wider layouts.
 
-Compound fields use a 12px outside inset and 8px between inline adornments and input content. Let the group own the border and row height. Embedded buttons reuse Button's actual size variants, and block adornments own the adjacent vertical inset instead of doubling the textarea's padding.
+Compound fields use a 16px outside inset and 8px between inline adornments and input content. Let the group own the border and row height. Embedded buttons reuse Button's actual size variants, and block adornments own the adjacent vertical inset instead of doubling the textarea's padding.
 
 Select options keep an even minimum 32px row with 12px on the label side. Reserve room for the trailing checkmark and an 8px gap so text cannot run beneath it. Group labels share the option text edge.
 
@@ -120,6 +120,27 @@ Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It shou
 
 A cyan highlight is not a reason to add blur. Prefer a fill, edge, or small highlight first. Use translucency only where the element's position over another layer matters.
 
+## Gradients and material shading
+
+Use [Josh W. Comeau's Make Beautiful Gradients](https://www.joshwcomeau.com/css/make-beautiful-gradients/) as the reference for color interpolation. The article explains how RGB interpolation can produce a gray midpoint between saturated colors, and how a different color space or intermediate stops can change that path. Ninaero applies those principles to shallow material shading, not rainbow decoration.
+
+### Color paths
+
+- Keep neutral materials achromatic throughout the gradient. Gray is intentional on paper and Secondary controls, not a defect to correct with saturation. Primary shading follows the chosen accent; Destructive shading stays within semantic red. Do not blend unrelated accent presets or pass through status colors for decoration.
+- Choose the interpolation space deliberately. Writing endpoints as HSL does not itself select HSL interpolation. For new material gradients, start with explicit `in oklab` interpolation and judge the rendered result. This is Ninaero's starting point, not the article's universal recommendation.
+- Inspect the midpoint as well as the endpoints. For intentional hue changes in optional artwork, compare hue-based interpolation with perceptual alternatives. HSL can avoid a gray midpoint but produce uneven perceived brightness. Do not assume one color space suits every gradient.
+- Use intermediate stops when the intended color path needs more control. Calculate them in the chosen space, then store the resulting stops in CSS. Closely spaced colors can approximate that path even when interpolation between stops uses RGB. Add only enough stops to improve the result; a subtle two-stop material gradient does not need a generated palette.
+
+### Placement and review
+
+Keep raised controls lighter at the top and darker below, consistent with the shared overhead light. Use stop positions or an eased distribution to soften the transition without creating a stripe. Keep crisp rims and bevels separate from the smooth face shading. Pressed controls follow the recessed-lighting rules below; gradients must not imply a second light source.
+
+Gradients remain local to existing material treatments and restrained glass accents. Keep fields plain and opaque, ordinary panels matte, and text solid rather than gradient-filled. The article's [Gradient Generator](https://www.joshwcomeau.com/gradient-generator/) is an authoring aid, not a runtime dependency. Its color stops can also serve radial or conic gradients, but those shapes need a specific lighting or artwork purpose.
+
+Define shared recipes in `registry/ninaero/theme.mjs` and accent-specific colors in `registry/ninaero/accents.mjs`. Check interpolation support in target browsers before relying on it; if a required browser lacks it, use precomputed stops or a readable solid fill. Do not add runtime JavaScript to calculate decorative gradients.
+
+Review the full transition at actual component sizes in light and dark modes and across all accent presets. Check hover, pressed, disabled, invalid, and keyboard-focus states. Verify text and control contrast against the least favorable background beneath them, including intermediate colors and translucent layers. Remove decorative gradients in forced-colors mode and retain system-color boundaries. These rules guide future styling; adding them does not establish that existing gradients have been audited.
+
 ## Shadows and elevation
 
 Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomeau.com/css/designing-shadows/) as the reference for cast shadows. His article connects consistent lighting, layered shadows, and background-matched color. The following choices adapt those principles to Ninaero's shallow handheld controls and paper surfaces.
@@ -128,13 +149,13 @@ Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomea
 
 - Use one overhead light, with highlights at the top and cast shadows below. Keep horizontal offsets at zero across the elevation scale. This is Ninaero's choice of light direction; the article's above-left example is not a required angle.
 - Separate the border, inset highlight, lower bevel, and cast shadow. Borders define each component's edge. Insets and a crisp lower edge describe the control's material and thickness. A soft outer shadow describes its distance from the surface beneath it.
-- Keep Primary, Secondary, and Destructive on the same shallow elevation. Their fills communicate hierarchy and meaning; a destructive action does not need a taller shadow. Outline, Ghost, and Link should not acquire the same raised material by default.
+- Keep Primary, Secondary, and Destructive on the same shallow elevation. Their fills communicate hierarchy and meaning; a destructive action does not need a taller shadow. Outline keeps a background-matched face with a fine top inset highlight, a lower rim, and a tiny contact shadow. It stays shallower than Secondary, without its gradient fill. Ghost and Link remain flat.
 - Soften control cast shadows by broadening blur relative to the downward offset and tapering each layer's opacity. Keep enough shadow strength to show shallow elevation. A subtle fade should not make the shadow nearly invisible. The rim and bevel still define the Button; avoid a hard-edged dark silhouette beneath it.
 - Do not turn shadows into accent-colored glow. Keep cast shadows achromatic on neutral paper and panels, and tune their lightness to the receiving material. A red button on neutral paper should not automatically cast a red shadow.
 
 ### Layered elevation
 
-Use a compact elevation scale rather than tuning every component independently.
+Use the semantic `shadow-flat`, `shadow-control`, `shadow-floating`, and `shadow-dialog` utilities rather than tuning each component independently. These levels describe perceived distance from the receiving material. Keep `z-index` separate; stacking order does not determine shadow length.
 
 | Level    | Use                                                | Shadow treatment                                                                                |
 | -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -143,7 +164,9 @@ Use a compact elevation scale rather than tuning every component independently.
 | Floating | Popovers and menus                                 | Increase downward offset and blur together; reduce each layer's opacity as the object rises.    |
 | Dialog   | A modal above the working content                  | The broadest layered shadow, with lower per-layer opacity. Keep the scrim a separate treatment. |
 
-Build each cast shadow from a few layers with progressively larger offsets and blur radii. Avoid one large, uniform blur that reads as a fuzzy border. Layer opacity accumulates, so judge the combined shadow rather than copying the same opacity across elevation levels.
+Build each cast shadow from layers with progressively larger offsets and blur radii. Control elevation uses two short layers; floating and dialog levels retain broader, lower-opacity layers. Layer opacity accumulates, so judge the combined shadow rather than copying the same opacity across levels.
+
+A Button Group made entirely of raised buttons owns one control cast shadow. Its buttons keep their inset bevels and local pressed states without adding overlapping outer shadows. Mixed field, Outline, Ghost, or Link groups retain their existing individual materials. All-disabled groups lose the cast shadow. Preserve outer corner geometry and leave focus outlines unclipped.
 
 On press, reduce the control's apparent distance from the paper. Collapse its outer shadow and use a small top inset shade with a lower inset highlight. Pair that change with the pressed fill and brief movement; under reduced motion, the static fill and inset lighting must still communicate the press. Disabled controls lose raised shadows.
 
@@ -151,7 +174,7 @@ On press, reduce the control's apparent distance from the paper. Collapse its ou
 
 Cast shadows take their color from the receiving paper or panel. Recessed shading takes its color from the control's own pressed fill. Use a darker, lower-chroma tone for the inset shade and a lighter, lower-chroma tone for the inset highlight. A red Button can have red-tinted internal shading while casting a neutral paper shadow. Primary follows its selected accent; Secondary and Outline use paper tones; Destructive keeps its semantic red material.
 
-Reverse the depth cue, not the hue or the light source. Under the same overhead light, a pressed control has shade along its upper interior and a fine highlight along its lower interior. Keep both horizontal offsets at zero and remove the outer cast shadow. Outline remains flat at rest but can use this paper recess on press. Ghost and Link do not acquire recessed framing.
+Reverse the depth cue, not the hue or the light source. Under the same overhead light, a pressed control has shade along its upper interior and a fine highlight along its lower interior. Keep both horizontal offsets at zero and remove the outer cast shadow. Outline's resting rim and contact shadow collapse into the same paper recess on press. Ghost and Link do not acquire recessed framing.
 
 The shared `buttonRecessShadow` recipe lives in `registry/ninaero/theme.mjs`. Each recessed Button sets `--button-recess-fill` to its material's pressed fill. Local `color-mix(in oklab, ...)` expressions derive the shade and highlight so accent changes cannot leave stale inset colors. The current black mix weights are 4% in light mode and 6% in dark mode; white mix weights are 6% and 8%. These are shallow lighting cues, not black cavities or white glow. Tune them against the actual material and verify label contrast across both inset tones.
 
@@ -165,11 +188,11 @@ In dark mode, tune the shadow against the actual panel instead of increasing bla
 
 Compare all raised Button variants together in light and dark modes, on both paper and plain panels. Check resting, hover, pressed, disabled, and keyboard-focus states. When floating components are styled, check that their elevation remains above controls and that shadows are not clipped. Verify contrast against the highlighted and shaded fills, not just the base color. In forced-colors mode, remove decorative shadows and retain system-color boundaries.
 
-The shared recipes now live in `registry/ninaero/theme.mjs` as control, floating, and dialog elevations. Raised Button variants combine their own inset bevels with the same control cast shadow.
+The shared recipes live in `registry/ninaero/theme.mjs`. The `--shadow-flat`, `--shadow-control`, `--shadow-floating`, and `--shadow-dialog` tokens expose them to CSS and Tailwind. Flat uses a transparent zero-size layer so it can compose with inset bevels; use `shadow-none` to remove an entire shadow treatment.
 
-The `shadow-sm` utility uses control elevation; `shadow-md` and `shadow-lg` use floating elevation; `shadow-xl` and `shadow-2xl` use dialog elevation. Dialog, Alert Dialog, and Sheet use the dialog level; the chart tooltip uses the floating level.
+The standard `shadow-sm` utility also uses control elevation; `shadow-md` and `shadow-lg` use floating elevation; `shadow-xl` and `shadow-2xl` use dialog elevation. Dialog, Alert Dialog, and Sheet use the dialog level; the chart tooltip uses the floating level.
 
-Shadow color inherits from `--shadow-color`. The `ninaero-surface-paper` class selects the light/dark paper shadow color for its descendants. Exact offsets, blur radii, colors, and opacity still need browser review.
+Shadow color inherits from `--shadow-color`. The `ninaero-surface-paper` class selects the light/dark paper shadow color for its descendants, including the header's appearance controls. Installed components resolve color-dependent shadow variables locally so an ancestor's receiving-material color remains effective. Review the result on the actual background in both modes.
 
 ## Interaction and accessibility
 
@@ -190,7 +213,7 @@ These are design requirements. They have not yet been verified in a themed inter
 
 The homepage at `/` has a concise introduction, accent choices, and an install command; it does not feature a composed interface example. `/docs` contains component documentation and a searchable component list in its sidebar. The standalone `/components` and `/examples` pages and their example routes are removed. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
 
-Borrow Afterglow's homepage structure: a prominent heading, visible accent choices, and an install command. Use faint dots on the neutral homepage background. Keep grid in catalogue previews and reserve ruling for line-aligned prose. Separate sections with space, not decorative divider lines. Retain borders for controls. Keep catalogues, token swatches, state matrices, and composed examples off the homepage. Color mode stays under Appearance; accents are also available in the hero. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
+Borrow Afterglow's homepage structure: a prominent heading, visible accent choices, and an install command. Use faint dots on the neutral homepage background. Keep grid in catalogue previews and reserve ruling for line-aligned prose. Separate sections with space, not decorative divider lines. Retain borders for controls. Keep catalogues, token swatches, state matrices, and composed examples off the homepage. The header exposes an accent dropdown and a compact, icon-only System, Dark, Light Button Group; accent choices are also available in the hero. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
 
 - Keep shared tokens and theme rules in `registry/ninaero/theme.mjs`.
 - Keep installable component styling in `registry/ninaero/ui/`.
@@ -201,30 +224,30 @@ The visual direction does not require changing component APIs or interaction beh
 
 ### Corner geometry
 
-Use squircle detailing for action buttons, not every clickable element. Typography, neutral materials, spacing, and accent states connect the rest of the interface.
+Use squircle detailing for action buttons and Dialog/AlertDialog frames, not every clickable element. Typography, neutral materials, spacing, and accent states connect the rest of the interface.
 
 | Treatment                                       | Components                                                                                                                                                                    |
 | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Native squircle corners                         | Button variants, standalone icon buttons, toolbar and pagination actions, and Dialog or AlertDialog action buttons                                                            |
+| Native squircle corners                         | Button variants, standalone icon buttons, toolbar and pagination actions, and Dialog/AlertDialog frames and action buttons                                                    |
 | Squircle outer corners, straight internal seams | Button Group. Do not add a second squircle frame around its children                                                                                                          |
 | Regular rounded field corners                   | Input, Textarea, Input Group, Input OTP, Select, Native Select, Combobox, and Date Picker triggers                                                                            |
 | Regular rounded selection corners               | Toggle, Toggle Group, Tabs, Checkbox, Calendar day cells, and menu options                                                                                                    |
-| Regular rounded overlay corners                 | Dialog, Alert Dialog, Drawer, Sheet, Popover, Hover Card, Tooltip, Dropdown Menu, Context Menu, Command, Menubar, and Navigation Menu panels                                  |
+| Regular rounded overlay corners                 | Drawer, Sheet, Popover, Hover Card, Tooltip, Dropdown Menu, Context Menu, Command, Menubar, and Navigation Menu panels                                                        |
 | Regular rounded content corners                 | Card, Alert, Empty, Toast, Sonner, Attachment, Bubble, Message, Item, Kbd, Code Block, Table and Data Table containers, Chart containers, Sidebar panels, and Carousel frames |
 
 Avatar, Radio Group, Switch, Slider thumbs, Progress, Spinner, and pill-shaped Badges keep their conventional circles or pills. Structural components such as Field, Label, Separator, Breadcrumb, Typography, Trace, Accordion, and Collapsible need no independent framed silhouette. Skeletons match the shape they represent.
 
 Choose corners by role rather than the underlying React component. A Date Picker trigger or Calendar day cell remains a field or selection control even when implemented with Button. Embedded input accessories use regular corners inside the field's frame. Genuine action buttons inside a panel keep squircles.
 
-Use the existing radius scale for conventional corners. The shared field and Toggle recipes and Select options use `radius-md`, currently 8px. The shared floating frame and preview frames use `radius-xl`, currently 14px. Dialog and AlertDialog frames use `radius-2xl`, currently 18px. Calendar days retain their cell radius and joined range edges. Keep existing component-specific regular radii elsewhere.
+Use the existing radius scale for conventional corners. The shared field recipe uses 12px corners. Toggle and Select options use `radius-md`, currently 8px. The shared floating frame and preview frames use `radius-xl`, currently 14px. Dialog and AlertDialog frames use a `3rem` (48px) corner extent with native squircle curves. Calendar days retain their cell radius and joined range edges. Keep existing component-specific regular radii elsewhere.
 
 The installed `ninaero-rounded-control` class gives a composed Button conventional control corners without changing its material or behavior. Apply it when Button represents a field trigger. Calendar days and buttons embedded in Input Group receive the same role-based treatment through shared theme rules.
 
-#### Rendering action buttons
+#### Rendering squircles
 
-Button uses native CSS `corner-shape: squircle` with a nonzero `border-radius` to define the corner extent. This produces superellipse curves without a clipping mask, extra DOM, or JavaScript measurement. Shadows and focus outlines remain outside the button.
+Button, Dialog, and AlertDialog use native CSS `corner-shape: squircle` with a nonzero `border-radius` to define the corner extent. This produces superellipse curves without a clipping mask, extra DOM, or JavaScript measurement. Shadows and focus outlines remain outside the component.
 
-True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded action buttons, which do not fulfill the intended Button geometry. The workshop identifies that limitation. No polyfill is included. Conventional rounded fields and panels do not depend on squircle support.
+True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded action buttons and dialog frames, which do not fulfill their intended squircle geometry. The Button workshop identifies that limitation. No polyfill is included. Conventional rounded fields and other panels do not depend on squircle support.
 
 Accent presets live in `registry/ninaero/accents.mjs` and feed the same theme source and registry output as the Button rules. The root `data-accent` attribute selects a preset independently of light/dark mode. The workshop provides an Accent selector and side-by-side Button comparisons. Accent fills, selection, and focus follow the chosen preset; structural borders stay neutral.
 
@@ -232,21 +255,25 @@ Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Bot
 
 ### Input fields
 
-Input, Textarea, and Select triggers use regular rounded corners at `radius-md`, currently `0.5rem`, distinct from Button's squircle proportions. Default fields use `0.75rem` horizontal padding; compact Select triggers use `0.5rem`. Keep the field rectangular, with an opaque neutral fill and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes; keep at least 3:1 contrast against the adjacent paper and field fills. A faint upper-interior shade and lower-interior highlight give it a shallow paper recess without raising it above the page. Derive both tones from the field fill, using black mixes of 4% in light mode and 6% in dark mode, and white mixes of 6% and 8%. Placeholder ink must retain contrast against both inset tones.
+Input, Textarea, and Select triggers use regular rounded corners with a 12px radius, distinct from Button's squircle proportions. Default fields share `field-height` and `field-padding-inline`, currently `2.25rem` and `1rem`. Textarea shares the horizontal inset but retains its multiline height. Compact Select triggers keep their 28px height and `0.5rem` horizontal inset. InputGroup shares the default row height and outside inset, including its adornments.
+
+Use an opaque neutral `input-fill` slightly darker than the surrounding panel and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes; keep at least 3:1 contrast against the adjacent paper and field fills. Strengthen the neutral edge on hover without overriding invalid or disabled states.
+
+Give fields a shallow paper recess with an upper-interior shade fading over 3px and a fine lower-interior highlight. Derive both tones from `input-fill`, using black mixes of 7% in light mode and 12% in dark mode, and white mixes of 40% and 8%. Placeholder ink must retain contrast against both inset tones.
 
 Invalid fields retain this material and use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
 
 Textarea keeps its `4rem` minimum height, `0.5rem` vertical padding, native resizing, and content-based sizing. Inside InputGroup, suppress its inner border, inset lighting, and focus outline so the group owns the frame.
 
-Select retains its default and small trigger heights and Base UI's positioning and keyboard behavior. Its menu uses the shared neutral floating frame with regular rounded `radius-xl` corners, currently `0.875rem`. Selected options have a pale accent fill, a defined edge, and a check mark. Highlighted options use an inset outline that stays inside the menu. Disabled options remain opaque with muted ink. Keep their highlight visible when Base UI focuses them for inspection; they cannot be selected. Reduced motion removes popup and chevron transitions; forced-colors mode preserves selection and highlights with system colors.
+Select uses the shared default field height, retains its compact trigger size, and preserves Base UI's positioning and keyboard behavior. Its menu uses the shared neutral floating frame with regular rounded `radius-xl` corners, currently `0.875rem`. Selected options have a pale accent fill, a defined edge, and a check mark. Highlighted options use an inset outline that stays inside the menu. Disabled options remain opaque with muted ink. Keep their highlight visible when Base UI focuses them for inspection; they cannot be selected. Reduced motion removes popup and chevron transitions; forced-colors mode preserves selection and highlights with system colors.
 
-The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded and reserves squircles for action buttons. DS nickname-field geometry has not been independently verified.
+The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded, distinct from squircle action buttons and dialog frames. DS nickname-field geometry has not been independently verified.
 
 ### Dialogs
 
 Dialog and AlertDialog use the same installed theme classes for their frame and scrim. Keep their Base UI primitives and behavior separate.
 
-Use conventional rounded corners at `radius-2xl`, currently `1.125rem`, quieter than the action buttons inside. This is Ninaero's chosen geometry, not a measurement of Nintendo's original UI. Give the frame a shallow paper/plastic finish with an opaque neutral fill, faint top-to-bottom shading, a fine grayscale edge, an upper inset highlight, and a lower inset shade. Combine these with the shared dialog cast shadow. Keep the panel matte; reserve accent and glass treatment for primary actions and focus.
+Use native squircle corners at `3rem` (48px). This is Ninaero's chosen geometry, not a measurement of Nintendo's original UI. Give the frame a shallow paper/plastic finish with an opaque neutral fill, faint top-to-bottom shading, a fine grayscale edge, an upper inset highlight, and a lower inset shade. Combine these with the shared dialog cast shadow. Keep the panel matte; reserve accent and glass treatment for primary actions and focus.
 
 Use one continuous panel without a contrasting footer band or divider. The outer frame owns the 24px inset; group content and actions with 24px of space, and keep 8px between actions. Dialog titles use 20px type with a 24px line height. Give actions a useful minimum width, using Button's large size for short prompt actions. Center short system prompts and keep forms left-aligned. Inset the corner close button by 16px and reserve header space for it only when present. Preserve existing focus management and do not clip shadows or keyboard outlines. Forced-colors mode removes decorative lighting and retains a system-color boundary.
 

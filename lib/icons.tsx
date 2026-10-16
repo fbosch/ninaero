@@ -1,45 +1,45 @@
-import arrowDownIconData from "@iconify-icons/mage/arrow-down";
-import arrowRightIconData from "@iconify-icons/mage/arrow-right";
-import arrowUpRightIconData from "@iconify-icons/mage/arrow-up-right";
-import checkIconData from "@iconify-icons/mage/check";
-import circleCheckIconData from "@iconify-icons/mage/check-circle";
-import chevronDownIconData from "@iconify-icons/mage/chevron-down";
-import chevronLeftIconData from "@iconify-icons/mage/chevron-left";
-import chevronRightIconData from "@iconify-icons/mage/chevron-right";
-import chevronUpIconData from "@iconify-icons/mage/chevron-up";
-import copyIconData from "@iconify-icons/mage/copy";
-import moreHorizontalIconData from "@iconify-icons/mage/dots-horizontal";
-import triangleAlertIconData from "@iconify-icons/mage/exclamation-triangle";
-import filePlus2IconData from "@iconify-icons/mage/file-plus";
-import fileTextIconData from "@iconify-icons/mage/file-records";
-import slidersHorizontalIconData from "@iconify-icons/mage/filter";
-import folderIconData from "@iconify-icons/mage/folder";
-import homeIconData from "@iconify-icons/mage/home";
-import inboxIconData from "@iconify-icons/mage/inbox";
-import infoIconData from "@iconify-icons/mage/information-circle";
-import monitorIconData from "@iconify-icons/mage/laptop";
-import panelLeftIconData from "@iconify-icons/mage/layout-left";
-import messageCircleIconData from "@iconify-icons/mage/message-round";
-import minusIconData from "@iconify-icons/mage/minus";
-import moonIconData from "@iconify-icons/mage/moon";
-import xIconData from "@iconify-icons/mage/multiply";
-import octagonXIconData from "@iconify-icons/mage/multiply-circle";
-import plusIconData from "@iconify-icons/mage/plus";
-import loader2IconData from "@iconify-icons/mage/reload";
-import searchIconData from "@iconify-icons/mage/search";
-import sunIconData from "@iconify-icons/mage/sun";
+import plusIconData from "@iconify-icons/solar/add-linear";
+import chevronDownIconData from "@iconify-icons/solar/alt-arrow-down-linear";
+import chevronLeftIconData from "@iconify-icons/solar/alt-arrow-left-linear";
+import chevronRightIconData from "@iconify-icons/solar/alt-arrow-right-linear";
+import chevronUpIconData from "@iconify-icons/solar/alt-arrow-up-linear";
+import arrowDownIconData from "@iconify-icons/solar/arrow-down-linear";
+import arrowRightIconData from "@iconify-icons/solar/arrow-right-linear";
+import arrowUpRightIconData from "@iconify-icons/solar/arrow-right-up-linear";
+import messageCircleIconData from "@iconify-icons/solar/chat-round-linear";
+import circleCheckIconData from "@iconify-icons/solar/check-circle-linear";
+import checkIconData from "@iconify-icons/solar/check-linear";
+import octagonXIconData from "@iconify-icons/solar/close-circle-linear";
+import xIconData from "@iconify-icons/solar/close-linear";
+import copyIconData from "@iconify-icons/solar/copy-linear";
+import triangleAlertIconData from "@iconify-icons/solar/danger-triangle-linear";
+import filePlus2IconData from "@iconify-icons/solar/file-add-linear";
+import fileTextIconData from "@iconify-icons/solar/file-text-linear";
+import folderIconData from "@iconify-icons/solar/folder-linear";
+import homeIconData from "@iconify-icons/solar/home-linear";
+import inboxIconData from "@iconify-icons/solar/inbox-linear";
+import infoIconData from "@iconify-icons/solar/info-circle-linear";
+import monitorIconData from "@iconify-icons/solar/laptop-linear";
+import searchIconData from "@iconify-icons/solar/magnifier-linear";
+import moreHorizontalIconData from "@iconify-icons/solar/menu-dots-linear";
+import minusIconData from "@iconify-icons/solar/minus-linear";
+import moonIconData from "@iconify-icons/solar/moon-linear";
+import panelLeftIconData from "@iconify-icons/solar/panel-left-linear";
+import loader2IconData from "@iconify-icons/solar/refresh-linear";
+import sunIconData from "@iconify-icons/solar/sun-linear";
+import slidersHorizontalIconData from "@iconify-icons/solar/tuning-2-linear";
 import { Icon as IconifyIcon, type IconifyIcon as IconData } from "@iconify/react/offline";
 import type { ComponentProps } from "react";
 
 type IconProps = Omit<ComponentProps<"svg">, "children" | "onLoad" | "rotate">;
 
 function createIcon(icon: IconData) {
-  // Mage defines strokes on child nodes; inherit the root weight so callers can adjust it.
+  // Solar sets stroke widths on child paths; remove them so the wrapper prop can override.
   const inheritedStrokeIcon = {
     ...icon,
     body: icon.body.replace(/\sstroke-width="[^"]*"/g, ""),
   };
-  return function MageIcon({ width = 24, height = 24, strokeWidth = 2, ...props }: IconProps) {
+  return function SolarIcon({ width = 24, height = 24, strokeWidth = 1.5, ...props }: IconProps) {
     const labelled = Boolean(props["aria-label"] || props["aria-labelledby"]);
 
     return (

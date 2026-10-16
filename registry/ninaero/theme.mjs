@@ -2,11 +2,20 @@ import { accentPresets, accentRules, accentSemanticTokens, defaultAccent } from 
 
 const buttonPressSelector =
   ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost)";
+const raisedButtonSelector =
+  ":is(.ninaero-button--primary, .ninaero-button--secondary, .ninaero-button--destructive)";
+const raisedButtonGroupSelector = [
+  ".ninaero-button-group",
+  `:has(> ${raisedButtonSelector}:not(:disabled):not([data-disabled]):not([aria-disabled=true]))`,
+  `:not(:has(> :not(${raisedButtonSelector}, [data-slot=button-group-separator])))`,
+].join("");
+
 export const elevations = {
+  // A transparent layer composes with inset bevels; none cannot appear in a shadow list.
+  flat: "0 0 #0000",
   control: [
-    "0 1px 2px hsl(var(--shadow-color) / 0.18)",
-    "0 2px 5px hsl(var(--shadow-color) / 0.11)",
-    "0 4px 10px hsl(var(--shadow-color) / 0.07)",
+    "0 1px 1px hsl(var(--shadow-color) / 0.12)",
+    "0 2px 3px hsl(var(--shadow-color) / 0.08)",
   ].join(", "),
   floating: [
     "0 2px 2px hsl(var(--shadow-color) / 0.14)",
@@ -19,6 +28,11 @@ export const elevations = {
     "0 16px 28px hsl(var(--shadow-color) / 0.04)",
   ].join(", "),
 };
+const elevationVariables = Object.fromEntries(
+  Object.entries(elevations).map(([level, shadow]) => [`--shadow-${level}`, shadow]),
+);
+const controlCastShadow = "var(--button-cast-shadow, var(--shadow-control))";
+
 export const buttonRecessShadow = [
   "inset 0 1px 2px var(--button-recess-shade)",
   "inset 0 -1px 0 var(--button-recess-highlight)",
@@ -34,6 +48,10 @@ const sansFont = {
 export const theme = {
   font: sansFont,
   theme: {
+    "shadow-flat": elevations.flat,
+    "shadow-control": elevations.control,
+    "shadow-floating": elevations.floating,
+    "shadow-dialog": elevations.dialog,
     "shadow-sm": elevations.control,
     "shadow-md": elevations.floating,
     "shadow-lg": elevations.floating,
@@ -84,11 +102,12 @@ export const theme = {
     background: "oklch(1 0 0)",
     "neutral-border": "#dfdfdf",
     "neutral-input": "#838383",
-    "input-edge": "#8f8f8f",
-    "input-placeholder": "oklch(0.535 0 0)",
+    "input-edge": "#8b8b8b",
+    "input-fill": "oklch(0.975 0 0)",
+    "input-placeholder": "oklch(0.5 0 0)",
     "input-disabled-fill": "var(--muted)",
-    "input-recess-shade-weight": "4%",
-    "input-recess-highlight-weight": "6%",
+    "input-recess-shade-weight": "7%",
+    "input-recess-highlight-weight": "40%",
     foreground: "oklch(0.145 0 0)",
     card: "oklch(1 0 0)",
     "card-foreground": "oklch(0.145 0 0)",
@@ -108,6 +127,8 @@ export const theme = {
     "chart-4": "oklch(0.371 0 0)",
     "chart-5": "oklch(0.269 0 0)",
     radius: "0.625rem",
+    "field-height": "2.25rem",
+    "field-padding-inline": "1rem",
     sidebar: "oklch(0.985 0 0)",
     "sidebar-foreground": "oklch(0.145 0 0)",
     ...accentPresets[defaultAccent].light,
@@ -141,9 +162,10 @@ export const theme = {
     "neutral-border": "#424242",
     "neutral-input": "#909090",
     "input-edge": "#6f6f6f",
+    "input-fill": "oklch(0.18 0 0)",
     "input-placeholder": "var(--muted-foreground)",
-    "input-disabled-fill": "var(--card)",
-    "input-recess-shade-weight": "6%",
+    "input-disabled-fill": "var(--input-fill)",
+    "input-recess-shade-weight": "12%",
     "input-recess-highlight-weight": "8%",
     foreground: "oklch(0.985 0 0)",
     card: "oklch(0.205 0 0)",
@@ -207,6 +229,9 @@ export const theme = {
       },
     },
     "@layer components": {
+      // Resolve color-dependent tokens locally so receiving-material colors can inherit.
+      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover":
+        elevationVariables,
       ".ninaero-surface-paper": {
         "--shadow-color": "var(--shadow-color-paper)",
       },
@@ -228,22 +253,26 @@ export const theme = {
         "background-size": "24px 24px",
       },
       ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
-        "--input-corner": "var(--radius-md)",
+        "--input-corner": "0.75rem",
         "--input-recess-shade":
-          "color-mix(in oklab, var(--card), black var(--input-recess-shade-weight))",
+          "color-mix(in oklab, var(--input-fill), black var(--input-recess-shade-weight))",
         "--input-recess-highlight":
-          "color-mix(in oklab, var(--card), white var(--input-recess-highlight-weight))",
+          "color-mix(in oklab, var(--input-fill), white var(--input-recess-highlight-weight))",
         "border-radius": "var(--input-corner)",
         "corner-shape": "round",
         border: "1px solid var(--input-edge)",
         color: "var(--card-foreground)",
-        "background-color": "var(--card)",
+        "background-color": "var(--input-fill)",
         "box-shadow":
-          "inset 0 1px 2px var(--input-recess-shade), inset 0 -1px 0 var(--input-recess-highlight)",
+          "inset 0 2px 3px var(--input-recess-shade), inset 0 -1px 0 var(--input-recess-highlight)",
         outline: "2px solid transparent",
         "outline-offset": "3px",
         transition: "background-color 80ms ease-out, border-color 80ms ease-out",
       },
+      ".ninaero-input:where(:hover:not(:disabled)), .ninaero-textarea:where(:hover:not(:disabled)), .ninaero-select-trigger:where(:hover:not(:disabled):not([data-disabled])), .ninaero-input-group:where(:hover:not(:has(> [data-slot=input-group-control]:disabled)))":
+        {
+          "border-color": "var(--neutral-input)",
+        },
       ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder], .ninaero-input-group > [data-slot=input-group-control]::placeholder":
         {
           color: "var(--input-placeholder)",
@@ -273,13 +302,13 @@ export const theme = {
         outline: "none",
       },
       ".ninaero-dialog": {
-        "--dialog-corner": "var(--radius-2xl)",
+        "--dialog-corner": "3rem",
         "border-radius": "var(--dialog-corner)",
-        "corner-shape": "round",
+        "corner-shape": "squircle",
         border: "1px solid color-mix(in oklab, var(--foreground) 18%, var(--popover))",
         "background-color": "var(--popover)",
         "background-image": "linear-gradient(180deg, var(--popover), var(--dialog-fill-shade))",
-        "box-shadow": `inset 0 1px 0 var(--dialog-highlight), inset 0 -1px 2px var(--dialog-shade), ${elevations.dialog}`,
+        "box-shadow": `inset 0 1px 0 var(--dialog-highlight), inset 0 -1px 2px var(--dialog-shade), var(--shadow-dialog)`,
         opacity: "1",
         transform: "translateY(0) scale(1)",
         "transform-origin": "center",
@@ -314,7 +343,7 @@ export const theme = {
         border: "1px solid var(--border)",
         color: "var(--popover-foreground)",
         "background-color": "var(--popover)",
-        "box-shadow": `inset 0 1px 0 var(--button-highlight), ${elevations.floating}`,
+        "box-shadow": `inset 0 1px 0 var(--button-highlight), var(--shadow-floating)`,
       },
       ".ninaero-select-content": {
         "transform-origin": "var(--transform-origin)",
@@ -430,7 +459,7 @@ export const theme = {
         "background-color": "var(--button-primary-fill)",
         "background-image": "linear-gradient(180deg, var(--button-highlight), transparent 65%)",
         "border-color": "var(--button-primary-edge)",
-        "box-shadow": `inset 0 1px 0 var(--button-highlight), ${elevations.control}`,
+        "box-shadow": `inset 0 1px 0 var(--button-highlight), ${controlCastShadow}`,
       },
       ".ninaero-button--secondary, .ninaero-button--outline": {
         "--button-recess-fill": "var(--button-paper-pressed)",
@@ -441,7 +470,7 @@ export const theme = {
         "background-color": "var(--button-paper-fill)",
         "background-image":
           "linear-gradient(180deg, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
-        "box-shadow": `inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), ${elevations.control}`,
+        "box-shadow": `inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), ${controlCastShadow}`,
       },
       ".ninaero-button--destructive": {
         "--button-recess-fill": "var(--button-destructive-pressed)",
@@ -450,11 +479,13 @@ export const theme = {
         "background-image":
           "linear-gradient(180deg, var(--button-destructive-highlight), transparent 55%, var(--button-destructive-shade))",
         "border-color": "var(--button-destructive-edge)",
-        "box-shadow": `inset 0 1px 0 var(--button-destructive-highlight), inset 0 -1px 0 var(--button-destructive-shade), ${elevations.control}`,
+        "box-shadow": `inset 0 1px 0 var(--button-destructive-highlight), inset 0 -1px 0 var(--button-destructive-shade), ${controlCastShadow}`,
       },
       ".ninaero-button--outline": {
         "border-color": "var(--button-outline-edge)",
         "background-color": "var(--background)",
+        "box-shadow":
+          "inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), 0 1px 2px hsl(var(--shadow-color) / 0.08)",
       },
       ".ninaero-button--ghost": {
         color: "var(--button-paper-ink)",
@@ -482,6 +513,14 @@ export const theme = {
           "box-shadow": "none",
           opacity: "0.5",
         },
+      [raisedButtonGroupSelector]: {
+        "border-radius": "var(--button-group-corner, 1rem)",
+        "corner-shape": "squircle",
+        "box-shadow": "var(--shadow-control)",
+      },
+      [`${raisedButtonGroupSelector} > .ninaero-button`]: {
+        "--button-cast-shadow": "var(--shadow-flat)",
+      },
       "@media (hover: hover)": {
         ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])":
           {
@@ -661,6 +700,9 @@ export const theme = {
             "border-color": "GrayText",
             color: "GrayText",
           },
+        [raisedButtonGroupSelector]: {
+          "box-shadow": "none",
+        },
         ".ninaero-button": {
           "background-image": "none",
           "border-color": "ButtonText",

@@ -3,16 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { AccentSwitcher } from "@/components/accent-switcher";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { SlidersHorizontalIcon } from "@/lib/icons";
-import { Button } from "@/registry/ninaero/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTitle,
-  PopoverTrigger,
-} from "@/registry/ninaero/ui/popover";
 
 const destinations = [["/docs", "Docs"]] as const;
 
@@ -40,22 +32,14 @@ export function SiteHeader() {
             );
           })}
         </nav>
-        <Popover>
-          <PopoverTrigger
-            render={
-              <Button variant="secondary" size="sm" className="site-appearance-trigger gap-2" />
-            }
-          >
-            <SlidersHorizontalIcon aria-hidden="true" />
-            Appearance
-          </PopoverTrigger>
-          <PopoverContent align="end" className="w-72 max-w-[calc(100vw-2rem)] gap-4 p-4">
-            <PopoverHeader>
-              <PopoverTitle>Appearance</PopoverTitle>
-            </PopoverHeader>
-            <ThemeSwitcher />
-          </PopoverContent>
-        </Popover>
+        <div
+          role="group"
+          aria-label="Appearance"
+          className="ninaero-surface-paper flex shrink-0 items-start gap-2"
+        >
+          <AccentSwitcher />
+          <ThemeSwitcher />
+        </div>
       </div>
     </header>
   );
