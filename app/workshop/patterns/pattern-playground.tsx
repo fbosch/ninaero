@@ -65,6 +65,14 @@ const patterns = [
     spacing: 8,
     description: "Tile size of the transparent diamond mesh.",
   },
+  {
+    value: "checker",
+    label: "Checker",
+    utility: "ninaero-checker",
+    previewClass: "ninaero-checker-(number:--workshop-pattern-step)",
+    spacing: 12,
+    description: "Width and height of each square. Alternating squares are transparent.",
+  },
 ] as const;
 
 const backgrounds = [
@@ -115,7 +123,7 @@ export function PatternPlayground() {
     background.value === "image"
       ? `<div aria-hidden="true" className="relative h-80 overflow-hidden rounded-lg bg-muted">
   <div
-    className="absolute inset-0 bg-cover bg-center opacity-60 grayscale dark:opacity-40 forced-colors:hidden"
+    className="absolute inset-0 bg-cover bg-center opacity-60 dark:opacity-40 forced-colors:hidden"
     style={{ backgroundImage: 'url("${rasterImage}")' }}
   />
   <div className="absolute inset-0 ${patternClass} bg-transparent" />
@@ -203,7 +211,7 @@ export function PatternPlayground() {
           </Select>
           {background.value === "image" ? (
             <FieldDescription id={`${id}-image-description`}>
-              Muted grayscale version of the <a href={rasterSource}>source photo</a>.
+              Muted version of the <a href={rasterSource}>source photo</a>.
             </FieldDescription>
           ) : null}
         </Field>
@@ -240,7 +248,7 @@ export function PatternPlayground() {
         >
           {background.value === "image" ? (
             <div
-              className="absolute inset-0 bg-cover bg-center opacity-60 grayscale dark:opacity-40 forced-colors:hidden"
+              className="absolute inset-0 bg-cover bg-center opacity-60 dark:opacity-40 forced-colors:hidden"
               style={rasterStyle}
             />
           ) : null}

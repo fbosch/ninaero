@@ -120,6 +120,12 @@
           "button-link-ink": "#17677d",
           "button-focus": "#006d89",
           "accent-soft": "#e6f4f8",
+          "glass-mark-rim-0": "#3a8197",
+          "glass-mark-rim-50": "#367a8f",
+          "glass-mark-rim-100": "#337387",
+          "glass-mark-face-0": "#a2dfef",
+          "glass-mark-face-50": "#98d9ea",
+          "glass-mark-face-100": "#8dd4e6",
           "primary": "var(--button-primary-fill)",
           "primary-foreground": "var(--button-primary-ink)",
           "accent": "var(--accent-soft)",
@@ -210,6 +216,12 @@
           "button-link-ink": "#8adef2",
           "button-focus": "#7ce1f6",
           "accent-soft": "#203e48",
+          "glass-mark-rim-0": "#a0e3f2",
+          "glass-mark-rim-50": "#97d7e5",
+          "glass-mark-rim-100": "#8fcbd9",
+          "glass-mark-face-0": "#96def0",
+          "glass-mark-face-50": "#7ccbe0",
+          "glass-mark-face-100": "#62b9d0",
           "primary": "var(--button-primary-fill)",
           "primary-foreground": "var(--button-primary-ink)",
           "accent": "var(--accent-soft)",
@@ -271,7 +283,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#3a8197",
+          "--glass-mark-rim-50": "#367a8f",
+          "--glass-mark-rim-100": "#337387",
+          "--glass-mark-face-0": "#a2dfef",
+          "--glass-mark-face-50": "#98d9ea",
+          "--glass-mark-face-100": "#8dd4e6"
         },
         ".dark[data-accent=\"cyan\"], .dark [data-accent=\"cyan\"]": {
           "--button-primary-fill": "#79cfe5",
@@ -294,7 +312,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#a0e3f2",
+          "--glass-mark-rim-50": "#97d7e5",
+          "--glass-mark-rim-100": "#8fcbd9",
+          "--glass-mark-face-0": "#96def0",
+          "--glass-mark-face-50": "#7ccbe0",
+          "--glass-mark-face-100": "#62b9d0"
         },
         "[data-accent=\"indigo\"]": {
           "--button-primary-fill": "#ccd5f5",
@@ -317,7 +341,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#6575a6",
+          "--glass-mark-rim-50": "#5f6e9d",
+          "--glass-mark-rim-100": "#5a6894",
+          "--glass-mark-face-0": "#b7c5ef",
+          "--glass-mark-face-50": "#adbdea",
+          "--glass-mark-face-100": "#a4b5e5"
         },
         ".dark[data-accent=\"indigo\"], .dark [data-accent=\"indigo\"]": {
           "--button-primary-fill": "#a9baf0",
@@ -340,7 +370,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#c6d1f8",
+          "--glass-mark-rim-50": "#bbc6eb",
+          "--glass-mark-rim-100": "#b1bbde",
+          "--glass-mark-face-0": "#c0cdf8",
+          "--glass-mark-face-50": "#a9b9ee",
+          "--glass-mark-face-100": "#92a6e3"
         },
         "[data-accent=\"lavender\"]": {
           "--button-primary-fill": "#e2d4ef",
@@ -363,7 +399,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#8b6a9e",
+          "--glass-mark-rim-50": "#836495",
+          "--glass-mark-rim-100": "#7c5e8d",
+          "--glass-mark-face-0": "#d6c3e7",
+          "--glass-mark-face-50": "#cfbae2",
+          "--glass-mark-face-100": "#c8b2dc"
         },
         ".dark[data-accent=\"lavender\"], .dark [data-accent=\"lavender\"]": {
           "--button-primary-fill": "#cbb1e1",
@@ -386,7 +428,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#e3ccf5",
+          "--glass-mark-rim-50": "#d7c1e8",
+          "--glass-mark-rim-100": "#cbb6db",
+          "--glass-mark-face-0": "#dcc6ed",
+          "--glass-mark-face-50": "#cab0e0",
+          "--glass-mark-face-100": "#b89bd2"
         },
         "[data-accent=\"slate\"]": {
           "--button-primary-fill": "#d8e1e9",
@@ -409,7 +457,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#6b7d8c",
+          "--glass-mark-rim-50": "#657684",
+          "--glass-mark-rim-100": "#5f6f7d",
+          "--glass-mark-face-0": "#c6d3de",
+          "--glass-mark-face-50": "#bdccd8",
+          "--glass-mark-face-100": "#b5c5d3"
         },
         ".dark[data-accent=\"slate\"], .dark [data-accent=\"slate\"]": {
           "--button-primary-fill": "#b3c6d7",
@@ -432,7 +486,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#d4e2ee",
+          "--glass-mark-rim-50": "#c9d6e1",
+          "--glass-mark-rim-100": "#becad5",
+          "--glass-mark-face-0": "#c9d8e5",
+          "--glass-mark-face-50": "#b2c5d6",
+          "--glass-mark-face-100": "#9bb3c8"
         },
         "[data-accent=\"lagoon\"]": {
           "--button-primary-fill": "#b6e8db",
@@ -455,7 +515,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#3c8172",
+          "--glass-mark-rim-50": "#387a6b",
+          "--glass-mark-rim-100": "#357365",
+          "--glass-mark-face-0": "#9fddcd",
+          "--glass-mark-face-50": "#93d6c5",
+          "--glass-mark-face-100": "#86cfbd"
         },
         ".dark[data-accent=\"lagoon\"], .dark [data-accent=\"lagoon\"]": {
           "--button-primary-fill": "#7cd4bf",
@@ -478,7 +544,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#a7e8d7",
+          "--glass-mark-rim-50": "#9edccb",
+          "--glass-mark-rim-100": "#95d0c0",
+          "--glass-mark-face-0": "#9de3d1",
+          "--glass-mark-face-50": "#80d0bc",
+          "--glass-mark-face-100": "#61bea7"
         },
         "[data-accent=\"sky\"]": {
           "--button-primary-fill": "#bbdefa",
@@ -501,7 +573,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#3c7dac",
+          "--glass-mark-rim-50": "#3876a3",
+          "--glass-mark-rim-100": "#356f9a",
+          "--glass-mark-face-0": "#9fcff4",
+          "--glass-mark-face-50": "#92c6f0",
+          "--glass-mark-face-100": "#84beeb"
         },
         ".dark[data-accent=\"sky\"], .dark [data-accent=\"sky\"]": {
           "--button-primary-fill": "#83c2f4",
@@ -524,7 +602,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#b4defe",
+          "--glass-mark-rim-50": "#aad2f0",
+          "--glass-mark-rim-100": "#a1c7e3",
+          "--glass-mark-face-0": "#a2d3fa",
+          "--glass-mark-face-50": "#86bfed",
+          "--glass-mark-face-100": "#69abdf"
         },
         "[data-accent=\"blossom\"]": {
           "--button-primary-fill": "#f1cee7",
@@ -547,7 +631,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#9a5882",
+          "--glass-mark-rim-50": "#91537b",
+          "--glass-mark-rim-100": "#894e74",
+          "--glass-mark-face-0": "#e8b8da",
+          "--glass-mark-face-50": "#e3acd3",
+          "--glass-mark-face-100": "#dda1cc"
         },
         ".dark[data-accent=\"blossom\"], .dark [data-accent=\"blossom\"]": {
           "--button-primary-fill": "#e4a8d1",
@@ -570,7 +660,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#f2c9e4",
+          "--glass-mark-rim-50": "#e5bed8",
+          "--glass-mark-rim-100": "#d9b4cc",
+          "--glass-mark-face-0": "#f0bfdf",
+          "--glass-mark-face-50": "#e1a7ce",
+          "--glass-mark-face-100": "#d28fbd"
         },
         "[data-accent=\"lime\"]": {
           "--button-primary-fill": "#e9efb5",
@@ -593,7 +689,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#75813d",
+          "--glass-mark-rim-50": "#6e7a39",
+          "--glass-mark-rim-100": "#687336",
+          "--glass-mark-face-0": "#dce798",
+          "--glass-mark-face-50": "#d4e088",
+          "--glass-mark-face-100": "#cdd978"
         },
         ".dark[data-accent=\"lime\"], .dark [data-accent=\"lime\"]": {
           "--button-primary-fill": "#d1df85",
@@ -616,7 +718,13 @@
           "--sidebar-primary-foreground": "var(--button-primary-ink)",
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)"
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#e4edb0",
+          "--glass-mark-rim-50": "#d8e0a6",
+          "--glass-mark-rim-100": "#ccd49d",
+          "--glass-mark-face-0": "#e2ecaa",
+          "--glass-mark-face-50": "#cedb89",
+          "--glass-mark-face-100": "#baca66"
         },
         "@utility ninaero-paper-ruled": {
           "--ninaero-paper-step": "24px",
@@ -747,6 +855,22 @@
             "&": {
               "--ninaero-pattern-ink": "--alpha(--value(--color-*, \"transparent\", [color]) / --modifier([number], [percentage]))"
             }
+          }
+        },
+        "@utility ninaero-checker": {
+          "--ninaero-checker-step": "12px",
+          "background-image": "conic-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 25%, transparent 0 50%, var(--ninaero-pattern-ink, var(--paper-rule)) 0 75%, transparent 0)",
+          "background-size": "calc(var(--ninaero-checker-step) * 2) calc(var(--ninaero-checker-step) * 2)",
+          "@media (forced-colors: active)": {
+            "background-image": "none"
+          }
+        },
+        "@utility ninaero-checker-*": {
+          "--ninaero-checker-step": "max(1px, calc(--value(number, [number]) * 1px))",
+          "background-image": "conic-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 25%, transparent 0 50%, var(--ninaero-pattern-ink, var(--paper-rule)) 0 75%, transparent 0)",
+          "background-size": "calc(var(--ninaero-checker-step) * 2) calc(var(--ninaero-checker-step) * 2)",
+          "@media (forced-colors: active)": {
+            "background-image": "none"
           }
         },
         "@utility ninaero-dither": {
@@ -1045,18 +1169,19 @@
             "box-shadow": "none"
           },
           ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger::after": {
-            "--tabs-marker-edge-shadow": "inset 0 -1px 0 var(--tabs-active-edge)",
+            "--tabs-marker-fill": "color-mix(in oklab, var(--button-primary-fill) 70%, var(--button-primary-edge))",
+            "--tabs-marker-edge-shadow": "inset 0 -1px 0 var(--button-primary-edge)",
             "content": "\"\"",
             "position": "absolute",
             "inset-inline": "0.75rem",
             "inset-block-end": "0",
-            "height": "4px",
+            "height": "6px",
             "box-sizing": "border-box",
-            "border-radius": "2px",
+            "border-radius": "3px",
             "border": "0",
-            "background-color": "var(--tabs-active-fill)",
-            "background-image": "radial-gradient(ellipse at 50% -45% in oklab, var(--tabs-active-highlight), transparent 75%), linear-gradient(180deg in oklab, var(--tabs-active-top), var(--tabs-active-fill) 48%, var(--tabs-active-bottom))",
-            "box-shadow": "inset 0 1px 0 var(--tabs-active-highlight), var(--tabs-marker-edge-shadow), 0 1px 1px hsl(var(--shadow-color) / 0.1), 0 2px 3px hsl(var(--shadow-color) / 0.06)",
+            "background-color": "var(--tabs-marker-fill)",
+            "background-image": "linear-gradient(180deg in oklab, color-mix(in oklab, var(--tabs-marker-fill), white 30%), var(--tabs-marker-fill))",
+            "box-shadow": "var(--tabs-marker-edge-shadow), 0 1px 2px hsl(var(--shadow-color) / 0.1)",
             "pointer-events": "none",
             "opacity": "0"
           },
@@ -1064,7 +1189,7 @@
             "opacity": "1"
           },
           ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where(:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]))::after": {
-            "background-color": "var(--tabs-active-edge)",
+            "background-color": "var(--button-primary-edge)",
             "background-image": "none",
             "box-shadow": "none"
           },
@@ -1074,15 +1199,15 @@
             "box-shadow": "none"
           },
           ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-orientation=vertical]::after": {
-            "--tabs-marker-edge-shadow": "inset -1px 0 0 var(--tabs-active-edge)",
+            "--tabs-marker-edge-shadow": "inset -1px 0 0 var(--button-primary-edge)",
             "inset-inline-start": "auto",
             "inset-inline-end": "0",
             "inset-block": "4px",
-            "width": "4px",
+            "width": "6px",
             "height": "auto"
           },
           ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where([data-orientation=vertical]):dir(rtl)::after": {
-            "--tabs-marker-edge-shadow": "inset 1px 0 0 var(--tabs-active-edge)"
+            "--tabs-marker-edge-shadow": "inset 1px 0 0 var(--button-primary-edge)"
           },
           ".ninaero-toggle": {
             "--toggle-corner": "var(--radius-md)",
@@ -1274,6 +1399,13 @@
             }
           },
           "@media (forced-colors: active)": {
+            ".ninaero-mark-face": {
+              "fill": "none",
+              "stroke": "CanvasText"
+            },
+            ".ninaero-mark-highlight": {
+              "stroke": "CanvasText"
+            },
             ".ninaero-tabs-list": {
               "border-color": "CanvasText",
               "background-color": "Canvas",

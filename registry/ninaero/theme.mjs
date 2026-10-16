@@ -1,4 +1,10 @@
 import { accentPresets, accentRules, accentSemanticTokens, defaultAccent } from "./accents.mjs";
+import { createGlassGradientTokens, withGlassGradientVariables } from "./glass-materials.mjs";
+
+export const glassMarkForcedColors = {
+  ".ninaero-mark-face": { fill: "none", stroke: "CanvasText" },
+  ".ninaero-mark-highlight": { stroke: "CanvasText" },
+};
 
 const buttonPressSelector =
   ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost)";
@@ -175,6 +181,12 @@ const paperUtilities = Object.fromEntries(
   }),
 );
 const ditherStyles = maskedPattern("dither-mask", "var(--ninaero-dither-step)");
+const checkerStyles = {
+  "background-image":
+    "conic-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 25%, transparent 0 50%, var(--ninaero-pattern-ink, var(--paper-rule)) 0 75%, transparent 0)",
+  "background-size": "calc(var(--ninaero-checker-step) * 2) calc(var(--ninaero-checker-step) * 2)",
+  "@media (forced-colors: active)": { "background-image": "none" },
+};
 const patternInkColor = '--value(--color-*, "transparent", [color])';
 
 export const theme = {
@@ -276,6 +288,7 @@ export const theme = {
     sidebar: "oklch(0.985 0 0)",
     "sidebar-foreground": "oklch(0.145 0 0)",
     ...accentPresets[defaultAccent].light,
+    ...createGlassGradientTokens(accentPresets[defaultAccent].light),
     ...accentSemanticTokens,
     "button-paper-fill": "#f8f8f8",
     "button-paper-edge": "#888888",
@@ -344,6 +357,7 @@ export const theme = {
     sidebar: "oklch(0.205 0 0)",
     "sidebar-foreground": "oklch(0.985 0 0)",
     ...accentPresets[defaultAccent].dark,
+    ...createGlassGradientTokens(accentPresets[defaultAccent].dark),
     ...accentSemanticTokens,
     "button-paper-fill": "#343434",
     "button-paper-edge": "#7f7f7f",
@@ -368,7 +382,12 @@ export const theme = {
     ...paperPalettes.dark,
   },
   css: {
-    ...accentRules,
+    ...Object.fromEntries(
+      Object.entries(accentRules).map(([selector, variables]) => [
+        selector,
+        withGlassGradientVariables(variables),
+      ]),
+    ),
     ...paperUtilities,
     "@utility ninaero-pattern-ink-*": {
       "--ninaero-pattern-ink": patternInkColor,
@@ -379,6 +398,14 @@ export const theme = {
           "--ninaero-pattern-ink": `--alpha(${patternInkColor} / --modifier([number], [percentage]))`,
         },
       },
+    },
+    "@utility ninaero-checker": {
+      "--ninaero-checker-step": "12px",
+      ...checkerStyles,
+    },
+    "@utility ninaero-checker-*": {
+      "--ninaero-checker-step": "max(1px, calc(--value(number, [number]) * 1px))",
+      ...checkerStyles,
     },
     "@utility ninaero-dither": {
       "--ninaero-dither-step": "8px",
@@ -653,20 +680,21 @@ export const theme = {
         "box-shadow": "none",
       },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger::after": {
-        "--tabs-marker-edge-shadow": "inset 0 -1px 0 var(--tabs-active-edge)",
+        "--tabs-marker-fill":
+          "color-mix(in oklab, var(--button-primary-fill) 70%, var(--button-primary-edge))",
+        "--tabs-marker-edge-shadow": "inset 0 -1px 0 var(--button-primary-edge)",
         content: '""',
         position: "absolute",
         "inset-inline": "0.75rem",
         "inset-block-end": "0",
-        height: "4px",
+        height: "6px",
         "box-sizing": "border-box",
-        "border-radius": "2px",
+        "border-radius": "3px",
         border: "0",
-        "background-color": "var(--tabs-active-fill)",
+        "background-color": "var(--tabs-marker-fill)",
         "background-image":
-          "radial-gradient(ellipse at 50% -45% in oklab, var(--tabs-active-highlight), transparent 75%), linear-gradient(180deg in oklab, var(--tabs-active-top), var(--tabs-active-fill) 48%, var(--tabs-active-bottom))",
-        "box-shadow":
-          "inset 0 1px 0 var(--tabs-active-highlight), var(--tabs-marker-edge-shadow), 0 1px 1px hsl(var(--shadow-color) / 0.1), 0 2px 3px hsl(var(--shadow-color) / 0.06)",
+          "linear-gradient(180deg in oklab, color-mix(in oklab, var(--tabs-marker-fill), white 30%), var(--tabs-marker-fill))",
+        "box-shadow": "var(--tabs-marker-edge-shadow), 0 1px 2px hsl(var(--shadow-color) / 0.1)",
         "pointer-events": "none",
         opacity: "0",
       },
@@ -675,7 +703,7 @@ export const theme = {
       },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where(:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]))::after":
         {
-          "background-color": "var(--tabs-active-edge)",
+          "background-color": "var(--button-primary-edge)",
           "background-image": "none",
           "box-shadow": "none",
         },
@@ -687,16 +715,16 @@ export const theme = {
         },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-orientation=vertical]::after":
         {
-          "--tabs-marker-edge-shadow": "inset -1px 0 0 var(--tabs-active-edge)",
+          "--tabs-marker-edge-shadow": "inset -1px 0 0 var(--button-primary-edge)",
           "inset-inline-start": "auto",
           "inset-inline-end": "0",
           "inset-block": "4px",
-          width: "4px",
+          width: "6px",
           height: "auto",
         },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where([data-orientation=vertical]):dir(rtl)::after":
         {
-          "--tabs-marker-edge-shadow": "inset 1px 0 0 var(--tabs-active-edge)",
+          "--tabs-marker-edge-shadow": "inset 1px 0 0 var(--button-primary-edge)",
         },
       ".ninaero-toggle": {
         "--toggle-corner": "var(--radius-md)",
@@ -914,6 +942,7 @@ export const theme = {
         },
       },
       "@media (forced-colors: active)": {
+        ...glassMarkForcedColors,
         ".ninaero-tabs-list": {
           "border-color": "CanvasText",
           "background-color": "Canvas",

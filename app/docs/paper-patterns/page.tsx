@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Background details | Ninaero",
   description:
-    "Configurable paper patterns and diamond dithering with Tailwind spacing and ink colors.",
+    "Configurable paper patterns, checkerboards, and diamond dithering with Tailwind spacing and ink colors.",
 };
 
 const backgroundPatterns = [
@@ -60,6 +60,18 @@ const backgroundPatterns = [
     ],
     example: '<div aria-hidden="true" className="ninaero-paper-notebook-8 h-60" />',
   },
+  {
+    title: "Checker",
+    description: "Alternating ink and transparent squares for decorative backgrounds and overlays.",
+    defaultSpacing: "12px squares",
+    samples: [
+      { className: "ninaero-checker-8", spacing: "8px squares" },
+      { className: "ninaero-checker-12", spacing: "12px squares" },
+      { className: "ninaero-checker-24", spacing: "24px squares" },
+    ],
+    example:
+      '<div aria-hidden="true" className="h-48 ninaero-checker-12 ninaero-pattern-ink-primary/20 bg-muted" />',
+  },
 ];
 
 const ditherSamples = [
@@ -93,7 +105,7 @@ export default function BackgroundDetailsPage() {
         <p className="text-xs font-medium text-muted-foreground">Theme documentation</p>
         <h1 className="text-4xl type-display">Background details</h1>
         <p className="max-w-2xl type-prose text-muted-foreground">
-          Ninaero includes five opt-in textures for page backgrounds and preview areas. Use one
+          Ninaero includes six opt-in textures for page backgrounds and preview areas. Use one
           pattern per region, and keep the page&apos;s existing fill beneath it.
         </p>
       </header>
@@ -118,6 +130,11 @@ export default function BackgroundDetailsPage() {
           Notebook uses a repeating SVG tile. Its suffix sets the fine-line interval, with 20
           intervals per square cell. The 6px default gives 120px cells, with the fine lines aligned
           across every cell boundary.
+        </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          Checker sizes set the width and height of one square. The default is 12px, giving a 24px
+          repeating tile with two ink squares and two transparent squares. Use a background utility
+          to set the fill beneath the checks.
         </p>
       </section>
 

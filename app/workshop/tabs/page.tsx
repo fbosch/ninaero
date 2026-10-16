@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 
 import { Button } from "@/registry/ninaero/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/ninaero/ui/tabs";
-
 export const metadata: Metadata = { title: "Tabs workshop | Ninaero" };
-
 function TabSpecimen({
   variant = "default",
   orientation = "horizontal",
