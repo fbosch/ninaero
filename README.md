@@ -38,7 +38,7 @@ Components include the shared theme and their dependencies.
 - Tokens and shared CSS: `registry/ninaero/theme.mjs`
 - Accent presets: `registry/ninaero/accents.mjs`
 - Installable components and hooks: `registry/ninaero/ui/` and `registry/ninaero/hooks/`
-- Shared Solar icons: `lib/icons.tsx`
+- Shared Mage icons: `lib/icons.tsx`
 - Preview-only examples: `components/examples/`
 
 Run `pnpm registry:build` after source changes. Do not edit `app/globals.css`, `registry.json`, `generated/component-docs.json`, or `public/r/` directly.

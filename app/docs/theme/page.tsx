@@ -37,15 +37,15 @@ export default function ThemeDocsPage() {
     <article className="space-y-10">
       <header className="space-y-4">
         <p className="text-xs font-medium text-muted-foreground">Theme documentation</p>
-        <h1 className="text-4xl font-semibold tracking-tight">Theme</h1>
-        <p className="max-w-2xl leading-relaxed text-muted-foreground">
+        <h1 className="text-4xl type-display">Theme</h1>
+        <p className="max-w-2xl type-prose text-muted-foreground">
           Every component uses the light/dark tokens in{" "}
           <code className="text-foreground">registry/ninaero/theme.mjs</code>. The workshop and
           installable registry use this same source.
         </p>
       </header>
       <section aria-labelledby="theme-surfaces-heading" className="space-y-4">
-        <h2 id="theme-surfaces-heading" className="text-xl font-semibold">
+        <h2 id="theme-surfaces-heading" className="text-xl type-heading">
           Shared surfaces
         </h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -61,10 +61,10 @@ export default function ThemeDocsPage() {
         </p>
       </section>
       <section aria-labelledby="theme-accent-heading" className="space-y-4">
-        <h2 id="theme-accent-heading" className="text-xl font-semibold">
+        <h2 id="theme-accent-heading" className="text-xl type-heading">
           Accent presets
         </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-sm type-prose text-muted-foreground">
           Choose Cyan, Indigo, Lavender, or Slate with the Accent selector. Accent and color mode
           are independent. Primary actions, selected controls, Button links, focus rings, and
           borders share the palette; paper, ink, and destructive colors stay unchanged. Structural
@@ -72,7 +72,7 @@ export default function ThemeDocsPage() {
           destructive borders retain their status colors. The site remembers your choice when
           browser storage is available.
         </p>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-sm type-prose text-muted-foreground">
           Installed themes support the same presets without a React provider. Set data-accent on the
           root element and use the dark class for dark mode. Edit preset colors in
           registry/ninaero/accents.mjs, then regenerate the registry.
@@ -89,11 +89,35 @@ export default function ThemeDocsPage() {
           Compare accent buttons in the workshop
         </Link>
       </section>
+      <section aria-labelledby="theme-typography-heading" className="space-y-4">
+        <h2 id="theme-typography-heading" className="text-xl type-heading">
+          Typography
+        </h2>
+        <p className="text-sm type-prose text-muted-foreground">
+          Google Sans Flex keeps its rounded terminals across the theme. Pair a font size with a
+          type-* role to set weight, line height, and letter spacing. Headings use tighter spacing;
+          body text, controls, and captions keep normal spacing.
+        </p>
+        <CodeBlock
+          code={
+            '<h2 className="text-xl type-heading">Account settings</h2>\n<p className="text-sm type-body">Manage your profile and preferences.</p>'
+          }
+          label="Typography roles"
+          language="tsx"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          Compact controls keep a 16px line height. Dialog titles and ruled prose keep a 24px line
+          height. Role utilities leave font sizes unchanged, including responsive input sizing.
+        </p>
+        <Link href="/docs/typography" className="inline-block text-sm underline underline-offset-4">
+          View the typography specimen
+        </Link>
+      </section>
       <section aria-labelledby="theme-elevation-heading" className="space-y-4">
-        <h2 id="theme-elevation-heading" className="text-xl font-semibold">
+        <h2 id="theme-elevation-heading" className="text-xl type-heading">
           Elevation
         </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-sm type-prose text-muted-foreground">
           Choose a shadow by the element&apos;s distance from the paper beneath it. Elevation does
           not change stacking order. Use z-index separately for overlays.
         </p>
@@ -114,7 +138,7 @@ export default function ThemeDocsPage() {
             </Card>
           ))}
         </div>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-sm type-prose text-muted-foreground">
           Groups made entirely of raised buttons share one control shadow; their buttons keep their
           pressed states. The header uses the paper shadow-color context so the cast blends with its
           neutral background.
@@ -126,10 +150,10 @@ export default function ThemeDocsPage() {
         />
       </section>
       <section aria-labelledby="theme-edit-heading" className="space-y-4">
-        <h2 id="theme-edit-heading" className="text-xl font-semibold">
+        <h2 id="theme-edit-heading" className="text-xl type-heading">
           Update the theme
         </h2>
-        <ol className="list-decimal space-y-3 pl-5 text-sm leading-relaxed text-muted-foreground">
+        <ol className="list-decimal space-y-3 pl-5 text-sm type-prose text-muted-foreground">
           <li>
             Edit the tokens and typography in{" "}
             <code className="text-foreground">registry/ninaero/theme.mjs</code>.
@@ -150,7 +174,7 @@ export default function ThemeDocsPage() {
         </p>
       </section>
       <section aria-labelledby="theme-token-heading" className="space-y-4">
-        <h2 id="theme-token-heading" className="text-xl font-semibold">
+        <h2 id="theme-token-heading" className="text-xl type-heading">
           Light and dark tokens
         </h2>
         <CodeBlock

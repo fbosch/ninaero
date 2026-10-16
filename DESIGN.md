@@ -103,7 +103,21 @@ Reserve the chosen accent for primary actions, links, selected controls, active 
 | Feedback colors       | Additional colors communicate meaning rather than decorate each component |
 | Dark background       | Charcoal with lighter neutral-gray panels                                 |
 
-Use Google Sans Flex for interface text and headings, with its `ROND` axis set to `100` for rounded terminals. Keep existing component weights and sizes; set roundness without overriding the weight axis. Self-host the full variable font in both the site and installed theme. Pixel lettering belongs in optional artwork, not labels, paragraphs, or error messages.
+Use Google Sans Flex for interface text and headings, with its `ROND` axis set to `100` for rounded terminals. Self-host the full variable font in both the site and installed theme. Keep weight on the standard weight axis. Pixel lettering belongs in optional artwork, not labels, paragraphs, or error messages.
+
+Typography roles live in `registry/ninaero/theme.mjs` as `type-*` utilities. Keep font sizes separate so existing component sizes and responsive field text remain intact.
+
+| Utility        | Role                                        | Weight | Line height | Letter spacing |
+| -------------- | ------------------------------------------- | ------ | ----------- | -------------- |
+| `type-display` | Page and hero headings                      | 650    | 1.15        | -0.025em       |
+| `type-heading` | Section headings                            | 650    | 1.25        | -0.015em       |
+| `type-title`   | Card, dialog, and panel titles              | 650    | 1.375       | -0.01em        |
+| `type-body`    | Interface text, descriptions, and errors    | 400    | 1.5         | Normal         |
+| `type-prose`   | Continuous prose on plain backgrounds       | 400    | 1.625       | Normal         |
+| `type-label`   | Buttons, tabs, navigation, and field labels | 550    | 20px        | Normal         |
+| `type-caption` | Small supporting text                       | 400    | 16px        | Normal         |
+
+Use tighter tracking only for headings and titles. Keep control text, body copy, and small supporting text at normal spacing. Compact controls override the label line height to 16px. Dialog and AlertDialog titles keep their 24px line height, and textareas keep their responsive 24px / 20px line heights. Ruled prose must explicitly keep the matching 24px line height. Allow labels, descriptions, and errors to wrap without clipping. Use semibold emphasis within body copy without changing its line height.
 
 Dark mode keeps the same framing, hierarchy, and restrained cyan accent. It should not become a separate neon dashboard. Adjust texture, fills, and highlights for readability instead of mechanically inverting the light theme.
 

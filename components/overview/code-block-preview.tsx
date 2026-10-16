@@ -21,7 +21,7 @@ export default function CodeBlockPreview() {
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
       <section className="min-w-0 space-y-2">
-        <h3 className="text-sm font-medium">Syntax highlighting and line numbers</h3>
+        <h3 className="text-sm type-title tracking-normal">Syntax highlighting and line numbers</h3>
         <CodeBlock>
           <CodeBlockHeader>
             <CodeBlockTitle>save-button.tsx</CodeBlockTitle>
@@ -40,7 +40,7 @@ export default function CodeBlockPreview() {
         </CodeBlock>
       </section>
       <section className="min-w-0 space-y-2">
-        <h3 className="text-sm font-medium">Diff</h3>
+        <h3 className="text-sm type-title tracking-normal">Diff</h3>
         <CodeBlock size="sm">
           <CodeBlockContent lineNumbers startLine={12}>
             <CodeBlockLine>export const theme = {"{"}</CodeBlockLine>
@@ -52,7 +52,7 @@ export default function CodeBlockPreview() {
         </CodeBlock>
       </section>
       <section className="min-w-0 space-y-2">
-        <h3 className="text-sm font-medium">Wrapped output and error state</h3>
+        <h3 className="text-sm type-title tracking-normal">Wrapped output and error state</h3>
         <CodeBlock variant="destructive" size="sm">
           <CodeBlockHeader>
             <CodeBlockTitle>Request failed</CodeBlockTitle>

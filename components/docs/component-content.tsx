@@ -102,8 +102,8 @@ export function ComponentContent({
     <div className="grid min-w-0 gap-10 xl:grid-cols-[minmax(0,1fr)_9rem]">
       <article className="flex min-w-0 flex-col gap-10">
         <header className="flex min-w-0 flex-col gap-4">
-          <h1 className="text-4xl font-semibold tracking-tight">{componentTitle(name)}</h1>
-          <p className="max-w-2xl leading-relaxed text-muted-foreground">{description}</p>
+          <h1 className="text-4xl type-display">{componentTitle(name)}</h1>
+          <p className="max-w-2xl type-prose text-muted-foreground">{description}</p>
           <a
             href={documentation.upstreamUrl}
             className="w-fit text-sm underline underline-offset-4"
@@ -113,7 +113,7 @@ export function ComponentContent({
         </header>
 
         <section id="examples" aria-labelledby="examples-heading" className="min-w-0 scroll-mt-6">
-          <h2 id="examples-heading" className="mb-4 text-xl font-semibold">
+          <h2 id="examples-heading" className="mb-4 text-xl type-heading">
             Examples
           </h2>
           <Tabs defaultValue="preview" className="min-w-0">
@@ -140,10 +140,10 @@ export function ComponentContent({
           aria-labelledby="installation-heading"
           className="flex min-w-0 scroll-mt-6 flex-col gap-4"
         >
-          <h2 id="installation-heading" className="text-xl font-semibold">
+          <h2 id="installation-heading" className="text-xl type-heading">
             Installation
           </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-sm type-prose text-muted-foreground">
             {isGuide
               ? documentation.description
               : "Run the Ninaero registry command to install the component and its dependencies, including shared theme styles."}
@@ -160,7 +160,7 @@ export function ComponentContent({
           aria-labelledby="usage-heading"
           className="flex min-w-0 scroll-mt-6 flex-col gap-4"
         >
-          <h2 id="usage-heading" className="text-xl font-semibold">
+          <h2 id="usage-heading" className="text-xl type-heading">
             Usage
           </h2>
           <p className="text-sm text-muted-foreground">
@@ -175,12 +175,10 @@ export function ComponentContent({
             aria-labelledby="composition-heading"
             className="flex scroll-mt-6 flex-col gap-4"
           >
-            <h2 id="composition-heading" className="text-xl font-semibold">
+            <h2 id="composition-heading" className="text-xl type-heading">
               Composition
             </h2>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {documentation.description}
-            </p>
+            <p className="text-sm type-prose text-muted-foreground">{documentation.description}</p>
             <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
               {documentation.items.map((item) => (
                 <li key={item}>
@@ -205,10 +203,10 @@ export function ComponentContent({
               aria-labelledby="api-reference-heading"
               className="flex min-w-0 scroll-mt-6 flex-col gap-5"
             >
-              <h2 id="api-reference-heading" className="text-xl font-semibold">
+              <h2 id="api-reference-heading" className="text-xl type-heading">
                 API Reference
               </h2>
-              <p className="text-sm leading-relaxed text-muted-foreground">
+              <p className="text-sm type-prose text-muted-foreground">
                 Ninaero exports and local defaults are listed below. See the{" "}
                 <a
                   href={`${documentation.upstreamUrl}#api-reference`}
@@ -225,7 +223,7 @@ export function ComponentContent({
               aria-labelledby="source-heading"
               className="flex min-w-0 scroll-mt-6 flex-col gap-4"
             >
-              <h2 id="source-heading" className="text-xl font-semibold">
+              <h2 id="source-heading" className="text-xl type-heading">
                 Source
               </h2>
               <Accordion>

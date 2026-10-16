@@ -87,7 +87,7 @@ export function ButtonPreview() {
           </div>
         </fieldset>
         <div className="space-y-3">
-          <h3 className="text-sm font-medium">Variants and states</h3>
+          <h3 className="text-sm type-title tracking-normal">Variants and states</h3>
           <p className="text-xs text-muted-foreground">
             These variant, size, and state specimens perform no action.
           </p>
@@ -104,7 +104,7 @@ export function ButtonPreview() {
           </div>
         </div>
         <div className="space-y-3">
-          <h3 className="text-sm font-medium">Sizes</h3>
+          <h3 className="text-sm type-title tracking-normal">Sizes</h3>
           <div className="flex flex-wrap items-center gap-3">
             {sizes.map((size) => (
               <Button key={size} size={size} variant="secondary">
@@ -114,7 +114,7 @@ export function ButtonPreview() {
           </div>
         </div>
         <div className="space-y-3">
-          <h3 className="text-sm font-medium">Icon squircles</h3>
+          <h3 className="text-sm type-title tracking-normal">Icon squircles</h3>
           <div className="flex flex-wrap items-center gap-3">
             {iconSizes.map((size) => (
               <Button key={size} size={size} aria-label={`${size} specimen`}>
@@ -124,7 +124,7 @@ export function ButtonPreview() {
           </div>
         </div>
         <div className="space-y-3">
-          <h3 className="text-sm font-medium">Joined controls</h3>
+          <h3 className="text-sm type-title tracking-normal">Joined controls</h3>
           <ButtonGroup aria-label="Button group specimen">
             <Button variant="secondary">First</Button>
             <Button variant="secondary">Second</Button>

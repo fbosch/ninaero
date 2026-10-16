@@ -15,7 +15,7 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
         <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-5 text-sm">
-          <Link href="/" className="font-semibold tracking-tight">
+          <Link href="/" className="type-title">
             Ninaero
           </Link>
           {destinations.map(([href, label]) => {

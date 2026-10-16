@@ -85,7 +85,7 @@ export function DocsSidebar() {
           .filter((group) => group.entries.length > 0)
           .map((group) => (
             <section key={group.id} aria-labelledby={`docs-${group.id}`}>
-              <h2 id={`docs-${group.id}`} className="mb-2 px-3 text-xs font-semibold">
+              <h2 id={`docs-${group.id}`} className="mb-2 px-3 text-xs type-title tracking-normal">
                 {group.title}
               </h2>
               <ul className="flex flex-col gap-0.5">

@@ -73,7 +73,7 @@ export default function InputWorkshopPage() {
   return (
     <div className="space-y-8">
       <header className="space-y-3">
-        <h1 className="text-3xl font-semibold tracking-tight">Inputs</h1>
+        <h1 className="text-3xl type-display">Inputs</h1>
         <p className="text-muted-foreground">
           Single-line, multiline, compound, and selection fields with matching materials and states.
         </p>
@@ -113,7 +113,7 @@ export default function InputWorkshopPage() {
         </div>
       </div>
       <section aria-labelledby="textarea-states" className="space-y-3">
-        <h2 id="textarea-states" className="text-xl font-semibold">
+        <h2 id="textarea-states" className="text-xl type-heading">
           Textareas
         </h2>
         <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) max-w-lg space-y-4 p-6">
@@ -148,7 +148,7 @@ export default function InputWorkshopPage() {
         </div>
       </section>
       <section aria-labelledby="input-group-states" className="flex flex-col gap-3">
-        <h2 id="input-group-states" className="text-xl font-semibold">
+        <h2 id="input-group-states" className="text-xl type-heading">
           Input groups
         </h2>
         <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) max-w-lg p-6">
@@ -156,7 +156,7 @@ export default function InputWorkshopPage() {
         </div>
       </section>
       <section aria-labelledby="select-states" className="space-y-3">
-        <h2 id="select-states" className="text-xl font-semibold">
+        <h2 id="select-states" className="text-xl type-heading">
           Selects
         </h2>
         <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) max-w-lg space-y-4 p-6">

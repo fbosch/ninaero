@@ -215,6 +215,27 @@ export const theme = {
   },
   css: {
     ...accentRules,
+    "@utility type-display": {
+      "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {},
+    },
+    "@utility type-heading": {
+      "@apply font-[650] leading-[1.25] tracking-[-0.015em]": {},
+    },
+    "@utility type-title": {
+      "@apply font-[650] leading-[1.375] tracking-[-0.01em]": {},
+    },
+    "@utility type-body": {
+      "@apply font-normal leading-normal tracking-normal": {},
+    },
+    "@utility type-prose": {
+      "@apply font-normal leading-relaxed tracking-normal": {},
+    },
+    "@utility type-label": {
+      "@apply font-[550] leading-5 tracking-normal": {},
+    },
+    "@utility type-caption": {
+      "@apply font-normal leading-4 tracking-normal": {},
+    },
     "@layer base": {
       "*": {
         "@apply border-border outline-ring/50": {},
@@ -223,7 +244,7 @@ export const theme = {
         "@apply bg-background text-foreground": {},
       },
       html: {
-        "@apply font-sans": {},
+        "@apply font-sans type-body": {},
         "font-family": "var(--font-sans)",
         "font-variation-settings": `"ROND" ${sansFont.roundness}`,
       },
@@ -307,7 +328,8 @@ export const theme = {
         "corner-shape": "squircle",
         border: "1px solid color-mix(in oklab, var(--foreground) 18%, var(--popover))",
         "background-color": "var(--popover)",
-        "background-image": "linear-gradient(180deg, var(--popover), var(--dialog-fill-shade))",
+        "background-image":
+          "linear-gradient(180deg in oklab, var(--popover), var(--dialog-fill-shade))",
         "box-shadow": `inset 0 1px 0 var(--dialog-highlight), inset 0 -1px 2px var(--dialog-shade), var(--shadow-dialog)`,
         opacity: "1",
         transform: "translateY(0) scale(1)",
@@ -457,7 +479,8 @@ export const theme = {
         "--button-recess-fill": "var(--button-primary-pressed)",
         color: "var(--button-primary-ink)",
         "background-color": "var(--button-primary-fill)",
-        "background-image": "linear-gradient(180deg, var(--button-highlight), transparent 65%)",
+        "background-image":
+          "linear-gradient(180deg in oklab, var(--button-highlight), transparent 65%)",
         "border-color": "var(--button-primary-edge)",
         "box-shadow": `inset 0 1px 0 var(--button-highlight), ${controlCastShadow}`,
       },
@@ -469,7 +492,7 @@ export const theme = {
         "border-color": "var(--button-paper-edge)",
         "background-color": "var(--button-paper-fill)",
         "background-image":
-          "linear-gradient(180deg, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
+          "linear-gradient(180deg in oklab, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
         "box-shadow": `inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), ${controlCastShadow}`,
       },
       ".ninaero-button--destructive": {
@@ -477,7 +500,7 @@ export const theme = {
         color: "var(--button-destructive-ink)",
         "background-color": "var(--button-destructive-fill)",
         "background-image":
-          "linear-gradient(180deg, var(--button-destructive-highlight), transparent 55%, var(--button-destructive-shade))",
+          "linear-gradient(180deg in oklab, var(--button-destructive-highlight), transparent 55%, var(--button-destructive-shade))",
         "border-color": "var(--button-destructive-edge)",
         "box-shadow": `inset 0 1px 0 var(--button-destructive-highlight), inset 0 -1px 0 var(--button-destructive-shade), ${controlCastShadow}`,
       },

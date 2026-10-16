@@ -14,9 +14,9 @@ importers:
       '@fontsource-variable/google-sans-flex':
         specifier: 5.3.2
         version: 5.3.2
-      '@iconify-icons/solar':
-        specifier: ^2.0.4
-        version: 2.0.4
+      '@iconify-icons/mage':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@iconify/react':
         specifier: ^6.0.2
         version: 6.0.2(react@19.3.0)
@@ -308,8 +308,8 @@ packages:
     peerDependencies:
       hono: ^4 || ^5.0.0-0
 
-  '@iconify-icons/solar@2.0.4':
-    resolution: {integrity: sha512-gAX+v97K0dPXAnB+o50MLQoHIJXafI0v0bc5Yw6n+x42BmbOvMh3CVKnwt8w9N4erdl0FqM8LVT0Ex/1Am8New==}
+  '@iconify-icons/mage@2.0.0':
+    resolution: {integrity: sha512-U9DLn1uCc2qTw8ZgBztT2if29IEIPY4QNuiIrBaBTJ8ShLYZzi2zd3/bXkkNzBguw3etgt2CY43eeuzl4esuXQ==}
 
   '@iconify/react@6.0.2':
     resolution: {integrity: sha512-SMmC2sactfpJD427WJEDN6PMyznTFMhByK9yLW0gOTtnjzzbsi/Ke/XqsumsavFPwNiXs8jSiYeZTmLCLwO+Fg==}
@@ -3101,7 +3101,7 @@ snapshots:
     dependencies:
       hono: 4.13.13
 
-  '@iconify-icons/solar@2.0.4':
+  '@iconify-icons/mage@2.0.0':
     dependencies:
       '@iconify/types': 2.0.0
 

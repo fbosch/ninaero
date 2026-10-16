@@ -21,7 +21,7 @@ export default function TracePreview() {
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
       <section className="min-w-0 space-y-3">
-        <h3 className="text-sm font-medium">Tool calls and sources</h3>
+        <h3 className="text-sm type-title tracking-normal">Tool calls and sources</h3>
         <Trace>
           <TraceCollapsible defaultOpen>
             <TraceCollapsibleTrigger>
@@ -58,7 +58,7 @@ export default function TracePreview() {
         </Button>
       </section>
       <section className="min-w-0 space-y-3">
-        <h3 className="text-sm font-medium">Pending and error states</h3>
+        <h3 className="text-sm type-title tracking-normal">Pending and error states</h3>
         <Trace>
           <TraceLine status="pending">
             <TraceIcon>

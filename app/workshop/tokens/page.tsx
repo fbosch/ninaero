@@ -18,7 +18,7 @@ export default function TokenWorkshopPage() {
   return (
     <div className="space-y-8">
       <header className="space-y-3">
-        <h1 className="text-3xl font-semibold tracking-tight">Tokens</h1>
+        <h1 className="text-3xl type-display">Tokens</h1>
         <p className="text-muted-foreground">
           Neutral materials, accent roles, and semantic feedback.
         </p>
