@@ -316,7 +316,7 @@ The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/medi
 
 ### Sliders
 
-Keep the 8px recessed channel neutral. Use the chosen accent's glass gradient colors for the selected range. Grabbers stay neutral and use horizontal native squircles in both orientations, with a localized upper reflection, a soft lower bevel and the shared control shadow, with the same neutral border as secondary Button and no extra inset outline. Keep the overhead lighting consistent on vertical sliders. Pressing or dragging collapses only the active grabber's shine and cast shadow, without changing its size or delaying position updates. Squircle grabbers have the same native browser-support requirement as Button.
+Keep the 8px recessed channel neutral. Use the chosen accent's glass gradient colors for the selected range. Give neutral horizontal native-squircle grabbers secondary Button's fill, border, highlight, shade, and control shadow. Use short etched grip grooves with a shaded side, a small highlight, and softened ends. Do not add an inset outline. Keep the overhead lighting consistent on vertical sliders. Hover uses Button's neutral hover fill. Pressing or dragging replaces the lighting and cast shadow with Button's shallow recess, without changing the grabber's size or delaying position updates. Squircle grabbers have the same native browser-support requirement as Button.
 
 Keep the pointer target at least 32px and leave the thumb's shadow and keyboard-focus outline unclipped. Disabled sliders keep their values and lose decorative lighting. Invalid states use semantic-red grip marks, separate from the accent focus outline. Reduced motion removes material transitions. Forced-colors mode uses system colors without gradients or shadows.
 

@@ -18,6 +18,7 @@ import {
 } from "@/lib/bubble-physics.mjs";
 import { bubbleRefractionStrength } from "@/lib/bubble-refraction.mjs";
 
+import { createBubbleEntrances } from "./bubble-entrance";
 import { clearBubblePops, showBubblePop } from "./bubble-pop";
 import { bubbleRefractionTexture } from "./bubble-refraction";
 
@@ -84,6 +85,10 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
 
     const elements = Array.from(field.querySelectorAll<HTMLSpanElement>(":scope > span"));
     const outlines = Array.from(field.querySelectorAll("ellipse"));
+    const entrances = createBubbleEntrances(
+      Array.from(field.getElementsByClassName(styles.bubbleLens)),
+      Array.from(field.getElementsByClassName(styles.bubbleSurface)),
+    );
     const painted = elements.map(() => ({ radius: NaN, angle: NaN, scaleX: NaN, scaleY: NaN }));
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const forcedColors = window.matchMedia("(forced-colors: active)");
@@ -218,6 +223,10 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     function syncAnimation() {
       cancelAnimationFrame(frame);
       previousTime = null;
+      entrances.sync(
+        pausedRef.current || document.hidden,
+        reducedMotion.matches || forcedColors.matches,
+      );
       if (!enabled()) {
         endHold("cancel");
         clearBubblePops(popLayer);
@@ -241,6 +250,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       );
       const bubble = existing ?? spawnBubble(bubbles, width, height, x, y);
       if (!bubble) return;
+      entrances.reveal(bubble);
       held = {
         bubble,
         pointerId: event.pointerId,
@@ -303,11 +313,13 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       const nextHeight = entry.contentRect.height;
       if (nextWidth <= 0 || nextHeight <= 0 || (nextWidth === width && nextHeight === height))
         return;
+      const initialLayout = width === 0;
       endHold("launch");
       clearBubblePops(popLayer);
       if (width === 0) bubbles = createBubbles(nextWidth, nextHeight);
       else {
         const popped = resizeBubbles(bubbles, nextWidth, nextHeight);
+        if (popped.length) entrances.clear();
         if (enabled()) {
           for (const bubble of popped) {
             showBubblePop(

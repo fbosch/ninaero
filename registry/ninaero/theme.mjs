@@ -302,8 +302,6 @@ export const theme = {
     "button-paper-pressed": "#e3e3e3",
     "button-paper-highlight": "#ffffffa6",
     "button-paper-shade": "#3333330d",
-    "slider-sheen-weight": "65%",
-    "slider-sheen-hover-weight": "80%",
     "button-recess-shade-weight": "4%",
     "button-recess-highlight-weight": "6%",
     "button-destructive-fill": "#f6d9dc",
@@ -373,8 +371,6 @@ export const theme = {
     "button-paper-pressed": "#2e2e2e",
     "button-paper-highlight": "#ffffff26",
     "button-paper-shade": "#00000040",
-    "slider-sheen-weight": "18%",
-    "slider-sheen-hover-weight": "26%",
     "button-recess-shade-weight": "6%",
     "button-recess-highlight-weight": "8%",
     "button-destructive-fill": "#603039",
@@ -568,16 +564,15 @@ export const theme = {
           "inset 0 1px 2px color-mix(in oklab, var(--button-primary-pressed), black 6%)",
       },
       ".ninaero-slider-thumb": {
-        "--slider-sheen":
-          "color-mix(in oklab, var(--button-paper-fill), white var(--slider-sheen-weight))",
+        "--slider-grip-ink": "color-mix(in oklab, var(--button-paper-fill), black 30%)",
+        "--slider-grip-highlight": "color-mix(in oklab, var(--button-paper-fill), white 30%)",
         "corner-shape": "squircle",
         cursor: "grab",
         "border-color": "var(--button-paper-edge)",
         "background-color": "var(--button-paper-fill)",
         "background-image":
-          "radial-gradient(ellipse at 50% -25% in oklab, var(--slider-sheen), transparent 65%), linear-gradient(180deg in oklab, color-mix(in oklab, var(--button-paper-fill), white 15%), var(--button-paper-fill) 48%, var(--button-paper-pressed))",
-        "box-shadow":
-          "inset 0 -1px 1px color-mix(in oklab, var(--button-paper-pressed), black 8%), var(--shadow-control)",
+          "linear-gradient(180deg in oklab, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
+        "box-shadow": "inset 0 -1px 0 var(--button-paper-shade), var(--shadow-control)",
         outline: "none",
         transition:
           "border-color 80ms ease-out, background-color 80ms ease-out, box-shadow 80ms ease-out",
@@ -585,25 +580,26 @@ export const theme = {
       ".ninaero-slider-thumb::before": {
         content: '""',
         position: "absolute",
-        inset: "calc(50% - 3px) auto auto calc(50% - 4px)",
-        width: "8px",
+        inset: "calc(50% - 3px) auto auto calc(50% - 5px)",
+        width: "10px",
         height: "6px",
         "background-image":
-          "repeating-linear-gradient(90deg, var(--slider-grip-ink, var(--button-paper-ink)) 0 1px, transparent 1px 3px)",
+          "repeating-linear-gradient(90deg, var(--slider-grip-ink) 0 1px, var(--slider-grip-highlight) 1px 2px, transparent 2px 4px)",
+        "mask-image":
+          "linear-gradient(180deg, transparent, black 0.5px, black calc(100% - 0.5px), transparent)",
         opacity: "1",
         "pointer-events": "none",
       },
-      ".ninaero-slider:where(:not([data-disabled]):not([aria-disabled=true]):not([data-invalid]):not([aria-invalid=true])) .ninaero-slider-thumb:where(:hover)":
+      ".ninaero-slider:where(:not([data-disabled]):not([aria-disabled=true]):not([data-invalid]):not([aria-invalid=true])) .ninaero-slider-thumb:where(:hover:not(:active):not([data-dragging]))":
         {
-          "--slider-sheen":
-            "color-mix(in oklab, var(--button-paper-fill), white var(--slider-sheen-hover-weight))",
+          "background-color": "var(--button-paper-hover)",
         },
       ".ninaero-slider-thumb:where(:active, [data-dragging]):where(:focus-within)": {
         cursor: "grabbing",
         "background-color": "var(--button-paper-pressed)",
         "background-image": "none",
         "box-shadow":
-          "inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black 6%), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white 8%)",
+          "inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black var(--button-recess-shade-weight)), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white var(--button-recess-highlight-weight))",
       },
       ".ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
         outline: "2px solid var(--ring)",
