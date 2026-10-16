@@ -273,7 +273,7 @@ Input, Textarea, and Select triggers use regular rounded corners with a 12px rad
 
 Use an opaque neutral `input-fill` slightly darker than the surrounding panel and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes; keep at least 3:1 contrast against the adjacent paper and field fills. Strengthen the neutral edge on hover without overriding invalid or disabled states.
 
-Give fields a shallow paper recess with an upper-interior shade fading over 3px and a fine lower-interior highlight. Derive both tones from `input-fill`, using black mixes of 7% in light mode and 12% in dark mode, and white mixes of 40% and 8%. Placeholder ink must retain contrast against both inset tones.
+Give fields a shallow paper recess with a broad upper-interior shade and a soft lower-interior highlight. Use a 2px downward inset offset with 6px blur for the shade, and a 1px upward inset offset with 2px blur for the highlight. Derive both tones from `input-fill`, using black mixes of 6% in light mode and 12% in dark mode, and white mixes of 35% and 7%. Keep the center flat and opaque. Placeholder ink must retain contrast against both inset tones.
 
 Invalid fields retain this material and use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
 
