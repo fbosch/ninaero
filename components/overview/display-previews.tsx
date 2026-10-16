@@ -62,6 +62,9 @@ import {
   TableRow,
 } from "@/registry/ninaero/ui/table";
 
+const CodeBlockPreview = dynamic(() => import("./code-block-preview"));
+const TracePreview = dynamic(() => import("./trace-preview"));
+const TypographyPreview = dynamic(() => import("./typography-preview"));
 function PreviewLoading() {
   return <p className="text-sm text-muted-foreground">Loading preview…</p>;
 }
@@ -349,4 +352,7 @@ export const displayPreviews = {
       </Table>
     );
   },
+  "code-block": CodeBlockPreview,
+  trace: TracePreview,
+  typography: TypographyPreview,
 } satisfies Record<DisplayName, ComponentType<PreviewProps>>;

@@ -15,8 +15,8 @@ import { Button } from "@/components/ui/button";
 
 export default function Example() {
   return (
-    <Button nativeButton={false} render={<Link href="/components" />}>
-      Browse components
+    <Button nativeButton={false} render={<Link href="/docs/button" />}>
+      View Button docs
     </Button>
   );
 }`;
@@ -63,9 +63,6 @@ export default function DocsPage() {
           </Link>
           <Link href="/docs/dialog" className="underline underline-offset-4">
             Dialog documentation
-          </Link>
-          <Link href="/components" className="underline underline-offset-4">
-            Component overview
           </Link>
         </div>
       </section>

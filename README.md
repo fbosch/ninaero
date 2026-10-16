@@ -12,7 +12,7 @@ Use Node.js 22 or newer and the pnpm version pinned in `package.json`.
 2. Run `pnpm dev`.
 3. Open [localhost:3000](http://localhost:3000).
 
-Browse `/docs` for installation and component guides, `/examples` for composed interfaces, and `/workshop` to test component states.
+Browse `/docs` for installation, component guides, and live examples. Use `/workshop` to test component states.
 
 ## Install in another project
 

@@ -14,11 +14,7 @@ import {
   PopoverTrigger,
 } from "@/registry/ninaero/ui/popover";
 
-const destinations = [
-  ["/examples", "Examples"],
-  ["/components", "Components"],
-  ["/docs", "Docs"],
-] as const;
+const destinations = [["/docs", "Docs"]] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();

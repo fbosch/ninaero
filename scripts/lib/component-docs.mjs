@@ -3,6 +3,7 @@ import { posix } from "node:path";
 
 import ts from "typescript";
 
+import { upstreamDocumentationUrl } from "./component-guides.mjs";
 import { registryCommand } from "./registry-command.mjs";
 import { defaultRegistryUrl, normalizeRegistryUrl } from "./theme.mjs";
 
@@ -16,6 +17,11 @@ const previewPaths = [
   "components/overview/chart-preview.tsx",
   "components/overview/carousel-preview.tsx",
   "components/overview/layout-previews.tsx",
+  "components/overview/code-block-preview.tsx",
+  "components/overview/trace-preview.tsx",
+  "components/overview/data-table-preview.tsx",
+  "components/overview/date-picker-preview.tsx",
+  "components/overview/typography-preview.tsx",
 ];
 
 const previewMaps = [
@@ -344,6 +350,7 @@ function buildExample(componentName, preview) {
   }
 
   const dependencySource = [...includedStatements]
+    .sort((a, b) => a.pos - b.pos)
     .map((statement) => sourceDeclarationFor(statement, source))
     .filter(Boolean);
   const previewText = sourceDeclarationFor(node, source);
@@ -505,6 +512,7 @@ export function createComponentDocs(
   componentSources,
   previewSources,
   registryUrl = defaultRegistryUrl,
+  guides = [],
 ) {
   const normalizedRegistryUrl = normalizeRegistryUrl(registryUrl);
   const mapSources = new Map(
@@ -536,6 +544,8 @@ export function createComponentDocs(
       const api = files.flatMap(({ path, content }) => apiForSource(path, content));
       return {
         name: component.name,
+        kind: "component",
+        upstreamUrl: upstreamDocumentationUrl(component.name),
         installCommand: registryCommand("add", component.name, normalizedRegistryUrl),
         example: buildExample(component.name, preview),
         files,
@@ -544,5 +554,30 @@ export function createComponentDocs(
         items: component.items,
       };
     });
+  for (const guide of guides) {
+    if (items.some((item) => item.name === guide.name)) {
+      throw new Error(`Duplicate documentation entry: ${guide.name}`);
+    }
+    const content = sourceText(previewSources, guide.previewPath, "guide preview source");
+    const source = parseSource(guide.previewPath, content);
+    const node = findExportedPreview(source, "default");
+    if (!node) throw new Error(`Missing default preview export for guide: ${guide.name}`);
+    const preview = { path: guide.previewPath, source, node, exportName: "default" };
+    items.push({
+      name: guide.name,
+      kind: "guide",
+      upstreamUrl: guide.upstreamUrl,
+      description: guide.description,
+      installCommand: [
+        ...guide.items.map((item) => registryCommand("add", item, normalizedRegistryUrl)),
+        ...(guide.packages.length > 0 ? [`pnpm add ${guide.packages.join(" ")}`] : []),
+      ].join("\n"),
+      example: buildExample(guide.name, preview),
+      files: [],
+      api: [],
+      packages: guide.packages,
+      items: guide.items,
+    });
+  }
   return { registryUrl: normalizedRegistryUrl, items };
 }

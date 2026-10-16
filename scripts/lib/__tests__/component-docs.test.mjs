@@ -7,6 +7,7 @@ import ts from "typescript";
 import catalog from "../../../registry/ninaero/catalog.json" with { type: "json" };
 import { readCatalogSources, resolveCatalog } from "../catalog.mjs";
 import { createComponentDocs, readPreviewSources } from "../component-docs.mjs";
+import { componentGuides } from "../component-guides.mjs";
 
 const root = new URL("../../../", import.meta.url);
 const catalogSources = await readCatalogSources(catalog, root);
@@ -18,6 +19,7 @@ const docs = createComponentDocs(
   catalogSources,
   previewSources,
   "https://example.test/registry/",
+  componentGuides,
 );
 const docsByName = new Map(docs.items.map((item) => [item.name, item]));
 
@@ -30,7 +32,10 @@ function componentNamed(name) {
 test("generated docs cover every UI registry item", () => {
   assert.equal(docs.registryUrl, "https://example.test/registry");
   assert.deepEqual(
-    docs.items.map(({ name }) => name).sort(),
+    docs.items
+      .filter((item) => item.kind === "component")
+      .map(({ name }) => name)
+      .sort(),
     uiComponents.map(({ name }) => name).sort(),
   );
   for (const item of docs.items) {
@@ -39,6 +44,45 @@ test("generated docs cover every UI registry item", () => {
   }
 });
 
+test("composed guides install real dependencies rather than fictitious registry entries", () => {
+  const guides = docs.items.filter((item) => item.kind === "guide");
+  assert.deepEqual(guides.map((item) => item.name).sort(), [
+    "data-table",
+    "date-picker",
+    "typography",
+  ]);
+  for (const guide of guides) {
+    assert.ok(guide.example.length > 0, guide.name);
+    assert.equal(guide.files.length, 0);
+    assert.equal(guide.api.length, 0);
+    assert.ok(!guide.installCommand.includes(`/${guide.name}.json`), guide.name);
+    for (const dependency of guide.items) {
+      assert.ok(guide.installCommand.includes(`/${dependency}.json`), dependency);
+    }
+  }
+  assert.match(docsByName.get("data-table").installCommand, /pnpm add @tanstack\/react-table@\^9/);
+  assert.equal(docsByName.get("typography").upstreamUrl, "https://ui.shadcn.com/docs/typeset");
+});
+
+test("missing guide previews and duplicate documentation names fail loudly", () => {
+  const previews = { ...previewSources };
+  delete previews["components/overview/date-picker-preview.tsx"];
+  assert.throws(
+    () => createComponentDocs([], {}, previews, "https://example.test/r", componentGuides),
+    /Missing guide preview source/,
+  );
+  assert.throws(
+    () =>
+      createComponentDocs(
+        [componentNamed("button")],
+        catalogSources,
+        previewSources,
+        "https://example.test/r",
+        [{ ...componentGuides[0], name: "button" }],
+      ),
+    /Duplicate documentation entry: button/,
+  );
+});
 test("missing component and preview sources fail loudly", () => {
   const button = componentNamed("button");
   const missingComponentSource = { ...catalogSources };

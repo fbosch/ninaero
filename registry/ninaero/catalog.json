@@ -10,6 +10,29 @@
   ],
   "items": [
     {
+      "name": "code-block",
+      "type": "registry:ui",
+      "packages": ["cn", "class-variance-authority"],
+      "items": ["button", "use-highlighted-code"],
+      "files": [{ "path": "registry/ninaero/ui/code-block.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "trace",
+      "type": "registry:ui",
+      "packages": ["cn"],
+      "items": ["collapsible"],
+      "files": [{ "path": "registry/ninaero/ui/trace.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "use-highlighted-code",
+      "type": "registry:hook",
+      "packages": ["shiki"],
+      "items": [],
+      "files": [
+        { "path": "registry/ninaero/hooks/use-highlighted-code.ts", "type": "registry:hook" }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:ui",
       "packages": ["cn"],

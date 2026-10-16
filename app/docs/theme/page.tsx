@@ -86,11 +86,7 @@ export default function ThemeDocsPage() {
           </li>
           <li>Regenerate the CSS, registry, and documentation with the command below.</li>
           <li>
-            Compare the updated states in the{" "}
-            <Link href="/components" className="text-foreground underline underline-offset-4">
-              component overview
-            </Link>{" "}
-            before publishing.
+            Review the updated theme across the component documentation pages before publishing.
           </li>
         </ol>
         <CodeBlock

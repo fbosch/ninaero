@@ -59,7 +59,7 @@ export function SidebarPreview() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton isActive render={<a href="/components">Components</a>}>
+                <SidebarMenuButton isActive render={<a href="/docs">Components</a>}>
                   <FolderIcon />
                   <span>Components</span>
                 </SidebarMenuButton>

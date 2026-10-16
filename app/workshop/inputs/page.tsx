@@ -14,6 +14,7 @@ import {
 } from "@/registry/ninaero/ui/select";
 import { Textarea } from "@/registry/ninaero/ui/textarea";
 
+import { InputGroupSpecimens } from "./input-group-specimens";
 export const metadata: Metadata = { title: "Input workshop | Ninaero" };
 
 const selectChoices = [
@@ -74,14 +75,14 @@ export default function InputWorkshopPage() {
       <header className="space-y-3">
         <h1 className="text-3xl font-semibold tracking-tight">Inputs</h1>
         <p className="text-muted-foreground">
-          Single-line, multiline, and selection fields with matching materials and states.
+          Single-line, multiline, compound, and selection fields with matching materials and states.
         </p>
         <p className="text-sm text-muted-foreground">
-          Squircle corners require browser support for CSS corner-shape. Other browsers show
-          ordinary rounded corners. Use Tab to inspect keyboard focus.
+          Fields use regular rounded corners. Action buttons keep squircle detailing. Use Tab to
+          inspect keyboard focus.
         </p>
       </header>
-      <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-4 p-6">
+      <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) max-w-lg space-y-4 p-6">
         <div className="space-y-2">
           <Label htmlFor="editable-input">Editable input</Label>
           <Input id="editable-input" placeholder="Try typing here" />
@@ -115,7 +116,7 @@ export default function InputWorkshopPage() {
         <h2 id="textarea-states" className="text-xl font-semibold">
           Textareas
         </h2>
-        <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-4 p-6">
+        <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) max-w-lg space-y-4 p-6">
           <div className="space-y-2">
             <Label htmlFor="editable-textarea">Editable textarea</Label>
             <Textarea id="editable-textarea" placeholder="Try typing a few lines" rows={3} />
@@ -146,11 +147,19 @@ export default function InputWorkshopPage() {
           </div>
         </div>
       </section>
+      <section aria-labelledby="input-group-states" className="flex flex-col gap-3">
+        <h2 id="input-group-states" className="text-xl font-semibold">
+          Input groups
+        </h2>
+        <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) max-w-lg p-6">
+          <InputGroupSpecimens />
+        </div>
+      </section>
       <section aria-labelledby="select-states" className="space-y-3">
         <h2 id="select-states" className="text-xl font-semibold">
           Selects
         </h2>
-        <div className="button-specimen ninaero-paper-ruled max-w-lg space-y-4 p-6">
+        <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) max-w-lg space-y-4 p-6">
           <div className="space-y-2">
             <Label htmlFor="editable-select">Editable select</Label>
             <SelectSpecimen id="editable-select" />

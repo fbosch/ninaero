@@ -1,203 +1,290 @@
 import Link from "next/link";
 
 import { ComponentPreview } from "@/components/overview/component-preview";
-import { type ComponentName, componentTitle, overviewItems } from "@/lib/component-overview";
-import { sourceLanguage } from "@/lib/syntax-highlighting.mjs";
+import { docsRegistryUrl } from "@/lib/component-documentation";
+import {
+  componentTitle,
+  extraItems,
+  upstreamItems,
+  isComponentName,
+  type ComponentName,
+} from "@/lib/component-overview";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/registry/ninaero/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/ninaero/ui/tabs";
 
 import { CodeBlock } from "./code-block";
-import { HighlightedCode } from "./highlighted-code";
 
-export type ComponentDocumentation = {
+type ApiExport = {
   name: string;
+  kind: string;
+  props: string;
+  defaults: { name: string; value: string }[];
+};
+
+type ComponentDocumentation = {
+  name: string;
+  kind: string;
+  upstreamUrl: string;
+  description?: string;
   installCommand: string;
   example: string;
   files: { path: string; content: string }[];
-  api: {
-    name: string;
-    kind: string;
-    props: string;
-    defaults: { name: string; value: string }[];
-  }[];
+  api: ApiExport[];
   packages: string[];
   items: string[];
 };
+
+function ApiReference({ api }: { api: ApiExport[] }) {
+  return (
+    <div className="flex flex-col gap-6">
+      {api.map((entry) => (
+        <section key={entry.name} className="flex min-w-0 flex-col gap-3">
+          <h3 className="font-mono text-base font-medium">{entry.name}</h3>
+          {entry.props ? (
+            <CodeBlock code={entry.props} label={`${entry.name} props`} language="typescript" />
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              {entry.kind === "type"
+                ? "Exported type."
+                : entry.kind === "value"
+                  ? "Exported value."
+                  : "Re-exported primitive; see the upstream API reference."}
+            </p>
+          )}
+          {entry.defaults.length > 0 ? (
+            <dl className="grid grid-cols-[max-content_minmax(0,1fr)] gap-x-6 gap-y-2 text-sm">
+              {entry.defaults.map((prop) => (
+                <div key={prop.name} className="contents">
+                  <dt className="font-mono text-muted-foreground">{prop.name}</dt>
+                  <dd className="min-w-0 break-words font-mono">{prop.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+        </section>
+      ))}
+    </div>
+  );
+}
 
 export function ComponentContent({
   name,
   description,
   documentation,
-  registryUrl,
 }: {
   name: ComponentName;
   description: string;
   documentation: ComponentDocumentation;
-  registryUrl: string;
 }) {
-  const title = componentTitle(name);
+  const isGuide = documentation.kind === "guide";
+  const navigation = [...upstreamItems, ...extraItems];
+  const position = navigation.findIndex((item) => item.name === name);
+  const previous = navigation[position - 1];
+  const next = navigation[position + 1];
+  const sections = [
+    { id: "examples", label: "Examples" },
+    { id: "installation", label: "Installation" },
+    { id: "usage", label: "Usage" },
+    ...(isGuide
+      ? [{ id: "composition", label: "Composition" }]
+      : [
+          { id: "api-reference", label: "API Reference" },
+          { id: "source", label: "Source" },
+        ]),
+  ];
+
   return (
-    <article data-doc-component={name} className="min-w-0 space-y-12">
-      <header className="space-y-4">
-        <p className="text-xs font-medium text-muted-foreground">Component documentation</p>
-        <h1 className="text-4xl font-semibold tracking-tight">{title}</h1>
-        <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">{description}</p>
+    <div className="grid min-w-0 gap-10 xl:grid-cols-[minmax(0,1fr)_9rem]">
+      <article className="flex min-w-0 flex-col gap-10">
+        <header className="flex min-w-0 flex-col gap-4">
+          <h1 className="text-4xl font-semibold tracking-tight">{componentTitle(name)}</h1>
+          <p className="max-w-2xl leading-relaxed text-muted-foreground">{description}</p>
+          <a
+            href={documentation.upstreamUrl}
+            className="w-fit text-sm underline underline-offset-4"
+          >
+            Upstream documentation
+          </a>
+        </header>
+
+        <section id="examples" aria-labelledby="examples-heading" className="min-w-0 scroll-mt-6">
+          <h2 id="examples-heading" className="mb-4 text-xl font-semibold">
+            Examples
+          </h2>
+          <Tabs defaultValue="preview" className="min-w-0">
+            <TabsList aria-label="Example view">
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              <TabsTrigger value="code">Code</TabsTrigger>
+            </TabsList>
+            <TabsContent value="preview">
+              <div
+                className="min-w-0 overflow-x-auto rounded-xl border bg-card p-5 sm:p-8"
+                data-component-preview={name}
+              >
+                <ComponentPreview name={name} interactive />
+              </div>
+            </TabsContent>
+            <TabsContent value="code">
+              <CodeBlock code={documentation.example} label={`${componentTitle(name)} example`} />
+            </TabsContent>
+          </Tabs>
+        </section>
+
+        <section
+          id="installation"
+          aria-labelledby="installation-heading"
+          className="flex min-w-0 scroll-mt-6 flex-col gap-4"
+        >
+          <h2 id="installation-heading" className="text-xl font-semibold">
+            Installation
+          </h2>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {isGuide
+              ? documentation.description
+              : "Run the Ninaero registry command to install the component and its dependencies, including shared theme styles."}
+          </p>
+          <CodeBlock
+            code={documentation.installCommand}
+            label={isGuide ? "Install recipe dependencies" : `Install ${componentTitle(name)}`}
+            language="bash"
+          />
+        </section>
+
+        <section
+          id="usage"
+          aria-labelledby="usage-heading"
+          className="flex min-w-0 scroll-mt-6 flex-col gap-4"
+        >
+          <h2 id="usage-heading" className="text-xl font-semibold">
+            Usage
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            A complete example using the installed component and hook paths.
+          </p>
+          <CodeBlock code={documentation.example} label={`${componentTitle(name)} usage`} />
+        </section>
+
+        {isGuide ? (
+          <section
+            id="composition"
+            aria-labelledby="composition-heading"
+            className="flex scroll-mt-6 flex-col gap-4"
+          >
+            <h2 id="composition-heading" className="text-xl font-semibold">
+              Composition
+            </h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {documentation.description}
+            </p>
+            <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              {documentation.items.map((item) => (
+                <li key={item}>
+                  <Link
+                    href={item === "theme" ? "/docs/theme" : `/docs/${item}`}
+                    className="underline underline-offset-4"
+                  >
+                    {item === "theme"
+                      ? "Theme"
+                      : isComponentName(item)
+                        ? componentTitle(item)
+                        : item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : (
+          <>
+            <section
+              id="api-reference"
+              aria-labelledby="api-reference-heading"
+              className="flex min-w-0 scroll-mt-6 flex-col gap-5"
+            >
+              <h2 id="api-reference-heading" className="text-xl font-semibold">
+                API Reference
+              </h2>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Ninaero exports and local defaults are listed below. See the{" "}
+                <a
+                  href={`${documentation.upstreamUrl}#api-reference`}
+                  className="underline underline-offset-4"
+                >
+                  upstream reference
+                </a>{" "}
+                for inherited primitive props and additional composition examples.
+              </p>
+              <ApiReference api={documentation.api} />
+            </section>
+            <section
+              id="source"
+              aria-labelledby="source-heading"
+              className="flex min-w-0 scroll-mt-6 flex-col gap-4"
+            >
+              <h2 id="source-heading" className="text-xl font-semibold">
+                Source
+              </h2>
+              <Accordion>
+                {documentation.files.map((file) => (
+                  <AccordionItem key={file.path} value={file.path}>
+                    <AccordionTrigger>{file.path.split("/").at(-1)}</AccordionTrigger>
+                    <AccordionContent>
+                      <CodeBlock code={file.content} label={file.path} />
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+              <a
+                href={`${docsRegistryUrl}/${name}.json`}
+                className="w-fit text-sm underline underline-offset-4"
+              >
+                Registry JSON
+              </a>
+            </section>
+          </>
+        )}
+
+        <nav aria-label="Component pages" className="grid grid-cols-2 gap-4 border-t pt-6">
+          {previous ? (
+            <Link
+              href={`/docs/${previous.name}`}
+              className="flex flex-col gap-1 text-sm underline-offset-4 hover:underline"
+            >
+              <span className="text-xs text-muted-foreground">Previous</span>
+              {componentTitle(previous.name)}
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link
+              href={`/docs/${next.name}`}
+              className="flex flex-col items-end gap-1 text-right text-sm underline-offset-4 hover:underline"
+            >
+              <span className="text-xs text-muted-foreground">Next</span>
+              {componentTitle(next.name)}
+            </Link>
+          ) : null}
+        </nav>
+      </article>
+
+      <aside className="hidden xl:block">
         <nav
           aria-label="On this page"
-          className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground"
+          className="sticky top-6 flex flex-col gap-3 text-sm text-muted-foreground"
         >
-          <a href="#doc-preview" className="underline underline-offset-4">
-            Preview
-          </a>
-          <a href="#doc-install" className="underline underline-offset-4">
-            Installation
-          </a>
-          <a href="#doc-usage" className="underline underline-offset-4">
-            Usage
-          </a>
-          <a href="#doc-api" className="underline underline-offset-4">
-            API
-          </a>
-          <a href="#doc-source" className="underline underline-offset-4">
-            Source
-          </a>
-        </nav>
-      </header>
-
-      <section
-        id="doc-preview"
-        aria-labelledby="doc-preview-heading"
-        className="scroll-mt-6 space-y-4"
-      >
-        <h2 id="doc-preview-heading" className="text-xl font-semibold tracking-tight">
-          Preview
-        </h2>
-        <div
-          data-doc-preview={name}
-          className="overview-live min-h-64 rounded-lg border bg-card p-6"
-        >
-          <ComponentPreview name={name} interactive />
-        </div>
-        <p className="text-sm text-muted-foreground">
-          The same example as the component overview, with interaction enabled.
-        </p>
-      </section>
-
-      <section
-        id="doc-install"
-        aria-labelledby="doc-install-heading"
-        className="scroll-mt-6 space-y-4"
-      >
-        <h2 id="doc-install-heading" className="text-xl font-semibold tracking-tight">
-          Installation
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Run this in an initialized shadcn/ui project. The CLI copies the component source and
-          resolves its shared theme and dependencies.
-        </p>
-        <CodeBlock code={documentation.installCommand} label="Install command" language="bash" />
-        {documentation.packages.length > 0 ? (
-          <p className="text-xs leading-relaxed text-muted-foreground">
-            Packages: {documentation.packages.join(", ")}
-          </p>
-        ) : null}
-        {documentation.items.length > 0 ? (
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
-            <span className="text-muted-foreground">Related registry items:</span>
-            {documentation.items.map((dependency) => {
-              const item = overviewItems.find((entry) => entry.name === dependency);
-              return item ? (
-                <Link
-                  key={dependency}
-                  href={`/docs/${item.name}`}
-                  className="underline underline-offset-4"
-                >
-                  {componentTitle(item.name)}
-                </Link>
-              ) : (
-                <a
-                  key={dependency}
-                  href={`${registryUrl}/${dependency}.json`}
-                  className="underline underline-offset-4"
-                >
-                  {dependency}
-                </a>
-              );
-            })}
-          </div>
-        ) : null}
-      </section>
-
-      <section id="doc-usage" aria-labelledby="doc-usage-heading" className="scroll-mt-6 space-y-4">
-        <h2 id="doc-usage-heading" className="text-xl font-semibold tracking-tight">
-          Usage
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          This standalone example is generated from the live preview. It uses the standard{" "}
-          <code className="text-foreground">@/components/ui</code> alias; adjust imports if your
-          project uses another path.
-        </p>
-        <CodeBlock code={documentation.example} label={`${title} example`} />
-      </section>
-
-      <section id="doc-api" aria-labelledby="doc-api-heading" className="scroll-mt-6 space-y-4">
-        <h2 id="doc-api-heading" className="text-xl font-semibold tracking-tight">
-          API
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Exported components and wrapper props, read from the installed source. Native HTML and
-          upstream component props are inherited; referenced types and variants are defined in the
-          source below.
-        </p>
-        <div className="divide-y rounded-lg border">
-          {documentation.api.map((entry) => (
-            <div key={entry.name} className="min-w-0 space-y-3 p-4">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-mono text-sm font-medium">{entry.name}</h3>
-                <span className="text-xs text-muted-foreground">{entry.kind}</span>
-              </div>
-              {entry.props ? (
-                <HighlightedCode code={entry.props} language="typescript" compact />
-              ) : null}
-              {entry.defaults.length > 0 ? (
-                <dl className="grid gap-2 text-xs sm:grid-cols-2">
-                  {entry.defaults.map((value) => (
-                    <div key={value.name} className="flex flex-wrap gap-2">
-                      <dt className="font-mono text-muted-foreground">{value.name}</dt>
-                      <dd className="font-mono">{value.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : null}
-            </div>
+          <p className="font-medium text-foreground">On this page</p>
+          {sections.map((section) => (
+            <a key={section.id} href={`#${section.id}`} className="hover:text-foreground">
+              {section.label}
+            </a>
           ))}
-        </div>
-      </section>
-
-      <section
-        id="doc-source"
-        aria-labelledby="doc-source-heading"
-        className="scroll-mt-6 space-y-4"
-      >
-        <h2 id="doc-source-heading" className="text-xl font-semibold tracking-tight">
-          Source
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          The registry source before the CLI rewrites import aliases for your project.
-        </p>
-        {documentation.files.map((file) => (
-          <CodeBlock
-            key={file.path}
-            code={file.content}
-            label={file.path}
-            language={sourceLanguage(file.path)}
-          />
-        ))}
-        <a
-          href={`${registryUrl}/${name}.json`}
-          className="inline-block text-sm underline underline-offset-4"
-        >
-          Registry JSON
-        </a>
-      </section>
-    </article>
+        </nav>
+      </aside>
+    </div>
   );
 }

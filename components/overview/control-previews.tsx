@@ -45,6 +45,8 @@ import { ToggleGroup, ToggleGroupItem } from "@/registry/ninaero/ui/toggle-group
 
 const CalendarPreview = dynamic(() => import("./calendar-preview"));
 const QuestionnairePreview = dynamic(() => import("./questionnaire-preview"));
+const DataTablePreview = dynamic(() => import("./data-table-preview"));
+const DatePickerPreview = dynamic(() => import("./date-picker-preview"));
 
 function ButtonPreview({ interactive }: PreviewProps) {
   const [last, setLast] = useState("");
@@ -174,8 +176,8 @@ function InputGroupPreview() {
     <div className="w-full max-w-64 space-y-2">
       <Label htmlFor={id}>Website</Label>
       <InputGroup>
-        <InputGroupAddon>https://</InputGroupAddon>
         <InputGroupInput id={id} placeholder="example.com" />
+        <InputGroupAddon>https://</InputGroupAddon>
       </InputGroup>
     </div>
   );
@@ -338,6 +340,8 @@ export const controlPreviews = {
   command: CommandPreview,
   field: FieldPreview,
   input: InputPreview,
+  "data-table": DataTablePreview,
+  "date-picker": DatePickerPreview,
   "input-group": InputGroupPreview,
   "input-otp": InputOTPPreview,
   label: LabelPreview,

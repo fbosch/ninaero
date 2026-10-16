@@ -124,7 +124,7 @@ function DrawerPreview() {
 function HoverCardPreview() {
   return (
     <HoverCard>
-      <HoverCardTrigger href="/components" className="text-sm underline underline-offset-4">
+      <HoverCardTrigger href="/docs" className="text-sm underline underline-offset-4">
         Explore components
       </HoverCardTrigger>
       <HoverCardContent>

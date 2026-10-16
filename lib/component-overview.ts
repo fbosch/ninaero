@@ -4,6 +4,11 @@ export const componentGroups = [
     title: "Controls",
     description: "Buttons, inputs, selections, and form composition.",
     items: [
+      { name: "date-picker", description: "Compose Calendar and Popover to choose a date." },
+      {
+        name: "data-table",
+        description: "Build sorting, filtering, and pagination with TanStack Table.",
+      },
       {
         name: "button",
         description: "Actions in default, secondary, and outline variants.",
@@ -157,6 +162,12 @@ export const componentGroups = [
     description: "Surfaces, data, messages, and layout primitives.",
     items: [
       {
+        name: "code-block",
+        description: "Code, terminal output, and diffs with optional syntax highlighting.",
+      },
+      { name: "trace", description: "Reasoning, tool calls, sources, and agent activity." },
+      { name: "typography", description: "Readable prose with a shared type scale and rhythm." },
+      {
         name: "alert",
         description: "A notice with a title and supporting text.",
       },
@@ -261,14 +272,19 @@ export type ComponentName = ControlName | NavigationName | OverlayName | Display
 
 export type PreviewProps = { interactive?: boolean };
 
-export const overviewItems = componentGroups.flatMap<{
-  name: ComponentName;
-  description: string;
-}>((group) => group.items);
+export const overviewItems = componentGroups
+  .flatMap<{
+    name: ComponentName;
+    description: string;
+  }>((group) => group.items)
+  .sort((a, b) => a.name.localeCompare(b.name, "en"));
 
+export const upstreamItems = overviewItems.filter((item) => item.name !== "sonner");
+export const extraItems = overviewItems.filter((item) => item.name === "sonner");
+export const newComponentNames = ["code-block", "trace"] as const;
 const titles: Partial<Record<ComponentName, string>> = {
   "input-otp": "Input OTP",
-  kbd: "Keyboard key",
+  kbd: "Kbd",
   sonner: "Sonner",
 };
 

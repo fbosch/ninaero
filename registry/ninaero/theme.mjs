@@ -227,14 +227,14 @@ export const theme = {
           "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
         "background-size": "24px 24px",
       },
-      ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger": {
-        "--input-corner": "0.875rem",
+      ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
+        "--input-corner": "var(--radius-md)",
         "--input-recess-shade":
           "color-mix(in oklab, var(--card), black var(--input-recess-shade-weight))",
         "--input-recess-highlight":
           "color-mix(in oklab, var(--card), white var(--input-recess-highlight-weight))",
         "border-radius": "var(--input-corner)",
-        "corner-shape": "squircle",
+        "corner-shape": "round",
         border: "1px solid var(--input-edge)",
         color: "var(--card-foreground)",
         "background-color": "var(--card)",
@@ -244,30 +244,38 @@ export const theme = {
         "outline-offset": "3px",
         transition: "background-color 80ms ease-out, border-color 80ms ease-out",
       },
-      ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder]":
+      ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder], .ninaero-input-group > [data-slot=input-group-control]::placeholder":
         {
           color: "var(--input-placeholder)",
           opacity: "1",
         },
-      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible":
+      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible, .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible)":
         {
           "outline-color": "var(--ring)",
         },
-      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid]":
+      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true])":
         {
           "border-color": "var(--destructive)",
         },
-      ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled]":
+      ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled], .ninaero-input-group:has(> [data-slot=input-group-control]:disabled)":
         {
           "border-color": "var(--border)",
           "background-color": "var(--input-disabled-fill)",
           color: "var(--muted-foreground)",
           "box-shadow": "none",
         },
+      ".ninaero-input-group > [data-slot=input-group-control]": {
+        "border-radius": "0",
+        border: "0",
+        color: "inherit",
+        "background-color": "transparent",
+        "box-shadow": "none",
+        outline: "none",
+      },
       ".ninaero-dialog": {
-        "--dialog-corner": "3rem",
+        "--dialog-corner": "var(--radius-2xl)",
         "border-radius": "var(--dialog-corner)",
-        "corner-shape": "squircle",
+        "corner-shape": "round",
         border: "1px solid color-mix(in oklab, var(--foreground) 18%, var(--popover))",
         "background-color": "var(--popover)",
         "background-image": "linear-gradient(180deg, var(--popover), var(--dialog-fill-shade))",
@@ -301,8 +309,8 @@ export const theme = {
         "padding-inline-end": "2rem",
       },
       ".ninaero-popover": {
-        "border-radius": "1.25rem",
-        "corner-shape": "squircle",
+        "border-radius": "var(--radius-xl)",
+        "corner-shape": "round",
         border: "1px solid var(--border)",
         color: "var(--popover-foreground)",
         "background-color": "var(--popover)",
@@ -329,8 +337,8 @@ export const theme = {
         transform: "rotate(180deg)",
       },
       ".ninaero-select-item": {
-        "border-radius": "0.875rem",
-        "corner-shape": "squircle",
+        "border-radius": "var(--radius-md)",
+        "corner-shape": "round",
         border: "1px solid transparent",
         outline: "2px solid transparent",
         "outline-offset": "-3px",
@@ -350,14 +358,14 @@ export const theme = {
         color: "var(--muted-foreground)",
       },
       ".ninaero-toggle": {
-        "--toggle-corner": "0.875rem",
+        "--toggle-corner": "var(--radius-md)",
         "--button-recess-fill": "var(--button-paper-pressed)",
         "--button-recess-shade":
           "color-mix(in oklab, var(--button-recess-fill), black var(--button-recess-shade-weight))",
         "--button-recess-highlight":
           "color-mix(in oklab, var(--button-recess-fill), white var(--button-recess-highlight-weight))",
         "border-radius": "var(--toggle-corner)",
-        "corner-shape": "squircle",
+        "corner-shape": "round",
         border: "1px solid transparent",
         color: "var(--button-paper-ink)",
         "background-color": "transparent",
@@ -407,6 +415,14 @@ export const theme = {
         "outline-offset": "3px",
         transition:
           "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out, transform 80ms ease-out",
+      },
+      ".ninaero-rounded-control, .ninaero-input-group .ninaero-button, .ninaero-button[data-day], .ninaero-button[data-slot=combobox-trigger], .ninaero-button[data-slot=combobox-chip-remove]":
+        {
+          "border-radius": "var(--radius-md)",
+          "corner-shape": "round",
+        },
+      ".ninaero-button[data-day]": {
+        "border-radius": "var(--cell-radius)",
       },
       ".ninaero-button--primary": {
         "--button-recess-fill": "var(--button-primary-pressed)",
@@ -515,7 +531,7 @@ export const theme = {
             transform: "none",
             opacity: "1",
           },
-        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger": {
+        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
           transition: "none",
         },
         ".ninaero-select-content, .ninaero-select-icon": {
@@ -546,30 +562,34 @@ export const theme = {
           "background-image": "none",
           "background-color": "Canvas",
         },
-        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger": {
+        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
           "border-color": "CanvasText",
           "background-color": "Canvas",
           color: "CanvasText",
           "box-shadow": "none",
         },
-        ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder]":
+        ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder], .ninaero-input-group > [data-slot=input-group-control]::placeholder":
           {
             color: "GrayText",
           },
-        ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid]":
+        ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true])":
           {
             "border-color": "CanvasText",
           },
-        ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible":
+        ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible, .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible)":
           {
             "outline-color": "Highlight",
           },
-        ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled]":
+        ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled], .ninaero-input-group:has(> [data-slot=input-group-control]:disabled)":
           {
             "border-color": "GrayText",
             "background-color": "Canvas",
             color: "GrayText",
           },
+        ".ninaero-input-group > [data-slot=input-group-control]": {
+          "background-color": "transparent",
+          color: "inherit",
+        },
         ".ninaero-popover": {
           "border-color": "CanvasText",
           "background-color": "Canvas",

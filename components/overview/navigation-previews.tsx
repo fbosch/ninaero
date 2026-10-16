@@ -87,7 +87,7 @@ function BreadcrumbPreview() {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+          <BreadcrumbLink href="/docs">Components</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -192,13 +192,13 @@ function NavigationMenuPreview() {
           <NavigationMenuTrigger>Explore</NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="grid w-56 gap-1">
-              <NavigationMenuLink href="/components">All components</NavigationMenuLink>
+              <NavigationMenuLink href="/docs">All components</NavigationMenuLink>
               <NavigationMenuLink href="/">Home</NavigationMenuLink>
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink href="/components">Components</NavigationMenuLink>
+          <NavigationMenuLink href="/docs">Components</NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
@@ -213,7 +213,7 @@ function PaginationPreview() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              href="/components"
+              href="/docs"
               aria-disabled={page === 1}
               onClick={(event) => {
                 event.preventDefault();
@@ -224,7 +224,7 @@ function PaginationPreview() {
           {[1, 2, 3].map((number) => (
             <PaginationItem key={number}>
               <PaginationLink
-                href="/components"
+                href="/docs"
                 isActive={page === number}
                 aria-label={`Page ${number}`}
                 onClick={(event) => {
@@ -238,7 +238,7 @@ function PaginationPreview() {
           ))}
           <PaginationItem>
             <PaginationNext
-              href="/components"
+              href="/docs"
               aria-disabled={page === 3}
               onClick={(event) => {
                 event.preventDefault();
