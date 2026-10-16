@@ -28,12 +28,26 @@ export default function Home() {
               </div>
             </header>
           </div>
-          <div className="grid items-center gap-5 pt-6 sm:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)]">
-            <div className="space-y-1">
-              <h2 className="text-sm type-title tracking-normal">Install Ninaero</h2>
+          <section aria-labelledby="install-heading" className="flex max-w-3xl flex-col gap-4">
+            <div className="flex flex-col gap-1">
+              <h2 id="install-heading" className="text-sm type-title tracking-normal">
+                Install Ninaero
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Add the theme and components to your project.
+              </p>
             </div>
             <CodeBlock code={presetInstallCommand} language="bash" label="Complete preset" />
-          </div>
+            <Button
+              variant="link"
+              size="sm"
+              className="self-start"
+              nativeButton={false}
+              render={<Link href="/docs#docs-quick-start" />}
+            >
+              Installation guide <ArrowRightIcon data-icon="inline-end" />
+            </Button>
+          </section>
         </section>
         <p className="squircle-support-note text-xs text-muted-foreground">
           This browser does not support CSS squircle corners. Buttons use ordinary rounded corners

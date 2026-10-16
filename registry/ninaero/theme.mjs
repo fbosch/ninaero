@@ -47,6 +47,72 @@ const sansFont = {
   roundness: 100,
 };
 
+const paperPatterns = {
+  ruled: {
+    spacing: 24,
+    styles: {
+      "background-image":
+        "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--paper-rule) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
+    },
+  },
+  dotted: {
+    spacing: 16,
+    styles: {
+      "background-image": "radial-gradient(circle, var(--paper-dot) 1px, transparent 1px)",
+      "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
+    },
+  },
+  grid: {
+    spacing: 24,
+    styles: {
+      "background-image":
+        "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
+      "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
+    },
+  },
+  notebook: {
+    spacing: 6,
+    styles: {
+      "--ninaero-notebook-height": "calc(var(--ninaero-paper-step) * 40 / 3)",
+      "--ninaero-notebook-width": "calc(var(--ninaero-paper-step) * 19)",
+      "background-image": [
+        "radial-gradient(circle at 3px calc(var(--ninaero-notebook-height) - 3px), var(--paper-rule-strong) 0 2px, transparent 3px)",
+        "linear-gradient(90deg, transparent 0 2px, var(--paper-rule-strong) 2px 4px, transparent 4px var(--ninaero-notebook-width))",
+        "linear-gradient(transparent 0 calc(var(--ninaero-notebook-height) - 4px), var(--paper-rule-strong) calc(var(--ninaero-notebook-height) - 4px) calc(var(--ninaero-notebook-height) - 2px), transparent calc(var(--ninaero-notebook-height) - 2px))",
+        "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--paper-rule) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
+      ].join(", "),
+      // Share a tile so fine rules restart consistently at every major separator.
+      "background-size": "var(--ninaero-notebook-width) var(--ninaero-notebook-height)",
+    },
+  },
+};
+
+const paperUtilities = Object.fromEntries(
+  Object.entries(paperPatterns).flatMap(([name, { spacing, styles }]) => {
+    const declarations = {
+      "--shadow-color": "var(--shadow-color-paper)",
+      "background-color": "var(--paper-fill)",
+      ...styles,
+      "@media (forced-colors: active)": {
+        "background-image": "none",
+        "background-color": "Canvas",
+      },
+    };
+    return [
+      [
+        `@utility ninaero-paper-${name}`,
+        { "--ninaero-paper-step": `${spacing}px`, ...declarations },
+      ],
+      [
+        `@utility ninaero-paper-${name}-*`,
+        {
+          "--ninaero-paper-step": "max(1px, calc(--value(number, [number]) * 1px))",
+          ...declarations,
+        },
+      ],
+    ];
+  }),
+);
 export const theme = {
   font: sansFont,
   theme: {
@@ -117,10 +183,6 @@ export const theme = {
     "tabs-active-highlight": "#ffffff80",
     "tabs-hover-fill": "#e3e3e3",
     "tabs-ink": "#616161",
-    "tabs-marker-top": "#c4c4c4",
-    "tabs-marker-fill": "#888888",
-    "tabs-marker-bottom": "#808080",
-    "tabs-marker-highlight": "#ffffff14",
     "input-recess-shade-weight": "6%",
     "input-recess-highlight-weight": "35%",
     foreground: "oklch(0.145 0 0)",
@@ -190,10 +252,6 @@ export const theme = {
     "tabs-active-highlight": "#ffffff1a",
     "tabs-hover-fill": "#303030",
     "tabs-ink": "#b5b5b5",
-    "tabs-marker-top": "#a8a8a8",
-    "tabs-marker-fill": "#888888",
-    "tabs-marker-bottom": "#808080",
-    "tabs-marker-highlight": "#ffffff0f",
     "input-recess-shade-weight": "12%",
     "input-recess-highlight-weight": "7%",
     foreground: "oklch(0.985 0 0)",
@@ -245,6 +303,7 @@ export const theme = {
   },
   css: {
     ...accentRules,
+    ...paperUtilities,
     "@utility type-display": {
       "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {},
     },
@@ -291,32 +350,6 @@ export const theme = {
         elevationVariables,
       ".ninaero-surface-paper": {
         "--shadow-color": "var(--shadow-color-paper)",
-      },
-      ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid, .ninaero-paper-notebook": {
-        "--shadow-color": "var(--shadow-color-paper)",
-        "background-color": "var(--paper-fill)",
-      },
-      ".ninaero-paper-ruled": {
-        "background-image":
-          "repeating-linear-gradient(transparent 0 23px, var(--paper-rule) 23px 24px)",
-      },
-      ".ninaero-paper-dotted": {
-        "background-image": "radial-gradient(circle, var(--paper-dot) 1px, transparent 1px)",
-        "background-size": "16px 16px",
-      },
-      ".ninaero-paper-grid": {
-        "background-image":
-          "linear-gradient(var(--paper-rule) 1px, transparent 1px), linear-gradient(90deg, var(--paper-rule) 1px, transparent 1px)",
-        "background-size": "24px 24px",
-      },
-      ".ninaero-paper-notebook": {
-        "background-image": [
-          "radial-gradient(circle at 2px 78px, var(--paper-rule-strong) 0 2px, transparent 3px)",
-          "repeating-linear-gradient(90deg, transparent 0 2px, var(--paper-rule-strong) 2px 4px, transparent 4px 114px)",
-          "repeating-linear-gradient(transparent 0 78px, var(--paper-rule-strong) 78px 80px)",
-          "repeating-linear-gradient(transparent 0 5px, var(--paper-rule) 5px 6px)",
-        ].join(", "),
-        "background-size": "114px 80px, 114px 80px, auto, auto",
       },
       ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
         "--input-corner": "0.75rem",
@@ -515,6 +548,7 @@ export const theme = {
         "box-shadow": "none",
       },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger::after": {
+        "--tabs-marker-edge-shadow": "inset 0 -1px 0 var(--tabs-active-edge)",
         content: '""',
         position: "absolute",
         "inset-inline": "0.75rem",
@@ -523,11 +557,11 @@ export const theme = {
         "box-sizing": "border-box",
         "border-radius": "2px",
         border: "0",
-        "background-color": "var(--tabs-marker-fill)",
+        "background-color": "var(--tabs-active-fill)",
         "background-image":
-          "linear-gradient(180deg in oklab, var(--tabs-marker-top), var(--tabs-marker-fill) 58%, var(--tabs-marker-bottom))",
+          "radial-gradient(ellipse at 50% -45% in oklab, var(--tabs-active-highlight), transparent 75%), linear-gradient(180deg in oklab, var(--tabs-active-top), var(--tabs-active-fill) 48%, var(--tabs-active-bottom))",
         "box-shadow":
-          "inset 0 1px 0 var(--tabs-marker-highlight), 0 1px 3px hsl(var(--shadow-color) / 0.16)",
+          "inset 0 1px 0 var(--tabs-active-highlight), var(--tabs-marker-edge-shadow), 0 1px 1px hsl(var(--shadow-color) / 0.1), 0 2px 3px hsl(var(--shadow-color) / 0.06)",
         "pointer-events": "none",
         opacity: "0",
       },
@@ -536,6 +570,7 @@ export const theme = {
       },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where(:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]))::after":
         {
+          "background-color": "var(--tabs-active-edge)",
           "background-image": "none",
           "box-shadow": "none",
         },
@@ -547,11 +582,16 @@ export const theme = {
         },
       ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger[data-orientation=vertical]::after":
         {
+          "--tabs-marker-edge-shadow": "inset -1px 0 0 var(--tabs-active-edge)",
           "inset-inline-start": "auto",
           "inset-inline-end": "0",
           "inset-block": "4px",
           width: "4px",
           height: "auto",
+        },
+      ".ninaero-tabs-list[data-variant=line] > .ninaero-tabs-trigger:where([data-orientation=vertical]):dir(rtl)::after":
+        {
+          "--tabs-marker-edge-shadow": "inset 1px 0 0 var(--tabs-active-edge)",
         },
       ".ninaero-toggle": {
         "--toggle-corner": "var(--radius-md)",
@@ -833,11 +873,6 @@ export const theme = {
           color: "CanvasText",
           "box-shadow": "none",
         },
-        ".ninaero-paper-ruled, .ninaero-paper-dotted, .ninaero-paper-grid, .ninaero-paper-notebook":
-          {
-            "background-image": "none",
-            "background-color": "Canvas",
-          },
         ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
           "border-color": "CanvasText",
           "background-color": "Canvas",

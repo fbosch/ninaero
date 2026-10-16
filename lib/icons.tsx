@@ -14,6 +14,7 @@ import filePlus2IconData from "@iconify-icons/mage/file-plus";
 import fileTextIconData from "@iconify-icons/mage/file-records";
 import slidersHorizontalIconData from "@iconify-icons/mage/filter";
 import folderIconData from "@iconify-icons/mage/folder";
+import gameboyFillIconData from "@iconify-icons/mage/gameboy-fill";
 import homeIconData from "@iconify-icons/mage/home";
 import inboxIconData from "@iconify-icons/mage/inbox";
 import infoIconData from "@iconify-icons/mage/information-circle";
@@ -27,10 +28,9 @@ import octagonXIconData from "@iconify-icons/mage/multiply-circle";
 import plusIconData from "@iconify-icons/mage/plus";
 import loader2IconData from "@iconify-icons/mage/reload";
 import searchIconData from "@iconify-icons/mage/search";
-import starCircleFillIconData from "@iconify-icons/mage/star-circle-fill";
 import sunIconData from "@iconify-icons/mage/sun";
 import { Icon as IconifyIcon, type IconifyIcon as IconData } from "@iconify/react/offline";
-import type { ComponentProps } from "react";
+import { useId, type ComponentProps } from "react";
 
 type IconProps = Omit<ComponentProps<"svg">, "children" | "onLoad" | "rotate">;
 
@@ -84,7 +84,28 @@ export const PanelLeftIcon = /* @__PURE__ */ createIcon(panelLeftIconData);
 export const PlusIcon = /* @__PURE__ */ createIcon(plusIconData);
 export const SearchIcon = /* @__PURE__ */ createIcon(searchIconData);
 export const SlidersHorizontalIcon = /* @__PURE__ */ createIcon(slidersHorizontalIconData);
-export const StarCircleFillIcon = /* @__PURE__ */ createIcon(starCircleFillIconData);
+export function GameboyFillIcon({ width = 24, height = 24, strokeWidth = 2, ...props }: IconProps) {
+  const gradientId = useId();
+  const labelled = Boolean(props["aria-label"] || props["aria-labelledby"]);
+  const gradientIcon = {
+    ...gameboyFillIconData,
+    body:
+      `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--primary)" /><stop offset="100%" stop-color="var(--ring)" /></linearGradient></defs>` +
+      gameboyFillIconData.body.replaceAll('fill="currentColor"', `fill="url(#${gradientId})"`),
+  };
+
+  return (
+    <IconifyIcon
+      width={width}
+      height={height}
+      strokeWidth={strokeWidth}
+      {...props}
+      mode="svg"
+      aria-hidden={props["aria-hidden"] ?? !labelled}
+      icon={gradientIcon}
+    />
+  );
+}
 export const SunIcon = /* @__PURE__ */ createIcon(sunIconData);
 export const TriangleAlertIcon = /* @__PURE__ */ createIcon(triangleAlertIconData);
 export const XIcon = /* @__PURE__ */ createIcon(xIconData);

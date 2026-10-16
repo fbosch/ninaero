@@ -86,11 +86,8 @@ test("underline labels and selection markers retain contrast on page and card su
           const ratio = contrast(ink, background);
           assert.ok(ratio >= 4.5, `${name} ${mode} underline label: ${ratio.toFixed(2)}:1`);
         }
-        // The lower face carries selection contrast; the upper reflection is decorative.
-        for (const token of ["tabs-marker-fill", "tabs-marker-bottom"]) {
-          const marker = contrast(palette[token], background);
-          assert.ok(marker >= 3, `${name} ${mode} selection marker: ${marker.toFixed(2)}:1`);
-        }
+        const marker = contrast(palette["tabs-active-edge"], background);
+        assert.ok(marker >= 3, `${name} ${mode} selection marker: ${marker.toFixed(2)}:1`);
       }
     }
   }

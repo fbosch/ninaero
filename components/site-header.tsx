@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { AccentSwitcher } from "@/components/accent-switcher";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { StarCircleFillIcon } from "@/lib/icons";
+import { GameboyFillIcon } from "@/lib/icons";
 
 const destinations = [["/docs", "Docs"]] as const;
 
@@ -17,7 +17,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
         <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-5 text-sm">
           <Link href="/" className="type-title inline-flex items-center gap-2">
-            <StarCircleFillIcon width={20} height={20} />
+            <GameboyFillIcon width={20} height={20} />
             Ninaero
           </Link>
           {destinations.map(([href, label]) => {
