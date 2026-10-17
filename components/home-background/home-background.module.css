@@ -35,8 +35,12 @@
   --home-companion: #d8d47a;
 }
 
-[data-accent="apricot"] .scene {
-  --home-companion: #d8bd78;
+[data-accent="anemone"] .scene {
+  --home-companion: #45a9d6;
+}
+
+[data-accent="sunflower"] .scene {
+  --home-companion: #8bbbd9;
 }
 
 .sky {

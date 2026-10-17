@@ -6,7 +6,7 @@ Ninaero combines a Nintendo handheld-inspired layout with paper details and rest
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This document records the agreed visual direction. Button is the first fully styled component. Tidepool is the default accent, with Aurora, Lavender, Slate, Lagoon, Sky, Blossom, Lime, and Apricot alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Status colors remain independent of the accent, and destructive states keep semantic red.
+This document records the agreed visual direction. Button is the first fully styled component. Tidepool is the default accent, with Aurora, Lavender, Slate, Lagoon, Sky, Blossom, Lime, Anemone, and Sunflower alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Status colors remain independent of the accent, and destructive states keep semantic red.
 
 ## Reference hierarchy
 

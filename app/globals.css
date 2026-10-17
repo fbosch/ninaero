@@ -138,6 +138,7 @@
   --button-outline-edge: #c8c8c8;
   --button-paper-hover: #eeeeee;
   --button-paper-ink: #383838;
+  --button-paper-text-shadow: 0 1px 0 #ffffffb3;
   --button-paper-pressed: #e3e3e3;
   --button-paper-highlight: #ffffffa6;
   --button-paper-shade: #3333330d;
@@ -234,6 +235,7 @@
   --button-outline-edge: #454545;
   --button-paper-hover: #454545;
   --button-paper-ink: #efefef;
+  --button-paper-text-shadow: 0 1px 1px #00000066;
   --button-paper-pressed: #2e2e2e;
   --button-paper-highlight: #ffffff14;
   --button-paper-shade: #00000040;
@@ -718,15 +720,15 @@
   --glass-mark-face-50: #9ac470;
   --glass-mark-face-100: #88b65d;
 }
-[data-accent="apricot"] {
-  --button-primary-fill: #f2d2b5;
-  --button-primary-hover: #e9c09b;
-  --button-primary-pressed: #ddac82;
-  --button-primary-ink: #51331f;
-  --button-primary-edge: #9b7048;
-  --button-link-ink: #80552f;
-  --button-focus: #936136;
-  --accent-soft: #faf0e6;
+[data-accent="anemone"] {
+  --button-primary-fill: #f1b274;
+  --button-primary-hover: #e8a461;
+  --button-primary-pressed: #dd9854;
+  --button-primary-ink: #3b200d;
+  --button-primary-edge: #a85b24;
+  --button-link-ink: #854414;
+  --button-focus: #a35117;
+  --accent-soft: #fff0df;
   --primary: var(--button-primary-fill);
   --primary-foreground: var(--button-primary-ink);
   --accent: var(--accent-soft);
@@ -740,22 +742,22 @@
   --sidebar-accent: var(--accent-soft);
   --sidebar-accent-foreground: var(--button-link-ink);
   --sidebar-ring: var(--button-focus);
-  --glass-mark-rim-0: #9b7048;
-  --glass-mark-rim-50: #926a43;
-  --glass-mark-rim-100: #8a643f;
-  --glass-mark-face-0: #e9c09b;
-  --glass-mark-face-50: #e3b68e;
-  --glass-mark-face-100: #ddac82;
+  --glass-mark-rim-0: #a85b24;
+  --glass-mark-rim-50: #9f5621;
+  --glass-mark-rim-100: #96511f;
+  --glass-mark-face-0: #e8a461;
+  --glass-mark-face-50: #e29e5b;
+  --glass-mark-face-100: #dd9854;
 }
-.dark[data-accent="apricot"], .dark [data-accent="apricot"] {
-  --button-primary-fill: #e5b48b;
-  --button-primary-hover: #efc7a5;
-  --button-primary-pressed: #d39e74;
-  --button-primary-ink: #302014;
-  --button-primary-edge: #f0cfaf;
-  --button-link-ink: #edc6a2;
-  --button-focus: #f2cca4;
-  --accent-soft: #483627;
+.dark[data-accent="anemone"], .dark [data-accent="anemone"] {
+  --button-primary-fill: #ecad70;
+  --button-primary-hover: #f3bf8b;
+  --button-primary-pressed: #df9e60;
+  --button-primary-ink: #241307;
+  --button-primary-edge: #ffc58c;
+  --button-link-ink: #ffbd80;
+  --button-focus: #ffb96d;
+  --accent-soft: #4b311e;
   --primary: var(--button-primary-fill);
   --primary-foreground: var(--button-primary-ink);
   --accent: var(--accent-soft);
@@ -769,12 +771,70 @@
   --sidebar-accent: var(--accent-soft);
   --sidebar-accent-foreground: var(--button-link-ink);
   --sidebar-ring: var(--button-focus);
-  --glass-mark-rim-0: #f0cfaf;
-  --glass-mark-rim-50: #e3c4a5;
-  --glass-mark-rim-100: #d7b99c;
-  --glass-mark-face-0: #efc7a5;
-  --glass-mark-face-50: #e1b28c;
-  --glass-mark-face-100: #d39e74;
+  --glass-mark-rim-0: #ffc58c;
+  --glass-mark-rim-50: #f1ba84;
+  --glass-mark-rim-100: #e4b07d;
+  --glass-mark-face-0: #f3bf8b;
+  --glass-mark-face-50: #e9ae76;
+  --glass-mark-face-100: #df9e60;
+}
+[data-accent="sunflower"] {
+  --button-primary-fill: #efd16a;
+  --button-primary-hover: #e5c254;
+  --button-primary-pressed: #d9b744;
+  --button-primary-ink: #493715;
+  --button-primary-edge: #93742c;
+  --button-link-ink: #76581e;
+  --button-focus: #876626;
+  --accent-soft: #fbf6df;
+  --primary: var(--button-primary-fill);
+  --primary-foreground: var(--button-primary-ink);
+  --accent: var(--accent-soft);
+  --accent-foreground: var(--button-link-ink);
+  --ring: var(--button-focus);
+  --border: var(--neutral-border);
+  --input: var(--neutral-input);
+  --sidebar-border: var(--neutral-border);
+  --sidebar-primary: var(--button-primary-fill);
+  --sidebar-primary-foreground: var(--button-primary-ink);
+  --sidebar-accent: var(--accent-soft);
+  --sidebar-accent-foreground: var(--button-link-ink);
+  --sidebar-ring: var(--button-focus);
+  --glass-mark-rim-0: #93742c;
+  --glass-mark-rim-50: #8b6d29;
+  --glass-mark-rim-100: #836726;
+  --glass-mark-face-0: #e5c254;
+  --glass-mark-face-50: #dfbc4c;
+  --glass-mark-face-100: #d9b744;
+}
+.dark[data-accent="sunflower"], .dark [data-accent="sunflower"] {
+  --button-primary-fill: #e6cc76;
+  --button-primary-hover: #efdc95;
+  --button-primary-pressed: #d3b85f;
+  --button-primary-ink: #30250e;
+  --button-primary-edge: #f0dda0;
+  --button-link-ink: #ecda99;
+  --button-focus: #efdb8c;
+  --accent-soft: #423923;
+  --primary: var(--button-primary-fill);
+  --primary-foreground: var(--button-primary-ink);
+  --accent: var(--accent-soft);
+  --accent-foreground: var(--button-link-ink);
+  --ring: var(--button-focus);
+  --border: var(--neutral-border);
+  --input: var(--neutral-input);
+  --sidebar-border: var(--neutral-border);
+  --sidebar-primary: var(--button-primary-fill);
+  --sidebar-primary-foreground: var(--button-primary-ink);
+  --sidebar-accent: var(--accent-soft);
+  --sidebar-accent-foreground: var(--button-link-ink);
+  --sidebar-ring: var(--button-focus);
+  --glass-mark-rim-0: #f0dda0;
+  --glass-mark-rim-50: #e3d197;
+  --glass-mark-rim-100: #d7c68f;
+  --glass-mark-face-0: #efdc95;
+  --glass-mark-face-50: #e1ca7b;
+  --glass-mark-face-100: #d3b85f;
 }
 @utility ninaero-paper-ruled {
   --ninaero-paper-step: 24px;
@@ -1678,6 +1738,7 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   .ninaero-button--primary {
     --button-recess-fill: var(--button-primary-pressed);
     color: var(--button-primary-ink);
+    text-shadow: 0 0.5px 0 color-mix(in oklab, var(--button-primary-fill), white 60%);
     background-color: var(--button-primary-fill);
     background-image: linear-gradient(180deg in oklab, var(--button-highlight), transparent 65%);
     border-color: var(--button-primary-edge);
@@ -1687,6 +1748,7 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   .ninaero-button--secondary, .ninaero-button--outline {
     --button-recess-fill: var(--button-paper-pressed);
     color: var(--button-paper-ink);
+    text-shadow: var(--button-paper-text-shadow);
   }
   .ninaero-button--secondary {
     border-color: var(--button-paper-edge);
@@ -1698,6 +1760,7 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   .ninaero-button--destructive {
     --button-recess-fill: var(--button-destructive-pressed);
     color: var(--button-destructive-ink);
+    text-shadow: 0 0.5px 0 color-mix(in oklab, var(--button-destructive-fill), white 60%);
     background-color: var(--button-destructive-fill);
     background-image: linear-gradient(180deg in oklab, var(--button-destructive-highlight), transparent 55%, var(--button-destructive-shade));
     border-color: var(--button-destructive-edge);
@@ -1728,12 +1791,14 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   }
   .ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost) {
     transform: translateY(var(--button-press-shift));
+    text-shadow: none;
     box-shadow: inset 0 2px 6px color-mix(in oklab, var(--button-recess-fill), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight));
     --ninaero-material-shadow: inset 0 2px 6px color-mix(in oklab, var(--button-recess-fill), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight));
   }
   .ninaero-button:disabled, .ninaero-button[data-disabled], .ninaero-button[aria-disabled=true] {
     box-shadow: none;
     --ninaero-material-shadow: 0 0 #0000;
+    text-shadow: none;
     opacity: 0.5;
   }
   .ninaero-button-group:has(> :is(.ninaero-button--primary, .ninaero-button--secondary, .ninaero-button--destructive):not(:disabled):not([data-disabled]):not([aria-disabled=true])):not(:has(> :not(:is(.ninaero-button--primary, .ninaero-button--secondary, .ninaero-button--destructive), [data-slot=button-group-separator]))) {
@@ -2068,6 +2133,7 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
       --ninaero-material-shadow: 0 0 #0000;
     }
     .ninaero-toggle[aria-pressed=true] {
+      forced-color-adjust: none;
       border-color: Highlight;
       background-color: Highlight;
       color: HighlightText;
@@ -2092,6 +2158,7 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
       border-color: ButtonText;
     }
     .ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true] {
+      forced-color-adjust: auto;
       border-color: GrayText;
       color: GrayText;
     }
@@ -2104,6 +2171,7 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
       border-color: ButtonText;
       box-shadow: none;
       --ninaero-material-shadow: 0 0 #0000;
+      text-shadow: none;
     }
     .ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost) {
       box-shadow: none;

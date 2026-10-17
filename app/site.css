@@ -6,9 +6,28 @@ html.dark {
   color-scheme: dark;
 }
 
+.site-shell:has(> .home-page) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+}
+
+.site-header--home {
+  grid-area: 1 / 1;
+}
+
 .home-page {
+  /* Share the header row so the scene reaches behind it without hiding content. */
+  display: grid;
+  grid-area: 1 / 1 / 3 / 2;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
   /* Back to front: sky (-6), waves (-5), bubbles (-3), glass (-2), dots (-1), then content. */
   overflow: clip;
+}
+
+.home-content {
+  grid-area: 2 / 1;
 }
 
 body.ninaero-overlay-dither:has(.home-page)::after {
@@ -71,11 +90,17 @@ body:not(.ninaero-overlay-dither) .home-page::after {
 }
 
 .site-header {
+  --site-header-shade-top: var(--card);
+  --site-header-shade-bottom: var(--muted);
   /* Keep the cast shadow above opaque page backgrounds. */
   position: relative;
   z-index: 10;
   border-bottom: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
-  background: linear-gradient(to bottom in oklab, var(--card), var(--muted));
+  background: linear-gradient(
+    to bottom in oklab,
+    var(--site-header-shade-top),
+    var(--site-header-shade-bottom)
+  );
   box-shadow:
     inset 0 -1px 0 var(--card),
     0 1px 2px hsl(var(--shadow-color) / 0.06),
@@ -99,15 +124,45 @@ body:not(.ninaero-overlay-dither) .site-header::after {
 }
 
 .dark .site-header {
-  background: linear-gradient(to bottom in oklab, var(--muted), var(--card));
+  --site-header-shade-top: var(--muted);
+  --site-header-shade-bottom: var(--card);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .site-header.site-header--home {
+    background: transparent;
+  }
+
+  .site-header.site-header--home::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -16rem;
+    clip-path: inset(0 0 16rem);
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom in oklab,
+      color-mix(in oklab, var(--site-header-shade-top) 70%, transparent),
+      color-mix(in oklab, var(--site-header-shade-bottom) 70%, transparent)
+    );
+    /* Shade the visible header, not the extended blur-sampling area. */
+    background-size: 100% calc(100% - 16rem);
+    background-repeat: no-repeat;
+    backdrop-filter: blur(12px) saturate(1.1);
+  }
 }
 
 @media (forced-colors: active) {
   .site-header,
-  .dark .site-header {
+  .dark .site-header,
+  .site-header.site-header--home {
     border-color: CanvasText;
     background: Canvas;
     box-shadow: none;
+  }
+
+  .site-header--home::before {
+    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {

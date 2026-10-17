@@ -418,6 +418,7 @@ export const theme = {
     "button-outline-edge": "#c8c8c8",
     "button-paper-hover": "#eeeeee",
     "button-paper-ink": "#383838",
+    "button-paper-text-shadow": "0 1px 0 #ffffffb3",
     "button-paper-pressed": "#e3e3e3",
     "button-paper-highlight": "#ffffffa6",
     "button-paper-shade": "#3333330d",
@@ -487,6 +488,7 @@ export const theme = {
     "button-outline-edge": "#454545",
     "button-paper-hover": "#454545",
     "button-paper-ink": "#efefef",
+    "button-paper-text-shadow": "0 1px 1px #00000066",
     "button-paper-pressed": "#2e2e2e",
     "button-paper-highlight": "#ffffff14",
     "button-paper-shade": "#00000040",
@@ -1184,6 +1186,7 @@ export const theme = {
       ".ninaero-button--primary": {
         "--button-recess-fill": "var(--button-primary-pressed)",
         color: "var(--button-primary-ink)",
+        "text-shadow": "0 0.5px 0 color-mix(in oklab, var(--button-primary-fill), white 60%)",
         "background-color": "var(--button-primary-fill)",
         "background-image":
           "linear-gradient(180deg in oklab, var(--button-highlight), transparent 65%)",
@@ -1193,6 +1196,7 @@ export const theme = {
       ".ninaero-button--secondary, .ninaero-button--outline": {
         "--button-recess-fill": "var(--button-paper-pressed)",
         color: "var(--button-paper-ink)",
+        "text-shadow": "var(--button-paper-text-shadow)",
       },
       ".ninaero-button--secondary": {
         "border-color": "var(--button-paper-edge)",
@@ -1204,6 +1208,7 @@ export const theme = {
       ".ninaero-button--destructive": {
         "--button-recess-fill": "var(--button-destructive-pressed)",
         color: "var(--button-destructive-ink)",
+        "text-shadow": "0 0.5px 0 color-mix(in oklab, var(--button-destructive-fill), white 60%)",
         "background-color": "var(--button-destructive-fill)",
         "background-image":
           "linear-gradient(180deg in oklab, var(--button-destructive-highlight), transparent 55%, var(--button-destructive-shade))",
@@ -1235,11 +1240,13 @@ export const theme = {
       },
       [buttonPressSelector]: {
         transform: "translateY(var(--button-press-shift))",
+        "text-shadow": "none",
         "box-shadow": recessShadow("var(--button-recess-fill)"),
       },
       ".ninaero-button:disabled, .ninaero-button[data-disabled], .ninaero-button[aria-disabled=true]":
         {
           "box-shadow": "none",
+          "text-shadow": "none",
           opacity: "0.5",
         },
       [raisedButtonGroupSelector]: {
@@ -1563,6 +1570,8 @@ export const theme = {
           "box-shadow": "none",
         },
         ".ninaero-toggle[aria-pressed=true]": {
+          // Keep automatic text backplates from hiding HighlightText on selected controls.
+          "forced-color-adjust": "none",
           "border-color": "Highlight",
           "background-color": "Highlight",
           color: "HighlightText",
@@ -1589,6 +1598,7 @@ export const theme = {
         },
         ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]":
           {
+            "forced-color-adjust": "auto",
             "border-color": "GrayText",
             color: "GrayText",
           },
@@ -1599,6 +1609,7 @@ export const theme = {
           "background-image": "none",
           "border-color": "ButtonText",
           "box-shadow": "none",
+          "text-shadow": "none",
         },
         [buttonPressSelector]: {
           "box-shadow": "none",

@@ -7,7 +7,8 @@ export type AccentName =
   | "sky"
   | "blossom"
   | "lime"
-  | "apricot";
+  | "anemone"
+  | "sunflower";
 export type AccentPalette = Record<string, string>;
 export const defaultAccent: AccentName;
 export const accentStorageKey: string;
