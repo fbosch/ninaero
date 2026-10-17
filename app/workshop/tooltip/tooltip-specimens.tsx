@@ -100,9 +100,8 @@ export function TooltipSpecimens() {
                 Right / {align}
               </TooltipTrigger>
               <TooltipContent side="right" align={align}>
-                A longer hint tests vertical alignment. The face can span several lines while its
-                arrow stays attached to the trigger, rather than drifting toward the middle of the
-                text.
+                Long hints can wrap onto several lines. Start and end alignment keep the chosen edge
+                aligned with the control while the floating face stays within the available space.
               </TooltipContent>
             </Tooltip>
           ))}

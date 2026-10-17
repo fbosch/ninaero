@@ -394,6 +394,7 @@ export const theme = {
     "dialog-fill-shade": "color-mix(in oklab, var(--popover) 98%, black)",
     "dialog-highlight": "#ffffffb3",
     "dialog-shade": "#0000000d",
+    "tooltip-scanline-ink": "color-mix(in oklab, var(--background) 7%, transparent)",
     "popover-foreground": "var(--card-foreground)",
     secondary: "oklch(0.97 0 0)",
     "secondary-foreground": "oklch(0.205 0 0)",
@@ -468,6 +469,7 @@ export const theme = {
     "dialog-fill-shade": "color-mix(in oklab, var(--popover) 92%, black)",
     "dialog-highlight": "#ffffff24",
     "dialog-shade": "#00000040",
+    "tooltip-scanline-ink": "color-mix(in oklab, var(--background) 3%, transparent)",
     "popover-foreground": "var(--card-foreground)",
     secondary: "oklch(0.269 0 0)",
     "secondary-foreground": "oklch(0.985 0 0)",
@@ -987,13 +989,17 @@ export const theme = {
       },
       ".ninaero-tooltip": {
         "max-width": "min(20rem, var(--available-width))",
-        "border-radius": "var(--radius-md)",
+        "border-radius": "1.5rem",
         "corner-shape": "round",
         border: "1px solid color-mix(in oklab, var(--foreground), var(--background) 22%)",
         "background-color": "var(--foreground)",
+        "background-image": [
+          "repeating-linear-gradient(180deg, var(--tooltip-scanline-ink) 0 1px, transparent 1px 4px)",
+          "linear-gradient(180deg in oklab, color-mix(in oklab, var(--foreground), white 12%), color-mix(in oklab, var(--foreground), black 12%))",
+        ].join(", "),
         color: "var(--background)",
         "box-shadow":
-          "inset 0 1px 0 color-mix(in oklab, var(--foreground), white 12%), var(--shadow-floating)",
+          "inset 0 1px 0 color-mix(in oklab, var(--foreground), white 18%), inset 0 -1px 2px color-mix(in oklab, var(--foreground), black 20%), var(--shadow-floating)",
         "overflow-wrap": "anywhere",
         "transform-origin": "var(--transform-origin)",
         opacity: "1",
@@ -1015,41 +1021,6 @@ export const theme = {
       ".ninaero-tooltip[data-instant][data-starting-style]": {
         opacity: "1",
         transform: "none",
-      },
-      ".ninaero-tooltip-arrow": {
-        "background-color": "var(--foreground)",
-        border: "0 solid color-mix(in oklab, var(--foreground), var(--background) 22%)",
-      },
-      // Base UI owns alignment coordinates; attach only the edge facing the trigger.
-      ".ninaero-tooltip-arrow[data-side=top]": {
-        bottom: "-3px",
-        "border-width": "0 1px 1px 0",
-      },
-      ".ninaero-tooltip-arrow[data-side=bottom]": {
-        top: "-3px",
-        "border-width": "1px 0 0 1px",
-      },
-      ".ninaero-tooltip-arrow[data-side=left]": {
-        right: "-4px",
-        "border-width": "1px 1px 0 0",
-      },
-      ".ninaero-tooltip-arrow[data-side=right]": {
-        left: "-4px",
-        "border-width": "0 0 1px 1px",
-      },
-      ".ninaero-tooltip-arrow[data-side=inline-start]": {
-        "inset-inline-end": "-4px",
-        "border-width": "1px 1px 0 0",
-      },
-      ".ninaero-tooltip-arrow[data-side=inline-end]": {
-        "inset-inline-start": "-4px",
-        "border-width": "0 0 1px 1px",
-      },
-      ".ninaero-tooltip-arrow:dir(rtl)[data-side=inline-start]": {
-        "border-width": "0 0 1px 1px",
-      },
-      ".ninaero-tooltip-arrow:dir(rtl)[data-side=inline-end]": {
-        "border-width": "1px 1px 0 0",
       },
       ".ninaero-select-content": {
         "transform-origin": "var(--transform-origin)",
@@ -1431,9 +1402,10 @@ export const theme = {
       },
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
-        ".ninaero-tooltip, .ninaero-tooltip-arrow": {
+        ".ninaero-tooltip": {
           "forced-color-adjust": "none",
           "background-color": "Canvas",
+          "background-image": "none",
           "border-color": "CanvasText",
           color: "CanvasText",
           "box-shadow": "none",

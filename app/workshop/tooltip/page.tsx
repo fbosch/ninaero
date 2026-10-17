@@ -10,7 +10,7 @@ export default function TooltipWorkshopPage() {
       <header className="flex flex-col gap-3">
         <h1 className="text-3xl type-display">Tooltips</h1>
         <p className="text-muted-foreground">
-          Inverted neutral faces, fine rims, and soft floating shadows.
+          Rounded faces with shaded fills and subtle CRT scanlines.
         </p>
         <p className="text-sm text-muted-foreground">
           Hover a control or reach it with Tab. Escape dismisses its tooltip. These controls are

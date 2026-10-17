@@ -90,11 +90,16 @@ body:not(.ninaero-overlay-dither) .home-page::after {
 }
 
 .site-wordmark {
+  text-shadow: var(--control-label-text-shadow);
+}
+
+.dark .site-wordmark {
   text-shadow: 0 1px 2px var(--display-ink-shadow);
 }
 
 @media (forced-colors: active) {
-  .site-wordmark {
+  .site-wordmark,
+  .dark .site-wordmark {
     text-shadow: none;
   }
 }
