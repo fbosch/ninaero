@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { CodeBlock } from "@/components/docs/code-block";
 import { patternGuidance } from "@/lib/pattern-guidance";
@@ -13,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: "Patterns | Ninaero",
   description:
-    "Configurable paper patterns, checkerboards, and diamond dithering with Tailwind spacing and ink colors.",
+    "Configurable paper patterns, checkerboards, diamond dithering, and optional site-wide overlays.",
 };
 
 const backgroundPatterns = [
@@ -143,7 +144,11 @@ export default function PatternsPage() {
         <p className="text-xs font-medium text-muted-foreground">Theme documentation</p>
         <h1 className="text-4xl type-display">Patterns</h1>
         <p className="max-w-2xl type-prose text-muted-foreground">
-          Seven opt-in textures with configurable spacing, ink, and fill.
+          Use paper patterns on individual elements, or add a{" "}
+          <Link href="#site-wide-overlays" className="text-foreground underline underline-offset-4">
+            site-wide overlay
+          </Link>{" "}
+          across the viewport.
         </p>
       </header>
 
@@ -152,10 +157,10 @@ export default function PatternsPage() {
           Set the interval
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          Numeric suffixes set CSS pixels, not Tailwind spacing steps. For example,{" "}
-          <code className="text-foreground">ninaero-paper-grid-8</code> draws an 8px grid without a
-          separate base class. Decimals such as 12.5 work, with a 1px minimum. Omit the suffix for
-          the defaults below. Dot sizes and stroke widths stay fixed.
+          For element-level patterns, numeric suffixes set CSS pixels, not Tailwind spacing steps.
+          For example, <code className="text-foreground">ninaero-paper-grid-8</code> draws an 8px
+          grid without a separate base class. Decimals such as 12.5 work, with a 1px minimum. Omit
+          the suffix for the defaults below. Dot sizes and stroke widths stay fixed.
         </p>
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
           <li>
@@ -227,10 +232,10 @@ export default function PatternsPage() {
           Set the ink color
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          <code className="text-foreground">ninaero-pattern-ink-*</code> accepts semantic, palette,
-          and arbitrary colors. Add <code className="text-foreground">/25</code> for 25% opacity.
-          Ink affects only pattern marks. Set the fill with{" "}
-          <code className="text-foreground">bg-*</code>.
+          For element-level patterns, <code className="text-foreground">ninaero-pattern-ink-*</code>{" "}
+          accepts semantic, palette, and arbitrary colors. Add{" "}
+          <code className="text-foreground">/25</code> for 25% opacity. Ink affects only pattern
+          marks. Set the fill with <code className="text-foreground">bg-*</code>.
         </p>
         <div className="grid grid-cols-3 gap-3">
           {colorSamples.map((sample) => (
@@ -295,13 +300,84 @@ export default function PatternsPage() {
         </p>
       </section>
 
+      <section aria-labelledby="site-wide-overlays" className="flex flex-col gap-4">
+        <h2 id="site-wide-overlays" className="text-xl type-heading">
+          Site-wide overlays
+        </h2>
+        <p className="text-sm type-prose text-muted-foreground">
+          Overlays are off by default in installed themes and on this site. Use the Overlay menu in
+          the header to preview each texture or choose Off. The demo retains your choice across
+          navigation and resets to Off on reload.
+        </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          Add the base class to body in your root layout. It paints a static texture across the
+          viewport, including menus and dialogs.
+        </p>
+        <CodeBlock
+          code={'<body className="ninaero-overlay-dither">\n  {children}\n</body>'}
+          label="Checker overlay"
+          language="tsx"
+        />
+        <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
+          <li>
+            <code className="text-foreground">ninaero-overlay-dither</code> enables Checker with a
+            2px tile.
+          </li>
+          <li>
+            Add <code className="text-foreground">ninaero-overlay-dots</code> for Ordered dots on a
+            4px tile.
+          </li>
+          <li>
+            Add <code className="text-foreground">ninaero-overlay-lines</code> for Diagonal lines on
+            a 4px tile.
+          </li>
+        </ul>
+        <p className="text-sm type-prose text-muted-foreground">
+          Both modifiers need the base class. Overlay ink follows the neutral foreground at 4%
+          opacity, with <code className="text-foreground">multiply</code> blending in light mode and{" "}
+          <code className="text-foreground">screen</code> blending in dark mode.
+        </p>
+        <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
+          <li>
+            <code className="text-foreground">--ninaero-overlay-opacity</code> sets opacity from 0
+            to 1. The default is 0.04.
+          </li>
+          <li>
+            <code className="text-foreground">--ninaero-overlay-size</code> sets the tile width and
+            height with a CSS length.
+          </li>
+          <li>
+            Set <code className="text-foreground">--ninaero-overlay-blend-mode</code> to{" "}
+            <code className="text-foreground">normal</code> to compare without color blending.
+          </li>
+        </ul>
+        <CodeBlock
+          code={
+            '<body className="ninaero-overlay-dither [--ninaero-overlay-opacity:0.02] [--ninaero-overlay-size:4px] [--ninaero-overlay-blend-mode:normal]">\n  {children}\n</body>'
+          }
+          label="Overlay tuning"
+          language="tsx"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          Keep overlays faint and check text, focus rings, disabled controls, and error states after
+          tuning them. These are static textures, not image filters.
+        </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          The layer ignores pointer input and adds no keyboard stops. It reserves{" "}
+          <code className="text-foreground">body::after</code>, so keep that pseudo-element free and
+          avoid transforms on body. Print and forced-colors mode hide the overlay. Remove the base
+          class to disable it.
+        </p>
+      </section>
+
       <section aria-labelledby="paper-guidance-heading" className="flex flex-col gap-4">
         <h2 id="paper-guidance-heading" className="text-xl type-heading">
           Readability and accessibility
         </h2>
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
           <li>
-            Use one pattern per region. Keep dense content and controls on opaque backgrounds.
+            For element-level patterns, use one pattern per region. Keep dense content and controls
+            on opaque backgrounds.
           </li>
           <li>
             Apply <code className="text-foreground">aria-hidden</code> only to decorative layers,

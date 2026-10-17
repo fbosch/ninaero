@@ -92,6 +92,16 @@ export default function ThemeDocsPage() {
           Site-wide dithering
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
+          See{" "}
+          <Link
+            href="/docs/patterns#site-wide-overlays"
+            className="text-foreground underline underline-offset-4"
+          >
+            site-wide overlays in Patterns
+          </Link>{" "}
+          for texture choices, setup, and tuning.
+        </p>
+        <p className="text-sm type-prose text-muted-foreground">
           Overlays are off by default on this site and in installed themes. Add
           ninaero-overlay-dither to your body element for a static stipple over the whole viewport,
           including menus and dialogs.
