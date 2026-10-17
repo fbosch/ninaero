@@ -34,6 +34,11 @@ const componentSpecimens = [
     title: "Checkboxes",
     description: "Checked, indeterminate, invalid, and disabled states.",
   },
+  {
+    href: "/workshop/radio-group",
+    title: "Radio Group",
+    description: "Single selection, keyboard navigation, invalid, and disabled states.",
+  },
 ] as const;
 
 const foundationSpecimens = [

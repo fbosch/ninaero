@@ -714,7 +714,7 @@ export const theme = {
         "box-shadow": "none",
         outline: "none",
       },
-      ".ninaero-checkbox": {
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item)": {
         ...recessedTrackMaterial,
         "--button-recess-fill":
           "color-mix(in oklab, var(--input-fill), black var(--recess-shade-weight))",
@@ -726,36 +726,55 @@ export const theme = {
         transition:
           "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out",
       },
-      ".ninaero-checkbox:where([data-checked], [data-indeterminate])": {
-        ...selectedTrackMaterial,
-        "--button-recess-fill": "var(--button-primary-pressed)",
-        "border-color": "var(--button-primary-edge)",
-        color: "color-mix(in oklab, var(--primary-foreground), black 12%)",
-      },
-      ".ninaero-checkbox:where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked]:not([data-indeterminate]))":
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item):where([data-checked], [data-indeterminate])":
+        {
+          ...selectedTrackMaterial,
+          "--button-recess-fill": "var(--button-primary-pressed)",
+          "border-color": "var(--button-primary-edge)",
+          color: "color-mix(in oklab, var(--primary-foreground), black 12%)",
+        },
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item):where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked]:not([data-indeterminate]))":
         {
           "border-color": "var(--neutral-input)",
         },
-      ".ninaero-checkbox:where(:hover:not([data-disabled]):not([data-readonly])):where([data-checked], [data-indeterminate])":
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item):where(:hover:not([data-disabled]):not([data-readonly])):where([data-checked], [data-indeterminate])":
         {
           "border-color": "var(--ring)",
         },
-      ".ninaero-checkbox:where(:active:not([data-disabled]):not([data-readonly]))": {
-        "background-image": "none",
-        "background-color": "var(--button-recess-fill)",
-        "box-shadow": recessShadow("var(--button-recess-fill)"),
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item):where(:active:not([data-disabled]):not([data-readonly]))":
+        {
+          "background-image": "none",
+          "background-color": "var(--button-recess-fill)",
+          "box-shadow": recessShadow("var(--button-recess-fill)"),
+        },
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item):where([aria-invalid=true], [data-invalid])":
+        {
+          "border-color": "var(--destructive)",
+        },
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item):where([data-readonly])": {
+        cursor: "default",
       },
-      ".ninaero-checkbox:where([aria-invalid=true], [data-invalid])": {
-        "border-color": "var(--destructive)",
-      },
-      ".ninaero-checkbox:where([data-readonly])": { cursor: "default" },
-      ".ninaero-checkbox:where([data-disabled])": {
+      ":is(.ninaero-checkbox, .ninaero-radio-group-item):where([data-disabled])": {
         "background-color": "var(--input-disabled-fill)",
         "border-color": "var(--border)",
         color: "var(--muted-foreground)",
         "background-image": "none",
         "box-shadow": "none",
         cursor: "not-allowed",
+      },
+      ".ninaero-radio-group-dot": {
+        "background-color": "currentColor",
+      },
+      ":where(:root:not(.dark)) .ninaero-radio-group-dot": {
+        border: "1px solid var(--button-paper-edge)",
+        "background-color": "white",
+        "background-image": "linear-gradient(180deg in oklab, white, #e6e6e6)",
+        "box-shadow": "inset 0 1px 0 white, inset 0 -1px 0 #00000014, 0 1px 2px #00000033",
+      },
+      ".ninaero-radio-group-item:where([data-disabled]) .ninaero-radio-group-dot": {
+        "background-color": "currentColor",
+        "background-image": "none",
+        "box-shadow": "none",
       },
       ".ninaero-switch": {
         ...recessedTrackMaterial,
@@ -1256,7 +1275,7 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
-        ".ninaero-checkbox": { transition: "none" },
+        ":is(.ninaero-checkbox, .ninaero-radio-group-item)": { transition: "none" },
         ".ninaero-switch, .ninaero-switch-thumb": { transition: "none" },
         ".ninaero-slider-thumb": { transition: "none" },
         ".ninaero-tabs-trigger": {
@@ -1290,7 +1309,7 @@ export const theme = {
       },
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
-        ".ninaero-checkbox": {
+        ":is(.ninaero-checkbox, .ninaero-radio-group-item)": {
           "forced-color-adjust": "none",
           "border-color": "CanvasText",
           "background-color": "Canvas",
@@ -1298,18 +1317,26 @@ export const theme = {
           "background-image": "none",
           "box-shadow": "none",
         },
-        ".ninaero-checkbox:where([data-checked], [data-indeterminate])": {
-          "border-color": "Highlight",
-          "background-color": "Highlight",
-          color: "HighlightText",
-        },
-        ".ninaero-checkbox:where([aria-invalid=true], [data-invalid])": {
-          "border-style": "dashed",
-        },
-        ".ninaero-checkbox:where([data-disabled])": {
+        ":is(.ninaero-checkbox, .ninaero-radio-group-item):where([data-checked], [data-indeterminate])":
+          {
+            "border-color": "Highlight",
+            "background-color": "Highlight",
+            color: "HighlightText",
+          },
+        ":is(.ninaero-checkbox, .ninaero-radio-group-item):where([aria-invalid=true], [data-invalid])":
+          {
+            "border-style": "dashed",
+          },
+        ":is(.ninaero-checkbox, .ninaero-radio-group-item):where([data-disabled])": {
           "border-color": "GrayText",
           "background-color": "Canvas",
           color: "GrayText",
+        },
+        ".ninaero-radio-group-dot": {
+          "border-color": "currentColor",
+          "background-color": "currentColor",
+          "background-image": "none",
+          "box-shadow": "none",
         },
         ".ninaero-switch": {
           "forced-color-adjust": "none",

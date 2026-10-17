@@ -25,7 +25,7 @@ function contrast(first, second) {
 }
 
 for (const mode of ["light", "dark"]) {
-  test(`${mode} checkbox check and mixed marks retain contrast across accent materials`, () => {
+  test(`${mode} checkbox and radio selection marks retain contrast across accent materials`, () => {
     for (const [name, preset] of Object.entries(accentPresets)) {
       const palette = { ...theme[mode], ...preset[mode] };
       const glass = createGlassGradientTokens(palette);
@@ -51,7 +51,7 @@ for (const mode of ["light", "dark"]) {
     }
   });
 
-  test(`${mode} checkbox selection and invalid boundaries remain distinct on paper and panels`, () => {
+  test(`${mode} checkbox and radio selection and invalid boundaries remain distinct on paper and panels`, () => {
     for (const [name, preset] of Object.entries(accentPresets)) {
       const palette = { ...theme[mode], ...preset[mode] };
       for (const fill of [

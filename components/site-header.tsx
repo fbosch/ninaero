@@ -1,16 +1,35 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
+import { useAccent } from "@/components/accent-provider";
 import { AppearanceSelectors } from "@/components/appearance-selectors";
+import { FrutigerDolloMark } from "@/components/frutiger-dollo-mark";
 import { SiteSearch } from "@/components/site-search";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { renderFrutigerDolloSvg } from "@/lib/frutiger-dollo-mark";
+import { accentPresets } from "@/registry/ninaero/accents.mjs";
 
 const destinations = [["/docs", "Docs"]] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { accent } = useAccent();
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (!favicon) return;
+
+    const colorMode = resolvedTheme === "dark" ? "dark" : "light";
+    const palette = accentPresets[accent][colorMode];
+    favicon.href = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+      renderFrutigerDolloSvg(palette, 32),
+    )}`;
+  }, [accent, resolvedTheme]);
 
   return (
     <header className="site-header">
@@ -20,9 +39,7 @@ export function SiteHeader() {
           className="flex shrink-0 flex-wrap items-center gap-5 text-sm"
         >
           <Link href="/" className="type-title inline-flex items-center gap-2">
-            <span aria-hidden="true" className="text-xl leading-none">
-              🐠
-            </span>
+            <FrutigerDolloMark className="shrink-0" />
             Ninaero
           </Link>
           {destinations.map(([href, label]) => {
