@@ -25,6 +25,7 @@ const neutralRoles = [
   "input",
   "neutral-border",
   "neutral-input",
+  "input-edge",
   "button-paper-fill",
   "button-paper-hover",
   "button-paper-pressed",
@@ -106,17 +107,31 @@ test("neutral overlay text and matte Button labels retain 4.5:1 contrast", () =>
   }
 });
 
-test("neutral control edges retain 3:1 contrast on their resting materials", () => {
-  for (const mode of ["light", "dark"]) {
-    const palette = theme[mode];
-    for (const token of ["neutral-input", "button-paper-edge", "button-outline-edge"]) {
-      for (const fill of ["card", "paper-fill", "button-paper-fill"]) {
-        const ratio = contrast(resolve(palette, token), resolve(palette, fill));
-        assert.ok(ratio >= 3, `${mode} ${token} on ${fill}: ${ratio.toFixed(2)}:1`);
+for (const mode of ["light", "dark"]) {
+  test(`neutral ${mode} resting edges remain subtle across accents`, () => {
+    for (const [name, preset] of Object.entries(accentPresets)) {
+      const palette = { ...theme[mode], ...preset[mode] };
+      for (const token of [
+        "neutral-input",
+        "input-edge",
+        "button-paper-edge",
+        "button-outline-edge",
+      ]) {
+        const fills =
+          token === "input-edge"
+            ? ["background", "card", "paper-fill", "input-fill"]
+            : ["background", "card", "paper-fill", "button-paper-fill"];
+        for (const fill of fills) {
+          const ratio = contrast(resolve(palette, token), resolve(palette, fill));
+          assert.ok(
+            ratio >= 1.25 && ratio <= 2.75,
+            `${mode} ${name} ${token} on ${fill}: ${ratio.toFixed(2)}:1`,
+          );
+        }
       }
     }
-  }
-});
+  });
+}
 
 test("hero ink retains 4.5:1 contrast throughout neutral shading in every preset and mode", () => {
   for (const mode of ["light", "dark"]) {

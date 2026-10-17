@@ -17,6 +17,88 @@ const raisedButtonGroupSelector = [
 ].join("");
 const segmentedTabSelector =
   ".ninaero-tabs-list[data-variant=default] > .ninaero-tabs-trigger:where(:not(:disabled):not([data-disabled]):not([aria-disabled=true]))";
+const enabledFocus =
+  ":not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])";
+const focusable = `:focus-visible${enabledFocus}:not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input)`;
+const focusFrames = [
+  ".ninaero-button",
+  ".ninaero-toggle",
+  ".ninaero-tabs-trigger",
+  ".ninaero-select-trigger",
+  "[data-slot=checkbox]",
+  "[data-slot=radio-group-item]",
+  "[data-slot=switch]",
+  "[data-slot=accordion-trigger]",
+  "[data-slot=navigation-menu-trigger]",
+  "[data-slot=navigation-menu-link]",
+  "[data-slot=menubar-trigger]",
+  "[data-slot=menubar-sub-trigger]",
+  "[data-slot=dropdown-menu-item]",
+  "[data-slot=dropdown-menu-sub-trigger]",
+  "[data-slot=dropdown-menu-checkbox-item]",
+  "[data-slot=dropdown-menu-radio-item]",
+  "[data-slot=context-menu-item]",
+  "[data-slot=context-menu-sub-trigger]",
+  "[data-slot=context-menu-checkbox-item]",
+  "[data-slot=context-menu-radio-item]",
+  "[data-slot=menubar-item]",
+  "[data-slot=menubar-checkbox-item]",
+  "[data-slot=menubar-radio-item]",
+  ".ninaero-select-item",
+  "[data-slot=combobox-item]",
+  "[data-slot=command-item]",
+  "[data-slot=input-otp-slot]",
+  "[data-slot=combobox-chips]",
+  "[data-slot=questionnaire-choice]",
+].join(", ");
+const proxyFocus = [
+  `.ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible${enabledFocus})`,
+  `[data-slot=combobox-chips]:has(input:focus-visible${enabledFocus})`,
+  `[data-slot=questionnaire-choice]:has(input:focus-visible${enabledFocus})`,
+  `.ninaero-slider-thumb:has(:focus-visible)${enabledFocus}`,
+  "[data-slot=input-otp-slot][data-active=true]",
+  // These primitives retain DOM focus on the input or list while moving the active option.
+  ".ninaero-select-item[data-highlighted]",
+  "[data-slot=combobox-item][data-highlighted]",
+  "[data-slot=command]:focus-within [data-slot=command-item][data-selected=true]",
+]
+  .map((selector) => `${selector}${enabledFocus}`)
+  .join(", ");
+const focusTargets = `${focusable}, ${proxyFocus}`;
+const gradientFocus = `:is(${focusFrames}):is(${focusTargets}):not([aria-invalid=true]):not([data-invalid]):not(:has([aria-invalid=true]))`;
+const fieldFocus = `:is(.ninaero-input, .ninaero-textarea):focus-visible${enabledFocus}:not([aria-invalid=true]), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible${enabledFocus}):not([aria-invalid=true]):not(:has([aria-invalid=true]))`;
+const focusGlowShadow =
+  "0 0 0 4px color-mix(in oklab, var(--ring) 12%, transparent), 0 0 14px 2px color-mix(in oklab, var(--ring) 18%, transparent)";
+const focusShadow = `var(--ninaero-material-shadow, var(--tw-shadow, 0 0 #0000)), ${focusGlowShadow}`;
+const focusEdge = {
+  content: '""',
+  position: "absolute",
+  inset: "-1px",
+  "box-sizing": "border-box",
+  "z-index": "1",
+  "pointer-events": "none",
+  "border-radius": "inherit",
+  "corner-shape": "inherit",
+  border: "1px solid transparent",
+  background: "linear-gradient(180deg, var(--ninaero-focus-edge-top), var(--ring)) border-box",
+  mask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
+  "mask-composite": "exclude",
+};
+
+// Preserve each material and pressed-state shadow when adding the shared focus halo.
+function withMaterialShadows(rules) {
+  return Object.fromEntries(
+    Object.entries(rules).flatMap(([key, value]) => {
+      if (key === "box-shadow") {
+        return [
+          [key, value],
+          ["--ninaero-material-shadow", value === "none" ? "0 0 #0000" : value],
+        ];
+      }
+      return [[key, value && typeof value === "object" ? withMaterialShadows(value) : value]];
+    }),
+  );
+}
 
 export const elevations = {
   // A transparent layer composes with inset bevels; none cannot appear in a shadow list.
@@ -248,9 +330,9 @@ export const theme = {
   },
   light: {
     background: "oklch(1 0 0)",
-    "neutral-border": "#dfdfdf",
-    "neutral-input": "#838383",
-    "input-edge": "#8b8b8b",
+    "neutral-border": "#e8e8e8",
+    "neutral-input": "#b8b8b8",
+    "input-edge": "#c8c8c8",
     "input-fill": "oklch(0.975 0 0)",
     "input-placeholder": "oklch(0.5 0 0)",
     "input-disabled-fill": "var(--muted)",
@@ -295,8 +377,8 @@ export const theme = {
     ...createGlassGradientTokens(accentPresets[defaultAccent].light),
     ...accentSemanticTokens,
     "button-paper-fill": "#f8f8f8",
-    "button-paper-edge": "#888888",
-    "button-outline-edge": "#838383",
+    "button-paper-edge": "#c5c5c5",
+    "button-outline-edge": "#c8c8c8",
     "button-paper-hover": "#eeeeee",
     "button-paper-ink": "#383838",
     "button-paper-pressed": "#e3e3e3",
@@ -320,9 +402,9 @@ export const theme = {
   },
   dark: {
     background: "oklch(0.145 0 0)",
-    "neutral-border": "#424242",
-    "neutral-input": "#909090",
-    "input-edge": "#6f6f6f",
+    "neutral-border": "#303030",
+    "neutral-input": "#555555",
+    "input-edge": "#454545",
     "input-fill": "oklch(0.18 0 0)",
     "input-placeholder": "var(--muted-foreground)",
     "input-disabled-fill": "var(--input-fill)",
@@ -364,12 +446,12 @@ export const theme = {
     ...createGlassGradientTokens(accentPresets[defaultAccent].dark),
     ...accentSemanticTokens,
     "button-paper-fill": "#343434",
-    "button-paper-edge": "#7f7f7f",
-    "button-outline-edge": "#909090",
+    "button-paper-edge": "#555555",
+    "button-outline-edge": "#454545",
     "button-paper-hover": "#454545",
     "button-paper-ink": "#efefef",
     "button-paper-pressed": "#2e2e2e",
-    "button-paper-highlight": "#ffffff26",
+    "button-paper-highlight": "#ffffff14",
     "button-paper-shade": "#00000040",
     "button-recess-shade-weight": "6%",
     "button-recess-highlight-weight": "8%",
@@ -472,6 +554,8 @@ export const theme = {
     "@layer base": {
       "*": {
         "@apply border-border outline-ring/50": {},
+        "--ninaero-material-shadow": "initial",
+        "--ninaero-focus-outline": "initial",
       },
       "@media (forced-colors: none)": {
         "::selection": {
@@ -488,7 +572,43 @@ export const theme = {
         "font-variation-settings": `"ROND" ${sansFont.roundness}`,
       },
     },
-    "@layer components": {
+    "@layer utilities": {
+      [focusTargets]: {
+        "--ninaero-focus-edge-top": "color-mix(in oklab, var(--ring), white 15%)",
+        outline: "1px solid var(--ninaero-focus-outline, var(--ring))",
+        "outline-offset": "3px",
+        "--tw-ring-shadow": "0 0 #0000",
+        "--tw-ring-offset-shadow": "0 0 #0000",
+        "box-shadow": focusShadow,
+      },
+      "@media (forced-colors: none)": {
+        "@supports (mask-composite: exclude)": {
+          [gradientFocus]: { "--ninaero-focus-outline": "transparent" },
+          [`${gradientFocus}::before`]: focusEdge,
+        },
+        [fieldFocus]: {
+          "border-color": "transparent",
+          "--ninaero-focus-outline": "transparent",
+          "background-image":
+            "linear-gradient(var(--input-fill), var(--input-fill)), linear-gradient(180deg, var(--ninaero-focus-edge-top), var(--ring))",
+          "background-origin": "border-box",
+          "background-clip": "padding-box, border-box",
+        },
+      },
+      "@media (forced-colors: active)": {
+        [focusTargets]: {
+          outline: "2px solid Highlight",
+          "outline-offset": "3px",
+          "box-shadow": "none",
+          filter: "none",
+        },
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        [focusTargets]: { transition: "none" },
+      },
+    },
+    "@layer components": withMaterialShadows({
+      [focusFrames]: { position: "relative" },
       // Resolve color-dependent tokens locally so receiving-material colors can inherit.
       ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-slider-thumb":
         elevationVariables,
@@ -523,7 +643,7 @@ export const theme = {
         },
       ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible, .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible)":
         {
-          "outline-color": "var(--ring)",
+          "outline-color": "transparent",
         },
       ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true])":
         {
@@ -608,7 +728,7 @@ export const theme = {
           "inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black var(--button-recess-shade-weight)), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white var(--button-recess-highlight-weight))",
       },
       ".ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
-        outline: "2px solid var(--ring)",
+        outline: "1px solid var(--ring)",
         "outline-offset": "3px",
       },
       ".ninaero-slider:where([data-invalid], [aria-invalid=true]) .ninaero-slider-thumb": {
@@ -712,7 +832,7 @@ export const theme = {
         color: "var(--accent-foreground)",
       },
       ".ninaero-select-item[data-highlighted]": {
-        "outline-color": "var(--ring)",
+        "outline-color": "transparent",
       },
       ".ninaero-select-item[data-highlighted]:not([data-selected]):not([data-disabled])": {
         "background-color": "var(--muted)",
@@ -850,7 +970,7 @@ export const theme = {
         "box-shadow": "inset 0 1px 0 var(--button-highlight)",
       },
       ".ninaero-toggle:focus-visible": {
-        "outline-color": "var(--ring)",
+        "outline-color": "transparent",
       },
       ".ninaero-toggle[aria-invalid=true]": {
         "border-color": "var(--button-destructive-edge)",
@@ -935,7 +1055,7 @@ export const theme = {
           "background-color": "var(--button-paper-hover)",
         },
       ".ninaero-button:focus-visible": {
-        "outline-color": "var(--button-focus)",
+        "outline-color": "transparent",
       },
       ".ninaero-button[aria-invalid=true]": {
         "border-color": "var(--button-destructive-edge)",
@@ -1252,6 +1372,6 @@ export const theme = {
             "border-color": "GrayText",
           },
       },
-    },
+    }),
   },
 };

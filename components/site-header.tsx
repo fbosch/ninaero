@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { AccentSwitcher } from "@/components/accent-switcher";
+import { SiteSearch } from "@/components/site-search";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const destinations = [["/docs", "Docs"]] as const;
@@ -46,6 +47,7 @@ export function SiteHeader() {
           <AccentSwitcher />
           <ThemeSwitcher />
         </div>
+        <SiteSearch />
       </div>
     </header>
   );

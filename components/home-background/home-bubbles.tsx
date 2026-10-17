@@ -43,12 +43,13 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
   const refractionId = useId();
   const refractionImageRef = useRef<SVGFEImageElement>(null);
   const pausedRef = useRef(paused);
+  const lensFieldRef = useRef<HTMLDivElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
   const popLayerRef = useRef<HTMLDivElement>(null);
   const resumeRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    const field = fieldRef.current;
+    const field = lensFieldRef.current;
     const map = refractionImageRef.current;
     if (!field || !map || !CSS.supports("backdrop-filter", `url("#${refractionId}")`)) return;
     const texture = bubbleRefractionTexture();
@@ -75,17 +76,20 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
 
   useEffect(() => {
     const fieldElement = fieldRef.current;
+    const lensField = lensFieldRef.current;
     const surfaceElement = fieldElement?.closest("main");
     const popElement = popLayerRef.current;
-    if (!fieldElement || !surfaceElement || !popElement) return;
+    if (!fieldElement || !lensField || !surfaceElement || !popElement) return;
     const field = fieldElement;
     const surface = surfaceElement;
     const popLayer = popElement;
 
     const elements = Array.from(field.querySelectorAll<HTMLSpanElement>(":scope > span"));
+    const lensElements = Array.from(lensField.querySelectorAll<HTMLSpanElement>(":scope > span"));
+    const layers = elements.map((element, index) => [element, lensElements[index]]);
     const outlines = Array.from(field.querySelectorAll("ellipse"));
     const entrances = createBubbleEntrances(
-      Array.from(field.getElementsByClassName(styles.bubbleLens)),
+      Array.from(lensField.getElementsByClassName(styles.bubbleLens)),
       Array.from(field.getElementsByClassName(styles.bubbleSurface)),
     );
     const painted = elements.map(() => ({ radius: NaN, angle: NaN, scaleX: NaN, scaleY: NaN }));
@@ -100,17 +104,38 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     let held: HeldBubble | null = null;
 
     function paint() {
-      elements.forEach((element, index) => {
+      layers.forEach((pair, index) => {
         const bubble = bubbles[index];
-        if (element.hidden !== !bubble) element.hidden = !bubble;
+        for (const element of pair) {
+          if (element.hidden !== !bubble) element.hidden = !bubble;
+        }
         if (!bubble) return;
         const previous = painted[index];
         const radiusChanged = previous.radius !== bubble.radius;
         const shape = bubbleShape(bubble);
+        const transform = `translate(${bubble.x - bubble.radius}px, ${bubble.y - bubble.radius}px)`;
+        for (const element of pair) {
+          const style = element.style;
+          if (radiusChanged) {
+            style.width = `${bubble.radius * 2}px`;
+            style.height = `${bubble.radius * 2}px`;
+          }
+          style.transform = transform;
+          if (previous.angle !== shape.angle) {
+            style.setProperty("--bubble-angle", `${shape.angle}rad`);
+            style.setProperty("--bubble-counter-angle", `${-shape.angle}rad`);
+          }
+          if (previous.scaleX !== shape.scaleX) {
+            style.setProperty("--bubble-scale-x", String(shape.scaleX));
+            style.setProperty("--bubble-inverse-x", String(1 / shape.scaleX));
+          }
+          if (previous.scaleY !== shape.scaleY) {
+            style.setProperty("--bubble-scale-y", String(shape.scaleY));
+            style.setProperty("--bubble-inverse-y", String(1 / shape.scaleY));
+          }
+        }
         const outline = outlines[index];
         if (radiusChanged) {
-          element.style.width = `${bubble.radius * 2}px`;
-          element.style.height = `${bubble.radius * 2}px`;
           outline.setAttribute("cx", String(bubble.radius));
           outline.setAttribute("cy", String(bubble.radius));
         }
@@ -125,19 +150,6 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
             "ry",
             String(Math.max(0, bubble.radius * shape.scaleY - rimWidth / 2)),
           );
-        }
-        element.style.transform = `translate(${bubble.x - bubble.radius}px, ${bubble.y - bubble.radius}px)`;
-        if (previous.angle !== shape.angle) {
-          element.style.setProperty("--bubble-angle", `${shape.angle}rad`);
-          element.style.setProperty("--bubble-counter-angle", `${-shape.angle}rad`);
-        }
-        if (previous.scaleX !== shape.scaleX) {
-          element.style.setProperty("--bubble-scale-x", String(shape.scaleX));
-          element.style.setProperty("--bubble-inverse-x", String(1 / shape.scaleX));
-        }
-        if (previous.scaleY !== shape.scaleY) {
-          element.style.setProperty("--bubble-scale-y", String(shape.scaleY));
-          element.style.setProperty("--bubble-inverse-y", String(1 / shape.scaleY));
         }
         previous.radius = bubble.radius;
         previous.angle = shape.angle;
@@ -414,10 +426,16 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
           </filter>
         </defs>
       </svg>
-      <div ref={fieldRef} className={styles.field} aria-hidden="true">
+      <div ref={lensFieldRef} className={styles.lensField} aria-hidden="true">
         {slots.map((slot) => (
           <span key={slot} className={styles.bubble} hidden>
             <span className={styles.bubbleLens} />
+          </span>
+        ))}
+      </div>
+      <div ref={fieldRef} className={styles.field} aria-hidden="true">
+        {slots.map((slot) => (
+          <span key={slot} className={styles.bubble} hidden>
             <span className={styles.bubbleSurface}>
               <span className={styles.bubbleShape} />
               <svg className={styles.bubbleRim} aria-hidden="true" focusable="false">

@@ -6,7 +6,7 @@ Ninaero combines a Nintendo handheld-inspired layout with paper details and rest
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This document records the agreed visual direction. Button is the first fully styled component. Cyan is the default accent, with Indigo, Lavender, Slate, Lagoon, Sky, Blossom, and Lime alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Status colors remain independent of the accent, and destructive states keep semantic red.
+This document records the agreed visual direction. Button is the first fully styled component. Tidepool is the default accent, with Aurora, Lavender, Slate, Lagoon, Sky, Blossom, and Lime alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Status colors remain independent of the accent, and destructive states keep semantic red.
 
 ## Reference hierarchy
 
@@ -120,6 +120,8 @@ Define pattern fills, ink, and CSS recipes in `registry/ninaero/theme.mjs` so co
 Ninaero is neutral-first in both color modes. Page backgrounds, cards, popovers, menus, dialogs, field fills, ordinary borders, default paper patterns, and cast shadows use grayscale values. Dark panels are charcoal or gray, not blue-black. A token named neutral must actually be achromatic, not merely unchanged across accent presets.
 
 Reserve the chosen accent for primary actions, links, selected controls, active states, and keyboard focus. Secondary and Outline controls keep neutral materials. Feedback colors retain their semantic meaning. Syntax highlighting and data marks may use color to distinguish content, while their containers stay neutral. Popover and menu containers use the neutral card palette independently of Button material tokens; their selected items and controls may use the accent.
+
+Keep resting neutral borders close to their surrounding fills, using pale gray in light mode and charcoal in dark mode. Resting borders have no 3:1 contrast minimum. Preserve the existing contrast targets for text, keyboard focus, selected states, and errors.
 
 | Role                  | Direction                                                                 |
 | --------------------- | ------------------------------------------------------------------------- |
@@ -302,7 +304,7 @@ Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Bot
 
 Input, Textarea, and Select triggers use regular rounded corners with a 12px radius, distinct from Button's squircle proportions. Default fields share `field-height` and `field-padding-inline`, currently `2.25rem` and `1rem`. Textarea shares the horizontal inset but retains its multiline height. Compact Select triggers keep their 28px height and `0.5rem` horizontal inset. InputGroup shares the default row height and outside inset, including its adornments.
 
-Use an opaque neutral `input-fill` slightly darker than the surrounding panel and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes; keep at least 3:1 contrast against the adjacent paper and field fills. Strengthen the neutral edge on hover without overriding invalid or disabled states.
+Use an opaque neutral `input-fill` slightly darker than the surrounding panel and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes. Strengthen the neutral edge on hover without overriding invalid or disabled states.
 
 Give fields a shallow paper recess with a broad upper-interior shade and a soft lower-interior highlight. Use a 2px downward inset offset with 6px blur for the shade, and a 1px upward inset offset with 2px blur for the highlight. Derive both tones from `input-fill`, using black mixes of 6% in light mode and 12% in dark mode, and white mixes of 35% and 7%. Keep the center flat and opaque. Placeholder ink must retain contrast against both inset tones.
 

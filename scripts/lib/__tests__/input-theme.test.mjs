@@ -18,22 +18,12 @@ function luminance(hex) {
   return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
 }
 
-test("field edges retain 3:1 contrast on paper and content fills in both modes", () => {
+test("field edges stay quieter than shared control borders in both modes", () => {
   for (const mode of ["light", "dark"]) {
     const palette = theme[mode];
     const edge = luminance(palette["input-edge"]);
     const shared = luminance(palette["neutral-input"]);
     assert.ok(mode === "light" ? edge > shared : edge < shared);
-
-    const fills = [
-      luminance(palette["paper-fill"]),
-      lightness(palette, "card") ** 3,
-      lightness(palette, "input-fill") ** 3,
-    ];
-    for (const fill of fills) {
-      const ratio = (Math.max(edge, fill) + 0.05) / (Math.min(edge, fill) + 0.05);
-      assert.ok(ratio >= 3, `${mode} field edge: ${ratio.toFixed(2)}:1`);
-    }
   }
 });
 

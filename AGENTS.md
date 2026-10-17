@@ -15,6 +15,7 @@ Ninaero is an installable shadcn/ui theme with a local workshop and component do
 
 ## Component behavior
 
+- Build interactive components on `@base-ui/react` primitives, using shadcn-style wrappers and Ninaero's shared theme. Preserve Base UI's accessibility and interaction behavior rather than reimplementing it.
 - Keep Dialog and AlertDialog in separate shadcn source files backed by their own Base UI primitives. Reuse installed theme CSS and tokens for visual consistency; do not replace them with a shared React modal wrapper or import one implementation into the other.
 - Preserve primitive-specific roles, dismissal, and focus behavior when restyling. AlertDialog blocks outside-click dismissal and uses explicit actions. Keep Cancel backed by its Close primitive and leave Action completion and closure to the caller. Do not add Dialog's corner close button or make every alert destructive.
 

@@ -69,7 +69,7 @@ for (const [name, preset] of Object.entries(accentPresets)) {
 
 test("accent variables retain their existing values when material stops are added", () => {
   const source = Object.fromEntries(
-    Object.entries(accentPresets.cyan.light).map(([name, value]) => [`--${name}`, value]),
+    Object.entries(accentPresets.tidepool.light).map(([name, value]) => [`--${name}`, value]),
   );
   const original = { ...source };
   const result = withGlassGradientVariables(source);

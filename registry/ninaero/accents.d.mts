@@ -1,6 +1,6 @@
 export type AccentName =
-  | "cyan"
-  | "indigo"
+  | "tidepool"
+  | "aurora"
   | "lavender"
   | "slate"
   | "lagoon"

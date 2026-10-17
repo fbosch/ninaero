@@ -33,3 +33,31 @@ test("commands reject unsupported actions, item paths, and invalid URLs", () => 
   }
   assert.throws(() => registryCommand("add", "button", "file:///tmp/r"));
 });
+
+for (const [packageManager, runner] of [
+  ["npm", "npx"],
+  ["pnpm", "pnpm dlx"],
+  ["yarn", "yarn dlx"],
+  ["bun", "bunx --bun"],
+]) {
+  test(`${packageManager} commands use its runner and preserve shell-quoted registry URLs`, () => {
+    for (const [action, name] of [
+      ["init", "ninaero"],
+      ["add", "button"],
+    ]) {
+      assert.equal(
+        registryCommand(action, name, "https://example.com/it's;$HOME/r/", packageManager),
+        `${runner} shadcn@latest ${action} 'https://example.com/it'\\''s;$HOME/r/${name}.json'`,
+      );
+    }
+  });
+}
+
+test("commands reject unsupported package managers", () => {
+  for (const packageManager of ["unknown", "npm;echo", "__proto__", "constructor", "", null, {}]) {
+    assert.throws(
+      () => registryCommand("init", "ninaero", "https://example.com/r", packageManager),
+      /package manager/,
+    );
+  }
+});

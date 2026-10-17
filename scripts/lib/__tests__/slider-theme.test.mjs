@@ -43,7 +43,7 @@ function composite(overlay, background, amount = 1) {
     .join("")}`;
 }
 
-test("slider track boundaries and focus retain 3:1 contrast on paper and panels", () => {
+test("slider focus retains 3:1 contrast on paper and panels", () => {
   for (const [name, preset] of Object.entries(accentPresets)) {
     for (const mode of ["light", "dark"]) {
       const palette = { ...theme[mode], ...preset[mode] };
@@ -53,16 +53,14 @@ test("slider track boundaries and focus retain 3:1 contrast on paper and panels"
         palette["paper-fill"],
         palette["input-fill"],
       ]) {
-        for (const color of [palette["input-edge"], palette["button-focus"]]) {
-          const ratio = contrast(color, background);
-          assert.ok(ratio >= 3, `${name} ${mode} slider boundary: ${ratio.toFixed(2)}:1`);
-        }
+        const ratio = contrast(palette["button-focus"], background);
+        assert.ok(ratio >= 3, `${name} ${mode} slider focus: ${ratio.toFixed(2)}:1`);
       }
     }
   }
 });
 
-test("neutral Button-derived grabbers retain contrast-safe borders across accents", () => {
+test("neutral Button-derived grabbers stay subtle across accents", () => {
   for (const [name, preset] of Object.entries(accentPresets)) {
     for (const mode of ["light", "dark"]) {
       const palette = { ...theme[mode], ...preset[mode] };
@@ -129,7 +127,10 @@ test("neutral Button-derived grabbers retain contrast-safe borders across accent
       }
       for (const background of [palette.background, palette.card, palette["paper-fill"]]) {
         const ratio = contrast(edge, background);
-        assert.ok(ratio >= 3, `${name} ${mode} grabber border: ${ratio.toFixed(2)}:1`);
+        assert.ok(
+          ratio >= 1.25 && ratio <= 2.75,
+          `${name} ${mode} grabber border: ${ratio.toFixed(2)}:1`,
+        );
       }
     }
   }

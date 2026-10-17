@@ -20,8 +20,8 @@ function contrast(first, second) {
 
 test("the available accent presets remain an explicit consumer choice", () => {
   assert.deepEqual(Object.keys(accentPresets), [
-    "cyan",
-    "indigo",
+    "tidepool",
+    "aurora",
     "lavender",
     "slate",
     "lagoon",
@@ -50,7 +50,6 @@ for (const [name, preset] of Object.entries(accentPresets)) {
         assert.ok(contrast(palette["button-link-ink"], background) >= 4.5);
         assert.ok(contrast(palette["button-focus"], background) >= 3);
         assert.ok(contrast(palette["button-primary-edge"], background) >= 3);
-        assert.ok(contrast(theme[mode]["neutral-input"], background) >= 3);
       }
     });
   }

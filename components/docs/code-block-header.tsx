@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { CheckIcon, CopyIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
-export function CodeBlockHeader({ code, label }: { code: string; label: string }) {
+export function CodeBlockHeader({
+  code,
+  label,
+  children,
+}: {
+  code: string;
+  label: string;
+  children?: ReactNode;
+}) {
   const [result, setResult] = useState<{
     code: string;
     state: "copying" | "copied" | "error";
@@ -24,7 +32,7 @@ export function CodeBlockHeader({ code, label }: { code: string; label: string }
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 border-b px-4 py-2">
-      <span className="text-xs font-medium text-muted-foreground">{label}</span>
+      {children ?? <span className="text-xs font-medium text-muted-foreground">{label}</span>}
       <div className="flex items-center gap-3">
         <output aria-live="polite" className="text-xs text-muted-foreground">
           {state === "copying"

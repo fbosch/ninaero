@@ -1,9 +1,19 @@
+.lensField,
 .field {
   position: absolute;
   inset: 0;
-  z-index: -3;
   overflow: hidden;
   pointer-events: none;
+}
+
+/* Blending creates a backdrop root, so keep refraction in a separate field. */
+.lensField {
+  z-index: -4;
+}
+
+.field {
+  z-index: -3;
+  mix-blend-mode: screen;
 }
 
 .bubble {
@@ -60,21 +70,16 @@
     ),
     radial-gradient(
       ellipse 70% 50% at 65% 100%,
-      color-mix(in oklab, var(--primary) 35%, transparent),
-      color-mix(in oklab, var(--ring) 14%, transparent) 50%,
+      rgb(255 255 255 / 0.2),
+      rgb(255 255 255 / 0.07) 50%,
       transparent 80%
     ),
-    radial-gradient(
-      circle,
-      transparent 48%,
-      color-mix(in oklab, var(--primary) 12%, transparent) 80%,
-      color-mix(in oklab, var(--ring) 10%, transparent)
-    ),
+    radial-gradient(circle, transparent 48%, rgb(255 255 255 / 0.1) 80%, rgb(255 255 255 / 0.14)),
     linear-gradient(
       145deg,
-      color-mix(in oklab, var(--primary) 12%, transparent),
+      rgb(255 255 255 / 0.06),
       rgb(255 255 255 / 0.01) 45%,
-      color-mix(in oklab, var(--ring) 9%, transparent)
+      rgb(255 255 255 / 0.05)
     );
 }
 
@@ -85,9 +90,18 @@
   height: 100%;
   overflow: visible;
   fill: none;
-  stroke: color-mix(in oklab, var(--ring) 45%, var(--primary));
-  stroke-opacity: 0.7;
+  stroke: color-mix(in oklab, white 88%, var(--ring));
+  stroke-opacity: 0.45;
   transform: rotate(var(--bubble-angle));
+}
+
+/* Keep theme attenuation separate from refraction and the surface's entrance fade. */
+[class~="dark"] .bubbleShape {
+  opacity: 0.25;
+}
+
+[class~="dark"] .bubbleRim {
+  opacity: 0.35;
 }
 
 .popLayer {
@@ -115,6 +129,7 @@
 }
 
 @media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .lensField,
   .field {
     display: none;
   }

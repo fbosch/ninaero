@@ -1,9 +1,9 @@
-export const defaultAccent = "cyan";
+export const defaultAccent = "tidepool";
 export const accentStorageKey = "ninaero-accent";
 
 export const accentPresets = {
-  cyan: {
-    label: "Cyan",
+  tidepool: {
+    label: "Tidepool",
     light: {
       "button-primary-fill": "#b9e9f5",
       "button-primary-hover": "#a2dfef",
@@ -25,8 +25,8 @@ export const accentPresets = {
       "accent-soft": "#203e48",
     },
   },
-  indigo: {
-    label: "Indigo",
+  aurora: {
+    label: "Aurora",
     light: {
       "button-primary-fill": "#ccd5f5",
       "button-primary-hover": "#b7c5ef",

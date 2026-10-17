@@ -1,14 +1,20 @@
 import Link from "next/link";
 
-import { CodeBlock } from "@/components/docs/code-block";
+import { HighlightedCode } from "@/components/docs/highlighted-code";
+import { InstallCommand } from "@/components/docs/install-command";
 import { HomeBackground } from "@/components/home-background";
-import { presetInstallCommand } from "@/lib/component-documentation";
+import { docsRegistryUrl } from "@/lib/component-documentation";
 import { ArrowRightIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
+import { registryCommand } from "@/scripts/lib/registry-command.mjs";
 
 import styles from "@/components/home-background/home-background.module.css";
 
 export default function Home() {
+  const installCommands = ["npm", "pnpm", "yarn", "bun"].map((packageManager) => {
+    const code = registryCommand("init", "ninaero", docsRegistryUrl, packageManager);
+    return { packageManager, code, content: <HighlightedCode code={code} language="bash" /> };
+  });
   return (
     <main
       id="main"
@@ -19,43 +25,33 @@ export default function Home() {
         className="home-paper ninaero-paper-dotted mix-blend-multiply dark:mix-blend-screen ninaero-pattern-ink-foreground/12 dark:ninaero-pattern-ink-foreground/8"
       />
       <div className="mx-auto max-w-6xl space-y-12 px-5 py-8 sm:px-8 lg:py-12">
-        <section className="home-hero relative space-y-10">
-          <div className="max-w-4xl">
-            <header className="min-w-0 space-y-8">
-              <h1 className="text-balance text-5xl type-display sm:text-6xl">
-                <span className="ninaero-display-ink block">An optimistic & nostalgic theme</span>{" "}
-                <span className="home-tagline block">for a comfy modern web</span>
-              </h1>
-              <div className="flex flex-wrap items-center gap-3">
-                <Button
-                  size="xl"
-                  className="min-w-40"
-                  nativeButton={false}
-                  render={<Link href="/docs" />}
-                >
-                  Get started <ArrowRightIcon data-icon="inline-end" />
-                </Button>
-              </div>
-            </header>
-          </div>
-          <section aria-labelledby="install-heading" className="flex max-w-3xl flex-col gap-5">
-            <div className="flex flex-col gap-3">
+        <section className="home-hero relative flex flex-col gap-8 sm:gap-12">
+          <header className="flex min-w-0 max-w-4xl flex-col gap-4">
+            <h1 className="text-balance text-5xl type-display sm:text-6xl">
+              <span className="ninaero-display-ink block">An optimistic & nostalgic theme</span>{" "}
+              <span className="home-tagline block">for a comfy modern web</span>
+            </h1>
+            <p className={`max-w-xl text-lg ${styles.description}`}>
+              A shadcn/ui theme and component registry.
+            </p>
+          </header>
+          <section aria-labelledby="install-heading" className="flex max-w-3xl flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <h2 id="install-heading" className="text-sm type-title tracking-normal">
                 Install Ninaero
               </h2>
               <p className={`text-sm ${styles.description}`}>
-                Add the theme and components to your project.
+                Start a new project with the complete preset.
               </p>
             </div>
-            <CodeBlock code={presetInstallCommand} language="bash" label="Complete preset" />
+            <InstallCommand commands={installCommands} />
             <Button
-              variant="link"
-              size="sm"
-              className="self-start"
+              size="xl"
+              className="min-w-40 self-start"
               nativeButton={false}
               render={<Link href="/docs#docs-quick-start" />}
             >
-              Installation guide <ArrowRightIcon data-icon="inline-end" />
+              Get started <ArrowRightIcon data-icon="inline-end" />
             </Button>
           </section>
         </section>
