@@ -18,7 +18,6 @@ const overlayItems = [
   { value: "off", label: "Off", className: "" },
   { value: "checker", label: "Checker", className: "" },
   { value: "dots", label: "Ordered dots", className: "ninaero-overlay-dots" },
-  { value: "halftone", label: "Halftone dots", className: "ninaero-overlay-halftone" },
   { value: "lines", label: "Diagonal lines", className: "ninaero-overlay-lines" },
 ] as const;
 

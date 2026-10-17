@@ -24,8 +24,8 @@ export default function Home() {
         aria-hidden="true"
         className="home-paper ninaero-paper-dotted mix-blend-multiply dark:mix-blend-screen ninaero-pattern-ink-foreground/12 dark:ninaero-pattern-ink-foreground/8"
       />
-      <div className="mx-auto max-w-6xl space-y-12 px-5 py-8 sm:px-8 lg:py-12">
-        <section className="home-hero relative flex flex-col gap-8 sm:gap-12">
+      <div className="mx-auto flex max-w-6xl flex-col gap-12 px-5 py-8 sm:px-8 lg:py-28">
+        <section className="home-hero relative flex flex-col gap-8 sm:gap-12 lg:ml-0 lg:mr-auto lg:w-full lg:max-w-4xl">
           <header className="flex min-w-0 max-w-4xl flex-col gap-4">
             <h1 className="text-balance text-5xl type-display sm:text-6xl">
               <span className="ninaero-display-ink block">An optimistic & nostalgic theme</span>{" "}

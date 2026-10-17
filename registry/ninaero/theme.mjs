@@ -389,7 +389,7 @@ export const theme = {
     "secondary-foreground": "oklch(0.205 0 0)",
     muted: "oklch(0.97 0 0)",
     "muted-foreground": "oklch(0.556 0 0)",
-    destructive: "oklch(0.577 0.245 27.325)",
+    destructive: "#93404f",
     "chart-1": "oklch(0.87 0 0)",
     "chart-2": "oklch(0.556 0 0)",
     "chart-3": "oklch(0.439 0 0)",
@@ -463,7 +463,7 @@ export const theme = {
     "secondary-foreground": "oklch(0.985 0 0)",
     muted: "oklch(0.269 0 0)",
     "muted-foreground": "oklch(0.708 0 0)",
-    destructive: "oklch(0.704 0.191 22.216)",
+    destructive: "#e5a6b2",
     "chart-1": "oklch(0.87 0 0)",
     "chart-2": "oklch(0.556 0 0)",
     "chart-3": "oklch(0.439 0 0)",
@@ -561,10 +561,6 @@ export const theme = {
     "@utility ninaero-overlay-dots": {
       "--ninaero-overlay-pattern": "radial-gradient(circle, black 0.75px, transparent 0.75px)",
       "--ninaero-overlay-tile": "4px",
-    },
-    "@utility ninaero-overlay-halftone": {
-      "--ninaero-overlay-pattern": halftoneMask(),
-      "--ninaero-overlay-tile": `${halftoneTile}px`,
     },
     "@utility ninaero-overlay-lines": {
       "--ninaero-overlay-pattern":

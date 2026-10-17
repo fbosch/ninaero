@@ -102,9 +102,9 @@ export default function ThemeDocsPage() {
           language="tsx"
         />
         <p className="text-sm type-prose text-muted-foreground">
-          Use the Overlay selector in the header to compare Checker, Ordered dots, Halftone dots,
-          and Diagonal lines, or choose Off. The demo keeps your choice across page navigation and
-          resets to Off on reload.
+          Use the Overlay selector in the header to compare Checker, Ordered dots, and Diagonal
+          lines, or choose Off. The demo keeps your choice across page navigation and resets to Off
+          on reload.
         </p>
         <p className="text-sm type-prose text-muted-foreground">
           The base class uses Checker. Add one modifier class to choose another texture:
@@ -112,9 +112,6 @@ export default function ThemeDocsPage() {
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
           <li>
             <code>ninaero-overlay-dots</code>: ordered dots on a 4px tile.
-          </li>
-          <li>
-            <code>ninaero-overlay-halftone</code>: staggered halftone dots on an 8px tile.
           </li>
           <li>
             <code>ninaero-overlay-lines</code>: diagonal lines on a 4px tile.

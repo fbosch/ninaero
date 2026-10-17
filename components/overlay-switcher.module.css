@@ -20,10 +20,6 @@
   mask-size: 25% 25%;
 }
 
-.swatch[data-overlay="halftone"] {
-  mask-size: 50% 50%;
-}
-
 .swatch[data-overlay="off"] {
   border: 1px solid var(--muted-foreground);
   border-radius: 50%;
