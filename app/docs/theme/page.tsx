@@ -123,9 +123,11 @@ export default function ThemeDocsPage() {
           language="tsx"
         />
         <p className="text-sm type-prose text-muted-foreground">
-          Checker uses a 2px tile at 4% ink opacity. The ink follows the neutral foreground in light
-          and dark mode. Adjust opacity from 0 to 1 and tile size with CSS custom properties. Keep
-          the texture faint so small text and control states remain readable.
+          Checker uses a 2px tile at 4% ink opacity. The ink follows the neutral foreground, with
+          multiply blending in light mode and screen blending in dark mode. Adjust opacity from 0 to
+          1 and tile size with CSS custom properties. Keep the texture faint so small text and
+          control states remain readable. Set --ninaero-overlay-blend-mode to normal for an
+          unblended texture.
         </p>
         <CodeBlock
           code={

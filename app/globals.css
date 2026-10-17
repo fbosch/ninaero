@@ -96,7 +96,7 @@
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --destructive: #93404f;
+  --destructive: #b02f1e;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -144,13 +144,13 @@
   --button-paper-shade: #3333330d;
   --button-recess-shade-weight: 4%;
   --button-recess-highlight-weight: 6%;
-  --button-destructive-fill: #f6d9dc;
-  --button-destructive-hover: #efc2c8;
-  --button-destructive-pressed: #e8aeb7;
-  --button-destructive-ink: #782934;
-  --button-destructive-edge: #a35864;
+  --button-destructive-fill: #ffd9cd;
+  --button-destructive-hover: #ffcab9;
+  --button-destructive-pressed: #f5b3a0;
+  --button-destructive-ink: #7e291b;
+  --button-destructive-edge: #c25038;
   --button-destructive-highlight: #ffffff66;
-  --button-destructive-shade: #4a081c14;
+  --button-destructive-shade: #5a1b0a14;
   --button-highlight: #ffffff80;
   --shadow-color: 0deg 0% 24%;
   --shadow-color-paper: 0deg 0% 28%;
@@ -161,6 +161,7 @@
   --paper-notebook-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%206H120%20M0%2012H120%20M0%2018H120%20M0%2024H120%20M0%2030H120%20M0%2036H120%20M0%2042H120%20M0%2048H120%20M0%2054H120%20M0%2060H120%20M0%2066H120%20M0%2072H120%20M0%2078H120%20M0%2084H120%20M0%2090H120%20M0%2096H120%20M0%20102H120%20M0%20108H120%20M0%20114H120%22%20stroke%3D%22white%22%20stroke-opacity%3D%220.3125%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200H120V120H0Z%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200h0%20M120%200h0%20M0%20120h0%20M120%20120h0%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E");
   --dither-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22none%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200L8%208M8%200L0%208%22%20stroke%3D%22white%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E");
   --overlay-checker-mask: conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0);
+  --ninaero-overlay-blend-mode: multiply;
 }
 
 .dark {
@@ -197,7 +198,7 @@
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --destructive: #e5a6b2;
+  --destructive: #ff9b83;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -242,11 +243,11 @@
   --button-paper-shade: #00000040;
   --button-recess-shade-weight: 6%;
   --button-recess-highlight-weight: 8%;
-  --button-destructive-fill: #603039;
-  --button-destructive-hover: #743945;
-  --button-destructive-pressed: #502630;
-  --button-destructive-ink: #ffe0e5;
-  --button-destructive-edge: #cf7b8c;
+  --button-destructive-fill: #ffa088;
+  --button-destructive-hover: #ffb39d;
+  --button-destructive-pressed: #ed8b73;
+  --button-destructive-ink: #35160f;
+  --button-destructive-edge: #ffc5b5;
   --button-destructive-highlight: #ffffff1a;
   --button-destructive-shade: #00000040;
   --button-highlight: #ffffff33;
@@ -256,6 +257,7 @@
   --paper-rule: #cecece0f;
   --paper-dot: #cecece24;
   --paper-rule-strong: #cecece30;
+  --ninaero-overlay-blend-mode: screen;
 }
 
 [data-accent="tidepool"] {
@@ -938,6 +940,7 @@
     pointer-events: none;
     user-select: none;
     background-color: var(--foreground);
+    mix-blend-mode: var(--ninaero-overlay-blend-mode);
     mask-image: var(--ninaero-overlay-pattern, var(--overlay-checker-mask));
     mask-mode: alpha;
     mask-size: var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px));
