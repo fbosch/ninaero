@@ -88,16 +88,8 @@ test("neutral Button-derived grabbers stay subtle across accents", () => {
         ...face,
         pressed,
         ...grooveTones,
-        mixOklab(
-          pressed,
-          "#000000",
-          Number.parseFloat(palette["button-recess-shade-weight"]) / 100,
-        ),
-        mixOklab(
-          pressed,
-          "#ffffff",
-          Number.parseFloat(palette["button-recess-highlight-weight"]) / 100,
-        ),
+        mixOklab(pressed, "#000000", Number.parseFloat(palette["recess-shade-weight"]) / 100),
+        mixOklab(pressed, "#ffffff", Number.parseFloat(palette["recess-highlight-weight"]) / 100),
       ];
       for (const tone of tones) {
         const channels = tone.slice(1).match(/../g);

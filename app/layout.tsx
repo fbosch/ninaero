@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script>{accentBootstrap}</script>
       </head>
-      <body>
+      <body className="flex min-h-svh flex-col">
         <ThemeProvider>
           <AccentProvider>
             <TooltipProvider>

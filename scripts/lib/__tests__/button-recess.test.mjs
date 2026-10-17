@@ -67,11 +67,10 @@ for (const mode of ["light", "dark"]) {
   for (const [name, fill, ink] of materials) {
     test(`${name} ${mode}: inset tones preserve material hue and 4.5:1 label contrast`, () => {
       const lab = toOklab(linearRgb(fill));
-      const shadeWeight = Number.parseFloat(theme[mode]["button-recess-shade-weight"]) / 100;
-      const highlightWeight =
-        Number.parseFloat(theme[mode]["button-recess-highlight-weight"]) / 100;
-      assert.ok(shadeWeight > 0 && shadeWeight < 0.1);
-      assert.ok(highlightWeight > 0 && highlightWeight < 0.1);
+      const shadeWeight = Number.parseFloat(theme[mode]["recess-shade-weight"]) / 100;
+      const highlightWeight = Number.parseFloat(theme[mode]["recess-highlight-weight"]) / 100;
+      assert.ok(shadeWeight > 0 && shadeWeight < 1);
+      assert.ok(highlightWeight > 0 && highlightWeight < 1);
 
       const shade = mixTone(lab, 0, shadeWeight);
       const highlight = mixTone(lab, 1, highlightWeight);

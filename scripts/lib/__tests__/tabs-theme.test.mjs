@@ -36,6 +36,14 @@ function contrast(first, second) {
   return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 }
 
+function recessedTones(palette, fill) {
+  return [
+    fill,
+    mixOklab(fill, "#000000", Number.parseFloat(palette["recess-shade-weight"]) / 100),
+    mixOklab(fill, "#ffffff", Number.parseFloat(palette["recess-highlight-weight"]) / 100),
+  ];
+}
+
 function selectedTones(palette) {
   return ["tabs-active-top", "tabs-active-fill", "tabs-active-bottom"].flatMap((token) => [
     palette[token],
@@ -48,15 +56,17 @@ test("tab labels retain AA contrast across neutral materials, presets, and color
     for (const mode of ["light", "dark"]) {
       const palette = { ...theme[mode], ...preset[mode] };
       const backgrounds = [
-        palette["tabs-track-fill"],
-        composite(palette["tabs-track-shade"], palette["tabs-track-fill"]),
-        palette["tabs-hover-fill"],
+        ...recessedTones(palette, palette["tabs-track-fill"]),
+        ...recessedTones(palette, palette["tabs-hover-fill"]),
       ];
       for (const background of backgrounds) {
         const ratio = contrast(palette["tabs-ink"], background);
         assert.ok(ratio >= 4.5, `${name} ${mode} inactive label: ${ratio.toFixed(2)}:1`);
       }
-      for (const background of [...selectedTones(palette), palette["tabs-hover-fill"]]) {
+      for (const background of [
+        ...selectedTones(palette),
+        ...recessedTones(palette, palette["tabs-hover-fill"]),
+      ]) {
         const ratio = contrast(palette.foreground, background);
         assert.ok(ratio >= 4.5, `${name} ${mode} selected label: ${ratio.toFixed(2)}:1`);
       }
@@ -68,8 +78,7 @@ test("selected tab boundaries retain 3:1 contrast against the track and raised m
   for (const mode of ["light", "dark"]) {
     const palette = theme[mode];
     for (const background of [
-      palette["tabs-track-fill"],
-      composite(palette["tabs-track-shade"], palette["tabs-track-fill"]),
+      ...recessedTones(palette, palette["tabs-track-fill"]),
       ...selectedTones(palette),
     ]) {
       const ratio = contrast(palette["tabs-active-edge"], background);

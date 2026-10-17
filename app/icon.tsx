@@ -4,6 +4,7 @@ import { glassMarkForcedColors, theme } from "@/registry/ninaero/theme.mjs";
 
 export const contentType = "image/svg+xml";
 export const size = { width: 32, height: 32 };
+export const dynamic = "force-static";
 
 function paletteVariables(palette: Readonly<Record<string, string>>) {
   const names = glassGradientOffsets.flatMap((offset) => [

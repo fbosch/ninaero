@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { accentPresets } from "../../../registry/ninaero/accents.mjs";
-import { mixOklab } from "../../../registry/ninaero/glass-materials.mjs";
+import { createGlassGradientTokens, mixOklab } from "../../../registry/ninaero/glass-materials.mjs";
 import { theme } from "../../../registry/ninaero/theme.mjs";
 
 function luminance(color) {
@@ -28,21 +28,24 @@ for (const mode of ["light", "dark"]) {
   test(`${mode} checkbox check and mixed marks retain contrast across accent materials`, () => {
     for (const [name, preset] of Object.entries(accentPresets)) {
       const palette = { ...theme[mode], ...preset[mode] };
-      const fill = palette["accent-soft"];
-      const tones = [0, 0.25, 0.5, 0.75, 1].flatMap((amount) => [
-        mixOklab(
-          fill,
-          "#000000",
-          (Number.parseFloat(palette["checkbox-shade-weight"]) / 100) * amount,
-        ),
-        mixOklab(
-          fill,
-          "#ffffff",
-          (Number.parseFloat(palette["checkbox-highlight-weight"]) / 100) * amount,
-        ),
-      ]);
+      const glass = createGlassGradientTokens(palette);
+      const stops = [0, 50, 100].map((offset) => glass[`glass-mark-face-${offset}`]);
+      const pressed = palette["button-primary-pressed"];
+      const tones = [
+        palette["button-primary-fill"],
+        mixOklab(stops[0], "#ffffff", 0.25),
+        mixOklab(stops[2], "#000000", 0.08),
+        pressed,
+        mixOklab(pressed, "#000000", Number.parseFloat(palette["recess-shade-weight"]) / 100),
+        mixOklab(pressed, "#ffffff", Number.parseFloat(palette["recess-highlight-weight"]) / 100),
+        ...[0, 0.25, 0.5, 0.75, 1].flatMap((amount) => [
+          mixOklab(stops[0], stops[1], amount),
+          mixOklab(stops[1], stops[2], amount),
+        ]),
+      ];
       for (const tone of tones) {
-        const ratio = contrast(palette["button-link-ink"], tone);
+        const ink = mixOklab(palette["button-primary-ink"], "#000000", 0.12);
+        const ratio = contrast(ink, tone);
         assert.ok(ratio >= 4.5, `${name} ${mode} selection mark: ${ratio.toFixed(2)}:1`);
       }
     }

@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/dev.mjs",
-    "build": "pnpm registry:build && next build",
-    "start": "next start",
+    "build": "pnpm registry:build && next build && node scripts/exclude-workshop-from-static-export.mjs",
     "registry:build": "node scripts/build-registry.mjs && shadcn build",
     "lint": "oxlint",
     "format": "oxfmt --write .",

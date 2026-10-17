@@ -17,9 +17,11 @@ const raisedButtonGroupSelector = [
 ].join("");
 const segmentedTabSelector =
   ".ninaero-tabs-list[data-variant=default] > .ninaero-tabs-trigger:where(:not(:disabled):not([data-disabled]):not([aria-disabled=true]))";
+// Select options keep focus inside their scroll-clipped list.
+const selectItemFocus = ".ninaero-select-item:is(:focus-visible, [data-highlighted])";
 const enabledFocus =
   ":not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])";
-const focusable = `:focus-visible${enabledFocus}:not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input)`;
+const focusable = `:focus-visible${enabledFocus}:not(.ninaero-select-item):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input)`;
 const focusFrames = [
   ".ninaero-button",
   ".ninaero-toggle",
@@ -44,7 +46,6 @@ const focusFrames = [
   "[data-slot=menubar-item]",
   "[data-slot=menubar-checkbox-item]",
   "[data-slot=menubar-radio-item]",
-  ".ninaero-select-item",
   "[data-slot=combobox-item]",
   "[data-slot=command-item]",
   "[data-slot=input-otp-slot]",
@@ -58,7 +59,6 @@ const proxyFocus = [
   `.ninaero-slider-thumb:has(:focus-visible)${enabledFocus}`,
   "[data-slot=input-otp-slot][data-active=true]",
   // These primitives retain DOM focus on the input or list while moving the active option.
-  ".ninaero-select-item[data-highlighted]",
   "[data-slot=combobox-item][data-highlighted]",
   "[data-slot=command]:focus-within [data-slot=command-item][data-selected=true]",
 ]
@@ -123,16 +123,17 @@ const elevationVariables = Object.fromEntries(
 );
 const controlCastShadow = "var(--button-cast-shadow, var(--shadow-control))";
 
-export const buttonRecessShadow = [
-  "inset 0 1px 2px var(--button-recess-shade)",
-  "inset 0 -1px 0 var(--button-recess-highlight)",
-].join(", ");
+function recessShadow(fill) {
+  return [
+    `inset 0 2px 6px color-mix(in oklab, ${fill}, black var(--recess-shade-weight))`,
+    `inset 0 -1px 2px color-mix(in oklab, ${fill}, white var(--recess-highlight-weight))`,
+  ].join(", ");
+}
 
 const recessedTrackMaterial = {
   border: "1px solid var(--input-edge)",
   "background-color": "var(--input-fill)",
-  "box-shadow":
-    "inset 0 2px 3px color-mix(in oklab, var(--input-fill), black 12%), inset 0 -1px 0 color-mix(in oklab, var(--input-fill), white 6%)",
+  "box-shadow": recessShadow("var(--input-fill)"),
 };
 const selectedTrackMaterial = {
   "background-color": "var(--button-primary-fill)",
@@ -151,8 +152,7 @@ const paperThumbMaterial = {
 const pressedThumbMaterial = {
   "background-color": "var(--button-paper-pressed)",
   "background-image": "none",
-  "box-shadow":
-    "inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black var(--button-recess-shade-weight)), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white var(--button-recess-highlight-weight))",
+  "box-shadow": recessShadow("var(--button-paper-pressed)"),
 };
 const sansFont = {
   family: "'Google Sans Flex Variable', ui-sans-serif, system-ui, sans-serif",
@@ -364,16 +364,15 @@ export const theme = {
     "input-placeholder": "oklch(0.5 0 0)",
     "input-disabled-fill": "var(--muted)",
     "tabs-track-fill": "#ededed",
-    "tabs-track-shade": "#0000000a",
     "tabs-active-fill": "#f6f6f6",
     "tabs-active-top": "#ffffff",
     "tabs-active-bottom": "#e1e1e1",
-    "tabs-active-edge": "#7f7f7f",
+    "tabs-active-edge": "#777777",
     "tabs-active-highlight": "#ffffff80",
     "tabs-hover-fill": "#e3e3e3",
-    "tabs-ink": "#616161",
-    "input-recess-shade-weight": "6%",
-    "input-recess-highlight-weight": "35%",
+    "tabs-ink": "#575757",
+    "recess-shade-weight": "6%",
+    "recess-highlight-weight": "35%",
     foreground: "oklch(0.145 0 0)",
     "display-ink-top": "oklch(0.32 0 0)",
     "display-ink-bottom": "oklch(0.22 0 0)",
@@ -411,10 +410,6 @@ export const theme = {
     "button-paper-pressed": "#e3e3e3",
     "button-paper-highlight": "#ffffffa6",
     "button-paper-shade": "#3333330d",
-    "button-recess-shade-weight": "4%",
-    "button-recess-highlight-weight": "6%",
-    "checkbox-shade-weight": "6%",
-    "checkbox-highlight-weight": "45%",
     "button-destructive-fill": "#ffd9cd",
     "button-destructive-hover": "#ffcab9",
     "button-destructive-pressed": "#f5b3a0",
@@ -441,7 +436,6 @@ export const theme = {
     "input-placeholder": "var(--muted-foreground)",
     "input-disabled-fill": "var(--input-fill)",
     "tabs-track-fill": "#242424",
-    "tabs-track-shade": "#00000040",
     "tabs-active-fill": "#3a3a3a",
     "tabs-active-top": "#454545",
     "tabs-active-bottom": "#2e2e2e",
@@ -449,8 +443,8 @@ export const theme = {
     "tabs-active-highlight": "#ffffff1a",
     "tabs-hover-fill": "#303030",
     "tabs-ink": "#b5b5b5",
-    "input-recess-shade-weight": "12%",
-    "input-recess-highlight-weight": "7%",
+    "recess-shade-weight": "12%",
+    "recess-highlight-weight": "7%",
     foreground: "oklch(0.985 0 0)",
     "display-ink-top": "oklch(0.985 0 0)",
     "display-ink-bottom": "oklch(0.88 0 0)",
@@ -485,10 +479,6 @@ export const theme = {
     "button-paper-pressed": "#2e2e2e",
     "button-paper-highlight": "#ffffff14",
     "button-paper-shade": "#00000040",
-    "button-recess-shade-weight": "6%",
-    "button-recess-highlight-weight": "8%",
-    "checkbox-shade-weight": "18%",
-    "checkbox-highlight-weight": "12%",
     "button-destructive-fill": "#ffa088",
     "button-destructive-hover": "#ffb39d",
     "button-destructive-pressed": "#ed8b73",
@@ -682,17 +672,12 @@ export const theme = {
       },
       ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
         "--input-corner": "0.75rem",
-        "--input-recess-shade":
-          "color-mix(in oklab, var(--input-fill), black var(--input-recess-shade-weight))",
-        "--input-recess-highlight":
-          "color-mix(in oklab, var(--input-fill), white var(--input-recess-highlight-weight))",
         "border-radius": "var(--input-corner)",
         "corner-shape": "round",
         border: "1px solid var(--input-edge)",
         color: "var(--card-foreground)",
         "background-color": "var(--input-fill)",
-        "box-shadow":
-          "inset 0 2px 6px var(--input-recess-shade), inset 0 -1px 2px var(--input-recess-highlight)",
+        "box-shadow": recessShadow("var(--input-fill)"),
         outline: "2px solid transparent",
         "outline-offset": "3px",
         transition: "background-color 80ms ease-out, border-color 80ms ease-out",
@@ -730,31 +715,22 @@ export const theme = {
         outline: "none",
       },
       ".ninaero-checkbox": {
-        "--checkbox-fill": "var(--input-fill)",
-        "--checkbox-shade":
-          "color-mix(in oklab, var(--checkbox-fill), black var(--checkbox-shade-weight))",
-        "--checkbox-highlight":
-          "color-mix(in oklab, var(--checkbox-fill), white var(--checkbox-highlight-weight))",
+        ...recessedTrackMaterial,
+        "--button-recess-fill":
+          "color-mix(in oklab, var(--input-fill), black var(--recess-shade-weight))",
         "corner-shape": "round",
-        border: "1px solid var(--input-edge)",
         padding: "0",
         color: "var(--card-foreground)",
-        "background-color": "var(--checkbox-fill)",
-        "box-shadow":
-          "inset 0 2px 3px var(--checkbox-shade), inset 0 -1px 1px var(--checkbox-highlight)",
         cursor: "pointer",
         outline: "none",
         transition:
           "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out",
       },
       ".ninaero-checkbox:where([data-checked], [data-indeterminate])": {
-        "--checkbox-fill": "var(--accent)",
+        ...selectedTrackMaterial,
+        "--button-recess-fill": "var(--button-primary-pressed)",
         "border-color": "var(--button-primary-edge)",
-        color: "var(--accent-foreground)",
-        "background-image":
-          "linear-gradient(180deg in oklab, var(--checkbox-highlight), var(--checkbox-fill) 48%, var(--checkbox-shade))",
-        "box-shadow":
-          "inset 0 1px 0 var(--checkbox-highlight), inset 0 -1px 0 var(--checkbox-shade)",
+        color: "color-mix(in oklab, var(--primary-foreground), black 12%)",
       },
       ".ninaero-checkbox:where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked]:not([data-indeterminate]))":
         {
@@ -766,15 +742,15 @@ export const theme = {
         },
       ".ninaero-checkbox:where(:active:not([data-disabled]):not([data-readonly]))": {
         "background-image": "none",
-        "box-shadow":
-          "inset 0 2px 3px var(--checkbox-shade), inset 0 -1px 1px var(--checkbox-highlight)",
+        "background-color": "var(--button-recess-fill)",
+        "box-shadow": recessShadow("var(--button-recess-fill)"),
       },
       ".ninaero-checkbox:where([aria-invalid=true], [data-invalid])": {
         "border-color": "var(--destructive)",
       },
       ".ninaero-checkbox:where([data-readonly])": { cursor: "default" },
       ".ninaero-checkbox:where([data-disabled])": {
-        "--checkbox-fill": "var(--input-disabled-fill)",
+        "background-color": "var(--input-disabled-fill)",
         "border-color": "var(--border)",
         color: "var(--muted-foreground)",
         "background-image": "none",
@@ -992,8 +968,8 @@ export const theme = {
         "background-color": "var(--accent)",
         color: "var(--accent-foreground)",
       },
-      ".ninaero-select-item[data-highlighted]": {
-        "outline-color": "transparent",
+      [selectItemFocus]: {
+        "outline-color": "var(--ring)",
       },
       ".ninaero-select-item[data-highlighted]:not([data-selected]):not([data-disabled])": {
         "background-color": "var(--muted)",
@@ -1006,7 +982,7 @@ export const theme = {
         "corner-shape": "round",
         border: "1px solid var(--border)",
         "background-color": "var(--tabs-track-fill)",
-        "box-shadow": "inset 0 1px 3px var(--tabs-track-shade)",
+        "box-shadow": recessShadow("var(--tabs-track-fill)"),
       },
       ".ninaero-tabs-trigger": {
         "border-radius": "var(--radius-md)",
@@ -1034,7 +1010,7 @@ export const theme = {
         {
           "background-color": "var(--tabs-hover-fill)",
           "background-image": "none",
-          "box-shadow": "inset 0 1px 2px var(--tabs-track-shade)",
+          "box-shadow": recessShadow("var(--tabs-hover-fill)"),
         },
       ".ninaero-tabs-trigger:disabled, .ninaero-tabs-trigger[data-disabled], .ninaero-tabs-trigger[aria-disabled=true]":
         {
@@ -1105,10 +1081,6 @@ export const theme = {
       ".ninaero-toggle": {
         "--toggle-corner": "var(--radius-md)",
         "--button-recess-fill": "var(--button-paper-pressed)",
-        "--button-recess-shade":
-          "color-mix(in oklab, var(--button-recess-fill), black var(--button-recess-shade-weight))",
-        "--button-recess-highlight":
-          "color-mix(in oklab, var(--button-recess-fill), white var(--button-recess-highlight-weight))",
         "border-radius": "var(--toggle-corner)",
         "corner-shape": "round",
         border: "1px solid transparent",
@@ -1138,7 +1110,7 @@ export const theme = {
       },
       ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
         "background-color": "var(--button-recess-fill)",
-        "box-shadow": buttonRecessShadow,
+        "box-shadow": recessShadow("var(--button-recess-fill)"),
       },
       ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]":
         {
@@ -1149,10 +1121,6 @@ export const theme = {
         "--button-corner": "1rem",
         "--button-press-shift": "1px",
         "--button-recess-fill": "var(--background)",
-        "--button-recess-shade":
-          "color-mix(in oklab, var(--button-recess-fill), black var(--button-recess-shade-weight))",
-        "--button-recess-highlight":
-          "color-mix(in oklab, var(--button-recess-fill), white var(--button-recess-highlight-weight))",
         "border-radius": "var(--button-corner)",
         "corner-shape": "squircle",
         border: "1px solid transparent",
@@ -1223,7 +1191,7 @@ export const theme = {
       },
       [buttonPressSelector]: {
         transform: "translateY(var(--button-press-shift))",
-        "box-shadow": buttonRecessShadow,
+        "box-shadow": recessShadow("var(--button-recess-fill)"),
       },
       ".ninaero-button:disabled, .ninaero-button[data-disabled], .ninaero-button[aria-disabled=true]":
         {
@@ -1517,8 +1485,11 @@ export const theme = {
           "background-color": "Highlight",
           color: "HighlightText",
         },
-        ".ninaero-select-item[data-highlighted]": {
+        [selectItemFocus]: {
           "outline-color": "Highlight",
+        },
+        [`${selectItemFocus}[data-selected]`]: {
+          "outline-color": "HighlightText",
         },
         ".ninaero-select-item[data-highlighted]:not([data-selected]):not([data-disabled])": {
           "background-color": "Canvas",

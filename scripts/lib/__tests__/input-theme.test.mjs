@@ -31,9 +31,9 @@ test("field text and placeholders retain 4.5:1 contrast across recessed tones", 
   for (const mode of ["light", "dark"]) {
     const palette = theme[mode];
     const fill = lightness(palette, "input-fill");
-    const shade = fill * (1 - Number.parseFloat(palette["input-recess-shade-weight"]) / 100);
+    const shade = fill * (1 - Number.parseFloat(palette["recess-shade-weight"]) / 100);
     const highlight =
-      fill + ((1 - fill) * Number.parseFloat(palette["input-recess-highlight-weight"])) / 100;
+      fill + ((1 - fill) * Number.parseFloat(palette["recess-highlight-weight"])) / 100;
     for (const token of ["card-foreground", "input-placeholder"]) {
       const ink = lightness(palette, token) ** 3;
       for (const tone of [fill, shade, highlight]) {

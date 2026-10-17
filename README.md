@@ -70,11 +70,12 @@ Before publishing, run `REGISTRY_URL=https://your-domain.example/r pnpm check:sh
 
 ## Publish
 
-Set `REGISTRY_URL` to your public registry directory ending in `/r`:
+Set `REGISTRY_URL` to your public registry directory ending in `/r`, then build:
 
 ```sh
 REGISTRY_URL=https://your-domain.example/r pnpm build
-pnpm start
 ```
 
 The build embeds this URL in registry dependencies. Do not publish with the localhost default. Set the variable in the shell or deployment environment, not `.env.local`.
+
+With `output: "export"` in `next.config.ts`, `pnpm build` writes the static site to `out/` and removes the `/workshop` pages. `pnpm dev` keeps the workshop available locally. For Cloudflare Pages, use `pnpm build` as the build command and `out` as the build directory.

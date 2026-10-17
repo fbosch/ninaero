@@ -225,7 +225,7 @@ Cast shadows take their color from the receiving paper or panel. Recessed shadin
 
 Reverse the depth cue, not the hue or the light source. Under the same overhead light, a pressed control has shade along its upper interior and a fine highlight along its lower interior. Keep both horizontal offsets at zero and remove the outer cast shadow. Outline's resting rim and contact shadow collapse into the same paper recess on press. Ghost and Link do not acquire recessed framing.
 
-The shared `buttonRecessShadow` recipe lives in `registry/ninaero/theme.mjs`. Each recessed Button sets `--button-recess-fill` to its material's pressed fill. Local `color-mix(in oklab, ...)` expressions derive the shade and highlight so accent changes cannot leave stale inset colors. The current black mix weights are 4% in light mode and 6% in dark mode; white mix weights are 6% and 8%. These are shallow lighting cues, not black cavities or white glow. Tune them against the actual material and verify label contrast across both inset tones.
+Use the shared `recessShadow(fill)` recipe in `registry/ninaero/theme.mjs` for fields, neutral Slider and Switch tracks, unchecked Checkboxes, segmented tab trays, and recessed press states. It uses a 2px downward inset shade with 6px blur and a 1px upward inset highlight with 2px blur. Derive both tones from the local fill with `color-mix(in oklab, ...)`. The shared `recess-shade-weight` is 6% in light mode and 12% in dark mode; `recess-highlight-weight` is 35% and 7%. Buttons and selected controls retain their own pressed fills. An unchecked Checkbox darkens its neutral fill on press without changing the recess geometry. Verify text, marks, and selected boundaries against both inset tones.
 
 Keep this lighting separate from keyboard-focus outlines, invalid borders, and disabled styling. Reduced motion removes movement but retains the static recessed cue. Forced-colors mode removes decorative inset lighting and preserves system-color boundaries.
 
@@ -308,7 +308,7 @@ Input, Textarea, and Select triggers use regular rounded corners with a 12px rad
 
 Use an opaque neutral `input-fill` slightly darker than the surrounding panel and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes. Strengthen the neutral edge on hover without overriding invalid or disabled states.
 
-Give fields a shallow paper recess with a broad upper-interior shade and a soft lower-interior highlight. Use a 2px downward inset offset with 6px blur for the shade, and a 1px upward inset offset with 2px blur for the highlight. Derive both tones from `input-fill`, using black mixes of 6% in light mode and 12% in dark mode, and white mixes of 35% and 7%. Keep the center flat and opaque. Placeholder ink must retain contrast against both inset tones.
+Give fields the shared soft paper recess described above, using `input-fill` for both lighting tones. Keep the center flat and opaque. Placeholder ink must retain contrast against both inset tones.
 
 Invalid fields retain this material and use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
 
