@@ -89,6 +89,16 @@ body:not(.ninaero-overlay-dither) .home-page::after {
   }
 }
 
+.site-wordmark {
+  text-shadow: 0 1px 2px var(--display-ink-shadow);
+}
+
+@media (forced-colors: active) {
+  .site-wordmark {
+    text-shadow: none;
+  }
+}
+
 .site-header {
   --site-header-shade-top: var(--card);
   --site-header-shade-bottom: var(--muted);
@@ -119,8 +129,6 @@ body:not(.ninaero-overlay-dither) .home-page::after {
   z-index: 1;
 }
 
-/* The homepage texture belongs behind its header's blur, not on top of it. */
-.site-header--home::after,
 body:not(.ninaero-overlay-dither) .site-header::after {
   display: none;
 }
@@ -144,8 +152,8 @@ body:not(.ninaero-overlay-dither) .site-header::after {
     pointer-events: none;
     background: linear-gradient(
       to bottom in oklab,
-      color-mix(in oklab, var(--site-header-shade-top) 70%, transparent),
-      color-mix(in oklab, var(--site-header-shade-bottom) 70%, transparent)
+      color-mix(in oklab, var(--site-header-shade-top) 75%, transparent),
+      color-mix(in oklab, var(--site-header-shade-bottom) 75%, transparent)
     );
     /* Shade the visible header, not the extended blur-sampling area. */
     background-size: 100% calc(100% - 16rem);

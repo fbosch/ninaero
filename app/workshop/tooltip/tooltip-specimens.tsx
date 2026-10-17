@@ -90,6 +90,23 @@ export function TooltipSpecimens() {
             </Tooltip>
           ))}
         </div>
+        <div className="flex flex-wrap gap-3">
+          {(["start", "center", "end"] as const).map((align) => (
+            <Tooltip key={align}>
+              <TooltipTrigger
+                id={`tooltip-horizontal-${align}`}
+                render={<Button variant="outline" />}
+              >
+                Right / {align}
+              </TooltipTrigger>
+              <TooltipContent side="right" align={align}>
+                A longer hint tests vertical alignment. The face can span several lines while its
+                arrow stays attached to the trigger, rather than drifting toward the middle of the
+                text.
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </div>
       </FieldSet>
 
       <FieldSet className="button-specimen bg-card p-6">

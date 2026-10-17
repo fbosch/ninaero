@@ -1,5 +1,6 @@
 "use client";
 
+import { useDirection } from "@base-ui/react/direction-provider";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { useRender } from "@base-ui/react/use-render";
 import { cn } from "cn";
@@ -131,6 +132,7 @@ function TooltipContent({
   ...props
 }: TooltipPrimitive.Popup.Props &
   Pick<TooltipPrimitive.Positioner.Props, "align" | "alignOffset" | "side" | "sideOffset">) {
+  const direction = useDirection();
   const description = React.useContext(TooltipDescriptionContext);
   const generatedId = React.useId();
   const popupId = id ?? generatedId;
@@ -161,7 +163,8 @@ function TooltipContent({
           {children}
           <TooltipPrimitive.Arrow
             data-slot="tooltip-arrow"
-            className="ninaero-tooltip-arrow z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] data-[side=bottom]:top-1 data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+            dir={direction}
+            className="ninaero-tooltip-arrow z-50 size-2.5 rotate-45 rounded-[2px]"
           />
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>

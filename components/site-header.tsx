@@ -12,6 +12,7 @@ import { SiteSearch } from "@/components/site-search";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { renderFrutigerDolloSvg } from "@/lib/frutiger-dollo-mark";
 import { accentPresets } from "@/registry/ninaero/accents.mjs";
+import { FieldLegend, FieldSet } from "@/registry/ninaero/ui/field";
 
 const destinations = [["/docs", "Docs"]] as const;
 
@@ -44,7 +45,7 @@ export function SiteHeader() {
         >
           <Link href="/" className="type-title inline-flex items-center gap-2">
             <FrutigerDolloMark className="shrink-0" />
-            Ninaero
+            <span className="site-wordmark">Ninaero</span>
           </Link>
           {destinations.map(([href, label]) => {
             const active = pathname === href || pathname.startsWith(`${href}/`);
@@ -64,14 +65,11 @@ export function SiteHeader() {
           <div className="lg:col-start-2 lg:row-start-1 lg:justify-self-center">
             <SiteSearch />
           </div>
-          <div
-            role="group"
-            aria-label="Appearance"
-            className="ninaero-surface-paper flex max-w-full flex-wrap items-start justify-end gap-2 lg:col-start-3 lg:row-start-1 lg:justify-self-end"
-          >
+          <FieldSet className="ninaero-surface-paper min-w-0 max-w-full flex-row flex-wrap items-start justify-end gap-2 lg:col-start-3 lg:row-start-1 lg:justify-self-end">
+            <FieldLegend className="sr-only">Appearance</FieldLegend>
             <AppearanceSelectors />
             <ThemeSwitcher />
-          </div>
+          </FieldSet>
         </div>
       </div>
     </header>

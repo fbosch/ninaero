@@ -1576,15 +1576,27 @@
             "border": "0 solid color-mix(in oklab, var(--foreground), var(--background) 22%)"
           },
           ".ninaero-tooltip-arrow[data-side=top]": {
+            "bottom": "-3px",
             "border-width": "0 1px 1px 0"
           },
           ".ninaero-tooltip-arrow[data-side=bottom]": {
+            "top": "-3px",
             "border-width": "1px 0 0 1px"
           },
-          ".ninaero-tooltip-arrow:is([data-side=left], [data-side=inline-start])": {
+          ".ninaero-tooltip-arrow[data-side=left]": {
+            "right": "-4px",
             "border-width": "1px 1px 0 0"
           },
-          ".ninaero-tooltip-arrow:is([data-side=right], [data-side=inline-end])": {
+          ".ninaero-tooltip-arrow[data-side=right]": {
+            "left": "-4px",
+            "border-width": "0 0 1px 1px"
+          },
+          ".ninaero-tooltip-arrow[data-side=inline-start]": {
+            "inset-inline-end": "-4px",
+            "border-width": "1px 1px 0 0"
+          },
+          ".ninaero-tooltip-arrow[data-side=inline-end]": {
+            "inset-inline-start": "-4px",
             "border-width": "0 0 1px 1px"
           },
           ".ninaero-tooltip-arrow:dir(rtl)[data-side=inline-start]": {
