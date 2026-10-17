@@ -419,6 +419,7 @@ export const theme = {
     "button-paper-hover": "#eeeeee",
     "button-paper-ink": "#383838",
     "button-paper-text-shadow": "0 1px 0 #ffffffb3",
+    "control-label-text-shadow": "0 0.5px 0 #ffffff80",
     "button-paper-pressed": "#e3e3e3",
     "button-paper-highlight": "#ffffffa6",
     "button-paper-shade": "#3333330d",
@@ -489,6 +490,7 @@ export const theme = {
     "button-paper-hover": "#454545",
     "button-paper-ink": "#efefef",
     "button-paper-text-shadow": "0 1px 1px #00000066",
+    "control-label-text-shadow": "0 0.5px 0.5px #00000059",
     "button-paper-pressed": "#2e2e2e",
     "button-paper-highlight": "#ffffff14",
     "button-paper-shade": "#00000040",
@@ -669,6 +671,11 @@ export const theme = {
         },
       },
       "@media (forced-colors: active)": {
+        ".ninaero-tooltip [data-slot=kbd]": {
+          "background-color": "Canvas",
+          color: "CanvasText",
+          border: "1px solid CanvasText",
+        },
         [focusTargets]: {
           outline: "2px solid Highlight",
           "outline-offset": "3px",
@@ -683,7 +690,7 @@ export const theme = {
     "@layer components": withMaterialShadows({
       [focusFrames]: { position: "relative" },
       // Resolve color-dependent tokens locally so receiving-material colors can inherit.
-      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-slider-thumb, .ninaero-switch-thumb":
+      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-tooltip, .ninaero-slider-thumb, .ninaero-switch-thumb":
         elevationVariables,
       ".ninaero-surface-paper": {
         "--shadow-color": "var(--shadow-color-paper)",
@@ -978,6 +985,59 @@ export const theme = {
         "background-color": "var(--popover)",
         "box-shadow": `inset 0 1px 0 var(--button-highlight), var(--shadow-floating)`,
       },
+      ".ninaero-tooltip": {
+        "max-width": "min(20rem, var(--available-width))",
+        "border-radius": "var(--radius-md)",
+        "corner-shape": "round",
+        border: "1px solid color-mix(in oklab, var(--foreground), var(--background) 22%)",
+        "background-color": "var(--foreground)",
+        color: "var(--background)",
+        "box-shadow":
+          "inset 0 1px 0 color-mix(in oklab, var(--foreground), white 12%), var(--shadow-floating)",
+        "overflow-wrap": "anywhere",
+        "transform-origin": "var(--transform-origin)",
+        opacity: "1",
+        transform: "scale(1)",
+        transition: "opacity 120ms ease-out, transform 180ms cubic-bezier(0.22, 1.4, 0.35, 1)",
+      },
+      ".ninaero-tooltip[data-starting-style]": {
+        opacity: "0",
+        transform: "scale(0.96)",
+      },
+      ".ninaero-tooltip[data-ending-style]": {
+        opacity: "0",
+        transform: "scale(0.98)",
+        transition: "opacity 120ms ease-in, transform 120ms ease-in",
+      },
+      ".ninaero-tooltip[data-instant]": {
+        transition: "none",
+      },
+      ".ninaero-tooltip[data-instant][data-starting-style]": {
+        opacity: "1",
+        transform: "none",
+      },
+      ".ninaero-tooltip-arrow": {
+        "background-color": "var(--foreground)",
+        border: "0 solid color-mix(in oklab, var(--foreground), var(--background) 22%)",
+      },
+      ".ninaero-tooltip-arrow[data-side=top]": {
+        "border-width": "0 1px 1px 0",
+      },
+      ".ninaero-tooltip-arrow[data-side=bottom]": {
+        "border-width": "1px 0 0 1px",
+      },
+      ".ninaero-tooltip-arrow:is([data-side=left], [data-side=inline-start])": {
+        "border-width": "1px 1px 0 0",
+      },
+      ".ninaero-tooltip-arrow:is([data-side=right], [data-side=inline-end])": {
+        "border-width": "0 0 1px 1px",
+      },
+      ".ninaero-tooltip-arrow:dir(rtl)[data-side=inline-start]": {
+        "border-width": "0 0 1px 1px",
+      },
+      ".ninaero-tooltip-arrow:dir(rtl)[data-side=inline-end]": {
+        "border-width": "1px 1px 0 0",
+      },
       ".ninaero-select-content": {
         "transform-origin": "var(--transform-origin)",
         transition: "opacity 80ms ease-out, transform 80ms ease-out",
@@ -1043,6 +1103,7 @@ export const theme = {
       [`${segmentedTabSelector}[data-active]`]: {
         "border-color": "var(--tabs-active-edge)",
         "background-color": "var(--tabs-active-fill)",
+        "text-shadow": "var(--control-label-text-shadow)",
         "background-image":
           "radial-gradient(ellipse at 50% -45% in oklab, var(--tabs-active-highlight), transparent 75%), linear-gradient(180deg in oklab, var(--tabs-active-top), var(--tabs-active-fill) 48%, var(--tabs-active-bottom))",
         "box-shadow":
@@ -1053,12 +1114,14 @@ export const theme = {
           "background-color": "var(--tabs-hover-fill)",
           "background-image": "none",
           "box-shadow": recessShadow("var(--tabs-hover-fill)"),
+          "text-shadow": "none",
         },
       ".ninaero-tabs-trigger:disabled, .ninaero-tabs-trigger[data-disabled], .ninaero-tabs-trigger[aria-disabled=true]":
         {
           color: "var(--muted-foreground)",
           "background-image": "none",
           "box-shadow": "none",
+          "text-shadow": "none",
           cursor: "not-allowed",
         },
       ".ninaero-tabs-content": {
@@ -1137,6 +1200,7 @@ export const theme = {
       ".ninaero-toggle--outline": {
         ...paperThumbMaterial,
         "box-shadow": "inset 0 -1px 0 var(--button-paper-shade)",
+        "text-shadow": "var(--control-label-text-shadow)",
       },
       ".ninaero-toggle[aria-pressed=true]": {
         ...pressedThumbMaterial,
@@ -1144,6 +1208,7 @@ export const theme = {
         "box-shadow": toggleRecessShadow(toggleSelectedFill),
         "--button-recess-fill": `color-mix(in oklab, ${toggleSelectedFill}, black var(--recess-shade-weight))`,
         color: "var(--button-paper-ink)",
+        "text-shadow": "none",
         "border-color": "var(--input-edge)",
       },
       ".ninaero-toggle:focus-visible": {
@@ -1156,11 +1221,13 @@ export const theme = {
         "background-color": "var(--button-recess-fill)",
         "background-image": "none",
         "box-shadow": toggleRecessShadow("var(--button-recess-fill)"),
+        "text-shadow": "none",
       },
       ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]":
         {
           "background-image": "none",
           "box-shadow": "none",
+          "text-shadow": "none",
           opacity: "0.5",
         },
       ".ninaero-button": {
@@ -1335,6 +1402,12 @@ export const theme = {
             opacity: "1",
             transform: "none",
           },
+        ".ninaero-tooltip, .ninaero-tooltip[data-starting-style], .ninaero-tooltip[data-ending-style]":
+          {
+            transition: "none",
+            transform: "none",
+            opacity: "1",
+          },
         ".ninaero-toggle": {
           transition: "none",
         },
@@ -1345,6 +1418,13 @@ export const theme = {
       },
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
+        ".ninaero-tooltip, .ninaero-tooltip-arrow": {
+          "forced-color-adjust": "none",
+          "background-color": "Canvas",
+          "border-color": "CanvasText",
+          color: "CanvasText",
+          "box-shadow": "none",
+        },
         ":is(.ninaero-checkbox, .ninaero-radio-group-item)": {
           "forced-color-adjust": "none",
           "border-color": "CanvasText",
@@ -1448,6 +1528,7 @@ export const theme = {
           "background-image": "none",
           color: "HighlightText",
           "box-shadow": "none",
+          "text-shadow": "none",
         },
         [`${segmentedTabSelector}:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([data-active]), ${segmentedTabSelector}:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])`]:
           {
@@ -1566,6 +1647,7 @@ export const theme = {
           "border-color": "ButtonText",
           "background-color": "ButtonFace",
           "background-image": "none",
+          "text-shadow": "none",
           color: "ButtonText",
           "box-shadow": "none",
         },

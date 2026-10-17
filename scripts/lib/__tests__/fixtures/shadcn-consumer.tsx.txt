@@ -1,3 +1,5 @@
+import { useRef, useState } from "react";
+import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import {
   Accordion,
   AccordionContent,
@@ -27,6 +29,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Slider } from "@/custom/ui/slider";
 import { Toggle } from "@/custom/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/custom/ui/toggle-group";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/custom/ui/tooltip";
 
 const fruitItems = [
   { label: "Apple", value: "apple" },
@@ -34,6 +37,8 @@ const fruitItems = [
 ];
 
 export function ConsumerFixture() {
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [handle] = useState(() => TooltipPrimitive.createHandle<{ label: string }>());
   return (
     <>
       <Button variant="outline">Continue</Button>
@@ -82,6 +87,35 @@ export function ConsumerFixture() {
         <ToggleGroupItem value="daily">Daily</ToggleGroupItem>
         <ToggleGroupItem value="weekly">Weekly</ToggleGroupItem>
       </ToggleGroup>
+      <TooltipProvider delay={200}>
+        <p id="persistent-help">Persistent context.</p>
+        <p id="additional-help">Additional context.</p>
+        <Tooltip defaultOpen>
+          <TooltipTrigger render={<Button variant="outline" />}>Info</TooltipTrigger>
+          <TooltipContent side="inline-end" align="start" sideOffset={8} alignOffset={2}>
+            More information.
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger
+            render={<Button ref={triggerRef} aria-describedby="persistent-help" />}
+            aria-describedby="additional-help"
+          >
+            Context
+          </TooltipTrigger>
+          <TooltipContent id="custom-tooltip">Contextual help.</TooltipContent>
+        </Tooltip>
+        <TooltipTrigger handle={handle} payload={{ label: "Detached" }} render={<Button />}>
+          Detached trigger
+        </TooltipTrigger>
+        <Tooltip handle={handle}>
+          {({ payload }) => <TooltipContent>{payload?.label}</TooltipContent>}
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger render={(props, state) => <Button {...props}>{state.open ? "Open" : "Closed"}</Button>} />
+          <TooltipContent>Rendered trigger context.</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <Slider defaultValue={40} max={100} />
       <Slider defaultValue={[20, 80]} max={100} />
     </>

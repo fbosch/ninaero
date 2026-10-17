@@ -44,6 +44,11 @@ const componentSpecimens = [
     title: "Toggles",
     description: "Single and multiple selection, joined edges, and press feedback.",
   },
+  {
+    href: "/workshop/tooltip",
+    title: "Tooltips",
+    description: "Floating hints, placement, keyboard focus, wrapping, and RTL.",
+  },
 ] as const;
 
 const foundationSpecimens = [

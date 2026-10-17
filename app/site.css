@@ -119,6 +119,8 @@ body:not(.ninaero-overlay-dither) .home-page::after {
   z-index: 1;
 }
 
+/* The homepage texture belongs behind its header's blur, not on top of it. */
+.site-header--home::after,
 body:not(.ninaero-overlay-dither) .site-header::after {
   display: none;
 }

@@ -62,7 +62,7 @@ Runs the production build, lint, formatting checks, typecheck, and tests.
 
 Run `pnpm check:shadcn` independently, or as part of `pnpm check`. It validates the registry with the installed shadcn CLI, checks installable-source boundaries and dependencies, then builds and installs all registry items in a temporary consumer with custom aliases. TypeScript compiles the installed code and representative Base UI compositions.
 
-The committed consumer fixture covers Button, Dialog, AlertDialog, Select, Accordion, ToggleGroup, and Slider. The CLI version comes from `registry/ninaero/catalog.json`; upgrading it requires reviewing these contracts. This is a bounded API check, not proof of complete upstream parity.
+The committed consumer fixture covers Button, Dialog, AlertDialog, Select, Accordion, ToggleGroup, Slider, and Tooltip. The CLI version comes from `registry/ninaero/catalog.json`; upgrading it requires reviewing these contracts. This is a bounded API check, not proof of complete upstream parity.
 
 The check uses installed packages and a pinned neutral-palette fixture instead of downloading dependencies or consulting live upstream data. It does not modify the app's generated artifacts. Browser interaction tests, visual review, and scheduled upstream drift detection remain separate work.
 
