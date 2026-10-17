@@ -16,7 +16,10 @@ export default function Home() {
     return { packageManager, code, content: <HighlightedCode code={code} language="bash" /> };
   });
   return (
-    <main id="main" className={`home-page relative isolate flex-1 bg-background ${styles.scene}`}>
+    <main
+      id="main"
+      className={`home-page relative isolate flex-1 bg-background ninaero-overlay-dither ${styles.scene}`}
+    >
       <div
         aria-hidden="true"
         className="home-paper ninaero-paper-dotted mix-blend-multiply dark:mix-blend-screen ninaero-pattern-ink-foreground/12 dark:ninaero-pattern-ink-foreground/8"

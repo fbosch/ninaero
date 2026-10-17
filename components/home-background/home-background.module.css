@@ -2,6 +2,11 @@
   --home-companion: #92bd55;
 }
 
+/* The homepage scene paints over the body texture; reuse the theme finish inside it. */
+.scene::after {
+  z-index: -2;
+}
+
 [data-accent="aurora"] .scene {
   --home-companion: #59b9cf;
 }
@@ -27,7 +32,7 @@
 }
 
 [data-accent="lime"] .scene {
-  --home-companion: #71c9c8;
+  --home-companion: #eee52b;
 }
 
 .sky {

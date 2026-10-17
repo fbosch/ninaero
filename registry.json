@@ -550,14 +550,14 @@
           "--glass-mark-face-100": "#61bea7"
         },
         "[data-accent=\"sky\"]": {
-          "--button-primary-fill": "#bbdefa",
-          "--button-primary-hover": "#9fcff4",
-          "--button-primary-pressed": "#84beeb",
-          "--button-primary-ink": "#173a58",
-          "--button-primary-edge": "#3c7dac",
-          "--button-link-ink": "#246293",
-          "--button-focus": "#146ba9",
-          "--accent-soft": "#e9f3fe",
+          "--button-primary-fill": "#65a8e0",
+          "--button-primary-hover": "#76b5e9",
+          "--button-primary-pressed": "#579bd5",
+          "--button-primary-ink": "#071b30",
+          "--button-primary-edge": "#3979ad",
+          "--button-link-ink": "#195b96",
+          "--button-focus": "#1764a7",
+          "--accent-soft": "#e4f0fc",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
@@ -571,22 +571,22 @@
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
           "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#3c7dac",
-          "--glass-mark-rim-50": "#3876a3",
-          "--glass-mark-rim-100": "#356f9a",
-          "--glass-mark-face-0": "#9fcff4",
-          "--glass-mark-face-50": "#92c6f0",
-          "--glass-mark-face-100": "#84beeb"
+          "--glass-mark-rim-0": "#3979ad",
+          "--glass-mark-rim-50": "#3572a3",
+          "--glass-mark-rim-100": "#326c9a",
+          "--glass-mark-face-0": "#76b5e9",
+          "--glass-mark-face-50": "#67a8df",
+          "--glass-mark-face-100": "#579bd5"
         },
         ".dark[data-accent=\"sky\"], .dark [data-accent=\"sky\"]": {
-          "--button-primary-fill": "#83c2f4",
-          "--button-primary-hover": "#a2d3fa",
-          "--button-primary-pressed": "#69abdf",
-          "--button-primary-ink": "#091f33",
-          "--button-primary-edge": "#b4defe",
-          "--button-link-ink": "#a0d3fb",
-          "--button-focus": "#92d3ff",
-          "--accent-soft": "#203c52",
+          "--button-primary-fill": "#69a8df",
+          "--button-primary-hover": "#77b5e7",
+          "--button-primary-pressed": "#60a0d8",
+          "--button-primary-ink": "#041321",
+          "--button-primary-edge": "#77aedb",
+          "--button-link-ink": "#95cafa",
+          "--button-focus": "#79bfff",
+          "--accent-soft": "#1c344e",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
@@ -600,12 +600,12 @@
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
           "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#b4defe",
-          "--glass-mark-rim-50": "#aad2f0",
-          "--glass-mark-rim-100": "#a1c7e3",
-          "--glass-mark-face-0": "#a2d3fa",
-          "--glass-mark-face-50": "#86bfed",
-          "--glass-mark-face-100": "#69abdf"
+          "--glass-mark-rim-0": "#77aedb",
+          "--glass-mark-rim-50": "#70a4cf",
+          "--glass-mark-rim-100": "#6a9bc4",
+          "--glass-mark-face-0": "#77b5e7",
+          "--glass-mark-face-50": "#6baae0",
+          "--glass-mark-face-100": "#60a0d8"
         },
         "[data-accent=\"blossom\"]": {
           "--button-primary-fill": "#f1cee7",
@@ -666,14 +666,14 @@
           "--glass-mark-face-100": "#d28fbd"
         },
         "[data-accent=\"lime\"]": {
-          "--button-primary-fill": "#e9efb5",
-          "--button-primary-hover": "#dce798",
-          "--button-primary-pressed": "#cdd978",
-          "--button-primary-ink": "#353d17",
-          "--button-primary-edge": "#75813d",
-          "--button-link-ink": "#54651f",
-          "--button-focus": "#61751f",
-          "--accent-soft": "#f4f7df",
+          "--button-primary-fill": "#7cbd43",
+          "--button-primary-hover": "#90cb55",
+          "--button-primary-pressed": "#70af3c",
+          "--button-primary-ink": "#102507",
+          "--button-primary-edge": "#008a45",
+          "--button-link-ink": "#006f38",
+          "--button-focus": "#008143",
+          "--accent-soft": "#edf7df",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
@@ -687,22 +687,22 @@
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
           "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#75813d",
-          "--glass-mark-rim-50": "#6e7a39",
-          "--glass-mark-rim-100": "#687336",
-          "--glass-mark-face-0": "#dce798",
-          "--glass-mark-face-50": "#d4e088",
-          "--glass-mark-face-100": "#cdd978"
+          "--glass-mark-rim-0": "#008a45",
+          "--glass-mark-rim-50": "#008241",
+          "--glass-mark-rim-100": "#007b3d",
+          "--glass-mark-face-0": "#90cb55",
+          "--glass-mark-face-50": "#80bd49",
+          "--glass-mark-face-100": "#70af3c"
         },
         ".dark[data-accent=\"lime\"], .dark [data-accent=\"lime\"]": {
-          "--button-primary-fill": "#d1df85",
-          "--button-primary-hover": "#e2ecaa",
-          "--button-primary-pressed": "#baca66",
-          "--button-primary-ink": "#2a3213",
-          "--button-primary-edge": "#e4edb0",
-          "--button-link-ink": "#dfec9f",
-          "--button-focus": "#deef92",
-          "--accent-soft": "#3a4125",
+          "--button-primary-fill": "#86c64b",
+          "--button-primary-hover": "#99d45f",
+          "--button-primary-pressed": "#79b741",
+          "--button-primary-ink": "#0b2005",
+          "--button-primary-edge": "#96d16a",
+          "--button-link-ink": "#9fda75",
+          "--button-focus": "#94d367",
+          "--accent-soft": "#243d21",
           "--primary": "var(--button-primary-fill)",
           "--primary-foreground": "var(--button-primary-ink)",
           "--accent": "var(--accent-soft)",
@@ -716,12 +716,12 @@
           "--sidebar-accent": "var(--accent-soft)",
           "--sidebar-accent-foreground": "var(--button-link-ink)",
           "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#e4edb0",
-          "--glass-mark-rim-50": "#d8e0a6",
-          "--glass-mark-rim-100": "#ccd49d",
-          "--glass-mark-face-0": "#e2ecaa",
-          "--glass-mark-face-50": "#cedb89",
-          "--glass-mark-face-100": "#baca66"
+          "--glass-mark-rim-0": "#96d16a",
+          "--glass-mark-rim-50": "#8ec664",
+          "--glass-mark-rim-100": "#86bb5e",
+          "--glass-mark-face-0": "#99d45f",
+          "--glass-mark-face-50": "#89c550",
+          "--glass-mark-face-100": "#79b741"
         },
         "@utility ninaero-paper-ruled": {
           "--ninaero-paper-step": "24px",
@@ -931,11 +931,12 @@
           }
         },
         "@utility ninaero-overlay-dither": {
+          "isolation": "isolate",
           "&::after": {
             "content": "\"\"",
             "position": "fixed",
             "inset": "0",
-            "z-index": "2147483647",
+            "z-index": "0",
             "pointer-events": "none",
             "user-select": "none",
             "background-color": "var(--foreground)",
@@ -944,7 +945,7 @@
             "mask-mode": "alpha",
             "mask-size": "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
             "mask-repeat": "repeat",
-            "opacity": "var(--ninaero-overlay-opacity, 0.04)",
+            "opacity": "var(--ninaero-overlay-opacity, 0.06)",
             "@media (forced-colors: active)": {
               "display": "none"
             },
@@ -952,6 +953,9 @@
               "display": "none"
             }
           }
+        },
+        "body.ninaero-overlay-dither:has(.ninaero-dialog-overlay)": {
+          "--ninaero-overlay-blend-mode": "normal"
         },
         "@utility ninaero-overlay-dots": {
           "--ninaero-overlay-pattern": "radial-gradient(circle, black 0.75px, transparent 0.75px)",
@@ -1149,6 +1153,11 @@
             "--button-recess-fill": "var(--button-primary-pressed)",
             "border-color": "var(--button-primary-edge)",
             "color": "color-mix(in oklab, var(--primary-foreground), black 12%)"
+          },
+          "@media (forced-colors: none)": {
+            ".ninaero-checkbox:where(:not([data-disabled])) [data-slot=checkbox-indicator] > svg": {
+              "filter": "drop-shadow(0 -0.5px 0 #ffffff66) drop-shadow(0 0.5px 0.25px #00000033)"
+            }
           },
           ":is(.ninaero-checkbox, .ninaero-radio-group-item):where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked]:not([data-indeterminate]))": {
             "border-color": "var(--neutral-input)"
@@ -1556,21 +1565,26 @@
             "border": "1px solid transparent",
             "color": "var(--button-paper-ink)",
             "background-color": "transparent",
+            "background-image": "none",
             "outline": "2px solid transparent",
             "outline-offset": "3px",
             "transition": "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out"
           },
           ".ninaero-toggle--outline": {
-            "border-color": "var(--input)",
-            "background-color": "var(--card)"
+            "border-color": "var(--button-paper-edge)",
+            "background-color": "var(--button-paper-fill)",
+            "background-image": "linear-gradient(180deg in oklab, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
+            "box-shadow": "inset 0 -1px 0 var(--button-paper-shade)",
+            "--ninaero-material-shadow": "inset 0 -1px 0 var(--button-paper-shade)"
           },
           ".ninaero-toggle[aria-pressed=true]": {
-            "--button-recess-fill": "var(--accent-soft)",
-            "color": "var(--accent-foreground)",
-            "background-color": "var(--accent-soft)",
-            "border-color": "var(--button-primary-edge)",
-            "box-shadow": "inset 0 1px 0 var(--button-highlight)",
-            "--ninaero-material-shadow": "inset 0 1px 0 var(--button-highlight)"
+            "background-color": "color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%)",
+            "background-image": "none",
+            "box-shadow": "inset 0 1px 1px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), white var(--recess-highlight-weight))",
+            "--ninaero-material-shadow": "inset 0 1px 1px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), white var(--recess-highlight-weight))",
+            "--button-recess-fill": "color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black var(--recess-shade-weight))",
+            "color": "var(--button-paper-ink)",
+            "border-color": "var(--input-edge)"
           },
           ".ninaero-toggle:focus-visible": {
             "outline-color": "transparent"
@@ -1580,10 +1594,12 @@
           },
           ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
             "background-color": "var(--button-recess-fill)",
-            "box-shadow": "inset 0 2px 6px color-mix(in oklab, var(--button-recess-fill), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight))",
-            "--ninaero-material-shadow": "inset 0 2px 6px color-mix(in oklab, var(--button-recess-fill), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight))"
+            "background-image": "none",
+            "box-shadow": "inset 0 1px 1px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight))",
+            "--ninaero-material-shadow": "inset 0 1px 1px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight))"
           },
           ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]": {
+            "background-image": "none",
             "box-shadow": "none",
             "--ninaero-material-shadow": "0 0 #0000",
             "opacity": "0.5"
@@ -1685,6 +1701,9 @@
             },
             ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])": {
               "background-color": "var(--button-paper-hover)"
+            },
+            ".ninaero-toggle:where(:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-invalid=true]))[aria-pressed=true]": {
+              "border-color": "var(--neutral-input)"
             },
             ".ninaero-button--primary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
               "background-color": "var(--button-primary-hover)"
@@ -1987,9 +2006,10 @@
               "background-color": "Canvas",
               "color": "GrayText"
             },
-            ".ninaero-toggle": {
+            ".ninaero-toggle, .ninaero-toggle[aria-pressed=true]": {
               "border-color": "ButtonText",
               "background-color": "ButtonFace",
+              "background-image": "none",
               "color": "ButtonText",
               "box-shadow": "none",
               "--ninaero-material-shadow": "0 0 #0000"

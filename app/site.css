@@ -11,6 +11,14 @@ html.dark {
   overflow: clip;
 }
 
+body.ninaero-overlay-dither:has(.home-page)::after {
+  display: none;
+}
+
+body:not(.ninaero-overlay-dither) .home-page::after {
+  display: none;
+}
+
 .home-paper {
   position: absolute;
   inset: 0;
@@ -73,6 +81,21 @@ html.dark {
     0 1px 2px hsl(var(--shadow-color) / 0.06),
     0 3px 8px hsl(var(--shadow-color) / 0.04),
     0 6px 18px hsl(var(--shadow-color) / 0.02);
+}
+
+/* Keep the texture on the header surface without covering its controls. */
+.site-header::after {
+  position: absolute;
+  z-index: 0;
+}
+
+.site-header > div {
+  position: relative;
+  z-index: 1;
+}
+
+body:not(.ninaero-overlay-dither) .site-header::after {
+  display: none;
 }
 
 .dark .site-header {

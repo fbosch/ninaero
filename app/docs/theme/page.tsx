@@ -92,8 +92,8 @@ export default function ThemeDocsPage() {
           Site-wide overlays
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          Site-wide overlays add an optional static texture across the viewport, including menus and
-          dialogs. See{" "}
+          Site-wide overlays add an optional static texture behind page content and controls,
+          including menus and dialogs. See{" "}
           <Link
             href="/docs/patterns#site-wide-overlays"
             className="text-foreground underline underline-offset-4"

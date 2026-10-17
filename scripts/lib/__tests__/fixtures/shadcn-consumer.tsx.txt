@@ -25,6 +25,7 @@ import {
 } from "@/custom/ui/dialog";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/custom/ui/select";
 import { Slider } from "@/custom/ui/slider";
+import { Toggle } from "@/custom/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/custom/ui/toggle-group";
 
 const fruitItems = [
@@ -76,7 +77,8 @@ export function ConsumerFixture() {
           <AccordionContent>More information.</AccordionContent>
         </AccordionItem>
       </Accordion>
-      <ToggleGroup defaultValue={["daily"]}>
+      <Toggle defaultPressed variant="outline">Reviewed</Toggle>
+      <ToggleGroup defaultValue={["daily"]} variant="outline" spacing={0} orientation="vertical">
         <ToggleGroupItem value="daily">Daily</ToggleGroupItem>
         <ToggleGroupItem value="weekly">Weekly</ToggleGroupItem>
       </ToggleGroup>

@@ -305,8 +305,8 @@ export default function PatternsPage() {
           Add a site-wide overlay
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          A site-wide overlay adds a static texture across the viewport, including menus and
-          dialogs. Overlays are off by default.
+          A site-wide overlay adds a static texture behind page content and controls, including
+          menus and dialogs. Overlays are off by default.
         </p>
         <p className="text-sm type-prose text-muted-foreground">
           Keep <code className="text-foreground">body::after</code> free for the overlay. Do not
@@ -316,8 +316,14 @@ export default function PatternsPage() {
           To enable Checker, add <code className="text-foreground">ninaero-overlay-dither</code> to{" "}
           <code className="text-foreground">body</code> in your root layout.
         </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          Wrap the page content in a positioned layer above the texture. Keep the wrapper
+          transparent; opaque controls and menus then cover the texture.
+        </p>
         <CodeBlock
-          code={'<body\n\tclassName="ninaero-overlay-dither"\n>\n\t{children}\n</body>'}
+          code={
+            '<body className="ninaero-overlay-dither">\n\t<div className="relative z-[1]">{children}</div>\n</body>'
+          }
           label="Enable Checker"
           language="tsx"
         />
@@ -336,7 +342,7 @@ export default function PatternsPage() {
         </ul>
         <CodeBlock
           code={
-            '<body\n\tclassName="ninaero-overlay-dither\n\t\tninaero-overlay-dots"\n>\n\t{children}\n</body>'
+            '<body className="ninaero-overlay-dither ninaero-overlay-dots">\n\t<div className="relative z-[1]">{children}</div>\n</body>'
           }
           label="Choose Ordered dots"
           language="tsx"
@@ -408,7 +414,7 @@ export default function PatternsPage() {
           </li>
           <li>
             <code className="text-foreground">--ninaero-overlay-opacity</code> accepts values from 0
-            to 1. The default is 0.04.
+            to 1. The default is 0.06.
           </li>
           <li>
             <code className="text-foreground">--ninaero-overlay-size</code> sets the tile width and
@@ -417,7 +423,8 @@ export default function PatternsPage() {
           <li>
             <code className="text-foreground">--ninaero-overlay-blend-mode</code> defaults to{" "}
             <code className="text-foreground">multiply</code> in light mode and{" "}
-            <code className="text-foreground">screen</code> in dark mode.
+            <code className="text-foreground">screen</code> in dark mode. Dialog and AlertDialog
+            backdrops switch it to normal so their blur includes the texture.
           </li>
         </ul>
         <p className="text-sm type-prose text-muted-foreground">

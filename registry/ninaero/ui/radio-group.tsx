@@ -19,7 +19,7 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
     <RadioPrimitive.Root
       data-slot="radio-group-item"
       className={cn(
-        "ninaero-radio-group-item group/radio-group-item peer relative flex aspect-square size-4 shrink-0 items-center justify-center rounded-full after:absolute after:-inset-x-3 after:-inset-y-2",
+        "ninaero-radio-group-item group/radio-group-item peer relative flex aspect-square size-5 shrink-0 items-center justify-center rounded-full after:absolute after:-inset-x-3 after:-inset-y-2",
         className,
       )}
       {...props}
@@ -28,7 +28,7 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
         data-slot="radio-group-indicator"
         className="flex items-center justify-center"
       >
-        <span className="ninaero-radio-group-dot size-2 rounded-full" />
+        <span className="ninaero-radio-group-dot size-2.5 rounded-full" />
       </RadioPrimitive.Indicator>
     </RadioPrimitive.Root>
   );

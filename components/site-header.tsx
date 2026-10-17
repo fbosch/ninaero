@@ -32,7 +32,7 @@ export function SiteHeader() {
   }, [accent, resolvedTheme]);
 
   return (
-    <header className="site-header">
+    <header className="site-header ninaero-overlay-dither">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-5 sm:px-8 lg:grid lg:grid-cols-3">
         <nav
           aria-label="Main navigation"

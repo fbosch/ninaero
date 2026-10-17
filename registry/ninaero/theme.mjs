@@ -130,6 +130,17 @@ function recessShadow(fill) {
   ].join(", ");
 }
 
+const toggleSelectedFill =
+  "color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%)";
+
+function toggleRecessShadow(fill) {
+  return [
+    `inset 0 1px 1px color-mix(in oklab, ${fill}, black calc(var(--recess-shade-weight) * 1.25))`,
+    `inset 0 3px 4px color-mix(in oklab, ${fill}, black calc(var(--recess-shade-weight) * 0.75))`,
+    `inset 0 -1px 0 color-mix(in oklab, ${fill}, white var(--recess-highlight-weight))`,
+  ].join(", ");
+}
+
 const recessedTrackMaterial = {
   border: "1px solid var(--input-edge)",
   "background-color": "var(--input-fill)",
@@ -535,12 +546,13 @@ export const theme = {
       ...ditherStyles,
     },
     "@utility ninaero-overlay-dither": {
+      isolation: "isolate",
       "&::after": {
         content: '""',
         position: "fixed",
         inset: "0",
-        // The finish sits above portaled UI without changing any component's stacking context.
-        "z-index": "2147483647",
+        // Keep the texture below page content and portaled UI.
+        "z-index": "0",
         "pointer-events": "none",
         "user-select": "none",
         "background-color": "var(--foreground)",
@@ -550,10 +562,14 @@ export const theme = {
         "mask-size":
           "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
         "mask-repeat": "repeat",
-        opacity: "var(--ninaero-overlay-opacity, 0.04)",
+        opacity: "var(--ninaero-overlay-opacity, 0.06)",
         "@media (forced-colors: active)": { display: "none" },
         "@media print": { display: "none" },
       },
+    },
+    // A blended texture escapes backdrop-filter sampling; use normal blending while modals blur it.
+    "body.ninaero-overlay-dither:has(.ninaero-dialog-overlay)": {
+      "--ninaero-overlay-blend-mode": "normal",
     },
     "@utility ninaero-overlay-dots": {
       "--ninaero-overlay-pattern": "radial-gradient(circle, black 0.75px, transparent 0.75px)",
@@ -733,6 +749,11 @@ export const theme = {
           "border-color": "var(--button-primary-edge)",
           color: "color-mix(in oklab, var(--primary-foreground), black 12%)",
         },
+      "@media (forced-colors: none)": {
+        ".ninaero-checkbox:where(:not([data-disabled])) [data-slot=checkbox-indicator] > svg": {
+          filter: "drop-shadow(0 -0.5px 0 #ffffff66) drop-shadow(0 0.5px 0.25px #00000033)",
+        },
+      },
       ":is(.ninaero-checkbox, .ninaero-radio-group-item):where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked]:not([data-indeterminate]))":
         {
           "border-color": "var(--neutral-input)",
@@ -1105,21 +1126,23 @@ export const theme = {
         border: "1px solid transparent",
         color: "var(--button-paper-ink)",
         "background-color": "transparent",
+        "background-image": "none",
         outline: "2px solid transparent",
         "outline-offset": "3px",
         transition:
           "background-color 80ms ease-out, border-color 80ms ease-out, box-shadow 80ms ease-out",
       },
       ".ninaero-toggle--outline": {
-        "border-color": "var(--input)",
-        "background-color": "var(--card)",
+        ...paperThumbMaterial,
+        "box-shadow": "inset 0 -1px 0 var(--button-paper-shade)",
       },
       ".ninaero-toggle[aria-pressed=true]": {
-        "--button-recess-fill": "var(--accent-soft)",
-        color: "var(--accent-foreground)",
-        "background-color": "var(--accent-soft)",
-        "border-color": "var(--button-primary-edge)",
-        "box-shadow": "inset 0 1px 0 var(--button-highlight)",
+        ...pressedThumbMaterial,
+        "background-color": toggleSelectedFill,
+        "box-shadow": toggleRecessShadow(toggleSelectedFill),
+        "--button-recess-fill": `color-mix(in oklab, ${toggleSelectedFill}, black var(--recess-shade-weight))`,
+        color: "var(--button-paper-ink)",
+        "border-color": "var(--input-edge)",
       },
       ".ninaero-toggle:focus-visible": {
         "outline-color": "transparent",
@@ -1129,10 +1152,12 @@ export const theme = {
       },
       ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
         "background-color": "var(--button-recess-fill)",
-        "box-shadow": recessShadow("var(--button-recess-fill)"),
+        "background-image": "none",
+        "box-shadow": toggleRecessShadow("var(--button-recess-fill)"),
       },
       ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]":
         {
+          "background-image": "none",
           "box-shadow": "none",
           opacity: "0.5",
         },
@@ -1237,6 +1262,10 @@ export const theme = {
         ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])":
           {
             "background-color": "var(--button-paper-hover)",
+          },
+        ".ninaero-toggle:where(:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-invalid=true]))[aria-pressed=true]":
+          {
+            "border-color": "var(--neutral-input)",
           },
         ".ninaero-button--primary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
           {
@@ -1526,9 +1555,10 @@ export const theme = {
           "background-color": "Canvas",
           color: "GrayText",
         },
-        ".ninaero-toggle": {
+        ".ninaero-toggle, .ninaero-toggle[aria-pressed=true]": {
           "border-color": "ButtonText",
           "background-color": "ButtonFace",
+          "background-image": "none",
           color: "ButtonText",
           "box-shadow": "none",
         },

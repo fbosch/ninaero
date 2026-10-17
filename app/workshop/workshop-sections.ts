@@ -39,6 +39,11 @@ const componentSpecimens = [
     title: "Radio Group",
     description: "Single selection, keyboard navigation, invalid, and disabled states.",
   },
+  {
+    href: "/workshop/toggle",
+    title: "Toggles",
+    description: "Single and multiple selection, joined edges, and press feedback.",
+  },
 ] as const;
 
 const foundationSpecimens = [

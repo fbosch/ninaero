@@ -23,20 +23,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script>{accentBootstrap}</script>
       </head>
       <body className="flex min-h-svh flex-col">
-        <ThemeProvider>
-          <AccentProvider>
-            <TooltipProvider>
-              <a
-                href="#main"
-                className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-background focus:p-3"
-              >
-                Skip to content
-              </a>
-              <SiteHeader />
-              {children}
-            </TooltipProvider>
-          </AccentProvider>
-        </ThemeProvider>
+        <div className="relative z-[1] flex flex-1 flex-col">
+          <ThemeProvider>
+            <AccentProvider>
+              <TooltipProvider>
+                <a
+                  href="#main"
+                  className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-background focus:p-3"
+                >
+                  Skip to content
+                </a>
+                <SiteHeader />
+                {children}
+              </TooltipProvider>
+            </AccentProvider>
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );

@@ -10,7 +10,7 @@ function Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "ninaero-checkbox group/checkbox peer relative flex size-4 shrink-0 items-center justify-center rounded-[4px] after:absolute after:-inset-x-3 after:-inset-y-2",
+        "ninaero-checkbox group/checkbox peer relative flex size-5 shrink-0 items-center justify-center rounded-[4px] after:absolute after:-inset-x-3 after:-inset-y-2",
         className,
       )}
       {...props}

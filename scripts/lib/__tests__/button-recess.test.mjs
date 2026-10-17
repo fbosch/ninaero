@@ -88,4 +88,26 @@ for (const mode of ["light", "dark"]) {
       }
     });
   }
+
+  test(`${mode}: neutral toggle selection and deeper presses preserve label contrast`, () => {
+    const palette = theme[mode];
+    const ink = linearRgb(palette["button-paper-ink"]);
+    const resting = toOklab(linearRgb(palette["button-paper-fill"]));
+    const pressedBase = toOklab(linearRgb(palette["button-paper-pressed"]));
+    const fill = resting.map((channel, index) => (channel + pressedBase[index]) / 2);
+    const shadeWeight = Number.parseFloat(palette["recess-shade-weight"]) / 100;
+    const highlightWeight = Number.parseFloat(palette["recess-highlight-weight"]) / 100;
+    const pressed = mixTone(fill, 0, shadeWeight);
+
+    const tones = [fill, pressed].flatMap((face) => [
+      face,
+      mixTone(face, 0, shadeWeight * 1.25),
+      mixTone(face, 0, shadeWeight * 0.75),
+      mixTone(face, 1, highlightWeight),
+    ]);
+    for (const tone of tones) {
+      const ratio = contrast(ink, fromOklab(tone));
+      assert.ok(ratio >= 4.5, `toggle label: ${ratio.toFixed(2)}:1`);
+    }
+  });
 }
