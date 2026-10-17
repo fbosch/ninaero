@@ -302,71 +302,132 @@ export default function PatternsPage() {
 
       <section aria-labelledby="site-wide-overlays" className="flex flex-col gap-4">
         <h2 id="site-wide-overlays" className="text-xl type-heading">
-          Site-wide overlays
+          Add a site-wide overlay
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          Overlays are off by default in installed themes and on this site. Use the Overlay menu in
-          the header to preview each texture or choose Off. The demo retains your choice across
-          navigation and resets to Off on reload.
+          A site-wide overlay adds a static texture across the viewport, including menus and
+          dialogs. Overlays are off by default.
         </p>
         <p className="text-sm type-prose text-muted-foreground">
-          Add the base class to body in your root layout. It paints a static texture across the
-          viewport, including menus and dialogs.
+          Keep <code className="text-foreground">body::after</code> free for the overlay. Do not
+          apply transforms to <code className="text-foreground">body</code>.
+        </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          To enable Checker, add <code className="text-foreground">ninaero-overlay-dither</code> to{" "}
+          <code className="text-foreground">body</code> in your root layout.
         </p>
         <CodeBlock
-          code={'<body className="ninaero-overlay-dither">\n  {children}\n</body>'}
-          label="Checker overlay"
+          code={'<body\n\tclassName="ninaero-overlay-dither"\n>\n\t{children}\n</body>'}
+          label="Enable Checker"
           language="tsx"
         />
+        <h3 className="text-lg type-heading">Choose a texture</h3>
+        <p className="text-sm type-prose text-muted-foreground">
+          Keep <code className="text-foreground">ninaero-overlay-dither</code> when you change
+          textures. Add one modifier class:
+        </p>
+        <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
+          <li>
+            For Ordered dots, add <code className="text-foreground">ninaero-overlay-dots</code>.
+          </li>
+          <li>
+            For Diagonal lines, add <code className="text-foreground">ninaero-overlay-lines</code>.
+          </li>
+        </ul>
+        <CodeBlock
+          code={
+            '<body\n\tclassName="ninaero-overlay-dither\n\t\tninaero-overlay-dots"\n>\n\t{children}\n</body>'
+          }
+          label="Choose Ordered dots"
+          language="tsx"
+        />
+        <h3 className="text-lg type-heading">Adjust the overlay</h3>
+        <p className="text-sm type-prose text-muted-foreground">
+          Keep the overlay classes on <code className="text-foreground">body</code> when you use
+          these CSS rules. Each example changes one setting.
+        </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          To make the texture fainter, set{" "}
+          <code className="text-foreground">--ninaero-overlay-opacity</code> to 0.02.
+        </p>
+        <CodeBlock
+          code={"body {\n\t--ninaero-overlay-opacity: 0.02;\n}"}
+          label="Set opacity to 2%"
+          language="css"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          For a 4px tile, set <code className="text-foreground">--ninaero-overlay-size</code> to
+          4px.
+        </p>
+        <CodeBlock
+          code={"body {\n\t--ninaero-overlay-size: 4px;\n}"}
+          label="Set a 4px tile"
+          language="css"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          To compare the texture without color blending, set{" "}
+          <code className="text-foreground">--ninaero-overlay-blend-mode</code> to{" "}
+          <code className="text-foreground">normal</code>.
+        </p>
+        <CodeBlock
+          code={"body {\n\t--ninaero-overlay-blend-mode: normal;\n}"}
+          label="Disable color blending"
+          language="css"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          After any change, check text, focus rings, disabled controls, and error states in light
+          and dark modes.
+        </p>
+        <h3 className="text-lg type-heading">Disable the overlay</h3>
+        <p className="text-sm type-prose text-muted-foreground">
+          Remove <code className="text-foreground">ninaero-overlay-dither</code> from{" "}
+          <code className="text-foreground">body</code>.
+        </p>
+      </section>
+
+      <section aria-labelledby="overlay-reference" className="flex flex-col gap-4">
+        <h2 id="overlay-reference" className="text-xl type-heading">
+          Site-wide overlay reference
+        </h2>
+        <p className="text-sm type-prose text-muted-foreground">
+          Texture modifiers require <code className="text-foreground">ninaero-overlay-dither</code>.
+          The utilities and CSS custom properties have these defaults.
+        </p>
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
           <li>
             <code className="text-foreground">ninaero-overlay-dither</code> enables Checker with a
             2px tile.
           </li>
           <li>
-            Add <code className="text-foreground">ninaero-overlay-dots</code> for Ordered dots on a
-            4px tile.
-          </li>
-          <li>
-            Add <code className="text-foreground">ninaero-overlay-lines</code> for Diagonal lines on
+            <code className="text-foreground">ninaero-overlay-dots</code> selects Ordered dots with
             a 4px tile.
           </li>
-        </ul>
-        <p className="text-sm type-prose text-muted-foreground">
-          Both modifiers need the base class. Overlay ink follows the neutral foreground at 4%
-          opacity, with <code className="text-foreground">multiply</code> blending in light mode and{" "}
-          <code className="text-foreground">screen</code> blending in dark mode.
-        </p>
-        <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
           <li>
-            <code className="text-foreground">--ninaero-overlay-opacity</code> sets opacity from 0
+            <code className="text-foreground">ninaero-overlay-lines</code> selects Diagonal lines
+            with a 4px tile.
+          </li>
+          <li>
+            <code className="text-foreground">--ninaero-overlay-opacity</code> accepts values from 0
             to 1. The default is 0.04.
           </li>
           <li>
             <code className="text-foreground">--ninaero-overlay-size</code> sets the tile width and
-            height with a CSS length.
+            height with a CSS length. Without an override, each texture uses its default tile size.
           </li>
           <li>
-            Set <code className="text-foreground">--ninaero-overlay-blend-mode</code> to{" "}
-            <code className="text-foreground">normal</code> to compare without color blending.
+            <code className="text-foreground">--ninaero-overlay-blend-mode</code> defaults to{" "}
+            <code className="text-foreground">multiply</code> in light mode and{" "}
+            <code className="text-foreground">screen</code> in dark mode.
           </li>
         </ul>
-        <CodeBlock
-          code={
-            '<body className="ninaero-overlay-dither [--ninaero-overlay-opacity:0.02] [--ninaero-overlay-size:4px] [--ninaero-overlay-blend-mode:normal]">\n  {children}\n</body>'
-          }
-          label="Overlay tuning"
-          language="tsx"
-        />
         <p className="text-sm type-prose text-muted-foreground">
-          Keep overlays faint and check text, focus rings, disabled controls, and error states after
-          tuning them. These are static textures, not image filters.
+          Overlay ink uses the neutral foreground. The layer ignores pointer input and adds no
+          keyboard stops. Print and forced-colors mode hide the overlay. The texture is static, not
+          an image filter.
         </p>
         <p className="text-sm type-prose text-muted-foreground">
-          The layer ignores pointer input and adds no keyboard stops. It reserves{" "}
-          <code className="text-foreground">body::after</code>, so keep that pseudo-element free and
-          avoid transforms on body. Print and forced-colors mode hide the overlay. Remove the base
-          class to disable it.
+          On this site, the <strong>Overlay</strong> menu in the header previews each texture. The
+          demo retains your choice across navigation and resets to <strong>Off</strong> on reload.
         </p>
       </section>
 

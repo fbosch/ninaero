@@ -7,6 +7,7 @@ const sections = [
   ["/workshop/inputs", "Inputs"],
   ["/workshop/dialog", "Dialog"],
   ["/workshop/switch", "Switches"],
+  ["/workshop/checkbox", "Checkboxes"],
   ["/workshop/tokens", "Tokens"],
 ] as const;
 

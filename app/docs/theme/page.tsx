@@ -89,74 +89,18 @@ export default function ThemeDocsPage() {
       </section>
       <section aria-labelledby="theme-overlay-heading" className="flex flex-col gap-4">
         <h2 id="theme-overlay-heading" className="text-xl type-heading">
-          Site-wide dithering
+          Site-wide overlays
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          See{" "}
+          Site-wide overlays add an optional static texture across the viewport, including menus and
+          dialogs. See{" "}
           <Link
             href="/docs/patterns#site-wide-overlays"
             className="text-foreground underline underline-offset-4"
           >
-            site-wide overlays in Patterns
+            Add a site-wide overlay
           </Link>{" "}
-          for texture choices, setup, and tuning.
-        </p>
-        <p className="text-sm type-prose text-muted-foreground">
-          Overlays are off by default on this site and in installed themes. Add
-          ninaero-overlay-dither to your body element for a static stipple over the whole viewport,
-          including menus and dialogs.
-        </p>
-        <CodeBlock
-          code={'<body className="ninaero-overlay-dither">{children}</body>'}
-          label="Enable the overlay in your root layout"
-          language="tsx"
-        />
-        <p className="text-sm type-prose text-muted-foreground">
-          Use the Overlay selector in the header to compare Checker, Ordered dots, and Diagonal
-          lines, or choose Off. The demo keeps your choice across page navigation and resets to Off
-          on reload.
-        </p>
-        <p className="text-sm type-prose text-muted-foreground">
-          The base class uses Checker. Add one modifier class to choose another texture:
-        </p>
-        <ul className="flex list-disc flex-col gap-2 pl-5 text-sm type-prose text-muted-foreground">
-          <li>
-            <code>ninaero-overlay-dots</code>: ordered dots on a 4px tile.
-          </li>
-          <li>
-            <code>ninaero-overlay-lines</code>: diagonal lines on a 4px tile.
-          </li>
-        </ul>
-        <CodeBlock
-          code={'<body className="ninaero-overlay-dither ninaero-overlay-dots">{children}</body>'}
-          label="Choose ordered dots"
-          language="tsx"
-        />
-        <p className="text-sm type-prose text-muted-foreground">
-          Checker uses a 2px tile at 4% ink opacity. The ink follows the neutral foreground, with
-          multiply blending in light mode and screen blending in dark mode. Adjust opacity from 0 to
-          1 and tile size with CSS custom properties. Keep the texture faint so small text and
-          control states remain readable. Set --ninaero-overlay-blend-mode to normal for an
-          unblended texture.
-        </p>
-        <CodeBlock
-          code={
-            '<body className="ninaero-overlay-dither [--ninaero-overlay-opacity:0.02] [--ninaero-overlay-size:4px]">\n  {children}\n</body>'
-          }
-          label="Tune opacity and tile size"
-          language="tsx"
-        />
-        <p className="text-sm type-prose text-muted-foreground">
-          The overlay uses body::after without intercepting clicks or adding keyboard stops. Keep
-          that pseudo-element free and avoid transforms on body so the layer stays viewport-fixed.
-          Forced-colors mode and print hide it. Remove the class to disable it.
-        </p>
-        <p className="text-sm type-prose text-muted-foreground">
-          This is a transparent texture, not a filter that quantizes page colors. Use{" "}
-          <Link href="/docs/patterns" className="text-foreground underline underline-offset-4">
-            the diamond dither pattern
-          </Link>{" "}
-          for larger, local decorative shading instead.
+          for setup and tuning.
         </p>
       </section>
       <section aria-labelledby="theme-typography-heading" className="space-y-4">
