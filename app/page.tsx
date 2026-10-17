@@ -16,12 +16,12 @@ export default function Home() {
     >
       <div
         aria-hidden="true"
-        className="home-paper ninaero-paper-dotted ninaero-pattern-ink-foreground/12 dark:ninaero-pattern-ink-foreground/8"
+        className="home-paper ninaero-paper-dotted mix-blend-multiply dark:mix-blend-screen ninaero-pattern-ink-foreground/12 dark:ninaero-pattern-ink-foreground/8"
       />
       <div className="mx-auto max-w-6xl space-y-12 px-5 py-8 sm:px-8 lg:py-12">
-        <section className="home-hero relative space-y-8">
+        <section className="home-hero relative space-y-10">
           <div className="max-w-4xl">
-            <header className="min-w-0 space-y-6">
+            <header className="min-w-0 space-y-8">
               <h1 className="text-balance text-5xl type-display sm:text-6xl">
                 <span className="ninaero-display-ink block">An optimistic & nostalgic theme</span>{" "}
                 <span className="home-tagline block">for a comfy modern web</span>
@@ -38,8 +38,8 @@ export default function Home() {
               </div>
             </header>
           </div>
-          <section aria-labelledby="install-heading" className="flex max-w-3xl flex-col gap-4">
-            <div className="flex flex-col gap-1">
+          <section aria-labelledby="install-heading" className="flex max-w-3xl flex-col gap-5">
+            <div className="flex flex-col gap-3">
               <h2 id="install-heading" className="text-sm type-title tracking-normal">
                 Install Ninaero
               </h2>
