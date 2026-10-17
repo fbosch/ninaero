@@ -65,10 +65,10 @@ export default function ThemeDocsPage() {
           Accent presets
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          Choose Tidepool, Aurora, Lavender, Slate, Lagoon, Sky, Blossom, or Lime with the Accent
-          selector. Accent and color mode are independent. Primary actions, selected controls,
-          links, and focus rings follow the palette. Paper, ink, structural borders, and status
-          colors stay unchanged. The site remembers your choice when browser storage is available.
+          Choose an accent with the Accent selector. Accent and color mode are independent. Primary
+          actions, selected controls, links, and focus rings follow the palette. Paper, ink,
+          structural borders, and status colors stay unchanged. The site remembers your choice when
+          browser storage is available.
         </p>
         <p className="text-sm type-prose text-muted-foreground">
           Installed themes support the same presets without a React provider. Set data-accent on the

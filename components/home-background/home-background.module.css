@@ -24,7 +24,7 @@
 }
 
 [data-accent="sky"] .scene {
-  --home-companion: #76cba6;
+  --home-companion: #87bfa5;
 }
 
 [data-accent="blossom"] .scene {
@@ -32,7 +32,11 @@
 }
 
 [data-accent="lime"] .scene {
-  --home-companion: #eee52b;
+  --home-companion: #d8d47a;
+}
+
+[data-accent="apricot"] .scene {
+  --home-companion: #d8bd78;
 }
 
 .sky {

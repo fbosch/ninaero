@@ -562,7 +562,7 @@ export const theme = {
         "mask-size":
           "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
         "mask-repeat": "repeat",
-        opacity: "var(--ninaero-overlay-opacity, 0.06)",
+        opacity: "var(--ninaero-overlay-opacity, 0.04)",
         "@media (forced-colors: active)": { display: "none" },
         "@media print": { display: "none" },
       },

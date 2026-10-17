@@ -414,7 +414,7 @@ export default function PatternsPage() {
           </li>
           <li>
             <code className="text-foreground">--ninaero-overlay-opacity</code> accepts values from 0
-            to 1. The default is 0.06.
+            to 1. The default is 0.04.
           </li>
           <li>
             <code className="text-foreground">--ninaero-overlay-size</code> sets the tile width and

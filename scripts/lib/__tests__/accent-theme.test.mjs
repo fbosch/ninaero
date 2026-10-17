@@ -28,6 +28,7 @@ test("the available accent presets remain an explicit consumer choice", () => {
     "sky",
     "blossom",
     "lime",
+    "apricot",
   ]);
 });
 
