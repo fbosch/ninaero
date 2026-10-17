@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { AccentSwitcher } from "@/components/accent-switcher";
+import { AppearanceSelectors } from "@/components/appearance-selectors";
 import { SiteSearch } from "@/components/site-search";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
@@ -14,7 +14,7 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-5 sm:px-8">
+      <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-5 sm:px-8">
         <nav
           aria-label="Main navigation"
           className="flex shrink-0 flex-wrap items-center gap-5 text-sm"
@@ -39,15 +39,17 @@ export function SiteHeader() {
             );
           })}
         </nav>
-        <div
-          role="group"
-          aria-label="Appearance"
-          className="ninaero-surface-paper ml-auto flex shrink-0 items-start gap-2"
-        >
-          <AccentSwitcher />
-          <ThemeSwitcher />
+        <div className="ml-auto flex max-w-full flex-wrap items-center justify-end gap-2">
+          <div
+            role="group"
+            aria-label="Appearance"
+            className="ninaero-surface-paper flex max-w-full flex-wrap items-start justify-end gap-2"
+          >
+            <AppearanceSelectors />
+            <ThemeSwitcher />
+          </div>
+          <SiteSearch />
         </div>
-        <SiteSearch />
       </div>
     </header>
   );

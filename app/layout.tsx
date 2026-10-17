@@ -20,8 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" data-accent={defaultAccent} suppressHydrationWarning>
       <head>
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Bootstrap contains only trusted constants and allowlists stored values. */}
-        <script dangerouslySetInnerHTML={{ __html: accentBootstrap }} />
+        <script>{accentBootstrap}</script>
       </head>
       <body>
         <ThemeProvider>

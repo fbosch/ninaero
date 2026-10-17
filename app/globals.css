@@ -160,6 +160,7 @@
   --paper-rule-strong: #79797940;
   --paper-notebook-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%206H120%20M0%2012H120%20M0%2018H120%20M0%2024H120%20M0%2030H120%20M0%2036H120%20M0%2042H120%20M0%2048H120%20M0%2054H120%20M0%2060H120%20M0%2066H120%20M0%2072H120%20M0%2078H120%20M0%2084H120%20M0%2090H120%20M0%2096H120%20M0%20102H120%20M0%20108H120%20M0%20114H120%22%20stroke%3D%22white%22%20stroke-opacity%3D%220.3125%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200H120V120H0Z%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200h0%20M120%200h0%20M0%20120h0%20M120%20120h0%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E");
   --dither-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22none%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200L8%208M8%200L0%208%22%20stroke%3D%22white%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E");
+  --overlay-checker-mask: conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0);
 }
 
 .dark {
@@ -928,6 +929,40 @@
     }
   }
 }
+@utility ninaero-overlay-dither {
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    pointer-events: none;
+    user-select: none;
+    background-color: var(--foreground);
+    mask-image: var(--ninaero-overlay-pattern, var(--overlay-checker-mask));
+    mask-mode: alpha;
+    mask-size: var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px));
+    mask-repeat: repeat;
+    opacity: var(--ninaero-overlay-opacity, 0.04);
+    @media (forced-colors: active) {
+      display: none;
+    }
+    @media print {
+      display: none;
+    }
+  }
+}
+@utility ninaero-overlay-dots {
+  --ninaero-overlay-pattern: radial-gradient(circle, black 0.75px, transparent 0.75px);
+  --ninaero-overlay-tile: 4px;
+}
+@utility ninaero-overlay-halftone {
+  --ninaero-overlay-pattern: radial-gradient(circle at 25% 25%, black 1.25px, transparent 1.25px), radial-gradient(circle at 75% 75%, black 1.25px, transparent 1.25px);
+  --ninaero-overlay-tile: 8px;
+}
+@utility ninaero-overlay-lines {
+  --ninaero-overlay-pattern: linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0);
+  --ninaero-overlay-tile: 4px;
+}
 @utility type-display {
   @apply font-[650] leading-[1.15] tracking-[-0.025em];
 }
@@ -1044,7 +1079,7 @@
   .ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], .ninaero-select-item, [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice] {
     position: relative;
   }
-  .ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-slider-thumb {
+  .ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-slider-thumb, .ninaero-switch-thumb {
     --shadow-flat: 0 0 #0000;
     --shadow-control: 0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08);
     --shadow-floating: 0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03);
@@ -1096,6 +1131,87 @@
     box-shadow: none;
     --ninaero-material-shadow: 0 0 #0000;
     outline: none;
+  }
+  .ninaero-switch {
+    border: 1px solid var(--input-edge);
+    background-color: var(--input-fill);
+    box-shadow: inset 0 2px 3px color-mix(in oklab, var(--input-fill), black 12%), inset 0 -1px 0 color-mix(in oklab, var(--input-fill), white 6%);
+    --ninaero-material-shadow: inset 0 2px 3px color-mix(in oklab, var(--input-fill), black 12%), inset 0 -1px 0 color-mix(in oklab, var(--input-fill), white 6%);
+    --switch-width: 2.25rem;
+    --switch-thumb-size: 1rem;
+    --switch-direction: 1;
+    inline-size: var(--switch-width);
+    block-size: calc(var(--switch-thumb-size) + 4px);
+    padding: 1px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 80ms ease-out, border-color 80ms ease-out;
+  }
+  .ninaero-switch[data-size=sm] {
+    --switch-width: 1.75rem;
+    --switch-thumb-size: 0.75rem;
+  }
+  .ninaero-switch[data-direction=rtl] {
+    --switch-direction: -1;
+  }
+  .ninaero-switch:where([data-checked]) {
+    background-color: var(--button-primary-fill);
+    background-image: linear-gradient(180deg in oklab, var(--glass-mark-face-0), var(--glass-mark-face-50) 48%, var(--glass-mark-face-100));
+    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--glass-mark-face-0), white 25%), inset 0 -1px 0 color-mix(in oklab, var(--glass-mark-face-100), black 8%);
+    --ninaero-material-shadow: inset 0 1px 0 color-mix(in oklab, var(--glass-mark-face-0), white 25%), inset 0 -1px 0 color-mix(in oklab, var(--glass-mark-face-100), black 8%);
+    border-color: var(--button-primary-edge);
+  }
+  .ninaero-switch-thumb {
+    border: 1px solid;
+    border-color: var(--button-paper-edge);
+    background-color: var(--button-paper-fill);
+    background-image: linear-gradient(180deg in oklab, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade));
+    box-shadow: inset 0 -1px 0 var(--button-paper-shade), var(--shadow-control);
+    --ninaero-material-shadow: inset 0 -1px 0 var(--button-paper-shade), var(--shadow-control);
+    inline-size: var(--switch-thumb-size);
+    block-size: var(--switch-thumb-size);
+    border-radius: 50%;
+    transform: translateX(0);
+    transition: transform 140ms ease-out, background-color 80ms ease-out, box-shadow 80ms ease-out;
+  }
+  .ninaero-switch-thumb:where([data-checked]) {
+    transform: translateX(calc((var(--switch-width) - var(--switch-thumb-size) - 4px) * var(--switch-direction)));
+  }
+  .ninaero-switch:where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked]) {
+    border-color: var(--neutral-input);
+  }
+  .ninaero-switch:where(:hover:not([data-disabled]):not([data-readonly])) .ninaero-switch-thumb {
+    background-color: var(--button-paper-hover);
+  }
+  .ninaero-switch:where(:active:not([data-disabled]):not([data-readonly])) .ninaero-switch-thumb {
+    background-color: var(--button-paper-pressed);
+    background-image: none;
+    box-shadow: inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black var(--button-recess-shade-weight)), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white var(--button-recess-highlight-weight));
+    --ninaero-material-shadow: inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black var(--button-recess-shade-weight)), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white var(--button-recess-highlight-weight));
+  }
+  .ninaero-switch:where([aria-invalid=true], [data-invalid]) {
+    border-color: var(--destructive);
+  }
+  .ninaero-switch:where([data-readonly]) {
+    cursor: default;
+  }
+  .ninaero-switch:where([data-disabled]) {
+    border-color: var(--border);
+    background-color: var(--input-disabled-fill);
+    background-image: none;
+    box-shadow: none;
+    --ninaero-material-shadow: 0 0 #0000;
+    cursor: not-allowed;
+  }
+  .ninaero-switch:where([data-disabled][data-checked]) {
+    background-color: var(--muted-foreground);
+  }
+  .ninaero-switch:where([data-disabled]) .ninaero-switch-thumb {
+    border-color: var(--border);
+    background-color: var(--muted);
+    background-image: none;
+    box-shadow: none;
+    --ninaero-material-shadow: 0 0 #0000;
   }
   .ninaero-slider-control {
     min-block-size: 2rem;
@@ -1543,6 +1659,9 @@
     background-image: none;
   }
   @media (prefers-reduced-motion: reduce) {
+    .ninaero-switch, .ninaero-switch-thumb {
+      transition: none;
+    }
     .ninaero-slider-thumb {
       transition: none;
     }
@@ -1580,6 +1699,38 @@
     }
     .ninaero-mark-highlight {
       stroke: CanvasText;
+    }
+    .ninaero-switch {
+      forced-color-adjust: none;
+      border-color: CanvasText;
+      background-color: Canvas;
+      background-image: none;
+      box-shadow: none;
+      --ninaero-material-shadow: 0 0 #0000;
+    }
+    .ninaero-switch:where([data-checked]) {
+      background-color: Highlight;
+    }
+    .ninaero-switch .ninaero-switch-thumb {
+      border-color: ButtonText;
+      background-color: ButtonFace;
+      background-image: none;
+      box-shadow: none;
+      --ninaero-material-shadow: 0 0 #0000;
+    }
+    .ninaero-switch:where([data-checked]) .ninaero-switch-thumb {
+      border-color: HighlightText;
+      background-color: HighlightText;
+    }
+    .ninaero-switch:where([data-disabled]) {
+      border-color: GrayText;
+    }
+    .ninaero-switch:where([data-disabled][data-checked]) {
+      background-color: GrayText;
+    }
+    .ninaero-switch:where([data-disabled]) .ninaero-switch-thumb {
+      border-color: GrayText;
+      background-color: Canvas;
     }
     .ninaero-slider {
       forced-color-adjust: none;

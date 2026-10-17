@@ -11,7 +11,7 @@ import {
 } from "@/registry/ninaero/ui/card";
 
 export const metadata: Metadata = {
-  title: "Background details | Ninaero",
+  title: "Patterns | Ninaero",
   description:
     "Configurable paper patterns, checkerboards, and diamond dithering with Tailwind spacing and ink colors.",
 };
@@ -136,12 +136,12 @@ const colorSamples = [
 const responsiveExample =
   '<div aria-hidden="true" className="ninaero-paper-grid-12 h-40 md:ninaero-paper-grid-32" />';
 
-export default function BackgroundDetailsPage() {
+export default function PatternsPage() {
   return (
     <article className="flex flex-col gap-10">
       <header className="flex flex-col gap-4">
         <p className="text-xs font-medium text-muted-foreground">Theme documentation</p>
-        <h1 className="text-4xl type-display">Background details</h1>
+        <h1 className="text-4xl type-display">Patterns</h1>
         <p className="max-w-2xl type-prose text-muted-foreground">
           Seven opt-in textures with configurable spacing, ink, and fill.
         </p>

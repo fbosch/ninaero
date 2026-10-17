@@ -127,6 +127,33 @@ export const buttonRecessShadow = [
   "inset 0 1px 2px var(--button-recess-shade)",
   "inset 0 -1px 0 var(--button-recess-highlight)",
 ].join(", ");
+
+const recessedTrackMaterial = {
+  border: "1px solid var(--input-edge)",
+  "background-color": "var(--input-fill)",
+  "box-shadow":
+    "inset 0 2px 3px color-mix(in oklab, var(--input-fill), black 12%), inset 0 -1px 0 color-mix(in oklab, var(--input-fill), white 6%)",
+};
+const selectedTrackMaterial = {
+  "background-color": "var(--button-primary-fill)",
+  "background-image":
+    "linear-gradient(180deg in oklab, var(--glass-mark-face-0), var(--glass-mark-face-50) 48%, var(--glass-mark-face-100))",
+  "box-shadow":
+    "inset 0 1px 0 color-mix(in oklab, var(--glass-mark-face-0), white 25%), inset 0 -1px 0 color-mix(in oklab, var(--glass-mark-face-100), black 8%)",
+};
+const paperThumbMaterial = {
+  "border-color": "var(--button-paper-edge)",
+  "background-color": "var(--button-paper-fill)",
+  "background-image":
+    "linear-gradient(180deg in oklab, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
+  "box-shadow": "inset 0 -1px 0 var(--button-paper-shade), var(--shadow-control)",
+};
+const pressedThumbMaterial = {
+  "background-color": "var(--button-paper-pressed)",
+  "background-image": "none",
+  "box-shadow":
+    "inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black var(--button-recess-shade-weight)), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white var(--button-recess-highlight-weight))",
+};
 const sansFont = {
   family: "'Google Sans Flex Variable', ui-sans-serif, system-ui, sans-serif",
   dependency: "@fontsource-variable/google-sans-flex",
@@ -399,6 +426,8 @@ export const theme = {
     ...paperPalettes.light,
     "paper-notebook-mask": notebookMask(),
     "dither-mask": ditherMask(),
+    "overlay-checker-mask":
+      "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
   },
   dark: {
     background: "oklch(0.145 0 0)",
@@ -509,6 +538,39 @@ export const theme = {
       "--ninaero-dither-step": "max(1px, calc(--value(number, [number]) * 1px))",
       ...ditherStyles,
     },
+    "@utility ninaero-overlay-dither": {
+      "&::after": {
+        content: '""',
+        position: "fixed",
+        inset: "0",
+        // The finish sits above portaled UI without changing any component's stacking context.
+        "z-index": "2147483647",
+        "pointer-events": "none",
+        "user-select": "none",
+        "background-color": "var(--foreground)",
+        "mask-image": "var(--ninaero-overlay-pattern, var(--overlay-checker-mask))",
+        "mask-mode": "alpha",
+        "mask-size":
+          "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
+        "mask-repeat": "repeat",
+        opacity: "var(--ninaero-overlay-opacity, 0.04)",
+        "@media (forced-colors: active)": { display: "none" },
+        "@media print": { display: "none" },
+      },
+    },
+    "@utility ninaero-overlay-dots": {
+      "--ninaero-overlay-pattern": "radial-gradient(circle, black 0.75px, transparent 0.75px)",
+      "--ninaero-overlay-tile": "4px",
+    },
+    "@utility ninaero-overlay-halftone": {
+      "--ninaero-overlay-pattern": halftoneMask(),
+      "--ninaero-overlay-tile": `${halftoneTile}px`,
+    },
+    "@utility ninaero-overlay-lines": {
+      "--ninaero-overlay-pattern":
+        "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
+      "--ninaero-overlay-tile": "4px",
+    },
     "@utility type-display": {
       "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {},
     },
@@ -610,7 +672,7 @@ export const theme = {
     "@layer components": withMaterialShadows({
       [focusFrames]: { position: "relative" },
       // Resolve color-dependent tokens locally so receiving-material colors can inherit.
-      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-slider-thumb":
+      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-slider-thumb, .ninaero-switch-thumb":
         elevationVariables,
       ".ninaero-surface-paper": {
         "--shadow-color": "var(--shadow-color-paper)",
@@ -664,35 +726,82 @@ export const theme = {
         "box-shadow": "none",
         outline: "none",
       },
+      ".ninaero-switch": {
+        ...recessedTrackMaterial,
+        "--switch-width": "2.25rem",
+        "--switch-thumb-size": "1rem",
+        "--switch-direction": "1",
+        "inline-size": "var(--switch-width)",
+        "block-size": "calc(var(--switch-thumb-size) + 4px)",
+        padding: "1px",
+        cursor: "pointer",
+        outline: "none",
+        transition: "background-color 80ms ease-out, border-color 80ms ease-out",
+      },
+      ".ninaero-switch[data-size=sm]": {
+        "--switch-width": "1.75rem",
+        "--switch-thumb-size": "0.75rem",
+      },
+      ".ninaero-switch[data-direction=rtl]": { "--switch-direction": "-1" },
+      ".ninaero-switch:where([data-checked])": {
+        ...selectedTrackMaterial,
+        "border-color": "var(--button-primary-edge)",
+      },
+      ".ninaero-switch-thumb": {
+        border: "1px solid",
+        ...paperThumbMaterial,
+        "inline-size": "var(--switch-thumb-size)",
+        "block-size": "var(--switch-thumb-size)",
+        "border-radius": "50%",
+        transform: "translateX(0)",
+        transition:
+          "transform 140ms ease-out, background-color 80ms ease-out, box-shadow 80ms ease-out",
+      },
+      ".ninaero-switch-thumb:where([data-checked])": {
+        transform:
+          "translateX(calc((var(--switch-width) - var(--switch-thumb-size) - 4px) * var(--switch-direction)))",
+      },
+      ".ninaero-switch:where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked])": {
+        "border-color": "var(--neutral-input)",
+      },
+      ".ninaero-switch:where(:hover:not([data-disabled]):not([data-readonly])) .ninaero-switch-thumb":
+        { "background-color": "var(--button-paper-hover)" },
+      ".ninaero-switch:where(:active:not([data-disabled]):not([data-readonly])) .ninaero-switch-thumb":
+        pressedThumbMaterial,
+      ".ninaero-switch:where([aria-invalid=true], [data-invalid])": {
+        "border-color": "var(--destructive)",
+      },
+      ".ninaero-switch:where([data-readonly])": { cursor: "default" },
+      ".ninaero-switch:where([data-disabled])": {
+        "border-color": "var(--border)",
+        "background-color": "var(--input-disabled-fill)",
+        "background-image": "none",
+        "box-shadow": "none",
+        cursor: "not-allowed",
+      },
+      ".ninaero-switch:where([data-disabled][data-checked])": {
+        "background-color": "var(--muted-foreground)",
+      },
+      ".ninaero-switch:where([data-disabled]) .ninaero-switch-thumb": {
+        "border-color": "var(--border)",
+        "background-color": "var(--muted)",
+        "background-image": "none",
+        "box-shadow": "none",
+      },
       ".ninaero-slider-control": {
         "min-block-size": "2rem",
       },
       ".ninaero-slider-control[data-orientation=vertical]": {
         "min-inline-size": "2rem",
       },
-      ".ninaero-slider-track": {
-        border: "1px solid var(--input-edge)",
-        "background-color": "var(--input-fill)",
-        "box-shadow":
-          "inset 0 2px 3px color-mix(in oklab, var(--input-fill), black 12%), inset 0 -1px 0 color-mix(in oklab, var(--input-fill), white 6%)",
-      },
-      ".ninaero-slider-range": {
-        "background-color": "var(--button-primary-fill)",
-        "background-image":
-          "linear-gradient(180deg in oklab, var(--glass-mark-face-0), var(--glass-mark-face-50) 48%, var(--glass-mark-face-100))",
-        "box-shadow":
-          "inset 0 1px 0 color-mix(in oklab, var(--glass-mark-face-0), white 25%), inset 0 -1px 0 color-mix(in oklab, var(--glass-mark-face-100), black 8%)",
-      },
+      ".ninaero-slider-track": recessedTrackMaterial,
+      ".ninaero-slider-range": selectedTrackMaterial,
       ".ninaero-slider-thumb": {
         "--slider-grip-ink": "color-mix(in oklab, var(--button-paper-fill), black 30%)",
         "--slider-grip-highlight": "color-mix(in oklab, var(--button-paper-fill), white 30%)",
         "corner-shape": "squircle",
         cursor: "grab",
-        "border-color": "var(--button-paper-edge)",
-        "background-color": "var(--button-paper-fill)",
-        "background-image":
-          "linear-gradient(180deg in oklab, var(--button-paper-highlight), transparent 55%, var(--button-paper-shade))",
-        "box-shadow": "inset 0 -1px 0 var(--button-paper-shade), var(--shadow-control)",
+        ...paperThumbMaterial,
         outline: "none",
         transition:
           "border-color 80ms ease-out, background-color 80ms ease-out, box-shadow 80ms ease-out",
@@ -722,10 +831,7 @@ export const theme = {
         },
       ".ninaero-slider-thumb:where(:active, [data-dragging]):where(:focus-within)": {
         cursor: "grabbing",
-        "background-color": "var(--button-paper-pressed)",
-        "background-image": "none",
-        "box-shadow":
-          "inset 0 1px 2px color-mix(in oklab, var(--button-paper-pressed), black var(--button-recess-shade-weight)), inset 0 -1px 0 color-mix(in oklab, var(--button-paper-pressed), white var(--button-recess-highlight-weight))",
+        ...pressedThumbMaterial,
       },
       ".ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
         outline: "1px solid var(--ring)",
@@ -1127,6 +1233,7 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
+        ".ninaero-switch, .ninaero-switch-thumb": { transition: "none" },
         ".ninaero-slider-thumb": { transition: "none" },
         ".ninaero-tabs-trigger": {
           transition: "none",
@@ -1159,6 +1266,36 @@ export const theme = {
       },
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
+        ".ninaero-switch": {
+          "forced-color-adjust": "none",
+          "border-color": "CanvasText",
+          "background-color": "Canvas",
+          "background-image": "none",
+          "box-shadow": "none",
+        },
+        ".ninaero-switch:where([data-checked])": {
+          "background-color": "Highlight",
+        },
+        ".ninaero-switch .ninaero-switch-thumb": {
+          "border-color": "ButtonText",
+          "background-color": "ButtonFace",
+          "background-image": "none",
+          "box-shadow": "none",
+        },
+        ".ninaero-switch:where([data-checked]) .ninaero-switch-thumb": {
+          "border-color": "HighlightText",
+          "background-color": "HighlightText",
+        },
+        ".ninaero-switch:where([data-disabled])": {
+          "border-color": "GrayText",
+        },
+        ".ninaero-switch:where([data-disabled][data-checked])": {
+          "background-color": "GrayText",
+        },
+        ".ninaero-switch:where([data-disabled]) .ninaero-switch-thumb": {
+          "border-color": "GrayText",
+          "background-color": "Canvas",
+        },
         ".ninaero-slider": { "forced-color-adjust": "none" },
         ".ninaero-slider .ninaero-slider-track": {
           border: "1px solid CanvasText",

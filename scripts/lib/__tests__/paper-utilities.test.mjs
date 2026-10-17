@@ -65,6 +65,34 @@ for (const name of [
     assert.doesNotThrow(() => compiler.build([]));
   });
 }
+test("installed site-wide dither compiles with opacity, size, and responsive overrides", async () => {
+  for (const utilities of [
+    "ninaero-overlay-dither",
+    "ninaero-overlay-dither [--ninaero-overlay-opacity:0.02] [--ninaero-overlay-size:4px]",
+    "ninaero-overlay-dither dark:[--ninaero-overlay-opacity:0.03] md:[--ninaero-overlay-size:4px]",
+    "md:ninaero-overlay-dither",
+  ]) {
+    const compiler = await compileConsumer(utilities);
+    assert.doesNotThrow(() => compiler.build([]));
+  }
+});
+
+for (const texture of [
+  "ninaero-overlay-dots",
+  "ninaero-overlay-halftone",
+  "ninaero-overlay-lines",
+]) {
+  test(`installed ${texture} compiles with the overlay and consumer overrides`, async () => {
+    for (const utilities of [
+      `ninaero-overlay-dither ${texture}`,
+      `ninaero-overlay-dither ${texture} [--ninaero-overlay-opacity:0.1] [--ninaero-overlay-size:8px]`,
+      `ninaero-overlay-dither md:${texture} dark:[--ninaero-overlay-opacity:0.02]`,
+    ]) {
+      const compiler = await compileConsumer(utilities);
+      assert.doesNotThrow(() => compiler.build([]));
+    }
+  });
+}
 
 test("installed patterns compile semantic, palette, arbitrary, and variable ink colors with opacity", async () => {
   const colors = [

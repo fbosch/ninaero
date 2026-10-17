@@ -1,0 +1,38 @@
+.swatch {
+  display: block;
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  background-color: var(--foreground);
+  mask-image: var(--ninaero-overlay-pattern, var(--overlay-checker-mask));
+  mask-mode: alpha;
+  mask-size: var(--ninaero-overlay-tile, 2px) var(--ninaero-overlay-tile, 2px);
+  mask-repeat: repeat;
+}
+
+.swatch[data-overlay="checker"] {
+  --ninaero-overlay-pattern: var(--overlay-checker-mask);
+  --ninaero-overlay-tile: 2px;
+}
+
+.swatch[data-overlay="dots"] {
+  /* Fit whole tiles inside the preview so edge dots stay complete. */
+  mask-size: 25% 25%;
+}
+
+.swatch[data-overlay="halftone"] {
+  mask-size: 50% 50%;
+}
+
+.swatch[data-overlay="off"] {
+  border: 1px solid var(--muted-foreground);
+  border-radius: 50%;
+  background-color: transparent;
+  background-image: linear-gradient(
+    135deg,
+    transparent 45%,
+    var(--muted-foreground) 45% 55%,
+    transparent 55%
+  );
+  mask-image: none;
+}
