@@ -20,7 +20,9 @@ export const glassMarkForcedColors = {
 };
 
 const buttonPressSelector =
-  ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost)";
+  ".ninaero-button:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-haspopup]):not(.ninaero-button--link):not(.ninaero-button--ghost:not([data-slot=code-block-copy-button]))";
+const codeCopyButtonSelector =
+  ".ninaero-button--ghost[data-slot=code-block-copy-button]:not(:disabled):not([data-disabled]):not([aria-disabled=true])";
 const raisedButtonSelector =
   ":is(.ninaero-button--primary, .ninaero-button--secondary, .ninaero-button--destructive)";
 const raisedButtonGroupSelector = [
@@ -310,6 +312,31 @@ function flipnoteMask() {
   ].join("");
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
+const overlayDotRadius = 0.75;
+
+function overlayDotsMask() {
+  // Relative dimensions let mask-size set the viewport without scaling the dot.
+  const svg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="white">',
+    `<circle cx="50%" cy="50%" r="${overlayDotRadius}"/>`,
+    "</svg>",
+  ].join("");
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+const overlayChannels = {
+  multiply: "clamp(0, 2 * r / max(0.000001, 1 - alpha + alpha * 2 * g), 1)",
+  screen: "clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha * 2 * g), 1)",
+  normal: "clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha), 1)",
+};
+
+function overlaySurface(surface) {
+  // Neutral surfaces and ink have equal RGB channels. Pack surface/ink into R/G
+  // and effective opacity into alpha so relative CSS colors can invert the blend.
+  const pair = `color-mix(in srgb, color(from ${surface} srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0))`;
+  const origin = `color(from ${pair} srgb r g b / var(--ninaero-overlay-effective-opacity))`;
+  const channel = "var(--ninaero-overlay-compensated-channel)";
+  return `color(from ${origin} srgb ${channel} ${channel} ${channel} / 1)`;
+}
 
 function maskedPattern(mask, size) {
   return {
@@ -524,9 +551,13 @@ export const theme = {
     "paper-notebook-mask": notebookMask(),
     "dither-mask": ditherMask(),
     "overlay-flipnote-mask": flipnoteMask(),
+    "overlay-dots-mask": overlayDotsMask(),
     "overlay-checker-mask":
       "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
     "ninaero-overlay-blend-mode": "multiply",
+    "ninaero-overlay-opacity": "0.06",
+    "ninaero-overlay-coverage": "0.5",
+    "ninaero-overlay-compensation": "1",
   },
   dark: {
     background: "oklch(0.145 0 0)",
@@ -640,6 +671,21 @@ export const theme = {
     },
     "@utility ninaero-overlay-dither": {
       isolation: "isolate",
+      "@supports (color: color(from red srgb r g b)) and (opacity: calc(1px / 1px)) and (color: if(style(--ninaero-overlay-blend-mode: multiply): red))":
+        {
+          "--ninaero-overlay-compensated-channel": `if(${Object.entries(overlayChannels)
+            .map(([mode, channel]) => `style(--ninaero-overlay-blend-mode: ${mode}): ${channel}`)
+            .join("; ")}; else: calc(2 * r))`,
+          "--ninaero-overlay-effective-opacity":
+            "calc(clamp(0, var(--ninaero-overlay-opacity), 1) * clamp(0, var(--ninaero-overlay-coverage), 1) * clamp(0, var(--ninaero-overlay-compensation), 1))",
+          "--ninaero-overlay-background": overlaySurface("var(--background)"),
+          "--ninaero-overlay-card": overlaySurface("var(--card)"),
+          "--ninaero-overlay-muted": overlaySurface("var(--muted)"),
+          "&:where(body)": { "background-color": "var(--ninaero-overlay-background)" },
+        },
+      "@media (forced-colors: active), print": {
+        "--ninaero-overlay-compensation": "0",
+      },
       "&::after": {
         content: '""',
         position: "fixed",
@@ -655,7 +701,7 @@ export const theme = {
         "mask-size":
           "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
         "mask-repeat": "repeat",
-        opacity: "var(--ninaero-overlay-opacity, 0.06)",
+        opacity: "var(--ninaero-overlay-opacity)",
         "@media (forced-colors: active)": { display: "none" },
         "@media print": { display: "none" },
       },
@@ -665,17 +711,20 @@ export const theme = {
       "--ninaero-overlay-blend-mode": "normal",
     },
     "@utility ninaero-overlay-dots": {
-      "--ninaero-overlay-pattern": "radial-gradient(circle, black 0.75px, transparent 0.75px)",
+      "--ninaero-overlay-pattern": "var(--overlay-dots-mask)",
       "--ninaero-overlay-tile": "4px",
+      "--ninaero-overlay-coverage": `clamp(0, calc(pi * pow(${overlayDotRadius}px / var(--ninaero-overlay-size, var(--ninaero-overlay-tile)), 2)), 1)`,
     },
     "@utility ninaero-overlay-lines": {
       "--ninaero-overlay-pattern":
         "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
       "--ninaero-overlay-tile": "4px",
+      "--ninaero-overlay-coverage": "0.25",
     },
     "@utility ninaero-overlay-flipnote": {
       "--ninaero-overlay-pattern": "var(--overlay-flipnote-mask)",
       "--ninaero-overlay-tile": "8px",
+      "--ninaero-overlay-coverage": "0.125",
     },
     ".ninaero-syntax-token": {
       ...syntaxStyle(defaultSyntaxVariants.light),
@@ -850,6 +899,7 @@ export const theme = {
       },
       ".ninaero-surface-paper": shadowSurface("var(--paper-fill)"),
       ".ninaero-code-block": {
+        "--ninaero-code-header-surface": "color-mix(in oklab, var(--muted) 30%, var(--card))",
         "--ninaero-code-highlight": "color-mix(in oklab, var(--card), white 85%)",
         "--ninaero-code-shade": "color-mix(in oklab, var(--card), black 4%)",
         "box-shadow":
@@ -860,9 +910,12 @@ export const theme = {
         "--ninaero-code-shade": "color-mix(in oklab, var(--card), black 12%)",
       },
       ".ninaero-code-block > [data-slot=code-block-header]": {
-        "background-color": "color-mix(in oklab, var(--muted) 30%, var(--card))",
+        "background-color": "var(--ninaero-code-header-surface)",
         "box-shadow": "inset 0 1px 0 var(--ninaero-code-highlight)",
       },
+      ".ninaero-code-block > [data-slot=code-block-header] > *": shadowSurface(
+        "var(--ninaero-code-header-surface)",
+      ),
       ".ninaero-code-block-content": {
         "--ninaero-code-rule": "color-mix(in oklab, var(--foreground) 6%, transparent)",
       },
@@ -951,6 +1004,12 @@ export const theme = {
           color: "color-mix(in oklab, var(--primary-foreground), black 12%)",
         },
       "@media (forced-colors: none)": {
+        [codeCopyButtonSelector]: {
+          "--button-recess-fill": "var(--button-paper-pressed)",
+        },
+        [`${codeCopyButtonSelector}:active`]: {
+          "background-color": "var(--button-recess-fill)",
+        },
         ".ninaero-checkbox:where(:not([data-disabled])) [data-slot=checkbox-indicator] > svg": {
           filter: "drop-shadow(0 -0.5px 0 #ffffff66) drop-shadow(0 0.5px 0.25px #00000033)",
         },
@@ -1672,6 +1731,12 @@ export const theme = {
           "background-color": "var(--button-destructive-pressed)",
           "background-image": "none",
         },
+      "@media (hover: hover) and (forced-colors: none)": {
+        [`${codeCopyButtonSelector}:hover`]: {
+          "box-shadow": `inset 0 1px 0 var(--button-paper-highlight), inset 0 -1px 0 var(--button-paper-shade), ${controlCastShadow}`,
+          transform: "translateY(calc(-1 * var(--button-press-shift)))",
+        },
+      },
       "@media (prefers-reduced-motion: reduce)": {
         ".ninaero-dropdown-menu-item": { transition: "none" },
         ".ninaero-select-item": { transition: "none" },

@@ -107,6 +107,8 @@ Use ruled paper only for paragraphs and other continuous text. Match the rule in
 
 Code Block content uses faint bottom borders on each rendered line rather than a repeating background image. Borders follow wrapped and highlighted lines; headers and footers remain unruled, with a fine divider above the footer. Keep the frame shallow, with a lit upper inset edge, a faint lower inset shade, and slight neutral tonal separation in the header. Do not add a floating cast shadow.
 
+The default Code Block copy button is a Ninaero-specific exception to flat Ghost buttons. Keep it flat at rest, raise it 1px on hover with shared control lighting, and recess it while pressed. Reduced motion keeps the static lighting without movement. Other Ghost and Link buttons retain their flat treatment.
+
 Ordinary code blocks keep their neutral fill opaque. The homepage install command reuses the registry Code Block with a site-only glass layer matching the header's 75% neutral fill, 12px backdrop blur, and slight saturation. Keep that layer separate from fully opaque text and controls, overscan its sampling area, and preserve keyboard-focus outlines. Without backdrop-filter support, retain the ordinary opaque fill. Remove the glass in forced-colors mode and print.
 
 Do not use ruling behind forms, control specimens, tables, navigation, or mixed component layouts. Dotted and grid patterns may appear on page backgrounds and preview backdrops. Use the notebook pattern only as a decorative background or preview backdrop, not behind forms, text, or controls. Keep forms and tables on opaque, plain fills. A grid is one pattern made from horizontal and vertical rules; do not add dots or ruling over it. Separate sections with space instead of adding decorative divider lines.

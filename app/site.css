@@ -24,6 +24,7 @@ html.dark {
   grid-template-rows: subgrid;
   /* Back to front: sky (-6), waves (-5), bubbles (-3), glass (-2), dots (-1), then content. */
   overflow: clip;
+  background-color: var(--ninaero-overlay-background, var(--background));
 }
 
 .home-content {
@@ -32,6 +33,13 @@ html.dark {
 
 body.ninaero-overlay-dither:has(.home-page)::after {
   display: none;
+}
+body:has(.home-page) {
+  background-color: var(--background);
+}
+
+body:not(.ninaero-overlay-dither) :is(.home-page, .site-header) {
+  --ninaero-overlay-compensation: 0;
 }
 
 body:not(.ninaero-overlay-dither) .home-page::after {
@@ -136,8 +144,8 @@ body:not(.ninaero-overlay-dither) .home-page::after {
 }
 
 .site-header {
-  --site-header-shade-top: var(--card);
-  --site-header-shade-bottom: var(--muted);
+  --site-header-shade-top: var(--ninaero-overlay-card, var(--card));
+  --site-header-shade-bottom: var(--ninaero-overlay-muted, var(--muted));
   /* Keep the cast shadow above opaque page backgrounds. */
   position: relative;
   z-index: 10;
@@ -160,9 +168,9 @@ body:not(.ninaero-overlay-dither) .home-page::after {
   z-index: 0;
 }
 
-.site-header--home::after {
+.site-header--home {
   /* Keep the texture from blocking backdrop sampling by ::before. */
-  mix-blend-mode: normal;
+  --ninaero-overlay-blend-mode: normal;
 }
 
 .site-header > div {
@@ -175,8 +183,8 @@ body:not(.ninaero-overlay-dither) .site-header::after {
 }
 
 .dark .site-header {
-  --site-header-shade-top: var(--muted);
-  --site-header-shade-bottom: var(--card);
+  --site-header-shade-top: var(--ninaero-overlay-muted, var(--muted));
+  --site-header-shade-bottom: var(--ninaero-overlay-card, var(--card));
 }
 
 @supports (backdrop-filter: blur(1px)) {

@@ -108,6 +108,11 @@
   .scene [data-slot="code-block"] {
     --home-code-glass-top: var(--card);
     --home-code-glass-bottom: var(--muted);
+    --ninaero-code-header-surface: color-mix(
+      in srgb,
+      var(--home-code-glass-top) 75%,
+      var(--background)
+    );
     background: transparent;
   }
 

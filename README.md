@@ -96,6 +96,16 @@ Run `pnpm registry:build` for a one-off rebuild outside the dev server. Do not e
 
 See [DESIGN.md](DESIGN.md) for visual guidelines. Check light and dark modes, keyboard focus, hover, pressed, disabled, and invalid states.
 
+### Overlay compensation
+
+The opt-in body texture compensates neutral page backgrounds for its estimated average color shift. The site also uses the compensated colors for the header gradient and the homepage's neutral underlay. Semantic tokens, text, controls, modal scrims, and homepage artwork keep their original colors.
+
+This Ninaero extension uses relative CSS colors, typed arithmetic, and CSS `if()`. It follows light/dark mode, opacity, pattern density, and multiply, screen, or normal blending without JavaScript. Browsers without those features retain the original fill. Compensation is disabled in forced-colors mode and print.
+
+Set `--ninaero-overlay-compensation: 0` to compare with the original finish; the default is `1`. Custom masks need a `--ninaero-overlay-coverage` value between 0 and 1. The built-in estimates are 0.5 for Checker, 0.25 for lines, 0.125 for Flipnote, and circle area divided by tile area for dots.
+
+The calculation targets average sRGB color, not perceived brightness or individual texture marks. It supports opaque neutral fills and neutral ink, not colored artwork or arbitrary translucent backdrops. Values clip at black and white, so some shifts cannot be corrected.
+
 ## Checks
 
 ```sh

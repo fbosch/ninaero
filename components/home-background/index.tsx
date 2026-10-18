@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { PauseIcon, PlayIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/ninaero/ui/tooltip";
 
 import { HomeBubbles } from "./home-bubbles";
 import { HomeSky } from "./home-sky";
@@ -15,6 +16,7 @@ import styles from "./home-background.module.css";
 export function HomeBackground() {
   const [paused, setPaused] = useState(false);
 
+  const motionLabel = paused ? "Resume background animation" : "Pause background animation";
   return (
     <>
       <HomeSky />
@@ -22,16 +24,23 @@ export function HomeBackground() {
       <HomeBubbles paused={paused} />
       <div role="group" aria-label="Homepage controls" className={styles.controls}>
         <HomeSoundToggle />
-        <Button
-          variant="outline"
-          size="icon"
-          className={styles.motionControl}
-          aria-label={paused ? "Resume background animation" : "Pause background animation"}
-          title={paused ? "Resume background animation" : "Pause background animation"}
-          onClick={() => setPaused((value) => !value)}
-        >
-          {paused ? <PlayIcon /> : <PauseIcon />}
-        </Button>
+        <Tooltip>
+          <TooltipTrigger
+            sound={false}
+            render={
+              <Button
+                variant="outline"
+                size="icon"
+                className={styles.motionControl}
+                aria-label={motionLabel}
+                onClick={() => setPaused((value) => !value)}
+              />
+            }
+          >
+            {paused ? <PlayIcon /> : <PauseIcon />}
+          </TooltipTrigger>
+          <TooltipContent>{motionLabel}</TooltipContent>
+        </Tooltip>
       </div>
     </>
   );

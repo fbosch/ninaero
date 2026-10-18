@@ -17,6 +17,7 @@ import { ButtonGroup } from "@/registry/ninaero/ui/button-group";
 import { Slider } from "@/registry/ninaero/ui/slider";
 import { SoundProvider, useSound } from "@/registry/ninaero/ui/sound-provider";
 import { defaultSoundSettings } from "@/registry/ninaero/ui/sound-runtime";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/ninaero/ui/tooltip";
 
 import styles from "./home-background.module.css";
 
@@ -99,21 +100,28 @@ export function HomeSoundToggle() {
           />
         </div>
       </div>
-      <Button
-        variant="ghost"
-        className={styles.soundToggle}
-        size="icon"
-        aria-label="Sound effects"
-        aria-pressed={audible}
-        title={audible ? "Mute sound effects" : "Enable sound effects"}
-        sound={false}
-        onClick={() => {
-          if (settings.volume === 0) settings.setVolume(defaultSoundSettings.volume);
-          settings.setEnabled(!audible);
-        }}
-      >
-        {audible ? <VolumeIcon /> : <VolumeOffIcon />}
-      </Button>
+      <Tooltip>
+        <TooltipTrigger
+          sound={false}
+          render={
+            <Button
+              variant="ghost"
+              className={styles.soundToggle}
+              size="icon"
+              aria-label="Sound effects"
+              aria-pressed={audible}
+              sound={false}
+              onClick={() => {
+                if (settings.volume === 0) settings.setVolume(defaultSoundSettings.volume);
+                settings.setEnabled(!audible);
+              }}
+            />
+          }
+        >
+          {audible ? <VolumeIcon /> : <VolumeOffIcon />}
+        </TooltipTrigger>
+        <TooltipContent>{audible ? "Mute sound effects" : "Enable sound effects"}</TooltipContent>
+      </Tooltip>
     </ButtonGroup>
   );
 }
