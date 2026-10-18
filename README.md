@@ -104,7 +104,7 @@ This Ninaero extension uses relative CSS colors, typed arithmetic, and CSS `if()
 
 Set `--ninaero-overlay-compensation: 0` to compare with the original finish; the default is `1`. Custom masks need a `--ninaero-overlay-coverage` value between 0 and 1. The built-in estimates are 0.5 for Checker, 0.25 for lines, 0.125 for Flipnote, and circle area divided by tile area for dots.
 
-The calculation targets average sRGB color, not perceived brightness or individual texture marks. It supports opaque neutral fills and neutral ink, not colored artwork or arbitrary translucent backdrops. Values clip at black and white, so some shifts cannot be corrected.
+The calculation targets average sRGB color, not perceived brightness or individual texture marks. It supports opaque neutral fills and neutral ink, not colored artwork or arbitrary translucent backdrops. The original texture opacity is preserved. Corrective background colors clip at black and white, so those extremes retain an unavoidable average shift rather than fading the pattern.
 
 ## Checks
 
