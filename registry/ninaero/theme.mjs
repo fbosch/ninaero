@@ -1,5 +1,18 @@
 import { accentPresets, accentRules, accentSemanticTokens, defaultAccent } from "./accents.mjs";
 import { createGlassGradientTokens, withGlassGradientVariables } from "./glass-materials.mjs";
+import { syntaxThemeVariants } from "./hooks/syntax-themes.mjs";
+
+const syntaxStyle = (alias) => ({
+  color: `var(--n-${alias})`,
+});
+const defaultSyntaxVariants = Object.fromEntries(
+  Object.entries(syntaxThemeVariants)
+    .filter(([, variant]) => variant.accent === defaultAccent)
+    .map(([alias, variant]) => [variant.mode, alias]),
+);
+if (!defaultSyntaxVariants.light || !defaultSyntaxVariants.dark) {
+  throw new Error(`Missing syntax themes for default accent: ${defaultAccent}`);
+}
 
 export const glassMarkForcedColors = {
   ".ninaero-mark-face": { fill: "none", stroke: "CanvasText" },
@@ -141,6 +154,47 @@ function shadowSurface(surface) {
   };
 }
 
+function compositedSurface(fill, opacity, underlay = "var(--shadow-surface)") {
+  return `color-mix(in srgb, ${fill} ${opacity}%, ${underlay})`;
+}
+
+const bubbleSurfaceFills = {
+  default: ["var(--primary)", compositedSurface("var(--primary)", 80)],
+  secondary: ["var(--secondary)", "color-mix(in oklch, var(--secondary), var(--foreground) 5%)"],
+  muted: ["var(--muted)", "color-mix(in oklch, var(--muted), var(--foreground) 5%)"],
+  tinted: [
+    "oklch(from var(--primary) 0.93 calc(c * 0.4) h)",
+    "oklch(from var(--primary) 0.88 calc(c * 0.5) h)",
+    "oklch(from var(--primary) 0.3 calc(c * 0.4) h)",
+    "oklch(from var(--primary) 0.35 calc(c * 0.5) h)",
+  ],
+  outline: ["var(--background)", "var(--muted)", undefined, compositedSurface("var(--input)", 30)],
+  ghost: [
+    "var(--shadow-surface)",
+    "var(--muted)",
+    undefined,
+    compositedSurface("var(--muted)", 50),
+  ],
+  destructive: [
+    compositedSurface("var(--destructive)", 10),
+    compositedSurface("var(--destructive)", 20),
+    compositedSurface("var(--destructive)", 20),
+    compositedSurface("var(--destructive)", 30),
+  ],
+};
+const bubbleShadowContexts = Object.fromEntries(
+  Object.entries(bubbleSurfaceFills).flatMap(([variant, [fill, hover, darkFill, darkHover]]) => {
+    const content = `[data-slot=bubble][data-variant=${variant}] > [data-slot=bubble-content]`;
+    const surface = (color) => ({ "--ninaero-bubble-shadow-surface": color });
+    return [
+      [content, surface(fill)],
+      [`${content}:is(button,a):hover`, surface(hover)],
+      ...(darkFill ? [[`.dark ${content}`, surface(darkFill)]] : []),
+      ...(darkHover ? [[`.dark ${content}:is(button,a):hover`, surface(darkHover)]] : []),
+    ];
+  }),
+);
+
 const menuItemCastShadow = [
   "0 1px 2px hsl(var(--shadow-color) / 0.06)",
   "0 2px 4px hsl(var(--shadow-color) / 0.03)",
@@ -243,6 +297,15 @@ function ditherMask() {
   const svg = [
     '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" shape-rendering="crispEdges">',
     '<path d="M0 0L8 8M8 0L0 8" stroke="white" stroke-width="1" vector-effect="non-scaling-stroke"/>',
+    "</svg>",
+  ].join("");
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+function flipnoteMask() {
+  const svg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="white" shape-rendering="crispEdges">',
+    '<path d="M0 0h1v1H0z M4 1h1v1H4z M2 3h1v1H2z M6 3h1v1H6z M1 5h1v1H1z M5 5h1v1H5z M3 7h1v1H3z M7 7h1v1H7z"/>',
     "</svg>",
   ].join("");
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
@@ -460,6 +523,7 @@ export const theme = {
     ...paperPalettes.light,
     "paper-notebook-mask": notebookMask(),
     "dither-mask": ditherMask(),
+    "overlay-flipnote-mask": flipnoteMask(),
     "overlay-checker-mask":
       "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
     "ninaero-overlay-blend-mode": "multiply",
@@ -490,7 +554,7 @@ export const theme = {
     "card-foreground": "oklch(0.985 0 0)",
     popover: "var(--card)",
     "dialog-fill-shade": "color-mix(in oklab, var(--popover) 92%, black)",
-    "dialog-highlight": "#ffffff24",
+    "dialog-highlight": "#ffffff0d",
     "dialog-shade": "#00000040",
     "tooltip-scanline-ink": "color-mix(in oklab, var(--background) 3%, transparent)",
     "popover-foreground": "var(--card-foreground)",
@@ -609,6 +673,24 @@ export const theme = {
         "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
       "--ninaero-overlay-tile": "4px",
     },
+    "@utility ninaero-overlay-flipnote": {
+      "--ninaero-overlay-pattern": "var(--overlay-flipnote-mask)",
+      "--ninaero-overlay-tile": "8px",
+    },
+    ".ninaero-syntax-token": {
+      ...syntaxStyle(defaultSyntaxVariants.light),
+      "font-style": "normal",
+      "@media (forced-colors: active)": { color: "CanvasText !important" },
+    },
+    ".dark .ninaero-syntax-token": syntaxStyle(defaultSyntaxVariants.dark),
+    ...Object.fromEntries(
+      Object.entries(syntaxThemeVariants).map(([alias, { accent, mode }]) => [
+        mode === "dark"
+          ? `.dark[data-accent="${accent}"] .ninaero-syntax-token, .dark [data-accent="${accent}"] .ninaero-syntax-token`
+          : `[data-accent="${accent}"] .ninaero-syntax-token`,
+        syntaxStyle(alias),
+      ]),
+    ),
     "@utility type-display": {
       "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {},
     },
@@ -721,13 +803,42 @@ export const theme = {
       ".bg-background > *": shadowSurface("var(--background)"),
       ".bg-card > *, [data-slot=card] > *": shadowSurface("var(--card)"),
       ".bg-muted > *": shadowSurface("var(--muted)"),
+      ".bg-primary > *": shadowSurface("var(--primary)"),
+      ".bg-secondary > *": shadowSurface("var(--secondary)"),
+      ".bg-accent > *": shadowSurface("var(--accent)"),
+      ".bg-destructive > *": shadowSurface("var(--destructive)"),
+      ".bg-foreground > *": shadowSurface("var(--foreground)"),
       ".bg-sidebar > *, [data-slot=sidebar-inner] > *, [data-slot=sidebar-wrapper]:has([data-variant=inset]) > *":
         shadowSurface("var(--sidebar)"),
       ".bg-popover > *, .ninaero-popover > *, .ninaero-dialog > *": shadowSurface("var(--popover)"),
       ".ninaero-tooltip > *": shadowSurface("var(--foreground)"),
       "[data-slot=card-footer] > *": shadowSurface(
-        "color-mix(in oklab, var(--muted) 50%, var(--card))",
+        "color-mix(in srgb, var(--muted) 50%, var(--card))",
       ),
+      ...bubbleShadowContexts,
+      "[data-slot=bubble] > [data-slot=bubble-content] > *": shadowSurface(
+        "var(--ninaero-bubble-shadow-surface)",
+      ),
+      // Snapshot the underlay on the painter before rebinding its children to avoid self-reference cycles.
+      "[data-slot=table-footer]": {
+        "--ninaero-table-footer-shadow-surface": compositedSurface("var(--muted)", 50),
+      },
+      "[data-slot=table-footer] > *": shadowSurface("var(--ninaero-table-footer-shadow-surface)"),
+      "[data-slot=table-row]": {
+        "--ninaero-table-row-shadow-surface": "var(--shadow-surface)",
+      },
+      "[data-slot=table-row]:has([aria-expanded=true])": {
+        "--ninaero-table-row-shadow-surface": compositedSurface("var(--muted)", 50),
+      },
+      "[data-slot=table-row][data-state=selected]": {
+        "--ninaero-table-row-shadow-surface": "var(--muted)",
+      },
+      "[data-slot=table-row] > *": shadowSurface("var(--ninaero-table-row-shadow-surface)"),
+      "[data-slot=calendar]": {
+        "--ninaero-calendar-underlay": "var(--shadow-surface)",
+      },
+      ":is([data-slot=card-content], [data-slot=popover-content]) [data-slot=calendar] > *":
+        shadowSurface("var(--ninaero-calendar-underlay)"),
       ".ninaero-switch > .ninaero-switch-thumb": shadowSurface("var(--input-fill)"),
       ".ninaero-switch[data-checked] > .ninaero-switch-thumb": shadowSurface(
         "var(--glass-mark-face-50)",
@@ -964,6 +1075,37 @@ export const theme = {
       ".ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
         outline: "1px solid var(--ring)",
         "outline-offset": "3px",
+      },
+      ".ninaero-slider:where([data-variant=simple])": {
+        "--slider-simple-ink": "var(--foreground)",
+        "--ring": "var(--foreground)",
+      },
+      ".ninaero-slider:where([data-variant=simple]) .ninaero-slider-track": {
+        border: "none",
+        "background-color": "color-mix(in oklab, var(--foreground) 20%, var(--background))",
+        "box-shadow": "none",
+      },
+      ".ninaero-slider:where([data-variant=simple]) .ninaero-slider-range": {
+        "background-color": "var(--slider-simple-ink)",
+        "background-image": "none",
+        "box-shadow": "none",
+      },
+      ".ninaero-slider:where([data-variant=simple]) .ninaero-slider-thumb": {
+        "corner-shape": "round",
+        "border-color": "var(--slider-simple-ink)",
+        "background-color": "var(--slider-simple-ink)",
+        "background-image": "none",
+        "box-shadow": "none",
+      },
+      ".ninaero-slider:where([data-variant=simple]) .ninaero-slider-thumb::before": {
+        display: "none",
+      },
+      ".ninaero-slider:where([data-variant=simple]):where(:not([data-disabled]):not([aria-disabled=true])) .ninaero-slider-thumb:where(:hover, :active, [data-dragging])":
+        {
+          opacity: "0.75",
+        },
+      ".ninaero-slider:where([data-variant=simple]):where([data-invalid], [aria-invalid=true])": {
+        "--slider-simple-ink": "var(--destructive)",
       },
       ".ninaero-slider:where([data-invalid], [aria-invalid=true]) .ninaero-slider-thumb": {
         "--slider-grip-ink": "var(--destructive)",
@@ -1435,6 +1577,9 @@ export const theme = {
         "--button-cast-shadow": "var(--shadow-flat)",
       },
       "@media (hover: hover)": {
+        "[data-slot=table-row]:hover:not([data-state=selected])": {
+          "--ninaero-table-row-shadow-surface": compositedSurface("var(--muted)", 50),
+        },
         ".ninaero-tabs-trigger:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([data-active])":
           {
             color: "var(--foreground)",

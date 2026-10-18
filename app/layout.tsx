@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { AccentProvider } from "@/components/accent-provider";
+import { HomeSoundProvider, PageSoundBoundary } from "@/components/home-background/home-sound";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { accentBootstrap } from "@/lib/accent-preference.mjs";
@@ -26,16 +27,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="site-shell relative z-[1] flex flex-1 flex-col">
           <ThemeProvider>
             <AccentProvider>
-              <TooltipProvider>
-                <a
-                  href="#main"
-                  className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-background focus:p-3"
-                >
-                  Skip to content
-                </a>
-                <SiteHeader />
-                {children}
-              </TooltipProvider>
+              <HomeSoundProvider>
+                <TooltipProvider>
+                  <a
+                    href="#main"
+                    className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-background focus:p-3"
+                  >
+                    Skip to content
+                  </a>
+                  <SiteHeader />
+                  <PageSoundBoundary>{children}</PageSoundBoundary>
+                </TooltipProvider>
+              </HomeSoundProvider>
             </AccentProvider>
           </ThemeProvider>
         </div>

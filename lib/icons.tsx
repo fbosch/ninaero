@@ -30,6 +30,8 @@ import plusIconData from "@iconify-icons/mage/plus";
 import loader2IconData from "@iconify-icons/mage/reload";
 import searchIconData from "@iconify-icons/mage/search";
 import sunIconData from "@iconify-icons/mage/sun";
+import volumeOffIconData from "@iconify-icons/mage/volume-mute-fill";
+import volumeIconData from "@iconify-icons/mage/volume-up-fill";
 import { Icon as IconifyIcon, type IconifyIcon as IconData } from "@iconify/react/offline";
 import type { ComponentProps } from "react";
 
@@ -89,4 +91,6 @@ export const SearchIcon = /* @__PURE__ */ createIcon(searchIconData);
 export const SlidersHorizontalIcon = /* @__PURE__ */ createIcon(slidersHorizontalIconData);
 export const SunIcon = /* @__PURE__ */ createIcon(sunIconData);
 export const TriangleAlertIcon = /* @__PURE__ */ createIcon(triangleAlertIconData);
+export const VolumeIcon = /* @__PURE__ */ createIcon(volumeIconData);
+export const VolumeOffIcon = /* @__PURE__ */ createIcon(volumeOffIconData);
 export const XIcon = /* @__PURE__ */ createIcon(xIconData);

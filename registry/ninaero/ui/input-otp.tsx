@@ -6,24 +6,29 @@ import * as React from "react";
 
 import { MinusIcon } from "@/lib/icons";
 
+import { HoverSound } from "./sound-feedback";
+
 function InputOTP({
   className,
   containerClassName,
+  sound = true,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string;
-}) {
+} & { sound?: boolean }) {
   return (
-    <OTPInput
-      data-slot="input-otp"
-      containerClassName={cn(
-        "cn-input-otp flex items-center has-disabled:opacity-50",
-        containerClassName,
-      )}
-      spellCheck={false}
-      className={cn("disabled:cursor-not-allowed", className)}
-      {...props}
-    />
+    <HoverSound sound={sound}>
+      <OTPInput
+        data-slot="input-otp"
+        containerClassName={cn(
+          "cn-input-otp flex items-center has-disabled:opacity-50",
+          containerClassName,
+        )}
+        spellCheck={false}
+        className={cn("disabled:cursor-not-allowed", className)}
+        {...props}
+      />
+    </HoverSound>
   );
 }
 

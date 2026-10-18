@@ -80,6 +80,10 @@ export const componentGroups = [
         name: "toggle-group",
         description: "Related buttons with shared selection behavior.",
       },
+      {
+        name: "sound-provider",
+        description: "Optional Foley sound effects, silent until enabled.",
+      },
     ],
   },
   {

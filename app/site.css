@@ -80,12 +80,43 @@ body:not(.ninaero-overlay-dither) .home-page::after {
 }
 
 .home-tagline {
-  color: color-mix(in srgb, var(--button-link-ink) 65%, var(--muted-foreground));
+  --home-tagline-ink: color-mix(in oklab, var(--button-link-ink) 75%, var(--background));
+  color: var(--home-tagline-ink);
+  filter: drop-shadow(0 1px 1px var(--display-ink-shadow));
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+}
+
+.dark .home-tagline {
+  --home-tagline-ink: color-mix(in srgb, var(--button-link-ink) 85%, var(--muted-foreground));
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+}
+
+@supports (color: oklch(from red calc(l + 0.1) c h)) {
+  .home-tagline {
+    --home-tagline-ink: oklch(from var(--button-link-ink) calc(l + 0.1) c h);
+  }
+}
+
+@supports (background-clip: text) {
+  .home-tagline {
+    color: transparent;
+    background-image: linear-gradient(
+      to bottom in oklab,
+      color-mix(in oklab, var(--home-tagline-ink) 90%, white) 0%,
+      var(--home-tagline-ink) 50%,
+      color-mix(in oklab, var(--home-tagline-ink) 90%, black) 100%
+    );
+    background-clip: text;
+  }
 }
 
 @media (forced-colors: active) {
   .home-tagline {
     color: CanvasText;
+    filter: none;
+    text-shadow: none;
+    background-image: none;
+    background-clip: border-box;
   }
 }
 
@@ -266,23 +297,13 @@ body:not(.ninaero-overlay-dither) .site-header::after {
   tab-size: 2;
 }
 
-.syntax-code span {
-  color: var(--syntax-light, inherit);
-}
-
 .dark .syntax-code {
   background: var(--muted);
 }
 
-.dark .syntax-code span {
-  color: var(--syntax-dark, inherit);
-}
-
 @media (forced-colors: active) {
   .syntax-code,
-  .syntax-code span,
-  .dark .syntax-code,
-  .dark .syntax-code span {
+  .dark .syntax-code {
     background: Canvas;
     color: CanvasText;
   }

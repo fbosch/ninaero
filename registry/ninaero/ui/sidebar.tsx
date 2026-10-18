@@ -21,6 +21,8 @@ import {
 import { Skeleton } from "@/registry/ninaero/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/ninaero/ui/tooltip";
 
+import { HoverSound } from "./sound-feedback";
+
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = "16rem";
@@ -266,28 +268,34 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
   );
 }
 
-function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
+function SidebarRail({
+  className,
+  sound = true,
+  ...props
+}: React.ComponentProps<"button"> & { sound?: boolean }) {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <button
-      data-sidebar="rail"
-      data-slot="sidebar-rail"
-      aria-label="Toggle Sidebar"
-      tabIndex={-1}
-      onClick={toggleSidebar}
-      title="Toggle Sidebar"
-      className={cn(
-        "absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2",
-        "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
-        "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
-        "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar",
-        "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
-        "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
-        className,
-      )}
-      {...props}
-    />
+    <HoverSound sound={sound}>
+      <button
+        data-sidebar="rail"
+        data-slot="sidebar-rail"
+        aria-label="Toggle Sidebar"
+        tabIndex={-1}
+        onClick={toggleSidebar}
+        title="Toggle Sidebar"
+        className={cn(
+          "absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2",
+          "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
+          "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+          "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar",
+          "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
+          "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+          className,
+        )}
+        {...props}
+      />
+    </HoverSound>
   );
 }
 
@@ -400,25 +408,30 @@ function SidebarGroupLabel({
 function SidebarGroupAction({
   className,
   render,
+  sound = true,
   ...props
-}: useRender.ComponentProps<"button"> & React.ComponentProps<"button">) {
-  return useRender({
-    defaultTagName: "button",
-    props: mergeProps<"button">(
-      {
-        className: cn(
-          "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
-          className,
+}: useRender.ComponentProps<"button"> & React.ComponentProps<"button"> & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "button",
+        props: mergeProps<"button">(
+          {
+            className: cn(
+              "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
+              className,
+            ),
+          },
+          props,
         ),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "sidebar-group-action",
-      sidebar: "group-action",
-    },
-  });
+        render,
+        state: {
+          slot: "sidebar-group-action",
+          sidebar: "group-action",
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 function SidebarGroupContent({ className, ...props }: React.ComponentProps<"div">) {
@@ -483,12 +496,13 @@ function SidebarMenuButton({
   size = "default",
   tooltip,
   className,
+  sound = true,
   ...props
 }: useRender.ComponentProps<"button"> &
   React.ComponentProps<"button"> & {
     isActive?: boolean;
     tooltip?: string | React.ComponentProps<typeof TooltipContent>;
-  } & VariantProps<typeof sidebarMenuButtonVariants>) {
+  } & VariantProps<typeof sidebarMenuButtonVariants> & { sound?: boolean }) {
   const { isMobile, state } = useSidebar();
   const comp = useRender({
     defaultTagName: "button",
@@ -508,7 +522,7 @@ function SidebarMenuButton({
   });
 
   if (!tooltip) {
-    return comp;
+    return <HoverSound sound={sound}>{comp}</HoverSound>;
   }
 
   if (typeof tooltip === "string") {
@@ -519,7 +533,7 @@ function SidebarMenuButton({
 
   return (
     <Tooltip>
-      {comp}
+      <HoverSound sound={sound}>{comp}</HoverSound>
       <TooltipContent
         side="right"
         align="center"
@@ -534,30 +548,35 @@ function SidebarMenuAction({
   className,
   render,
   showOnHover = false,
+  sound = true,
   ...props
 }: useRender.ComponentProps<"button"> &
   React.ComponentProps<"button"> & {
     showOnHover?: boolean;
-  }) {
-  return useRender({
-    defaultTagName: "button",
-    props: mergeProps<"button">(
-      {
-        className: cn(
-          "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
-          showOnHover &&
-            "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0",
-          className,
+  } & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "button",
+        props: mergeProps<"button">(
+          {
+            className: cn(
+              "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
+              showOnHover &&
+                "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 md:opacity-0",
+              className,
+            ),
+          },
+          props,
         ),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "sidebar-menu-action",
-      sidebar: "menu-action",
-    },
-  });
+        render,
+        state: {
+          slot: "sidebar-menu-action",
+          sidebar: "menu-action",
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 function SidebarMenuBadge({ className, ...props }: React.ComponentProps<"div">) {
@@ -637,31 +656,36 @@ function SidebarMenuSubButton({
   size = "md",
   isActive = false,
   className,
+  sound = true,
   ...props
 }: useRender.ComponentProps<"a"> &
   React.ComponentProps<"a"> & {
     size?: "sm" | "md";
     isActive?: boolean;
-  }) {
-  return useRender({
-    defaultTagName: "a",
-    props: mergeProps<"a">(
-      {
-        className: cn(
-          "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground ring-sidebar-ring outline-hidden group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[size=md]:text-sm data-[size=sm]:text-xs data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground",
-          className,
+  } & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "a",
+        props: mergeProps<"a">(
+          {
+            className: cn(
+              "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground ring-sidebar-ring outline-hidden group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[size=md]:text-sm data-[size=sm]:text-xs data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground",
+              className,
+            ),
+          },
+          props,
         ),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "sidebar-menu-sub-button",
-      sidebar: "menu-sub-button",
-      size,
-      active: isActive,
-    },
-  });
+        render,
+        state: {
+          slot: "sidebar-menu-sub-button",
+          sidebar: "menu-sub-button",
+          size,
+          active: isActive,
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 export {

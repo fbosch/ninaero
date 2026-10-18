@@ -1,0 +1,69 @@
+.mark {
+  overflow: visible;
+}
+
+.glow,
+.material,
+.refraction {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.initial {
+  position: relative;
+  display: inline-block;
+}
+
+.refraction {
+  position: absolute;
+  inset: 0;
+}
+
+@media screen and (forced-colors: none) {
+  .glow,
+  .material,
+  .refraction {
+    transition: opacity 160ms ease-out;
+  }
+
+  .glow {
+    /* Fade emitted light, not a filtered cast shadow or the artwork itself. */
+    filter: url("#frutiger-dollo-glow");
+  }
+
+  .refraction {
+    color: var(--button-primary-fill);
+    text-shadow: -0.5px 0 1px color-mix(in srgb, var(--button-primary-fill) 20%, transparent);
+    mask-image: linear-gradient(90deg, black 8%, transparent 32%);
+    transform: translateX(0);
+    transition:
+      opacity 160ms ease-out,
+      transform 200ms ease-out;
+  }
+
+  .wordmark:hover .glow {
+    opacity: 0.28;
+  }
+
+  .wordmark:hover .material {
+    opacity: 1;
+  }
+
+  .wordmark:hover .refraction {
+    opacity: 0.18;
+    transform: translateX(-0.25px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow,
+  .material,
+  .refraction {
+    transition: none;
+  }
+
+  .refraction,
+  .wordmark:hover .refraction {
+    transform: none;
+  }
+}

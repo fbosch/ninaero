@@ -18,6 +18,7 @@ const previewPaths = [
   "components/overview/carousel-preview.tsx",
   "components/overview/layout-previews.tsx",
   "components/overview/code-block-preview.tsx",
+  "components/overview/sound-provider-preview.tsx",
   "components/overview/trace-preview.tsx",
   "components/overview/data-table-preview.tsx",
   "components/overview/date-picker-preview.tsx",

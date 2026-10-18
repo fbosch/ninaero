@@ -10,6 +10,17 @@
   ],
   "items": [
     {
+      "name": "sound-provider",
+      "type": "registry:ui",
+      "packages": [],
+      "items": [],
+      "files": [
+        { "path": "registry/ninaero/ui/sound-provider.tsx", "type": "registry:ui" },
+        { "path": "registry/ninaero/ui/sound-runtime.ts", "type": "registry:ui" },
+        { "path": "registry/ninaero/ui/sound-feedback.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "code-block",
       "type": "registry:ui",
       "packages": ["cn", "class-variance-authority"],
@@ -29,7 +40,9 @@
       "packages": ["shiki"],
       "items": [],
       "files": [
-        { "path": "registry/ninaero/hooks/use-highlighted-code.ts", "type": "registry:hook" }
+        { "path": "registry/ninaero/hooks/use-highlighted-code.ts", "type": "registry:hook" },
+        { "path": "registry/ninaero/hooks/syntax-themes.mjs", "type": "registry:hook" },
+        { "path": "registry/ninaero/hooks/syntax-themes.d.mts", "type": "registry:hook" }
       ]
     },
     {
@@ -148,6 +161,10 @@
       "files": [
         {
           "path": "registry/ninaero/ui/button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ninaero/ui/button-feedback.tsx",
           "type": "registry:ui"
         }
       ]

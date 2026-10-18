@@ -44,6 +44,13 @@ test("generated docs cover every UI registry item", () => {
   }
 });
 
+test("documented exports have unique names across a component's supporting files", () => {
+  for (const item of docs.items) {
+    const names = item.api.map(({ name }) => name);
+    assert.equal(new Set(names).size, names.length, item.name);
+  }
+});
+
 test("composed guides install real dependencies rather than fictitious registry entries", () => {
   const guides = docs.items.filter((item) => item.kind === "guide");
   assert.deepEqual(guides.map((item) => item.name).sort(), [
@@ -128,6 +135,7 @@ test("API extraction reports exported signatures, defaults, values, and re-expor
   assert.deepEqual(exportedButton.defaults, [
     { name: "variant", value: '"default"' },
     { name: "size", value: '"default"' },
+    { name: "sound", value: "true" },
   ]);
   assert.equal(button.api.find(({ name }) => name === "buttonVariants").kind, "value");
   assert.equal(docsByName.get("chart").api.find(({ name }) => name === "ChartConfig").kind, "type");

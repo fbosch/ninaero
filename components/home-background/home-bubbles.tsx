@@ -2,6 +2,8 @@
 
 import { useEffect, useId, useRef } from "react";
 
+import { useSound } from "@/registry/ninaero/ui/sound-provider";
+
 import { createBubbleEntrances } from "./bubble-entrance";
 import {
   bubbleShape,
@@ -40,6 +42,8 @@ type HeldBubble = {
 };
 
 export function HomeBubbles({ paused }: { paused: boolean }) {
+  const { play } = useSound();
+  const playSoundRef = useRef(play);
   const refractionId = useId();
   const refractionImageRef = useRef<SVGFEImageElement>(null);
   const pausedRef = useRef(paused);
@@ -47,6 +51,10 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
   const fieldRef = useRef<HTMLDivElement>(null);
   const popLayerRef = useRef<HTMLDivElement>(null);
   const resumeRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    playSoundRef.current = play;
+  }, [play]);
 
   useEffect(() => {
     const field = lensFieldRef.current;
@@ -103,6 +111,15 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     let previousTime: number | null = null;
     let simulationTime = 0;
     let held: HeldBubble | null = null;
+
+    function showPop(bubble: Bubble) {
+      showBubblePop(popLayer, bubble, {
+        pop: styles.pop,
+        popRing: styles.popRing,
+        popDroplet: styles.popDroplet,
+      });
+      playSoundRef.current("pop", { pitch: 7, volume: 0.3 });
+    }
 
     function paint() {
       layers.forEach((pair, index) => {
@@ -175,15 +192,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
         releaseBubble(bubble, velocity);
       } else if (action === "pop" || current.created) {
         if (action === "pop" && enabled()) {
-          showBubblePop(
-            popLayer,
-            { ...bubble, vx: current.vx, vy: current.vy },
-            {
-              pop: styles.pop,
-              popRing: styles.popRing,
-              popDroplet: styles.popDroplet,
-            },
-          );
+          showPop({ ...bubble, vx: current.vx, vy: current.vy });
         }
         bubbles.splice(bubbles.indexOf(bubble), 1);
       } else {
@@ -300,11 +309,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       if (!bubble) return;
       event.preventDefault();
       entrances.clear();
-      showBubblePop(popLayer, bubble, {
-        pop: styles.pop,
-        popRing: styles.popRing,
-        popDroplet: styles.popDroplet,
-      });
+      showPop(bubble);
       bubbles.splice(bubbles.indexOf(bubble), 1);
       paint();
     }
@@ -357,19 +362,11 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
         if (popped.length) entrances.clear();
         if (enabled()) {
           for (const bubble of popped) {
-            showBubblePop(
-              popLayer,
-              {
-                ...bubble,
-                x: Math.min(nextWidth, Math.max(0, bubble.x)),
-                y: Math.min(nextHeight, Math.max(0, bubble.y)),
-              },
-              {
-                pop: styles.pop,
-                popRing: styles.popRing,
-                popDroplet: styles.popDroplet,
-              },
-            );
+            showPop({
+              ...bubble,
+              x: Math.min(nextWidth, Math.max(0, bubble.x)),
+              y: Math.min(nextHeight, Math.max(0, bubble.y)),
+            });
           }
         }
       }

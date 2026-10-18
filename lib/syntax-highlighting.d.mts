@@ -1,7 +1,6 @@
 export type HighlightToken = {
   content: string;
-  light: string | undefined;
-  dark: string | undefined;
+  style: Record<string, string> | undefined;
   offset: number;
 };
 

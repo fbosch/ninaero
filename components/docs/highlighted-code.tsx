@@ -1,11 +1,19 @@
 import type { CSSProperties } from "react";
 
 import { type HighlightToken, highlightCode } from "@/lib/syntax-highlighting.mjs";
+import { CodeBlockContent, CodeBlockLine } from "@/registry/ninaero/ui/code-block";
 
-type TokenStyle = CSSProperties & {
-  "--syntax-light"?: string;
-  "--syntax-dark"?: string;
-};
+function renderTokens(tokens: HighlightToken[]) {
+  return tokens.map((token) => (
+    <span
+      key={token.offset}
+      style={token.style as CSSProperties | undefined}
+      className="ninaero-syntax-token"
+    >
+      {token.content}
+    </span>
+  ));
+}
 
 export async function HighlightedCode({
   code,
@@ -27,20 +35,24 @@ export async function HighlightedCode({
       className={`syntax-code overflow-auto text-xs leading-relaxed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${compact ? "rounded-md p-3" : "max-h-[32rem] p-4 sm:text-sm"}`}
     >
       <pre>
-        <code>
-          {tokens.map((token: HighlightToken) => {
-            const style: TokenStyle = {
-              "--syntax-light": token.light,
-              "--syntax-dark": token.dark,
-            };
-            return (
-              <span key={token.offset} style={style}>
-                {token.content}
-              </span>
-            );
-          })}
-        </code>
+        <code>{renderTokens(tokens)}</code>
       </pre>
     </section>
+  );
+}
+
+export async function HighlightedCodeContent({
+  code,
+  language,
+}: {
+  code: string;
+  language: string;
+}) {
+  const tokens: HighlightToken[] = await highlightCode(code, language);
+
+  return (
+    <CodeBlockContent aria-label={`${language} code`} className="[tab-size:2]">
+      <CodeBlockLine>{renderTokens(tokens)}</CodeBlockLine>
+    </CodeBlockContent>
   );
 }

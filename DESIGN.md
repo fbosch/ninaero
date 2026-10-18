@@ -22,8 +22,8 @@ The lined announcement-bar reference is the clearest bridge between paper and li
 
 ## Materials and layout
 
-- Use faint dots on the homepage and grid in catalogue previews. Reserve ruling for line-aligned prose. Choose one pattern per region; never layer different paper variants. Keep the existing page color when selecting a pattern.
-- Keep forms, inputs, tables, and code blocks on opaque, plain backgrounds. Paper texture must not interfere with their content.
+- Use faint dots on the homepage and grid in catalogue previews. Reserve ruling for line-aligned prose and code. Choose one pattern per region; never layer different paper variants. Keep the existing page color when selecting a pattern.
+- Keep forms, inputs, and tables on opaque, plain backgrounds. Code blocks keep an opaque neutral fill with faint horizontal rules aligned to their code lines; the texture must not interfere with syntax or focus.
 - Use squircle corners for action buttons, standalone icon buttons, and Dialog/AlertDialog frames. Fields, selection controls, and other panels keep conventional rounded corners. Preserve straight alignment in lists, tables, and compact forms.
 - Keep cards and ordinary controls mostly matte. Avoid heavy bevels, console bezels, and large glossy gradients.
 - Put glass on a small number of important elements. Readable content stays opaque even when its rim or backdrop is translucent.
@@ -105,11 +105,15 @@ The homepage uses `bg-background` to keep the neutral page fill beneath its dots
 
 Use ruled paper only for paragraphs and other continuous text. Match the rule interval to the text's line height and offset the background so each text line sits between the rules on a consistent baseline. The default interval is `1.5rem`; pair `ninaero-paper-ruled` with `leading-(--ninaero-paper-step)` so both grow with the browser's default font size. Keep vertical padding and paragraph spacing in whole line-height increments and rule thickness at 1px. Override `--ninaero-paper-step` with another relative length when needed; numeric pattern suffixes remain pixel intervals. Check alignment after wrapping, responsive type changes, and text resizing. If alignment cannot be maintained, use a plain background.
 
-Do not use ruling behind forms, control specimens, tables, navigation, or mixed component layouts. Dotted and grid patterns may appear on page backgrounds and preview backdrops. Use the notebook pattern only as a decorative background or preview backdrop, not behind forms, text, or controls. Keep forms, tables, and code blocks on opaque, plain fills. A grid is one pattern made from horizontal and vertical rules; do not add dots or ruling over it. Separate sections with space instead of adding decorative divider lines.
+Code Block content uses faint bottom borders on each rendered line rather than a repeating background image. Borders follow wrapped and highlighted lines while the neutral fill stays opaque; headers and footers remain plain.
+
+Do not use ruling behind forms, control specimens, tables, navigation, or mixed component layouts. Dotted and grid patterns may appear on page backgrounds and preview backdrops. Use the notebook pattern only as a decorative background or preview backdrop, not behind forms, text, or controls. Keep forms and tables on opaque, plain fills. A grid is one pattern made from horizontal and vertical rules; do not add dots or ruling over it. Separate sections with space instead of adding decorative divider lines.
 
 Use the diamond-dither SVG mesh on plain decorative surfaces, not behind dense text or controls. Its default ink is neutral and it paints without changing the existing fill. Its default tile is 8px; numeric `ninaero-dither-*` utilities change the tile size. Keep one texture per region.
 
 The separate `ninaero-overlay-dither` utility adds a static texture across the viewport when applied to `body`. The demo site enables Checker by default; installed themes keep it opt-in. Keep it above the page fill but behind page content and controls by wrapping the content in a positioned `z-index: 1` layer; portaled menus and dialogs remain above the texture. The base class uses Checker with a 2px tile. The `ninaero-overlay-dots` and `ninaero-overlay-lines` modifiers choose ordered dots or diagonal lines. Use multiply blending in light mode and screen blending in dark mode. While a Dialog or AlertDialog backdrop is mounted, use normal blending so its blur includes the texture. Keep the 6% ink opacity subtle enough for text and focus states to remain clear. The header's Overlay menu previews each texture or turns it off; navigation retains the choice and reload restores Checker. The layer ignores pointer input and is removed in forced-colors mode and print. The homepage and header reuse the finish on their opaque backgrounds so the texture remains visible behind their content and controls; the body layer is suppressed on the homepage. The scene finish sits above its sky and glass but below the dotted paper and content. Consumers can tune `--ninaero-overlay-opacity`, `--ninaero-overlay-size`, and `--ninaero-overlay-blend-mode`, or remove the base class to disable it.
+
+The Nintendo-inspired Flipnote dither overlay uses `ninaero-overlay-flipnote` for an original 8px sparse pixel-stipple tile. Choose one overlay modifier at a time. Keep the texture static, faint, and behind opaque controls; do not add CRT scanlines, RGB fringing, or animated noise.
 
 Use checkerboards as decorative overlays, not behind dense text or controls. The default square is 12px wide and tall; numeric `ninaero-checker-*` utilities set one square's size in CSS pixels. The repeating tile contains two ink squares and two transparent squares, leaving the fill visible beneath them. Checkerboards use a CSS conic gradient and share the pattern-ink color utilities.
 
@@ -122,6 +126,8 @@ Define pattern fills, ink, and CSS recipes in `registry/ninaero/theme.mjs` so co
 Ninaero is neutral-first in both color modes. Page backgrounds, cards, popovers, menus, dialogs, field fills, ordinary borders, default paper patterns, and cast shadows use grayscale values. Dark panels are charcoal or gray, not blue-black. A token named neutral must actually be achromatic, not merely unchanged across accent presets.
 
 Reserve the chosen accent for primary actions, links, selected controls, active states, and keyboard focus. Secondary and Outline controls keep neutral materials. Feedback colors retain their semantic meaning. Syntax highlighting and data marks may use color to distinguish content, while their containers stay neutral. Popover and menu containers use the neutral card palette independently of Button material tokens; their selected items and controls may use the accent.
+
+Code syntax tokens use bundled Shiki themes chosen for each accent in light and dark mode. Only token colors are applied; theme italics and other font treatments are ignored. Colors that fall below 4.5:1 are adjusted toward neutral ink while retaining their hue. Uncolored code text and the containing surface remain neutral.
 
 Keep resting neutral borders close to their surrounding fills, using pale gray in light mode and charcoal in dark mode. Resting borders have no 3:1 contrast minimum. Preserve the existing contrast targets for text, keyboard focus, selected states, and errors.
 
@@ -219,7 +225,7 @@ Cast shadows must respond to the background beneath the component. Derive the sh
 
 `--shadow-surface` identifies the opaque receiving background. The shared recipe mixes 40% of that background with black in Oklab, reducing perceptual lightness and chroma while preserving hue. It exposes the resulting tone through `--shadow-color` for `hsl(var(--shadow-color) / alpha)`. Darkening before the HSL conversion avoids unstable saturation near white. Keep this recipe shared rather than adding per-accent shadow colors.
 
-The page derives its context from `--background`. Standard opaque background classes, Cards, popup and dialog interiors, paper materials, Switch and Radio Group tracks, segmented Tabs, and conditional inset Sidebar layouts establish local contexts for their contents. Rebind color-dependent elevation tokens where they are used; an elevation computed at the page root cannot respond to a different inherited color later.
+The page derives its context from `--background`. Mapped opaque backgrounds and built-in painted surfaces establish local contexts for their contents. Conditional Sidebar layouts, Bubble variants, table states and footers, and transparent Calendar compositions follow their active fill. Translucent fills are composited against the inherited underlay before shadow color is derived. Rebind color-dependent elevation tokens where they are used; an elevation computed at the page root cannot respond to a different inherited color later.
 
 For a custom background, use `ninaero-shadow-surface` and declare the same color for its fill and receiving-background token:
 

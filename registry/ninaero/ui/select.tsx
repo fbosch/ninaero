@@ -6,7 +6,31 @@ import type * as React from "react";
 
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "@/lib/icons";
 
-const Select = SelectPrimitive.Root;
+import { HighlightSound, SoundGroup, useControlSound, HoverSound } from "./sound-feedback";
+
+function Select<Value, Multiple extends boolean | undefined = false>({
+  sound = true,
+  onValueChange,
+  ...props
+}: SelectPrimitive.Root.Props<Value, Multiple> & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
+  return (
+    <SoundGroup sound={sound}>
+      <SelectPrimitive.Root
+        {...props}
+        onValueChange={(value, details) => {
+          onValueChange?.(value, details);
+          if (
+            !details.isCanceled &&
+            (details.reason === "item-press" || details.reason === "list-navigation")
+          ) {
+            play("tap");
+          }
+        }}
+      />
+    </SoundGroup>
+  );
+}
 
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   return (
@@ -32,25 +56,28 @@ function SelectTrigger({
   className,
   size = "default",
   children,
+  sound = true,
   ...props
 }: SelectPrimitive.Trigger.Props & {
   size?: "sm" | "default";
-}) {
+} & { sound?: boolean }) {
   return (
-    <SelectPrimitive.Trigger
-      data-slot="select-trigger"
-      data-size={size}
-      className={cn(
-        "ninaero-select-trigger flex w-fit items-center justify-between gap-2 px-(--field-padding-inline) py-1 text-sm type-body leading-5 whitespace-nowrap select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-[size=default]:h-(--field-height) data-[size=sm]:h-7 data-[size=sm]:gap-1 data-[size=sm]:px-2 data-[size=sm]:text-[0.8rem] data-[size=sm]:leading-4 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 data-[size=sm]:*:data-[slot=select-value]:gap-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-      <SelectPrimitive.Icon
-        render={<ChevronDownIcon className="ninaero-select-icon pointer-events-none size-4" />}
-      />
-    </SelectPrimitive.Trigger>
+    <HoverSound sound={sound}>
+      <SelectPrimitive.Trigger
+        data-slot="select-trigger"
+        data-size={size}
+        className={cn(
+          "ninaero-select-trigger flex w-fit items-center justify-between gap-2 px-(--field-padding-inline) py-1 text-sm type-body leading-5 whitespace-nowrap select-none disabled:cursor-not-allowed data-disabled:cursor-not-allowed data-[size=default]:h-(--field-height) data-[size=sm]:h-7 data-[size=sm]:gap-1 data-[size=sm]:px-2 data-[size=sm]:text-[0.8rem] data-[size=sm]:leading-4 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 data-[size=sm]:*:data-[slot=select-value]:gap-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <SelectPrimitive.Icon
+          render={<ChevronDownIcon className="ninaero-select-icon pointer-events-none size-4" />}
+        />
+      </SelectPrimitive.Trigger>
+    </HoverSound>
   );
 }
 
@@ -106,7 +133,7 @@ function SelectLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) 
   );
 }
 
-function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Props) {
+function SelectItem({ className, children, render, ...props }: SelectPrimitive.Item.Props) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
@@ -115,6 +142,9 @@ function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Prop
         className,
       )}
       {...props}
+      render={(elementProps, state) => (
+        <HighlightSound elementProps={elementProps} state={state} render={render} />
+      )}
     >
       <SelectPrimitive.ItemText className="flex flex-1 shrink-0 gap-2 whitespace-nowrap">
         {children}

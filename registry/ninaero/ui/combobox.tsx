@@ -13,22 +13,60 @@ import {
   InputGroupInput,
 } from "@/registry/ninaero/ui/input-group";
 
-const Combobox = ComboboxPrimitive.Root;
+import { SoundGroup, useControlSound, HoverSound } from "./sound-feedback";
+import { getSoundPitch } from "./sound-runtime";
+
+function Combobox<Value, Multiple extends boolean | undefined = false, Item = Value>({
+  sound = true,
+  onValueChange,
+  onItemHighlighted,
+  ...props
+}: ComboboxPrimitive.Root.Props<Value, Multiple, Item> & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
+  return (
+    <SoundGroup sound={sound}>
+      <ComboboxPrimitive.Root
+        {...props}
+        onValueChange={(value, details) => {
+          onValueChange?.(value, details);
+          if (!details.isCanceled && details.reason === "item-press") play("tap");
+        }}
+        onItemHighlighted={(value, details) => {
+          onItemHighlighted?.(value, details);
+          if (
+            value !== undefined &&
+            details.index >= 0 &&
+            (details.reason === "keyboard" || details.reason === "pointer")
+          ) {
+            play("tick", { pitch: getSoundPitch(-details.index, -12, 0), volume: 0.25 });
+          }
+        }}
+      />
+    </SoundGroup>
+  );
+}
 
 function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
 }
 
-function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Trigger.Props) {
+function ComboboxTrigger({
+  className,
+  children,
+  sound = true,
+  ...props
+}: ComboboxPrimitive.Trigger.Props & { sound?: boolean }) {
   return (
-    <ComboboxPrimitive.Trigger
-      data-slot="combobox-trigger"
-      className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
-      {...props}
-    >
-      {children}
-      <ChevronDownIcon className="pointer-events-none size-4 text-muted-foreground" />
-    </ComboboxPrimitive.Trigger>
+    <HoverSound sound={sound}>
+      <ComboboxPrimitive.Trigger
+        data-slot="combobox-trigger"
+        className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
+        {...props}
+      >
+        {children}
+        <ChevronDownIcon className="pointer-events-none size-4 text-muted-foreground" />
+      </ComboboxPrimitive.Trigger>
+    </HoverSound>
   );
 }
 

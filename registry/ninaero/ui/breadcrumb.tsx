@@ -5,6 +5,8 @@ import type * as React from "react";
 
 import { ChevronRightIcon, MoreHorizontalIcon } from "@/lib/icons";
 
+import { HoverSound } from "./sound-feedback";
+
 function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav aria-label="breadcrumb" data-slot="breadcrumb" className={cn(className)} {...props} />
@@ -34,20 +36,29 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
   );
 }
 
-function BreadcrumbLink({ className, render, ...props }: useRender.ComponentProps<"a">) {
-  return useRender({
-    defaultTagName: "a",
-    props: mergeProps<"a">(
-      {
-        className: cn("transition-colors hover:text-foreground", className),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "breadcrumb-link",
-    },
-  });
+function BreadcrumbLink({
+  className,
+  render,
+  sound = true,
+  ...props
+}: useRender.ComponentProps<"a"> & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "a",
+        props: mergeProps<"a">(
+          {
+            className: cn("transition-colors hover:text-foreground", className),
+          },
+          props,
+        ),
+        render,
+        state: {
+          slot: "breadcrumb-link",
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {

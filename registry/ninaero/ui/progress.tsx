@@ -2,11 +2,30 @@
 
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { cn } from "cn";
+import { useEffect, useRef } from "react";
 
-function Progress({ className, children, value, ...props }: ProgressPrimitive.Root.Props) {
+import { useControlSound } from "./sound-feedback";
+
+function Progress({
+  className,
+  children,
+  value,
+  max = 100,
+  sound = true,
+  ...props
+}: ProgressPrimitive.Root.Props & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
+  const previous = useRef({ value, max });
+  useEffect(() => {
+    const before = previous.current;
+    previous.current = { value, max };
+    if (before.max === max && value === max && before.value !== max) play("complete");
+  }, [value, max, play]);
+
   return (
     <ProgressPrimitive.Root
       value={value}
+      max={max}
       data-slot="progress"
       className={cn("flex flex-wrap gap-3", className)}
       {...props}

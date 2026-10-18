@@ -13,6 +13,9 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { renderFrutigerDolloSvg } from "@/lib/frutiger-dollo-mark";
 import { accentPresets } from "@/registry/ninaero/accents.mjs";
 import { FieldLegend, FieldSet } from "@/registry/ninaero/ui/field";
+import { HoverSound } from "@/registry/ninaero/ui/sound-feedback";
+
+import dolloStyles from "./frutiger-dollo-mark.module.css";
 
 const destinations = [["/docs", "Docs"]] as const;
 
@@ -43,21 +46,37 @@ export function SiteHeader() {
           aria-label="Main navigation"
           className="flex min-w-0 max-w-full flex-wrap items-center gap-5 text-sm"
         >
-          <Link href="/" className="type-title inline-flex items-center gap-2">
-            <FrutigerDolloMark className="shrink-0" />
-            <span className="site-wordmark">Ninaero</span>
-          </Link>
+          <HoverSound>
+            <Link
+              href="/"
+              aria-label="Ninaero"
+              className={`type-title inline-flex items-center gap-2 ${dolloStyles.wordmark}`}
+            >
+              <FrutigerDolloMark className="shrink-0" />
+              <span className="site-wordmark">
+                <span className={dolloStyles.initial}>
+                  N
+                  <span className={dolloStyles.refraction} aria-hidden="true">
+                    N
+                  </span>
+                </span>
+                inaero
+              </span>
+            </Link>
+          </HoverSound>
           {destinations.map(([href, label]) => {
             const active = pathname === href || pathname.startsWith(`${href}/`);
             return (
-              <Link
-                key={href}
-                href={href}
-                aria-current={pathname === href ? "page" : active ? "location" : undefined}
-                className={active ? "font-medium" : "text-muted-foreground hover:text-foreground"}
-              >
-                {label}
-              </Link>
+              <HoverSound key={href}>
+                <Link
+                  key={href}
+                  href={href}
+                  aria-current={pathname === href ? "page" : active ? "location" : undefined}
+                  className={active ? "font-medium" : "text-muted-foreground hover:text-foreground"}
+                >
+                  {label}
+                </Link>
+              </HoverSound>
             );
           })}
         </nav>

@@ -4,12 +4,21 @@ import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { cn } from "cn";
 import type * as React from "react";
 
+import { HoverSound } from "./sound-feedback";
+
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
 
-function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
+function PopoverTrigger({
+  sound = true,
+  ...props
+}: PopoverPrimitive.Trigger.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+    </HoverSound>
+  );
 }
 
 function PopoverContent({

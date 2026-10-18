@@ -7,16 +7,29 @@ import type * as React from "react";
 
 import { CheckIcon, ChevronRightIcon } from "@/lib/icons";
 
-function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
-  return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
+import { HighlightSound, SoundGroup, useControlSound, HoverSound } from "./sound-feedback";
+
+function DropdownMenu({ sound = true, ...props }: MenuPrimitive.Root.Props & { sound?: boolean }) {
+  return (
+    <SoundGroup sound={sound}>
+      <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
+    </SoundGroup>
+  );
 }
 
 function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
   return <MenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />;
 }
 
-function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
-  return <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />;
+function DropdownMenuTrigger({
+  sound = true,
+  ...props
+}: MenuPrimitive.Trigger.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
+    </HoverSound>
+  );
 }
 
 function DropdownMenuContent({
@@ -80,11 +93,16 @@ function DropdownMenuItem({
   className,
   inset,
   variant = "default",
+  render,
+  onClick,
+  sound = true,
   ...props
 }: MenuPrimitive.Item.Props & {
   inset?: boolean;
   variant?: "default" | "destructive";
+  sound?: boolean;
 }) {
+  const { play } = useControlSound(sound);
   return (
     <MenuPrimitive.Item
       data-slot="dropdown-menu-item"
@@ -95,6 +113,14 @@ function DropdownMenuItem({
         className,
       )}
       {...props}
+      render={(elementProps, state) => (
+        <HighlightSound elementProps={elementProps} state={state} render={render} sound={sound} />
+      )}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented && !event.baseUIHandlerPrevented && !props.disabled)
+          play("tap");
+      }}
     />
   );
 }
@@ -107,23 +133,26 @@ function DropdownMenuSubTrigger({
   className,
   inset,
   children,
+  sound = true,
   ...props
 }: MenuPrimitive.SubmenuTrigger.Props & {
   inset?: boolean;
-}) {
+} & { sound?: boolean }) {
   return (
-    <MenuPrimitive.SubmenuTrigger
-      data-slot="dropdown-menu-sub-trigger"
-      data-inset={inset}
-      className={cn(
-        "ninaero-dropdown-menu-item flex min-h-8 cursor-default items-center gap-2 rounded-md px-3 py-1 text-sm select-none data-inset:ps-9 data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-      <ChevronRightIcon className="ms-auto rtl:rotate-180" />
-    </MenuPrimitive.SubmenuTrigger>
+    <HoverSound sound={sound}>
+      <MenuPrimitive.SubmenuTrigger
+        data-slot="dropdown-menu-sub-trigger"
+        data-inset={inset}
+        className={cn(
+          "ninaero-dropdown-menu-item flex min-h-8 cursor-default items-center gap-2 rounded-md px-3 py-1 text-sm select-none data-inset:ps-9 data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <ChevronRightIcon className="ms-auto rtl:rotate-180" />
+      </MenuPrimitive.SubmenuTrigger>
+    </HoverSound>
   );
 }
 
@@ -153,10 +182,15 @@ function DropdownMenuCheckboxItem({
   children,
   checked,
   inset,
+  render,
+  onCheckedChange,
+  sound = true,
   ...props
 }: MenuPrimitive.CheckboxItem.Props & {
   inset?: boolean;
+  sound?: boolean;
 }) {
+  const { play } = useControlSound(sound);
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
@@ -167,6 +201,13 @@ function DropdownMenuCheckboxItem({
       )}
       checked={checked}
       {...props}
+      render={(elementProps, state) => (
+        <HighlightSound elementProps={elementProps} state={state} render={render} sound={sound} />
+      )}
+      onCheckedChange={(value, details) => {
+        onCheckedChange?.(value, details);
+        if (!details.isCanceled && details.event.type !== "reset") play("tap");
+      }}
     >
       <span
         className="pointer-events-none absolute end-3 flex items-center justify-center"
@@ -181,14 +222,31 @@ function DropdownMenuCheckboxItem({
   );
 }
 
-function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
-  return <MenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" {...props} />;
+function DropdownMenuRadioGroup({
+  sound = true,
+  onValueChange,
+  ...props
+}: MenuPrimitive.RadioGroup.Props & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
+  return (
+    <SoundGroup sound={sound}>
+      <MenuPrimitive.RadioGroup
+        data-slot="dropdown-menu-radio-group"
+        {...props}
+        onValueChange={(value, details) => {
+          onValueChange?.(value, details);
+          if (!details.isCanceled && details.event.type !== "reset") play("tap");
+        }}
+      />
+    </SoundGroup>
+  );
 }
 
 function DropdownMenuRadioItem({
   className,
   children,
   inset,
+  render,
   ...props
 }: MenuPrimitive.RadioItem.Props & {
   inset?: boolean;
@@ -202,6 +260,9 @@ function DropdownMenuRadioItem({
         className,
       )}
       {...props}
+      render={(elementProps, state) => (
+        <HighlightSound elementProps={elementProps} state={state} render={render} />
+      )}
     >
       <span
         className="pointer-events-none absolute end-3 flex items-center justify-center"

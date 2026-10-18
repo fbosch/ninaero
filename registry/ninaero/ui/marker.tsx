@@ -4,6 +4,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import type * as React from "react";
 
+import { HoverSound } from "./sound-feedback";
+
 const markerVariants = cva(
   "group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4 [a]:underline [a]:underline-offset-3 [a]:hover:text-foreground",
   {
@@ -22,22 +24,27 @@ function Marker({
   className,
   variant = "default",
   render,
+  sound = true,
   ...props
-}: useRender.ComponentProps<"div"> & VariantProps<typeof markerVariants>) {
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps<"div">(
-      {
-        className: cn(markerVariants({ variant, className })),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "marker",
-      variant,
-    },
-  });
+}: useRender.ComponentProps<"div"> & VariantProps<typeof markerVariants> & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "div",
+        props: mergeProps<"div">(
+          {
+            className: cn(markerVariants({ variant, className })),
+          },
+          props,
+        ),
+        render,
+        state: {
+          slot: "marker",
+          variant,
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 function MarkerIcon({ className, ...props }: React.ComponentProps<"span">) {

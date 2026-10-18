@@ -6,6 +6,8 @@ import type * as React from "react";
 
 import { CheckIcon, ChevronRightIcon } from "@/lib/icons";
 
+import { HoverSound } from "./sound-feedback";
+
 function ContextMenu({ ...props }: ContextMenuPrimitive.Root.Props) {
   return <ContextMenuPrimitive.Root data-slot="context-menu" {...props} />;
 }
@@ -83,22 +85,25 @@ function ContextMenuItem({
   className,
   inset,
   variant = "default",
+  sound = true,
   ...props
 }: ContextMenuPrimitive.Item.Props & {
   inset?: boolean;
   variant?: "default" | "destructive";
-}) {
+} & { sound?: boolean }) {
   return (
-    <ContextMenuPrimitive.Item
-      data-slot="context-menu-item"
-      data-inset={inset}
-      data-variant={variant}
-      className={cn(
-        "group/context-menu-item relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 focus:*:[svg]:text-accent-foreground data-[variant=destructive]:*:[svg]:text-destructive",
-        className,
-      )}
-      {...props}
-    />
+    <HoverSound sound={sound}>
+      <ContextMenuPrimitive.Item
+        data-slot="context-menu-item"
+        data-inset={inset}
+        data-variant={variant}
+        className={cn(
+          "group/context-menu-item relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 focus:*:[svg]:text-accent-foreground data-[variant=destructive]:*:[svg]:text-destructive",
+          className,
+        )}
+        {...props}
+      />
+    </HoverSound>
   );
 }
 
@@ -110,23 +115,26 @@ function ContextMenuSubTrigger({
   className,
   inset,
   children,
+  sound = true,
   ...props
 }: ContextMenuPrimitive.SubmenuTrigger.Props & {
   inset?: boolean;
-}) {
+} & { sound?: boolean }) {
   return (
-    <ContextMenuPrimitive.SubmenuTrigger
-      data-slot="context-menu-sub-trigger"
-      data-inset={inset}
-      className={cn(
-        "flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-open:bg-accent data-open:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-      <ChevronRightIcon className="ml-auto" />
-    </ContextMenuPrimitive.SubmenuTrigger>
+    <HoverSound sound={sound}>
+      <ContextMenuPrimitive.SubmenuTrigger
+        data-slot="context-menu-sub-trigger"
+        data-inset={inset}
+        className={cn(
+          "flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-open:bg-accent data-open:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <ChevronRightIcon className="ml-auto" />
+      </ContextMenuPrimitive.SubmenuTrigger>
+    </HoverSound>
   );
 }
 
@@ -146,28 +154,31 @@ function ContextMenuCheckboxItem({
   children,
   checked,
   inset,
+  sound = true,
   ...props
 }: ContextMenuPrimitive.CheckboxItem.Props & {
   inset?: boolean;
-}) {
+} & { sound?: boolean }) {
   return (
-    <ContextMenuPrimitive.CheckboxItem
-      data-slot="context-menu-checkbox-item"
-      data-inset={inset}
-      className={cn(
-        "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      checked={checked}
-      {...props}
-    >
-      <span className="pointer-events-none absolute right-2">
-        <ContextMenuPrimitive.CheckboxItemIndicator>
-          <CheckIcon />
-        </ContextMenuPrimitive.CheckboxItemIndicator>
-      </span>
-      {children}
-    </ContextMenuPrimitive.CheckboxItem>
+    <HoverSound sound={sound}>
+      <ContextMenuPrimitive.CheckboxItem
+        data-slot="context-menu-checkbox-item"
+        data-inset={inset}
+        className={cn(
+          "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+        checked={checked}
+        {...props}
+      >
+        <span className="pointer-events-none absolute right-2">
+          <ContextMenuPrimitive.CheckboxItemIndicator>
+            <CheckIcon />
+          </ContextMenuPrimitive.CheckboxItemIndicator>
+        </span>
+        {children}
+      </ContextMenuPrimitive.CheckboxItem>
+    </HoverSound>
   );
 }
 
@@ -179,27 +190,30 @@ function ContextMenuRadioItem({
   className,
   children,
   inset,
+  sound = true,
   ...props
 }: ContextMenuPrimitive.RadioItem.Props & {
   inset?: boolean;
-}) {
+} & { sound?: boolean }) {
   return (
-    <ContextMenuPrimitive.RadioItem
-      data-slot="context-menu-radio-item"
-      data-inset={inset}
-      className={cn(
-        "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    >
-      <span className="pointer-events-none absolute right-2">
-        <ContextMenuPrimitive.RadioItemIndicator>
-          <CheckIcon />
-        </ContextMenuPrimitive.RadioItemIndicator>
-      </span>
-      {children}
-    </ContextMenuPrimitive.RadioItem>
+    <HoverSound sound={sound}>
+      <ContextMenuPrimitive.RadioItem
+        data-slot="context-menu-radio-item"
+        data-inset={inset}
+        className={cn(
+          "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+        {...props}
+      >
+        <span className="pointer-events-none absolute right-2">
+          <ContextMenuPrimitive.RadioItemIndicator>
+            <CheckIcon />
+          </ContextMenuPrimitive.RadioItemIndicator>
+        </span>
+        {children}
+      </ContextMenuPrimitive.RadioItem>
+    </HoverSound>
   );
 }
 

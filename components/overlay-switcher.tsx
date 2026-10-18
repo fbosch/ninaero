@@ -11,6 +11,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/registry/ninaero/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/ninaero/ui/tooltip";
 
 import styles from "./overlay-switcher.module.css";
 
@@ -19,6 +20,7 @@ const overlayItems = [
   { value: "checker", label: "Checker", className: "" },
   { value: "dots", label: "Ordered dots", className: "ninaero-overlay-dots" },
   { value: "lines", label: "Diagonal lines", className: "ninaero-overlay-lines" },
+  { value: "flipnote", label: "Flipnote dither", className: "ninaero-overlay-flipnote" },
 ] as const;
 
 export function OverlaySwitcher() {
@@ -29,17 +31,23 @@ export function OverlaySwitcher() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        render={<Button size="icon-sm" variant="secondary" />}
-        aria-label={label}
-        title={label}
-      >
-        <span
-          aria-hidden="true"
-          data-overlay={overlay}
-          className={cn(styles.swatch, currentOverlay.className)}
-        />
-      </DropdownMenuTrigger>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <DropdownMenuTrigger
+              render={<Button size="icon-sm" variant="secondary" />}
+              aria-label={label}
+            />
+          }
+        >
+          <span
+            aria-hidden="true"
+            data-overlay={overlay}
+            className={cn(styles.swatch, currentOverlay.className)}
+          />
+        </TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
       <DropdownMenuContent className="w-max min-w-44" align="end" aria-label="Overlay">
         <DropdownMenuRadioGroup
           value={overlay}

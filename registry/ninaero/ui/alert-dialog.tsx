@@ -6,12 +6,21 @@ import type * as React from "react";
 
 import { Button } from "@/registry/ninaero/ui/button";
 
+import { HoverSound } from "./sound-feedback";
+
 function AlertDialog({ ...props }: AlertDialogPrimitive.Root.Props) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
 }
 
-function AlertDialogTrigger({ ...props }: AlertDialogPrimitive.Trigger.Props) {
-  return <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />;
+function AlertDialogTrigger({
+  sound = true,
+  ...props
+}: AlertDialogPrimitive.Trigger.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
+    </HoverSound>
+  );
 }
 
 function AlertDialogPortal({ ...props }: AlertDialogPrimitive.Portal.Props) {
@@ -139,16 +148,19 @@ function AlertDialogCancel({
   className,
   variant = "secondary",
   size = "lg",
+  sound = true,
   ...props
 }: AlertDialogPrimitive.Close.Props &
-  Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
+  Pick<React.ComponentProps<typeof Button>, "variant" | "size"> & { sound?: boolean }) {
   return (
-    <AlertDialogPrimitive.Close
-      data-slot="alert-dialog-cancel"
-      className={cn(className)}
-      render={<Button variant={variant} size={size} />}
-      {...props}
-    />
+    <HoverSound sound={sound}>
+      <AlertDialogPrimitive.Close
+        data-slot="alert-dialog-cancel"
+        className={cn(className)}
+        render={<Button variant={variant} size={size} />}
+        {...props}
+      />
+    </HoverSound>
   );
 }
 

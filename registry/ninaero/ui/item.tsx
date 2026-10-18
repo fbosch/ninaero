@@ -6,6 +6,8 @@ import type * as React from "react";
 
 import { Separator } from "@/registry/ninaero/ui/separator";
 
+import { HoverSound } from "./sound-feedback";
+
 function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     // biome-ignore lint/a11y/useSemanticElements: Polymorphic items use ARIA list semantics without requiring native li wrappers.
@@ -59,23 +61,28 @@ function Item({
   variant = "default",
   size = "default",
   render,
+  sound = true,
   ...props
-}: useRender.ComponentProps<"div"> & VariantProps<typeof itemVariants>) {
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps<"div">(
-      {
-        className: cn(itemVariants({ variant, size, className })),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "item",
-      variant,
-      size,
-    },
-  });
+}: useRender.ComponentProps<"div"> & VariantProps<typeof itemVariants> & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "div",
+        props: mergeProps<"div">(
+          {
+            className: cn(itemVariants({ variant, size, className })),
+          },
+          props,
+        ),
+        render,
+        state: {
+          slot: "item",
+          variant,
+          size,
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 const itemMediaVariants = cva(

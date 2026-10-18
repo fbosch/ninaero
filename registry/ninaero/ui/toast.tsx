@@ -2,7 +2,7 @@
 
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import { cn } from "cn";
-import type * as React from "react";
+import * as React from "react";
 
 import {
   CircleCheckIcon,
@@ -14,10 +14,23 @@ import {
 } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
+import { useControlSound, HoverSound } from "./sound-feedback";
+import type { SoundCue } from "./sound-provider";
+
 const toast = ToastPrimitive.createToastManager();
 
-function ToastProvider({ ...props }: ToastPrimitive.Provider.Props) {
-  return <ToastPrimitive.Provider {...props} />;
+const ToastSoundContext = React.createContext(true);
+
+function ToastProvider({
+  sound = true,
+  ...props
+}: ToastPrimitive.Provider.Props & { sound?: boolean }) {
+  const inherited = React.useContext(ToastSoundContext);
+  return (
+    <ToastSoundContext.Provider value={sound && inherited}>
+      <ToastPrimitive.Provider {...props} />
+    </ToastSoundContext.Provider>
+  );
 }
 
 function ToastPortal({ ...props }: ToastPrimitive.Portal.Props) {
@@ -37,10 +50,34 @@ function ToastViewport({ className, ...props }: ToastPrimitive.Viewport.Props) {
   );
 }
 
-function Toast({ className, ...props }: ToastPrimitive.Root.Props) {
+const toastSounds: Partial<Record<string, SoundCue>> = {
+  info: "ping",
+  success: "success",
+  error: "error",
+  warning: "warning",
+  loading: "loading",
+};
+
+function Toast({
+  className,
+  toast,
+  sound = true,
+  ...props
+}: ToastPrimitive.Root.Props & { sound?: boolean }) {
+  const toastSound = React.useContext(ToastSoundContext);
+  const { play } = useControlSound(sound && toastSound);
+  const previous = React.useRef<{ id: string; type: string | undefined } | null>(null);
+  React.useEffect(() => {
+    const changed = previous.current?.id !== toast.id || previous.current?.type !== toast.type;
+    previous.current = { id: toast.id, type: toast.type };
+    if (changed && !toast.limited && toast.transitionStatus !== "ending") {
+      play(toastSounds[toast.type ?? "info"] ?? "ping");
+    }
+  }, [toast.id, toast.type, toast.limited, toast.transitionStatus, play]);
   return (
     <ToastPrimitive.Root
       data-slot="toast"
+      toast={toast}
       className={cn(
         "group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom rounded-2xl border bg-popover text-popover-foreground shadow-lg will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
         "[--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))]",
@@ -116,21 +153,24 @@ function ToastClose({
   className,
   children,
   render = <Button variant="ghost" size="icon-sm" />,
+  sound = true,
   ...props
-}: ToastPrimitive.Close.Props) {
+}: ToastPrimitive.Close.Props & { sound?: boolean }) {
   return (
-    <ToastPrimitive.Close
-      data-slot="toast-close"
-      aria-label="Close toast"
-      render={render}
-      className={cn(
-        "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
-        className,
-      )}
-      {...props}
-    >
-      {children ?? <XIcon aria-hidden="true" />}
-    </ToastPrimitive.Close>
+    <HoverSound sound={sound}>
+      <ToastPrimitive.Close
+        data-slot="toast-close"
+        aria-label="Close toast"
+        render={render}
+        className={cn(
+          "relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground",
+          className,
+        )}
+        {...props}
+      >
+        {children ?? <XIcon aria-hidden="true" />}
+      </ToastPrimitive.Close>
+    </HoverSound>
   );
 }
 
@@ -189,7 +229,11 @@ function ToastList() {
   ));
 }
 
-function Toaster({ children, toastManager = toast, ...props }: ToastPrimitive.Provider.Props) {
+function Toaster({
+  children,
+  toastManager = toast,
+  ...props
+}: React.ComponentProps<typeof ToastProvider>) {
   return (
     <ToastProvider toastManager={toastManager} {...props}>
       {children}

@@ -7,6 +7,9 @@ import {
   type FrutigerDolloStop,
   frutigerDolloViewBox,
 } from "@/lib/frutiger-dollo-mark";
+import { cn } from "@/lib/utils";
+
+import styles from "./frutiger-dollo-mark.module.css";
 
 type FrutigerDolloMarkProps = {
   className?: string;
@@ -27,7 +30,7 @@ export function FrutigerDolloMark({ className }: FrutigerDolloMarkProps) {
   return (
     <svg
       aria-hidden="true"
-      className={className}
+      className={cn(styles.mark, className)}
       width={24}
       height={20}
       viewBox={frutigerDolloViewBox}
@@ -73,13 +76,36 @@ export function FrutigerDolloMark({ className }: FrutigerDolloMarkProps) {
           gradientTransform="translate(96.13 202.53) rotate(42.19) scale(1.08 1.15)"
           href="#frutiger-dollo-highlight"
         />
+        <filter id="frutiger-dollo-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="24" />
+        </filter>
+        <linearGradient
+          id="frutiger-dollo-rim"
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="221.32"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="white" stopOpacity=".38" />
+          <stop offset=".42" stopColor="white" stopOpacity=".18" />
+          <stop offset="1" stopColor="white" stopOpacity="0" />
+        </linearGradient>
       </defs>
+      <path className={styles.glow} fill="var(--button-primary-fill)" d={frutigerDolloPaths.body} />
       <g>
         <path fill="url(#frutiger-dollo-body)" d={frutigerDolloPaths.body} />
         <path fill="url(#frutiger-dollo-shadow)" d={frutigerDolloPaths.shadow} />
         <path fill="url(#frutiger-dollo-highlight)" d={frutigerDolloPaths.highlight} />
         <path fill="url(#frutiger-dollo-tail-highlight)" d={frutigerDolloPaths.tailHighlight} />
       </g>
+      <path
+        className={styles.material}
+        fill="none"
+        stroke="url(#frutiger-dollo-rim)"
+        strokeWidth="3"
+        d={frutigerDolloPaths.body}
+      />
     </svg>
   );
 }

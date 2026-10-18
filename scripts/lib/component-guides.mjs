@@ -29,6 +29,7 @@ export const componentGuides = [
 ];
 
 export function upstreamDocumentationUrl(name) {
+  if (name === "sound-provider") return "https://github.com/eakbulut/foley";
   return (
     componentGuides.find((guide) => guide.name === name)?.upstreamUrl ??
     `https://ui.shadcn.com/docs/components/${name === "sonner" ? "radix" : "base"}/${name}`

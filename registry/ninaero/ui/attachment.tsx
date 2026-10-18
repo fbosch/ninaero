@@ -6,6 +6,8 @@ import type * as React from "react";
 
 import { Button } from "@/registry/ninaero/ui/button";
 
+import { HoverSound } from "./sound-feedback";
+
 const attachmentVariants = cva(
   "group/attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-1 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
   {
@@ -151,22 +153,27 @@ function AttachmentTrigger({
   className,
   render,
   type,
+  sound = true,
   ...props
-}: useRender.ComponentProps<"button">) {
-  return useRender({
-    defaultTagName: "button",
-    props: mergeProps<"button">(
-      {
-        type: render ? type : (type ?? "button"),
-        className: cn("absolute inset-0 z-10 outline-none", className),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "attachment-trigger",
-    },
-  });
+}: useRender.ComponentProps<"button"> & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "button",
+        props: mergeProps<"button">(
+          {
+            type: render ? type : (type ?? "button"),
+            className: cn("absolute inset-0 z-10 outline-none", className),
+          },
+          props,
+        ),
+        render,
+        state: {
+          slot: "attachment-trigger",
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 function AttachmentGroup({ className, ...props }: React.ComponentProps<"div">) {

@@ -87,7 +87,11 @@ test("installed site-wide dither compiles with opacity, size, and responsive ove
   }
 });
 
-for (const texture of ["ninaero-overlay-dots", "ninaero-overlay-lines"]) {
+for (const texture of [
+  "ninaero-overlay-dots",
+  "ninaero-overlay-lines",
+  "ninaero-overlay-flipnote",
+]) {
   test(`installed ${texture} compiles with the overlay and consumer overrides`, async () => {
     for (const utilities of [
       `ninaero-overlay-dither ${texture}`,

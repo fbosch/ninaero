@@ -4,6 +4,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import type * as React from "react";
 
+import { HoverSound } from "./sound-feedback";
+
 function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -61,23 +63,32 @@ function Bubble({
   );
 }
 
-function BubbleContent({ className, render, ...props }: useRender.ComponentProps<"div">) {
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps<"div">(
-      {
-        className: cn(
-          "w-fit max-w-full min-w-0 overflow-hidden rounded-xl border border-transparent px-3 py-2 text-sm type-prose wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/50",
-          className,
+function BubbleContent({
+  className,
+  render,
+  sound = true,
+  ...props
+}: useRender.ComponentProps<"div"> & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      {useRender({
+        defaultTagName: "div",
+        props: mergeProps<"div">(
+          {
+            className: cn(
+              "w-fit max-w-full min-w-0 overflow-hidden rounded-xl border border-transparent px-3 py-2 text-sm type-prose wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/50",
+              className,
+            ),
+          },
+          props,
         ),
-      },
-      props,
-    ),
-    render,
-    state: {
-      slot: "bubble-content",
-    },
-  });
+        render,
+        state: {
+          slot: "bubble-content",
+        },
+      })}
+    </HoverSound>
+  );
 }
 
 const bubbleReactionsVariants = cva(

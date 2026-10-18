@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { HighlightedCode } from "@/components/docs/highlighted-code";
+import { HighlightedCodeContent } from "@/components/docs/highlighted-code";
 import { InstallCommand } from "@/components/docs/install-command";
 import { HomeBackground } from "@/components/home-background";
 import { docsRegistryUrl } from "@/lib/component-documentation";
@@ -13,7 +13,11 @@ import styles from "@/components/home-background/home-background.module.css";
 export default function Home() {
   const installCommands = ["npm", "pnpm", "yarn", "bun"].map((packageManager) => {
     const code = registryCommand("init", "ninaero", docsRegistryUrl, packageManager);
-    return { packageManager, code, content: <HighlightedCode code={code} language="bash" /> };
+    return {
+      packageManager,
+      code,
+      content: <HighlightedCodeContent code={code} language="bash" />,
+    };
   });
   return (
     <main
@@ -28,13 +32,24 @@ export default function Home() {
         <section className="home-hero relative flex flex-col gap-8 sm:gap-12 lg:ml-0 lg:mr-auto lg:w-full lg:max-w-4xl">
           <header className="flex min-w-0 max-w-4xl flex-col gap-4">
             <h1 className="text-balance text-5xl type-display sm:text-6xl">
-              <span className="ninaero-display-ink block">An optimistic & nostalgic theme</span>{" "}
-              <span className="home-tagline block">for a comfy modern web</span>
+              <span className="ninaero-display-ink block">
+                An optimistic & nostalgic theme for a
+              </span>{" "}
+              <span className="home-tagline block">comfier modern web</span>
             </h1>
             <p className={`max-w-xl text-lg ${styles.description}`}>
               A shadcn/ui theme and component registry.
             </p>
           </header>
+
+          <Button
+            size="xl"
+            className="min-w-40 self-start"
+            nativeButton={false}
+            render={<Link href="/docs#docs-quick-start" />}
+          >
+            Get started <ArrowRightIcon data-icon="inline-end" />
+          </Button>
           <section aria-labelledby="install-heading" className="flex max-w-3xl flex-col gap-4">
             <div className="flex flex-col gap-2">
               <h2 id="install-heading" className="text-sm type-title tracking-normal">
@@ -45,14 +60,6 @@ export default function Home() {
               </p>
             </div>
             <InstallCommand commands={installCommands} />
-            <Button
-              size="xl"
-              className="min-w-40 self-start"
-              nativeButton={false}
-              render={<Link href="/docs#docs-quick-start" />}
-            >
-              Get started <ArrowRightIcon data-icon="inline-end" />
-            </Button>
           </section>
         </section>
         <p className={`squircle-support-note text-xs ${styles.description}`}>

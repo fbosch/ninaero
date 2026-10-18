@@ -339,12 +339,16 @@ export default function PatternsPage() {
           <li>
             For Diagonal lines, add <code className="text-foreground">ninaero-overlay-lines</code>.
           </li>
+          <li>
+            For Flipnote dither, add{" "}
+            <code className="text-foreground">ninaero-overlay-flipnote</code>.
+          </li>
         </ul>
         <CodeBlock
           code={
-            '<body className="ninaero-overlay-dither ninaero-overlay-dots">\n\t<div className="relative z-[1]">{children}</div>\n</body>'
+            '<body className="ninaero-overlay-dither ninaero-overlay-flipnote">\n\t<div className="relative z-[1]">{children}</div>\n</body>'
           }
-          label="Choose Ordered dots"
+          label="Choose Flipnote dither"
           language="tsx"
         />
         <h3 className="text-lg type-heading">Adjust the overlay</h3>
@@ -413,6 +417,10 @@ export default function PatternsPage() {
             with a 4px tile.
           </li>
           <li>
+            <code className="text-foreground">ninaero-overlay-flipnote</code> selects Flipnote
+            dither with an 8px sparse pixel-stipple tile.
+          </li>
+          <li>
             <code className="text-foreground">--ninaero-overlay-opacity</code> accepts values from 0
             to 1. The default is 0.06.
           </li>
@@ -434,7 +442,8 @@ export default function PatternsPage() {
         </p>
         <p className="text-sm type-prose text-muted-foreground">
           On this site, the <strong>Overlay</strong> menu in the header previews each texture. The
-          demo retains your choice across navigation and resets to <strong>Off</strong> on reload.
+          demo retains your choice across navigation and resets to <strong>Checker</strong> on
+          reload.
         </p>
       </section>
 

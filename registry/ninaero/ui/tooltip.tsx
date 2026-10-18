@@ -5,6 +5,8 @@ import { useRender } from "@base-ui/react/use-render";
 import { cn } from "cn";
 import * as React from "react";
 
+import { HoverSound } from "./sound-feedback";
+
 // Base UI 1.9 omits tooltip descriptions. Share the content ID, not interaction state.
 function createTooltipDescription() {
   let id: string | undefined;
@@ -63,8 +65,9 @@ function Tooltip<Payload>({ handle, ...props }: TooltipPrimitive.Root.Props<Payl
 function TooltipTrigger<Payload>({
   render,
   handle,
+  sound = true,
   ...props
-}: TooltipPrimitive.Trigger.Props<Payload>) {
+}: TooltipPrimitive.Trigger.Props<Payload> & { sound?: boolean }) {
   const context = React.useContext(TooltipDescriptionContext);
   const description = handle ? getHandleDescription(handle) : context;
   const descriptionId = React.useSyncExternalStore(
@@ -83,6 +86,7 @@ function TooltipTrigger<Payload>({
           state={state}
           render={render}
           descriptionId={descriptionId}
+          sound={sound}
         />
       )}
     />
@@ -99,11 +103,13 @@ function TooltipTriggerElement({
   state,
   render,
   descriptionId,
+  sound,
 }: {
   elementProps: Parameters<TriggerRender>[0];
   state: TooltipPrimitive.Trigger.State;
   render: TooltipPrimitive.Trigger.Props["render"];
   descriptionId: string | undefined;
+  sound: boolean;
 }) {
   const element = useRender({
     defaultTagName: "button",
@@ -119,7 +125,11 @@ function TooltipTriggerElement({
     ),
   );
   if (state.open && descriptionId) ids.add(descriptionId);
-  return React.cloneElement(element, { "aria-describedby": [...ids].join(" ") || undefined });
+  return (
+    <HoverSound sound={sound}>
+      {React.cloneElement(element, { "aria-describedby": [...ids].join(" ") || undefined })}
+    </HoverSound>
+  );
 }
 
 function TooltipContent({

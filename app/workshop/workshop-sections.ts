@@ -15,6 +15,11 @@ const componentSpecimens = [
     description: "Overlay surfaces and keyboard focus.",
   },
   {
+    href: "/workshop/code-block",
+    title: "Code Block",
+    description: "Highlighted code, diffs, wrapping, copying, and keyboard focus.",
+  },
+  {
     href: "/workshop/tabs",
     title: "Tabs",
     description: "Neutral selection, keyboard focus, and action hierarchy.",

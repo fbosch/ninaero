@@ -4,14 +4,31 @@ import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 
-function Tabs({ className, orientation = "horizontal", ...props }: TabsPrimitive.Root.Props) {
+import { useControlSound, HoverSound, SoundGroup } from "./sound-feedback";
+
+function Tabs({
+  className,
+  orientation = "horizontal",
+  sound = true,
+  onValueChange,
+  ...props
+}: TabsPrimitive.Root.Props & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
   return (
-    <TabsPrimitive.Root
-      data-slot="tabs"
-      orientation={orientation}
-      className={cn("group/tabs flex gap-2 data-horizontal:flex-col", className)}
-      {...props}
-    />
+    <SoundGroup sound={sound}>
+      <TabsPrimitive.Root
+        data-slot="tabs"
+        orientation={orientation}
+        className={cn("group/tabs flex gap-2 data-horizontal:flex-col", className)}
+        {...props}
+        onValueChange={(value, details) => {
+          onValueChange?.(value, details);
+          if (!details.isCanceled && details.reason === "none" && details.event.type !== "reset") {
+            play("tap");
+          }
+        }}
+      />
+    </SoundGroup>
   );
 }
 
@@ -45,16 +62,22 @@ function TabsList({
   );
 }
 
-function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
+function TabsTrigger({
+  className,
+  sound = true,
+  ...props
+}: TabsPrimitive.Tab.Props & { sound?: boolean }) {
   return (
-    <TabsPrimitive.Tab
-      data-slot="tabs-trigger"
-      className={cn(
-        "ninaero-tabs-trigger relative inline-flex h-full flex-1 items-center justify-center gap-2 px-3 text-sm type-label whitespace-nowrap group-data-vertical/tabs:h-6 group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    />
+    <HoverSound sound={sound}>
+      <TabsPrimitive.Tab
+        data-slot="tabs-trigger"
+        className={cn(
+          "ninaero-tabs-trigger relative inline-flex h-full flex-1 items-center justify-center gap-2 px-3 text-sm type-label whitespace-nowrap group-data-vertical/tabs:h-6 group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+        {...props}
+      />
+    </HoverSound>
   );
 }
 

@@ -4,6 +4,8 @@ import * as React from "react";
 import { createHighlighterCore, type GrammarState, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
+import { syntaxThemeNames, syntaxThemeSelection, syntaxTokenStyles } from "./syntax-themes.mjs";
+
 const languages = {
   bash: () => import("shiki/langs/shellscript.mjs"),
   css: () => import("shiki/langs/css.mjs"),
@@ -42,9 +44,36 @@ let highlighterPromise: Promise<HighlighterCore> | undefined;
 
 function getHighlighter() {
   highlighterPromise ??= createHighlighterCore({
-    themes: [import("shiki/themes/github-light.mjs"), import("shiki/themes/github-dark.mjs")],
+    themes: [
+      import("shiki/themes/material-theme-lighter.mjs"),
+      import("shiki/themes/material-theme-ocean.mjs"),
+      import("shiki/themes/one-light.mjs"),
+      import("shiki/themes/aurora-x.mjs"),
+      import("shiki/themes/catppuccin-latte.mjs"),
+      import("shiki/themes/catppuccin-mocha.mjs"),
+      import("shiki/themes/github-light-high-contrast.mjs"),
+      import("shiki/themes/github-dark-high-contrast.mjs"),
+      import("shiki/themes/vitesse-light.mjs"),
+      import("shiki/themes/vitesse-dark.mjs"),
+      import("shiki/themes/night-owl-light.mjs"),
+      import("shiki/themes/night-owl.mjs"),
+      import("shiki/themes/rose-pine-dawn.mjs"),
+      import("shiki/themes/rose-pine-moon.mjs"),
+      import("shiki/themes/everforest-light.mjs"),
+      import("shiki/themes/everforest-dark.mjs"),
+      import("shiki/themes/ayu-light.mjs"),
+      import("shiki/themes/ayu-mirage.mjs"),
+      import("shiki/themes/gruvbox-light-medium.mjs"),
+      import("shiki/themes/gruvbox-dark-medium.mjs"),
+    ],
     langs: [],
     engine: createJavaScriptRegexEngine({ forgiving: true }),
+  }).then((shiki) => {
+    const loaded = shiki.getLoadedThemes();
+    for (const name of syntaxThemeNames) {
+      if (!loaded.includes(name)) throw new Error(`Missing bundled syntax theme: ${name}`);
+    }
+    return shiki;
   });
 
   return highlighterPromise;
@@ -82,8 +111,9 @@ async function loadHighlighter(language: string) {
       const tokenize = (text: string) =>
         shiki.codeToTokens(text, {
           lang,
-          themes: { light: "github-light", dark: "github-dark" },
+          themes: syntaxThemeSelection,
           defaultColor: false,
+          cssVariablePrefix: "--n-",
           grammarState: state,
         }).tokens;
 
@@ -97,8 +127,8 @@ async function loadHighlighter(language: string) {
               "span",
               {
                 key: index,
-                style: token.htmlStyle as React.CSSProperties,
-                className: "text-(--shiki-light) dark:text-(--shiki-dark)",
+                style: syntaxTokenStyles(token.htmlStyle) as React.CSSProperties,
+                className: "ninaero-syntax-token",
               },
               token.content,
             ),

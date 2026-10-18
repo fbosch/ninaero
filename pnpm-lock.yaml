@@ -11,6 +11,9 @@ importers:
       '@base-ui/react':
         specifier: ^1.9.0
         version: 1.9.0(@date-fns/tz@1.5.0)(@types/react@19.3.0)(date-fns@4.4.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@foleyjs/core':
+        specifier: ^2.9.0
+        version: 2.9.0
       '@fontsource-variable/google-sans-code':
         specifier: 5.3.2
         version: 5.3.2
@@ -301,6 +304,9 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
+
+  '@foleyjs/core@2.9.0':
+    resolution: {integrity: sha512-mL15Y3KDQiU7BUcvVpojBkpgJgsanCQjyH7Rv9CDdVIDhNS1jAXdInX+jjW2983q1jRvkmCcv/s5Qn5k9gViSg==}
 
   '@fontsource-variable/google-sans-code@5.3.2':
     resolution: {integrity: sha512-kW4RcfoTTObtUWAhlh6hzs8LCDsBNLwVRPqjUIKMkEiabfR3SRGP0Y6erFKd9k1yaRppTSCLSVkxhPKpEW3QPg==}
@@ -3100,6 +3106,8 @@ snapshots:
       react-dom: 19.3.0(react@19.3.0)
 
   '@floating-ui/utils@0.2.12': {}
+
+  '@foleyjs/core@2.9.0': {}
 
   '@fontsource-variable/google-sans-code@5.3.2': {}
 

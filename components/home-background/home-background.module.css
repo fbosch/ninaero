@@ -1,7 +1,13 @@
 .scene {
   --home-companion: #92bd55;
+  --display-ink-top: color-mix(in oklab, var(--foreground) 85%, var(--background) 15%);
+  --display-ink-bottom: var(--foreground);
 }
 
+[class~="dark"] .scene {
+  --display-ink-top: var(--foreground);
+  --display-ink-bottom: color-mix(in oklab, var(--foreground) 92%, var(--background) 8%);
+}
 /* The homepage scene paints over the body texture; reuse the theme finish inside it. */
 .scene::after {
   z-index: -2;
@@ -79,7 +85,33 @@
 }
 
 .description {
+  color: color-mix(in oklab, var(--muted-foreground) 60%, var(--foreground));
+}
+
+[class~="dark"] .description {
   color: color-mix(in oklab, var(--muted-foreground) 85%, var(--foreground));
+}
+
+.scene :is(h1, h2, p) {
+  text-shadow:
+    0 -1px 1px rgb(255 255 255 / 0.25),
+    0 1px 2px rgb(0 0 0 / 0.18);
+}
+
+[class~="dark"] .scene :is(h1, h2, p) {
+  text-shadow:
+    0 -1px 1px rgb(255 255 255 / 0.08),
+    0 1px 2px rgb(0 0 0 / 0.25);
+}
+
+@media (forced-colors: active) {
+  .description {
+    color: CanvasText;
+  }
+
+  .scene :is(h1, h2, p) {
+    text-shadow: none;
+  }
 }
 
 [data-accent="tidepool"] .sky {
@@ -163,10 +195,102 @@
 }
 
 .controls {
+  --control-glass-top: var(--card);
+  --control-glass-bottom: var(--muted);
   position: fixed;
   right: max(1.25rem, env(safe-area-inset-right));
   bottom: max(1.25rem, env(safe-area-inset-bottom));
   z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.soundControl {
+  display: flex;
+  height: 2rem;
+  align-items: center;
+  border: 1px solid var(--button-outline-edge);
+  border-radius: var(--button-corner, 1rem);
+  corner-shape: squircle;
+}
+
+.soundToggle {
+  margin: -1px;
+}
+
+[class~="dark"] .controls {
+  --control-glass-top: var(--muted);
+  --control-glass-bottom: var(--card);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .soundControl,
+  .motionControl {
+    --control-glass-opacity: 75%;
+    background-color: transparent;
+    background-image: linear-gradient(
+      to bottom in oklab,
+      color-mix(in oklab, var(--control-glass-top) var(--control-glass-opacity), transparent),
+      color-mix(in oklab, var(--control-glass-bottom) var(--control-glass-opacity), transparent)
+    );
+    backdrop-filter: blur(12px) saturate(1.1);
+  }
+
+  .soundControl:hover,
+  .motionControl:hover:not(:disabled) {
+    --control-glass-opacity: 85%;
+  }
+
+  .soundControl:has(.soundToggle:active),
+  .motionControl:active:not(:disabled) {
+    background-color: color-mix(in oklab, var(--button-paper-pressed) 75%, transparent);
+    background-image: none;
+  }
+
+  .soundToggle {
+    --button-paper-hover: transparent;
+    --button-paper-pressed: transparent;
+    background-color: transparent;
+  }
+}
+
+.volumeReveal {
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    width 80ms ease-out,
+    opacity 60ms ease-out;
+}
+
+.volumeBar {
+  width: 8rem;
+  padding-inline: 0.75rem;
+}
+
+.soundControl:is(:hover, :has(:focus-visible)) .volumeReveal {
+  width: 8rem;
+  opacity: 1;
+  pointer-events: auto;
+  transition-duration: 180ms, 120ms;
+}
+
+.soundControl:hover .volumeReveal {
+  transition-delay: 300ms;
+}
+
+.soundControl:has(:focus-visible) .volumeReveal {
+  transition-delay: 0s;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .soundControl .volumeReveal {
+    width: 8rem;
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 @media (max-width: 640px) {
@@ -180,15 +304,26 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .controls {
+  .volumeReveal,
+  .soundControl:is(:hover, :has(:focus-visible)) .volumeReveal {
+    /* Keep the hover delay, but reveal without animation. */
+    transition-duration: 0s;
+  }
+
+  .motionControl {
     display: none;
   }
 }
 
 @media (forced-colors: active) {
+  .soundControl {
+    border-color: CanvasText;
+    background: Canvas;
+    backdrop-filter: none;
+  }
   .sky,
   .waves,
-  .controls {
+  .motionControl {
     display: none;
   }
 }

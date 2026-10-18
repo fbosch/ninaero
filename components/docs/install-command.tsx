@@ -2,9 +2,13 @@
 
 import { type ReactNode, useState } from "react";
 
+import {
+  CodeBlock,
+  CodeBlockActions,
+  CodeBlockCopyButton,
+  CodeBlockHeader,
+} from "@/registry/ninaero/ui/code-block";
 import { ToggleGroup, ToggleGroupItem } from "@/registry/ninaero/ui/toggle-group";
-
-import { CodeBlockHeader } from "./code-block-header";
 
 type InstallCommandOption = {
   packageManager: string;
@@ -18,8 +22,8 @@ export function InstallCommand({ commands }: { commands: InstallCommandOption[] 
   if (!command) throw new Error(`Missing install command for ${packageManager}.`);
 
   return (
-    <div className="min-w-0 overflow-hidden rounded-lg border bg-card">
-      <CodeBlockHeader code={command.code} label={`${packageManager} install command`}>
+    <CodeBlock>
+      <CodeBlockHeader className="flex-wrap">
         <ToggleGroup
           aria-label="Package manager"
           value={[packageManager]}
@@ -39,8 +43,11 @@ export function InstallCommand({ commands }: { commands: InstallCommandOption[] 
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
+        <CodeBlockActions>
+          <CodeBlockCopyButton key={command.code} value={command.code} size="icon-sm" />
+        </CodeBlockActions>
       </CodeBlockHeader>
       {command.content}
-    </div>
+    </CodeBlock>
   );
 }

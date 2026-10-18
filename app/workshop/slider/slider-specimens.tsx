@@ -79,6 +79,39 @@ export function SliderSpecimens() {
           </FieldGroup>
         </div>
       </section>
+      <section aria-labelledby="slider-simple" className="flex flex-col gap-3">
+        <h2 id="slider-simple" className="text-xl type-heading">
+          Simple
+        </h2>
+        <div className="button-specimen ninaero-surface-paper bg-(--paper-fill) p-6">
+          <FieldGroup>
+            <SliderField
+              id="simple-volume-slider"
+              label="Volume"
+              variant="simple"
+              value={volume}
+              valueText={`${volume}%`}
+              getAriaValueText={(_, next) => `${next}%`}
+              onValueChange={(next) => setVolume(typeof next === "number" ? next : next[0])}
+            />
+            <SliderField
+              id="simple-disabled-slider"
+              label="Disabled level"
+              variant="simple"
+              defaultValue={40}
+              disabled
+            />
+            <SliderField
+              id="simple-invalid-slider"
+              label="Invalid level"
+              variant="simple"
+              defaultValue={50}
+              aria-invalid="true"
+              hint="Visual state only; no validation runs."
+            />
+          </FieldGroup>
+        </div>
+      </section>
       <section aria-labelledby="slider-states" className="flex flex-col gap-3">
         <h2 id="slider-states" className="text-xl type-heading">
           States

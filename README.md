@@ -35,6 +35,38 @@ Components include the shared theme and their dependencies.
 
 The homepage's bubbles and waves belong to the presentation website. Installing Ninaero does not include their animation code, styles, or assets.
 
+## Optional sound effects
+
+The standard registry includes Foley support. Sound is off by default; Foley loads in the browser only when a `SoundProvider` is enabled.
+
+```tsx
+import { SoundProvider } from "@/components/ui/sound-provider";
+
+<SoundProvider enabled={soundsEnabled} theme="glass" volume={0.35}>
+  {children}
+</SoundProvider>;
+```
+
+Keep `soundsEnabled` in application state and provide an accessible mute control. Ninaero does not persist this setting. Without a provider, controls stay silent.
+
+Button plays `tap` on activation. Switch, Checkbox, and Toggle play distinct `on` and `off` cues. Dropdown Menu, Select, Combobox, Command, Tabs, Radio Group, and Toggle Group use `tap` when a user chooses an option. Menu, select, combobox, and command navigation use quiet `tick` cues with pitch following position. Slider ticks follow the value and play `tap` on commit. Typing stays silent.
+
+Interactive controls play a quiet `hover` cue on mouse or pen entry. Dropdown options and search results keep their position-pitched navigation ticks instead. Hover feedback respects disabled states, local `sound={false}` settings, and provider scopes; touch entry and typing do not play hover cues.
+
+Toast uses `ping`, `success`, `warning`, `error`, or `loading` for a new notification or a change of type. Progress plays `complete` only when its value reaches its maximum, not when it mounts already complete. Trigger application-specific async feedback through `useSound()` when work actually starts or finishes.
+
+Set `sound={false}` on a control or selection root to opt out. Dropdown Menu Radio Group can also opt out as a group, and `Toaster sound={false}` silences notification cues without muting its child controls. Cancelled actions, form resets, initial selections, and ordinary rerenders stay silent.
+
+Use `const { play } = useSound()` for application feedback such as `play("success")` or `play("tick", { pitch: 4, volume: 0.25 })`. Per-cue pitch is in semitones; volume is a multiplier from 0 to 1. Sound supplements visible feedback. The newest cue replaces the previous cue from that provider; disabling or unmounting stops playback. Browsers require a user interaction before audio can play, and cues are not queued while Foley loads.
+
+The site enables sound for the header on every route and for the homepage. Docs content stays silent unless an individual preview explicitly enables its own provider.
+
+SoundProvider supports Foley's `glass` (default), `soft`, `default`, and `mechanical` themes and a volume from 0 to 1. Sound failures call `onError` when supplied, or log an error. This is a Ninaero extension backed by [Foley](https://github.com/eakbulut/foley), not a shadcn theme token or a separate registry.
+
+## Simple slider
+
+Use `<Slider variant="simple" aria-label="Volume" defaultValue={35} />` for compact, monochrome controls such as volume bars. This Ninaero extension uses a thin neutral track and a small round thumb, without the default Slider's accent fill or raised grip. Keyboard, touch, disabled, and invalid behavior stay the same.
+
 ## Edit the theme
 
 - Tokens and shared CSS: `registry/ninaero/theme.mjs`

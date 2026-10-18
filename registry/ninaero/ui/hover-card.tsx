@@ -3,12 +3,21 @@
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 import { cn } from "cn";
 
+import { HoverSound } from "./sound-feedback";
+
 function HoverCard({ ...props }: PreviewCardPrimitive.Root.Props) {
   return <PreviewCardPrimitive.Root data-slot="hover-card" {...props} />;
 }
 
-function HoverCardTrigger({ ...props }: PreviewCardPrimitive.Trigger.Props) {
-  return <PreviewCardPrimitive.Trigger data-slot="hover-card-trigger" {...props} />;
+function HoverCardTrigger({
+  sound = true,
+  ...props
+}: PreviewCardPrimitive.Trigger.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <PreviewCardPrimitive.Trigger data-slot="hover-card-trigger" {...props} />
+    </HoverSound>
+  );
 }
 
 function HoverCardContent({

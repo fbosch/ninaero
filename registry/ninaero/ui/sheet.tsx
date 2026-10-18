@@ -7,16 +7,29 @@ import type * as React from "react";
 import { XIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
+import { HoverSound } from "./sound-feedback";
+
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
 }
 
-function SheetTrigger({ ...props }: SheetPrimitive.Trigger.Props) {
-  return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />;
+function SheetTrigger({
+  sound = true,
+  ...props
+}: SheetPrimitive.Trigger.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />
+    </HoverSound>
+  );
 }
 
-function SheetClose({ ...props }: SheetPrimitive.Close.Props) {
-  return <SheetPrimitive.Close data-slot="sheet-close" {...props} />;
+function SheetClose({ sound = true, ...props }: SheetPrimitive.Close.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <SheetPrimitive.Close data-slot="sheet-close" {...props} />
+    </HoverSound>
+  );
 }
 
 function SheetPortal({ ...props }: SheetPrimitive.Portal.Props) {

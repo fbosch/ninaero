@@ -7,20 +7,36 @@ import type * as React from "react";
 import { XIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
+import { HoverSound } from "./sound-feedback";
+
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
-function DialogTrigger({ ...props }: DialogPrimitive.Trigger.Props) {
-  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
+function DialogTrigger({
+  sound = true,
+  ...props
+}: DialogPrimitive.Trigger.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
+    </HoverSound>
+  );
 }
 
 function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 }
 
-function DialogClose({ ...props }: DialogPrimitive.Close.Props) {
-  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
+function DialogClose({
+  sound = true,
+  ...props
+}: DialogPrimitive.Close.Props & { sound?: boolean }) {
+  return (
+    <HoverSound sound={sound}>
+      <DialogPrimitive.Close data-slot="dialog-close" {...props} />
+    </HoverSound>
+  );
 }
 
 function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) {

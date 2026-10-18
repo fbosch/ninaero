@@ -10,6 +10,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/registry/ninaero/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/ninaero/ui/tooltip";
 
 export function AccentSwitcher({ errorId }: { errorId: string }) {
   const { accent, mounted, saved, setAccent } = useAccent();
@@ -17,20 +18,26 @@ export function AccentSwitcher({ errorId }: { errorId: string }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        render={<Button size="icon-sm" variant="secondary" />}
-        disabled={!mounted}
-        aria-label={label}
-        title={label}
-        aria-describedby={!saved ? errorId : undefined}
-      >
-        <span
-          aria-hidden="true"
-          data-accent={accent}
-          className="size-3.5 shrink-0 rounded-full"
-          style={{ backgroundColor: "var(--button-primary-fill)" }}
-        />
-      </DropdownMenuTrigger>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <DropdownMenuTrigger
+              render={<Button size="icon-sm" variant="secondary" />}
+              disabled={!mounted}
+              aria-label={label}
+              aria-describedby={!saved ? errorId : undefined}
+            />
+          }
+        >
+          <span
+            aria-hidden="true"
+            data-accent={accent}
+            className="size-3.5 shrink-0 rounded-full"
+            style={{ backgroundColor: "var(--button-primary-fill)" }}
+          />
+        </TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
       <DropdownMenuContent className="min-w-44" align="end" aria-label="Accent">
         <DropdownMenuRadioGroup
           value={accent}

@@ -2,7 +2,7 @@
 
 import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "cn";
-import type * as React from "react";
+import * as React from "react";
 
 import { CheckIcon, SearchIcon } from "@/lib/icons";
 import {
@@ -14,16 +14,71 @@ import {
 } from "@/registry/ninaero/ui/dialog";
 import { InputGroup, InputGroupAddon } from "@/registry/ninaero/ui/input-group";
 
-function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
+import { itemSoundOptions, SoundGroup, useControlSound, HoverSound } from "./sound-feedback";
+
+function Command({
+  className,
+  id,
+  value,
+  defaultValue = "",
+  sound = true,
+  onValueChange,
+  onKeyDownCapture,
+  onPointerMoveCapture,
+  onInputCapture,
+  ...props
+}: React.ComponentProps<typeof CommandPrimitive> & { sound?: boolean }) {
+  const generatedId = React.useId();
+  const rootId = id ?? generatedId;
+  const [selectedValue, setSelectedValue] = React.useState(defaultValue);
+  const navigation = React.useRef(false);
+  const { play } = useControlSound(sound);
   return (
-    <CommandPrimitive
-      data-slot="command"
-      className={cn(
-        "flex size-full flex-col overflow-hidden rounded-xl! bg-popover p-1 text-popover-foreground",
-        className,
-      )}
-      {...props}
-    />
+    <SoundGroup sound={sound}>
+      <CommandPrimitive
+        id={rootId}
+        data-slot="command"
+        className={cn(
+          "flex size-full flex-col overflow-hidden rounded-xl! bg-popover p-1 text-popover-foreground",
+          className,
+        )}
+        {...props}
+        value={value ?? selectedValue}
+        onKeyDownCapture={(event) => {
+          onKeyDownCapture?.(event);
+          const arrow = ["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key);
+          const vim =
+            props.vimBindings !== false &&
+            event.ctrlKey &&
+            ["n", "p", "j", "k"].includes(event.key.toLowerCase());
+          navigation.current = !event.defaultPrevented && (arrow || vim);
+        }}
+        onPointerMoveCapture={(event) => {
+          onPointerMoveCapture?.(event);
+          navigation.current = !event.defaultPrevented && event.pointerType !== "touch";
+        }}
+        onInputCapture={(event) => {
+          onInputCapture?.(event);
+          navigation.current = false;
+        }}
+        onValueChange={(nextValue) => {
+          if (value === undefined) setSelectedValue(nextValue);
+          onValueChange?.(nextValue);
+          if (navigation.current && nextValue) {
+            const items = document
+              .getElementById(rootId)
+              ?.querySelectorAll<HTMLElement>('[role="option"]');
+            const item = Array.from(items ?? []).find(
+              (option) => option.dataset.value === nextValue,
+            );
+            if (item && item.getAttribute("aria-disabled") !== "true") {
+              play("tick", itemSoundOptions(item));
+            }
+          }
+          navigation.current = false;
+        }}
+      />
+    </SoundGroup>
   );
 }
 
@@ -64,14 +119,16 @@ function CommandInput({
   return (
     <div data-slot="command-input-wrapper" className="p-1 pb-0">
       <InputGroup>
-        <CommandPrimitive.Input
-          data-slot="input-group-control"
-          className={cn(
-            "h-auto min-h-0 w-full min-w-0 flex-1 self-stretch px-3 py-1 text-base leading-5 disabled:cursor-not-allowed md:text-sm",
-            className,
-          )}
-          {...props}
-        />
+        <HoverSound>
+          <CommandPrimitive.Input
+            data-slot="input-group-control"
+            className={cn(
+              "h-auto min-h-0 w-full min-w-0 flex-1 self-stretch px-3 py-1 text-base leading-5 disabled:cursor-not-allowed md:text-sm",
+              className,
+            )}
+            {...props}
+          />
+        </HoverSound>
         <InputGroupAddon>
           <SearchIcon className="size-4 shrink-0 opacity-50" />
         </InputGroupAddon>
@@ -138,8 +195,11 @@ function CommandSeparator({
 function CommandItem({
   className,
   children,
+  sound = true,
+  onSelect,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Item>) {
+}: React.ComponentProps<typeof CommandPrimitive.Item> & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
@@ -148,6 +208,10 @@ function CommandItem({
         className,
       )}
       {...props}
+      onSelect={(value) => {
+        onSelect?.(value);
+        if (!props.disabled) play("tap");
+      }}
     >
       {children}
       <CheckIcon className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />

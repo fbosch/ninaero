@@ -27,6 +27,7 @@ import {
 } from "@/custom/ui/dialog";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/custom/ui/select";
 import { Slider } from "@/custom/ui/slider";
+import { SoundProvider, useSound } from "@/custom/ui/sound-provider";
 import { Toggle } from "@/custom/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/custom/ui/toggle-group";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/custom/ui/tooltip";
@@ -117,7 +118,39 @@ export function ConsumerFixture() {
         </Tooltip>
       </TooltipProvider>
       <Slider defaultValue={40} max={100} />
+      <Slider variant="simple" defaultValue={35} aria-label="Volume" />
       <Slider defaultValue={[20, 80]} max={100} />
     </>
+  );
+}
+
+function SoundFeedback() {
+  const { enabled, play } = useSound();
+  return (
+    <>
+      <Button sound={false} disabled={!enabled} onClick={() => play("success")}>
+        Complete
+      </Button>
+      <Button sound={false} onClick={() => play("tick", { pitch: 4, volume: 0.25 })}>
+        Pitched cue
+      </Button>
+    </>
+  );
+}
+
+export function SoundConsumerFixture() {
+  const [enabled, setEnabled] = useState(false);
+  return (
+    <SoundProvider enabled={enabled} theme="soft" volume={0.35}>
+      <Button sound={false} onClick={() => setEnabled((value) => !value)}>Sound effects</Button>
+      <Button onClick={(event) => event.preventBaseUIHandler()}>Cancelled action</Button>
+      <Toggle sound={false}>Quiet toggle</Toggle>
+      <Slider sound={false} defaultValue={40} />
+      <Select sound={false} defaultValue="apple" />
+      <ToggleGroup sound={false} defaultValue={["list"]}>
+        <ToggleGroupItem value="list">List</ToggleGroupItem>
+      </ToggleGroup>
+      <SoundFeedback />
+    </SoundProvider>
   );
 }

@@ -1,6 +1,8 @@
-import { Button as ButtonPrimitive } from "@base-ui/react/button";
+import type { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
+
+import { SoundButton } from "./button-feedback";
 
 const buttonVariants = cva(
   "ninaero-button group/button inline-flex shrink-0 items-center justify-center bg-clip-padding text-sm type-label whitespace-nowrap select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -37,14 +39,16 @@ function Button({
   className,
   variant = "default",
   size = "default",
+  sound = true,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants> & { sound?: boolean }) {
   return (
-    <ButtonPrimitive
+    <SoundButton
       data-slot="button"
       data-variant={variant}
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
+      sound={sound}
       {...props}
     />
   );

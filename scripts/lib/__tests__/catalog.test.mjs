@@ -10,7 +10,10 @@ const sources = await readCatalogSources(catalog, root);
 const resolved = resolveCatalog(catalog, sources);
 
 test("the catalog lists every installable UI component source and supporting hook", async () => {
-  const files = (await readdir(new URL("registry/ninaero/ui/", root))).sort();
+  const files = (await readdir(new URL("registry/ninaero/ui/", root), { withFileTypes: true }))
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .sort();
   const declared = catalog.items
     .filter((item) => item.type === "registry:ui")
     .flatMap((item) => item.files.map((file) => file.path.split("/").at(-1)))

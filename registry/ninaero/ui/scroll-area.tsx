@@ -3,6 +3,8 @@
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 import { cn } from "cn";
 
+import { HoverSound } from "./sound-feedback";
+
 function ScrollArea({ className, children, ...props }: ScrollAreaPrimitive.Root.Props) {
   return (
     <ScrollAreaPrimitive.Root
@@ -25,24 +27,27 @@ function ScrollArea({ className, children, ...props }: ScrollAreaPrimitive.Root.
 function ScrollBar({
   className,
   orientation = "vertical",
+  sound = true,
   ...props
-}: ScrollAreaPrimitive.Scrollbar.Props) {
+}: ScrollAreaPrimitive.Scrollbar.Props & { sound?: boolean }) {
   return (
-    <ScrollAreaPrimitive.Scrollbar
-      data-slot="scroll-area-scrollbar"
-      data-orientation={orientation}
-      orientation={orientation}
-      className={cn(
-        "flex touch-none p-px transition-colors select-none data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
-        className,
-      )}
-      {...props}
-    >
-      <ScrollAreaPrimitive.Thumb
-        data-slot="scroll-area-thumb"
-        className="relative flex-1 rounded-full bg-border"
-      />
-    </ScrollAreaPrimitive.Scrollbar>
+    <HoverSound sound={sound}>
+      <ScrollAreaPrimitive.Scrollbar
+        data-slot="scroll-area-scrollbar"
+        data-orientation={orientation}
+        orientation={orientation}
+        className={cn(
+          "flex touch-none p-px transition-colors select-none data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
+          className,
+        )}
+        {...props}
+      >
+        <ScrollAreaPrimitive.Thumb
+          data-slot="scroll-area-thumb"
+          className="relative flex-1 rounded-full bg-border"
+        />
+      </ScrollAreaPrimitive.Scrollbar>
+    </HoverSound>
   );
 }
 

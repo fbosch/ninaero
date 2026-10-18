@@ -47,6 +47,7 @@ const CalendarPreview = dynamic(() => import("./calendar-preview"));
 const QuestionnairePreview = dynamic(() => import("./questionnaire-preview"));
 const DataTablePreview = dynamic(() => import("./data-table-preview"));
 const DatePickerPreview = dynamic(() => import("./date-picker-preview"));
+const SoundProviderPreview = dynamic(() => import("./sound-provider-preview"));
 
 function ButtonPreview({ interactive }: PreviewProps) {
   const [last, setLast] = useState("");
@@ -350,6 +351,7 @@ export const controlPreviews = {
   "radio-group": RadioGroupPreview,
   select: SelectPreview,
   slider: SliderPreview,
+  "sound-provider": SoundProviderPreview,
   switch: SwitchPreview,
   textarea: TextareaPreview,
   toggle: TogglePreview,
