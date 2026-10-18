@@ -53,6 +53,20 @@ Button plays `tap` on activation. Switch, Checkbox, and Toggle play distinct `on
 
 Interactive controls play a quiet `hover` cue on mouse or pen entry. Dropdown options and search results keep their position-pitched navigation ticks instead. Hover feedback respects disabled states, local `sound={false}` settings, and provider scopes; touch entry and typing do not play hover cues.
 
+With the default `glass` theme, Ninaero's active cues use short, dry sounds tuned against the [DSi/3DS system sounds in TWiLight Menu++](https://github.com/DS-Homebrew/TWiLightMenu/tree/master/romsel_dsimenutheme/resources/sound/3dsmenu). The registry synthesizes these approximations and does not include the reference recordings.
+
+| Cues                  | Reference and adaptation                                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `hover`, `tick`       | Cursor stop/select clicks. Hover is lower and softer; navigation keeps its position-based pitch.                    |
+| `tap`                 | A single, shortened note from the rising page-change cue.                                                           |
+| `on`, `off`           | The back cue's open fifth, ordered upward or downward to distinguish state changes.                                 |
+| `ping`                | A brief, quiet version of that open fifth.                                                                          |
+| `success`, `complete` | The page-change and launch pitches, adapted into short rising figures. Completion resolves higher and lasts longer. |
+| `warning`, `error`    | The boundary beep, transposed down. Warning repeats; error falls.                                                   |
+| `loading`             | A quieter, lower page-change figure that plays once, not a loop.                                                    |
+
+Other Foley cues and the explicit `soft`, `default`, and `mechanical` themes retain their original sound.
+
 Toast uses `ping`, `success`, `warning`, `error`, or `loading` for a new notification or a change of type. Progress plays `complete` only when its value reaches its maximum, not when it mounts already complete. Trigger application-specific async feedback through `useSound()` when work actually starts or finishes.
 
 Set `sound={false}` on a control or selection root to opt out. Dropdown Menu Radio Group can also opt out as a group, and `Toaster sound={false}` silences notification cues without muting its child controls. Cancelled actions, form resets, initial selections, and ordinary rerenders stay silent.

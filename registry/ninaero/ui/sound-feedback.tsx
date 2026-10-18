@@ -6,7 +6,6 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactElement,
   type ReactNode,
-  type SyntheticEvent as ReactEvent,
   useCallback,
   useContext,
   useEffect,
@@ -88,19 +87,10 @@ export function HoverSound({
 }) {
   const { enabled, play } = useControlSound(sound);
   const element = useRef<HTMLElement | null>(null);
-  const playRef = useRef(play);
   const setElement = useCallback((target: HTMLElement | null) => {
     if (element.current && element.current !== target) hoverSounds.dispose(element.current);
     element.current = target;
   }, []);
-  const cancelHover = useCallback((event: ReactEvent<HTMLElement>) => {
-    hoverSounds.cancel(event.currentTarget);
-  }, []);
-
-  useEffect(() => {
-    playRef.current = play;
-    if (!enabled && element.current) hoverSounds.cancel(element.current);
-  }, [enabled, play]);
 
   return useRender({
     render: children,
@@ -113,11 +103,8 @@ export function HoverSound({
         if (!feedback) return;
         // Composed controls can decorate the same DOM node more than once.
         hoverEvents.add(event.nativeEvent);
-        const target = event.currentTarget;
-        hoverSounds.enter(target, () => {
-          if (!target.isConnected || target.closest(disabledTargets) || isTextEntry(target))
-            return false;
-          playRef.current(feedback.cue, feedback.options);
+        hoverSounds.enter(event.currentTarget, () => {
+          play(feedback.cue, feedback.options);
           return true;
         });
       },
@@ -127,9 +114,6 @@ export function HoverSound({
       onPointerCancel(event: ReactPointerEvent<HTMLElement>) {
         hoverSounds.leave(event.currentTarget);
       },
-      onPointerDown: cancelHover,
-      onKeyDown: cancelHover,
-      onClick: cancelHover,
     },
   });
 }

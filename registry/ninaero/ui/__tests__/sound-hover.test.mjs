@@ -13,162 +13,92 @@ const { createHoverSoundGate } = await import(
 );
 
 function fixture(t) {
-  t.mock.timers.enable({ apis: ["setTimeout", "Date"], now: 0 });
-  const gate = createHoverSoundGate(Date.now);
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const gate = createHoverSoundGate();
   const played = [];
   const enter = (target, allowed = true) =>
     gate.enter(target, () => {
       if (!allowed) return false;
-      played.push({ target, at: Date.now() });
+      played.push(target);
       return true;
     });
   return { gate, played, enter, tick: (ms) => t.mock.timers.tick(ms) };
 }
 
-test("hover waits for 100 ms of intent and plays only once while inside", (t) => {
+test("the first hover responds immediately and plays once while inside", (t) => {
   const { enter, played, tick } = fixture(t);
   const target = {};
   enter(target);
-  tick(99);
-  assert.deepEqual(played, []);
-  tick(1);
-  assert.deepEqual(played, [{ target, at: 100 }]);
+  assert.deepEqual(played, [target]);
   tick(1000);
   assert.equal(played.length, 1);
 });
 
-test("leaving before the dwell finishes cancels the sound", (t) => {
-  const { gate, enter, played, tick } = fixture(t);
-  const target = {};
-  enter(target);
-  tick(50);
-  gate.leave(target);
-  tick(1000);
-  assert.deepEqual(played, []);
+test("moving to a different control responds immediately", (t) => {
+  const { gate, enter, played } = fixture(t);
+  const first = { name: "first" };
+  const second = { name: "second" };
+  enter(first);
+  gate.leave(first);
+  enter(second);
+  assert.deepEqual(played, [first, second]);
 });
 
-test("duplicate entry notifications do not restart the dwell or replay a visit", (t) => {
+test("duplicate entry notifications play once per visit", (t) => {
   const { enter, played, tick } = fixture(t);
   const target = {};
   enter(target);
   tick(60);
   enter(target);
-  tick(40);
-  assert.deepEqual(played, [{ target, at: 100 }]);
-  enter(target);
   tick(1000);
-  assert.equal(played.length, 1);
+  enter(target);
+  assert.deepEqual(played, [target]);
 });
 
-test("brief exits retain the played latch until 200 ms continuously outside", (t) => {
+test("brief exits retain the latch until 200 ms continuously outside", (t) => {
   const { gate, enter, played, tick } = fixture(t);
   const target = {};
   enter(target);
-  tick(100);
   gate.leave(target);
-  tick(150);
+  tick(199);
   enter(target);
   tick(1000);
   assert.equal(played.length, 1);
   gate.leave(target);
   tick(200);
   enter(target);
-  tick(100);
-  assert.deepEqual(played, [
-    { target, at: 100 },
-    { target, at: 1550 },
-  ]);
+  assert.deepEqual(played, [target, target]);
 });
 
-test("controls share a 300 ms cooldown and suppressed sounds are never queued", (t) => {
-  const { gate, enter, played, tick } = fixture(t);
-  const first = {};
-  const second = {};
-  enter(first);
-  tick(100);
-  enter(second);
-  tick(100);
-  assert.deepEqual(played, [{ target: first, at: 100 }]);
-  tick(1000);
-  assert.equal(played.length, 1);
-  gate.leave(second);
-  tick(200);
-  enter(second);
-  tick(100);
-  assert.deepEqual(played, [
-    { target: first, at: 100 },
-    { target: second, at: 1500 },
-  ]);
-});
-
-test("a new control can play exactly at the shared cooldown boundary", (t) => {
-  const { enter, played, tick } = fixture(t);
-  const first = {};
-  const second = {};
-  enter(first);
-  tick(100);
-  tick(200);
-  enter(second);
-  tick(99);
-  assert.equal(played.length, 1);
-  tick(1);
-  assert.deepEqual(played, [
-    { target: first, at: 100 },
-    { target: second, at: 400 },
-  ]);
-});
-
-test("activation or disabling cancels pending hover and consumes the current visit", (t) => {
+test("repeated edge jitter stays silent after the first response", (t) => {
   const { gate, enter, played, tick } = fixture(t);
   const target = {};
   enter(target);
-  tick(50);
-  gate.cancel(target);
-  tick(1000);
-  enter(target);
-  tick(100);
-  assert.deepEqual(played, []);
-  gate.leave(target);
-  tick(200);
-  enter(target);
-  tick(100);
-  assert.deepEqual(played, [{ target, at: 1450 }]);
+  for (let i = 0; i < 10; i++) {
+    gate.leave(target);
+    tick(50);
+    enter(target);
+    tick(50);
+  }
+  assert.deepEqual(played, [target]);
 });
 
-test("disposing a control cancels its pending sound", (t) => {
+test("disposing a visit clears its rearm timer without erasing a fresh visit", (t) => {
   const { gate, enter, played, tick } = fixture(t);
   const target = {};
   enter(target);
-  tick(50);
-  gate.dispose(target);
-  tick(500);
-  assert.deepEqual(played, []);
-  enter(target);
-  tick(100);
-  assert.deepEqual(played, [{ target, at: 650 }]);
-});
-
-test("disposing an old visit cancels its rearm timer without erasing a new visit", (t) => {
-  const { gate, enter, played, tick } = fixture(t);
-  const target = {};
-  enter(target);
-  tick(50);
   gate.leave(target);
   gate.dispose(target);
   enter(target);
-  tick(100);
   tick(350);
   enter(target);
-  tick(100);
-  assert.deepEqual(played, [{ target, at: 150 }]);
+  assert.deepEqual(played, [target, target]);
 });
 
-test("a target that becomes ineligible does not consume the shared sound budget", (t) => {
-  const { enter, played, tick } = fixture(t);
-  enter({}, false);
-  tick(100);
+test("a previously ineligible control responds when it becomes eligible", (t) => {
+  const { enter, played } = fixture(t);
   const target = {};
+  enter(target, false);
   enter(target);
-  tick(100);
-  assert.deepEqual(played, [{ target, at: 200 }]);
+  assert.deepEqual(played, [target]);
 });

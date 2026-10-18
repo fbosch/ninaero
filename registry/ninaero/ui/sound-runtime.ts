@@ -1,4 +1,11 @@
-import type { CueName, PlayHandle, PlayOptions, ThemeName } from "@foleyjs/core";
+import type {
+  CueName,
+  PlayHandle,
+  PlayOptions,
+  Spec,
+  ThemeName,
+  ThemeTransform,
+} from "@foleyjs/core";
 
 type SoundCue = CueName;
 type SoundTheme = ThemeName;
@@ -10,6 +17,105 @@ export const defaultSoundSettings = {
   theme: "glass" as SoundTheme,
 };
 
+type CueProfile = {
+  source?: SoundCue;
+  notes?: readonly number[];
+  pace?: number;
+  level?: number;
+  transform: ThemeTransform;
+};
+
+// Page-change/back intervals are shortened and lowered for frequent UI feedback.
+const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
+  hover: {
+    source: "tick",
+    transform: {
+      pitch: 0.5,
+      attack: 0.5,
+      decay: 1.3,
+      noiseLvl: 0.35,
+      noiseF: 0.25,
+      q: 0.45,
+    },
+  },
+  tick: {
+    source: "tick",
+    transform: { pitch: 0.96, attack: 0.25, decay: 0.35, noiseLvl: 0.7 },
+  },
+  tap: {
+    notes: [739.99],
+    transform: { attack: 0.5, decay: 1.25, noiseLvl: 0.25, noiseF: 0.5 },
+  },
+  on: {
+    notes: [369.99, 554.37],
+    pace: 0.6,
+    level: 0.65,
+    transform: { attack: 0.5, decay: 0.9 },
+  },
+  off: {
+    notes: [554.37, 369.99],
+    pace: 0.6,
+    level: 0.65,
+    transform: { attack: 0.5, decay: 0.9 },
+  },
+  ping: {
+    source: "ready",
+    notes: [369.99, 554.37],
+    level: 0.55,
+    transform: { attack: 0.5, decay: 0.3 },
+  },
+  success: {
+    notes: [739.99, 830.61, 987.77],
+    pace: 0.55,
+    level: 0.7,
+    transform: { attack: 0.5, decay: 0.45 },
+  },
+  complete: {
+    source: "success",
+    notes: [659.25, 987.77, 1318.5],
+    pace: 0.55,
+    level: 0.7,
+    transform: { attack: 0.5, decay: 0.65 },
+  },
+  warning: {
+    notes: [1165.5, 1165.5],
+    pace: 0.55,
+    level: 0.65,
+    transform: { attack: 0.5, decay: 0.45 },
+  },
+  error: {
+    notes: [1165.5, 830.61],
+    pace: 0.55,
+    level: 0.75,
+    transform: { attack: 0.5, decay: 0.45 },
+  },
+  loading: {
+    notes: [369.99, 415.3, 493.88],
+    pace: 0.7,
+    level: 0.55,
+    transform: { attack: 0.5, decay: 0.7 },
+  },
+};
+
+function profileSpec(spec: Spec, profile: CueProfile): Spec {
+  if (
+    profile.notes &&
+    spec.filter((layer) => layer.kind === "tone").length !== profile.notes.length
+  ) {
+    throw new RangeError("Sound profile must match the source cue's tone count.");
+  }
+  let tone = 0;
+  return spec.map((layer) => {
+    const next = {
+      ...layer,
+      at: layer.at * (profile.pace ?? 1),
+      peak: layer.peak * (profile.level ?? 1),
+    };
+    const f = next.kind === "tone" ? profile.notes?.[tone++] : undefined;
+    return f === undefined ? next : { ...next, f, f2: null };
+  });
+}
+
 export function getSoundPitch(value: number, min: number, max: number) {
   if (![value, min, max].every(Number.isFinite) || max <= min) {
     throw new RangeError("Pitch mapping requires finite values and an increasing range.");
@@ -19,62 +125,37 @@ export function getSoundPitch(value: number, min: number, max: number) {
 }
 
 type HoverVisit = {
-  inside: boolean;
   played: boolean;
-  pending?: ReturnType<typeof setTimeout>;
   rearm?: ReturnType<typeof setTimeout>;
 };
 
-export function createHoverSoundGate(now = () => performance.now()) {
-  const visits = new WeakMap<object, HoverVisit>();
-  let lastPlayedAt = -Infinity;
-
-  function cancel(target: object) {
-    const visit = visits.get(target);
-    if (!visit) return;
-    clearTimeout(visit.pending);
-    visit.pending = undefined;
-    visit.played = true;
-  }
+export function createHoverSoundGate() {
+  const visits = new WeakMap<Element, HoverVisit>();
 
   return {
-    enter(target: object, play: () => boolean) {
-      const visit: HoverVisit = visits.get(target) ?? { inside: true, played: false };
+    enter(target: Element, play: () => boolean) {
+      const visit: HoverVisit = visits.get(target) ?? { played: false };
       visits.set(target, visit);
-      visit.inside = true;
       clearTimeout(visit.rearm);
       visit.rearm = undefined;
-      if (visit.played || visit.pending !== undefined) return;
-      visit.pending = setTimeout(() => {
-        visit.pending = undefined;
-        if (!visit.inside || visit.played) return;
-        visit.played = true;
-        const at = now();
-        if (at - lastPlayedAt < 300) return;
-        if (play()) lastPlayedAt = at;
-      }, 100);
+      if (!visit.played) visit.played = play();
     },
-    leave(target: object) {
+    leave(target: Element) {
       const visit = visits.get(target);
       if (!visit) return;
-      visit.inside = false;
-      clearTimeout(visit.pending);
-      visit.pending = undefined;
       clearTimeout(visit.rearm);
       visit.rearm = setTimeout(() => visits.delete(target), 200);
     },
-    cancel,
-    dispose(target: object) {
+    dispose(target: Element) {
       const visit = visits.get(target);
       if (!visit) return;
-      clearTimeout(visit.pending);
       clearTimeout(visit.rearm);
       visits.delete(target);
     },
   };
 }
 
-type SoundEngine = Pick<typeof import("@foleyjs/core"), "play" | "set">;
+type SoundEngine = Pick<typeof import("@foleyjs/core"), "play" | "set" | "getSpec">;
 type SoundSettings = typeof defaultSoundSettings;
 
 export function createSoundPlayer(
@@ -129,6 +210,21 @@ export function createSoundPlayer(
       }
       // Foley shares one engine. Apply this provider's settings at the point of playback.
       engine.set({ theme: settings.theme, volume: settings.volume });
+      const profile = settings.theme === "glass" ? cueProfiles[cue] : undefined;
+      if (profile) {
+        const spec = profileSpec(engine.getSpec(profile.source ?? cue), profile);
+        engine.set({
+          theme: {
+            transform: {
+              send: 0,
+              shimmer: false,
+              wave: { triangle: "sine", sawtooth: "sine" },
+              ...profile.transform,
+            },
+            cues: { [cue]: spec },
+          },
+        });
+      }
       const next = engine.play(cue, options);
       if (next) {
         current?.stop();

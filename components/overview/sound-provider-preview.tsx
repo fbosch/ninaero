@@ -179,6 +179,20 @@ function FeedbackExamples() {
           >
             Error
           </Button>
+          <Button
+            variant="outline"
+            sound={false}
+            onClick={() => manager.add({ title: "Example warning", type: "warning" })}
+          >
+            Show warning
+          </Button>
+          <Button
+            variant="outline"
+            sound={false}
+            onClick={() => manager.add({ title: "Example loading task", type: "loading" })}
+          >
+            Show loading
+          </Button>
         </div>
         <Progress value={progress}>
           <ProgressLabel>Example task</ProgressLabel>
