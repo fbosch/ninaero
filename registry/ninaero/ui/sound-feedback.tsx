@@ -75,7 +75,7 @@ function hoverFeedback(
     if (!target.matches(managedOptions)) return { cue: "tick", options: itemSoundOptions(target) };
     return;
   }
-  if (target.matches(hoverTargets)) return { cue: "hover", options: { volume: 0.25 } };
+  if (target.matches(hoverTargets)) return { cue: "hover", options: {} };
 }
 
 export function HoverSound({
@@ -131,7 +131,6 @@ export function itemSoundOptions(element: HTMLElement | null): SoundOptions {
       index < 0 || items.length < 2
         ? 0
         : getSoundPitch(items.length - 1 - index, 0, items.length - 1),
-    volume: 0.25,
   };
 }
 

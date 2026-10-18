@@ -44,12 +44,12 @@ function Slider({
           onValueChange?.(next, details);
           const changed = typeof next === "number" ? next : next[details.activeThumbIndex];
           if (!details.isCanceled && details.reason !== "none" && changed !== undefined) {
-            play("tick", { pitch: getSoundPitch(changed, min, max), volume: 0.25 });
+            play("tick", { pitch: getSoundPitch(changed, min, max) });
           }
         }}
         onValueCommitted={(next, details) => {
           onValueCommitted?.(next, details);
-          if (details.reason !== "none") play("tap", { volume: 0.65 });
+          if (details.reason !== "none") play("tap");
         }}
       >
         <SliderPrimitive.Control className="ninaero-slider-control relative flex w-full touch-none items-center select-none data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">

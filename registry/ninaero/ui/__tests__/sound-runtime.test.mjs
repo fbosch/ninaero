@@ -59,7 +59,7 @@ test("enabling loads Foley once and applies the glass defaults", async () => {
   assert.equal(loads(), 1);
   assert.deepEqual(
     settings.filter(({ theme }) => typeof theme === "string"),
-    [{ theme: "glass", volume: 0.5 }],
+    [{ theme: "glass", volume: 1 }],
   );
   assert.deepEqual(cues, ["tap"]);
   player.stop();
@@ -314,6 +314,30 @@ for (const [cue, count, lowHz, highHz, lowMs, highMs] of [
     assert.notEqual(performance.transform.shimmer, true);
   });
 }
+
+test("glass interaction cues stay within a similar peak-volume range", async (t) => {
+  const { player, performances } = acousticFixture(t);
+  await player.configure({ enabled: true });
+  for (const cue of [
+    "hover",
+    "tick",
+    "tap",
+    "on",
+    "off",
+    "ping",
+    "success",
+    "complete",
+    "warning",
+    "error",
+    "loading",
+  ]) {
+    player.play(cue);
+  }
+  for (const { cue, spec } of performances) {
+    const peak = Math.max(...spec.map((layer) => layer.peak));
+    assert.ok(peak >= 0.08 && peak <= 0.12, `${cue}: peak ${peak}`);
+  }
+});
 
 test("state and outcome figures remain distinguishable by direction, rhythm, and resolution", async (t) => {
   const { player, performances } = acousticFixture(t);

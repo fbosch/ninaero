@@ -850,14 +850,17 @@ export const theme = {
       },
       ".ninaero-surface-paper": shadowSurface("var(--paper-fill)"),
       ".ninaero-code-block": {
-        "--ninaero-code-highlight": "color-mix(in oklab, var(--card), white 65%)",
-        "box-shadow": "inset 0 1px 0 var(--ninaero-code-highlight)",
+        "--ninaero-code-highlight": "color-mix(in oklab, var(--card), white 85%)",
+        "--ninaero-code-shade": "color-mix(in oklab, var(--card), black 4%)",
+        "box-shadow":
+          "inset 0 1px 0 var(--ninaero-code-highlight), inset 0 -1px 0 var(--ninaero-code-shade)",
       },
       ".dark .ninaero-code-block": {
-        "--ninaero-code-highlight": "color-mix(in oklab, var(--card), white 5%)",
+        "--ninaero-code-highlight": "color-mix(in oklab, var(--card), white 8%)",
+        "--ninaero-code-shade": "color-mix(in oklab, var(--card), black 12%)",
       },
       ".ninaero-code-block > [data-slot=code-block-header]": {
-        "background-color": "color-mix(in oklab, var(--muted) 15%, var(--card))",
+        "background-color": "color-mix(in oklab, var(--muted) 30%, var(--card))",
         "box-shadow": "inset 0 1px 0 var(--ninaero-code-highlight)",
       },
       ".ninaero-code-block-content": {

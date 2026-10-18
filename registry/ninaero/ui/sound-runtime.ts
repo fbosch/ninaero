@@ -13,7 +13,7 @@ export type CueOptions = Pick<PlayOptions, "pitch" | "volume">;
 
 export const defaultSoundSettings = {
   enabled: false,
-  volume: 0.5,
+  volume: 1,
   theme: "glass" as SoundTheme,
 };
 
@@ -43,6 +43,7 @@ const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
     transform: { pitch: 0.96, attack: 0.25, decay: 0.35, noiseLvl: 0.7 },
   },
   tap: {
+    level: 0.625,
     notes: [739.99],
     transform: { attack: 0.5, decay: 1.25, noiseLvl: 0.25, noiseF: 0.5 },
   },
@@ -61,7 +62,7 @@ const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
   ping: {
     source: "ready",
     notes: [369.99, 554.37],
-    level: 0.55,
+    level: 1,
     transform: { attack: 0.5, decay: 0.3 },
   },
   success: {
@@ -86,13 +87,13 @@ const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
   error: {
     notes: [1165.5, 830.61],
     pace: 0.55,
-    level: 0.75,
+    level: 1,
     transform: { attack: 0.5, decay: 0.45 },
   },
   loading: {
     notes: [369.99, 415.3, 493.88],
     pace: 0.7,
-    level: 0.55,
+    level: 1,
     transform: { attack: 0.5, decay: 0.7 },
   },
 };

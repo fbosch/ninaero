@@ -38,7 +38,7 @@ function Combobox<Value, Multiple extends boolean | undefined = false, Item = Va
             details.index >= 0 &&
             (details.reason === "keyboard" || details.reason === "pointer")
           ) {
-            play("tick", { pitch: getSoundPitch(-details.index, -12, 0), volume: 0.25 });
+            play("tick", { pitch: getSoundPitch(-details.index, -12, 0) });
           }
         }}
       />

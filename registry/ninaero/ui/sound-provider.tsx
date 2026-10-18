@@ -22,7 +22,7 @@ type SoundProviderProps = {
   children: ReactNode;
   /** Loads Foley and enables playback when true. Defaults to false. */
   enabled?: boolean;
-  /** Finite volume from 0 to 1, inclusive. Defaults to 0.5. */
+  /** Finite volume from 0 to 1, inclusive. Defaults to 1. */
   volume?: number;
   /** Defaults to `glass`, which uses Ninaero's tuned interaction cues. */
   theme?: SoundTheme;
