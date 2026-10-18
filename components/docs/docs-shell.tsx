@@ -9,7 +9,7 @@ export function DocsShell({ children }: { children: ReactNode }) {
         <aside className="shrink-0 lg:sticky lg:top-6 lg:max-h-[calc(100svh-3rem)] lg:w-56 lg:overflow-auto lg:pr-2">
           <DocsSidebar />
         </aside>
-        <main id="main" className="min-w-0 flex-1 pb-16">
+        <main id="main" className="min-w-0 flex-1 pb-16 wrap-anywhere">
           {children}
         </main>
       </div>
