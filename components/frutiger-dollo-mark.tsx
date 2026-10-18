@@ -3,6 +3,8 @@ import {
   frutigerDolloHighlightStops,
   frutigerDolloPaths,
   frutigerDolloShadowStops,
+  frutigerDolloStopColor,
+  type FrutigerDolloStop,
   frutigerDolloViewBox,
 } from "@/lib/frutiger-dollo-mark";
 
@@ -10,16 +12,12 @@ type FrutigerDolloMarkProps = {
   className?: string;
 };
 
-function Stops({
-  stops,
-}: {
-  stops: readonly { offset: string; token: string; fallback: string; opacity?: string }[];
-}) {
-  return stops.map(({ offset, token, fallback, opacity }) => (
+function Stops({ stops }: { stops: readonly FrutigerDolloStop[] }) {
+  return stops.map(({ offset, sourceColor, opacity }) => (
     <stop
       key={offset}
       offset={offset}
-      stopColor={`var(--${token}, ${fallback})`}
+      stopColor={frutigerDolloStopColor(sourceColor)}
       stopOpacity={opacity}
     />
   ));
@@ -57,11 +55,11 @@ export function FrutigerDolloMark({ className }: FrutigerDolloMarkProps) {
         </linearGradient>
         <linearGradient
           id="frutiger-dollo-highlight"
-          x1="228.07"
-          y1="175.45"
-          x2="228.24"
-          y2="192.51"
-          gradientTransform="translate(-39.7 -281.31) rotate(23.23) scale(1.08 1.15)"
+          x1="231.41"
+          y1="178.1"
+          x2="231.55"
+          y2="192.8"
+          gradientTransform="translate(-7.49 -294.91) rotate(29.31) scale(1.08 1.15)"
           gradientUnits="userSpaceOnUse"
         >
           <Stops stops={frutigerDolloHighlightStops} />

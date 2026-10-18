@@ -22,7 +22,7 @@ const overlayItems = [
 ] as const;
 
 export function OverlaySwitcher() {
-  const [overlay, setOverlay] = useState<(typeof overlayItems)[number]["value"]>("off");
+  const [overlay, setOverlay] = useState<(typeof overlayItems)[number]["value"]>("checker");
   const currentOverlay = overlayItems.find((item) => item.value === overlay);
   if (!currentOverlay) throw new Error(`Unknown overlay: ${overlay}`);
   const label = `Overlay: ${currentOverlay.label}`;
@@ -40,7 +40,7 @@ export function OverlaySwitcher() {
           className={cn(styles.swatch, currentOverlay.className)}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-44" align="end" aria-label="Overlay">
+      <DropdownMenuContent className="w-max min-w-44" align="end" aria-label="Overlay">
         <DropdownMenuRadioGroup
           value={overlay}
           onValueChange={(value) => {

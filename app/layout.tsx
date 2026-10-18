@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script>{accentBootstrap}</script>
       </head>
-      <body className="flex min-h-svh flex-col">
+      <body className="flex min-h-svh flex-col ninaero-overlay-dither">
         <div className="site-shell relative z-[1] flex flex-1 flex-col">
           <ThemeProvider>
             <AccentProvider>

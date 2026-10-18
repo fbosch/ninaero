@@ -517,7 +517,7 @@ export const theme = {
     "button-paper-text-shadow": "0 1px 1px #00000066",
     "control-label-text-shadow": "0 0.5px 0.5px #00000059",
     "button-paper-pressed": "#2e2e2e",
-    "button-paper-highlight": "#ffffff14",
+    "button-paper-highlight": "#ffffff0d",
     "button-paper-shade": "#00000040",
     "button-destructive-fill": "#ffa088",
     "button-destructive-hover": "#ffb39d",
@@ -721,7 +721,8 @@ export const theme = {
       ".bg-background > *": shadowSurface("var(--background)"),
       ".bg-card > *, [data-slot=card] > *": shadowSurface("var(--card)"),
       ".bg-muted > *": shadowSurface("var(--muted)"),
-      ".bg-sidebar > *, [data-slot=sidebar-inner] > *": shadowSurface("var(--sidebar)"),
+      ".bg-sidebar > *, [data-slot=sidebar-inner] > *, [data-slot=sidebar-wrapper]:has([data-variant=inset]) > *":
+        shadowSurface("var(--sidebar)"),
       ".bg-popover > *, .ninaero-popover > *, .ninaero-dialog > *": shadowSurface("var(--popover)"),
       ".ninaero-tooltip > *": shadowSurface("var(--foreground)"),
       "[data-slot=card-footer] > *": shadowSurface(
@@ -835,13 +836,18 @@ export const theme = {
         cursor: "not-allowed",
       },
       ".ninaero-radio-group-dot": {
+        ...shadowSurface("var(--glass-mark-face-50)"),
         "background-color": "currentColor",
       },
+      ".ninaero-radio-group-item:where(:active:not([data-disabled]):not([data-readonly])) .ninaero-radio-group-dot":
+        {
+          "--shadow-surface": "var(--button-recess-fill)",
+        },
       ":where(:root:not(.dark)) .ninaero-radio-group-dot": {
         border: "1px solid var(--button-paper-edge)",
         "background-color": "white",
         "background-image": "linear-gradient(180deg in oklab, white, #e6e6e6)",
-        "box-shadow": "inset 0 1px 0 white, inset 0 -1px 0 #00000014, 0 1px 2px #00000033",
+        "box-shadow": "inset 0 1px 0 white, inset 0 -1px 0 #00000014, var(--shadow-control)",
       },
       ".ninaero-radio-group-item:where([data-disabled]) .ninaero-radio-group-dot": {
         "background-color": "currentColor",
@@ -1053,6 +1059,8 @@ export const theme = {
         transition: "none",
       },
       ".ninaero-dropdown-menu-content": {
+        // Keep keyboard-scrolled highlights and their cast shadows clear of the clipping edge.
+        "scroll-padding-block": "0.5rem",
         transition: "opacity 100ms ease-out, transform 180ms cubic-bezier(0.22, 1.2, 0.35, 1)",
       },
       ".ninaero-dropdown-menu-content[data-starting-style]": {
