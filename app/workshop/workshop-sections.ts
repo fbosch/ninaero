@@ -49,6 +49,11 @@ const componentSpecimens = [
     title: "Tooltips",
     description: "Floating hints, placement, keyboard focus, wrapping, and RTL.",
   },
+  {
+    href: "/workshop/popover",
+    title: "Popovers",
+    description: "Floating panels, forms, placement, dismissal, and keyboard focus.",
+  },
 ] as const;
 
 const foundationSpecimens = [

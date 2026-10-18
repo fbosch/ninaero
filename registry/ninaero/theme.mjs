@@ -992,6 +992,27 @@ export const theme = {
         "background-color": "var(--popover)",
         "box-shadow": `inset 0 1px 0 var(--button-highlight), var(--shadow-floating)`,
       },
+      ".ninaero-popover-content": {
+        "border-color": "color-mix(in oklab, var(--foreground) 18%, var(--popover))",
+        "background-image":
+          "linear-gradient(180deg in oklab, var(--popover), color-mix(in oklab, var(--popover), var(--dialog-fill-shade) 50%))",
+        "box-shadow": `inset 0 1px 0 var(--dialog-highlight), inset 0 -1px 2px var(--dialog-shade), var(--shadow-floating)`,
+        "overflow-wrap": "anywhere",
+        "transform-origin": "var(--transform-origin)",
+        opacity: "1",
+        transform: "scale(1)",
+        transition: "opacity 120ms ease-out, transform 220ms cubic-bezier(0.22, 1.4, 0.35, 1)",
+      },
+      ".ninaero-popover-content[data-starting-style]": {
+        opacity: "0",
+        transform: "scale(0.94)",
+      },
+      ".ninaero-popover-content[data-ending-style]": {
+        opacity: "0",
+        transform: "scale(0.98)",
+        transition: "opacity 120ms ease-in, transform 120ms ease-in",
+      },
+      ".ninaero-popover-content[data-instant]": { transition: "none" },
       ".ninaero-tooltip": {
         position: "relative",
         isolation: "isolate",
@@ -1408,6 +1429,12 @@ export const theme = {
             transform: "none",
             opacity: "1",
           },
+        ".ninaero-popover-content, .ninaero-popover-content[data-starting-style], .ninaero-popover-content[data-ending-style]":
+          {
+            transition: "none",
+            transform: "none",
+            opacity: "1",
+          },
         ".ninaero-toggle": {
           transition: "none",
         },
@@ -1610,6 +1637,7 @@ export const theme = {
         ".ninaero-popover": {
           "border-color": "CanvasText",
           "background-color": "Canvas",
+          "background-image": "none",
           color: "CanvasText",
           "box-shadow": "none",
         },
