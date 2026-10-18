@@ -42,14 +42,15 @@ function rules(values, depth = 0) {
     .join("\n");
 }
 
-function fontImportRule(theme) {
-  return `@import "${theme.font.stylesheet}"`;
+function fontImportRule(font) {
+  return `@import "${font.stylesheet}"`;
 }
 
 export function renderThemeCss(theme) {
   return [
     "/* Generated from registry/ninaero/theme.mjs. Run pnpm registry:build. */",
-    `${fontImportRule(theme)};`,
+    `${fontImportRule(theme.font)};`,
+    `${fontImportRule(theme.codeFont)};`,
     '@import "tailwindcss";',
     '@import "tw-animate-css";',
     '@import "shadcn/tailwind.css";',
@@ -66,6 +67,7 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
   const { url, origin } = parseRegistryUrl(registryUrl);
   const itemUrl = (name) => `${url}/${name}.json`;
   const fontName = "font-google-sans-flex";
+  const codeFontName = "font-google-sans-code";
   const packages = (names) =>
     names.map((name) => {
       if (!dependencies[name]) throw new Error(`Missing package dependency: ${name}`);
@@ -84,7 +86,7 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
         description: "Shared light and dark tokens with Ninaero squircle Button styling.",
         type: "registry:theme",
         dependencies: packages(["shadcn", "tw-animate-css"]),
-        registryDependencies: [itemUrl(fontName)],
+        registryDependencies: [itemUrl(fontName), itemUrl(codeFontName)],
         cssVars: { theme: theme.theme, light: theme.light, dark: theme.dark },
         css: theme.css,
       },
@@ -95,11 +97,24 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
         type: "registry:style",
         dependencies: packages([theme.font.dependency]),
         css: {
-          [fontImportRule(theme)]: {},
+          [fontImportRule(theme.font)]: {},
           // cssVars.theme is scoped to .theme by the CLI; default fonts must be global.
           ":root": {
             "--font-sans": theme.theme["font-sans"],
             "--font-heading": theme.theme["font-heading"],
+          },
+        },
+      },
+      {
+        $schema: "https://ui.shadcn.com/schema/registry-item.json",
+        name: codeFontName,
+        title: "Google Sans Code",
+        type: "registry:style",
+        dependencies: packages([theme.codeFont.dependency]),
+        css: {
+          [fontImportRule(theme.codeFont)]: {},
+          ":root": {
+            "--font-mono": theme.theme["font-mono"],
           },
         },
       },

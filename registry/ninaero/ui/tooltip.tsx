@@ -20,7 +20,9 @@ function createTooltipDescription() {
     setId(next: string | undefined) {
       if (id === next) return;
       id = next;
-      listeners.forEach((listener) => listener());
+      listeners.forEach((listener) => {
+        listener();
+      });
     },
   };
 }
@@ -153,7 +155,7 @@ function TooltipContent({
           id={popupId}
           role="tooltip"
           className={cn(
-            "ninaero-tooltip z-50 inline-flex w-fit items-center gap-1.5 px-4 py-2 text-xs type-caption has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
+            "ninaero-tooltip before:ninaero-paper-ruled-4 z-50 inline-flex w-fit items-center gap-1.5 px-4 py-2 text-xs type-caption **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",
             className,
           )}
           {...props}

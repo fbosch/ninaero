@@ -22,14 +22,14 @@ const backgroundPatterns = [
     title: "Ruled",
     guidance: patternGuidance.ruled,
     note: "Match line height, padding, and paragraph gaps to the rule interval.",
-    defaultSpacing: "24px",
+    defaultSpacing: "1.5rem, 24px at the default font size",
     samples: [
-      { className: "ninaero-paper-ruled-16", spacing: "16px" },
-      { className: "ninaero-paper-ruled-24", spacing: "24px" },
-      { className: "ninaero-paper-ruled-32", spacing: "32px" },
+      { className: "ninaero-paper-ruled [--ninaero-paper-step:1rem]", spacing: "1rem" },
+      { className: "ninaero-paper-ruled", spacing: "1.5rem" },
+      { className: "ninaero-paper-ruled [--ninaero-paper-step:2rem]", spacing: "2rem" },
     ],
-    example: `<p className="ninaero-paper-ruled-24 ninaero-pattern-ink-foreground/10 bg-background p-[24px] text-base leading-[24px]">
-	A journal entry aligned to 24px rules.
+    example: `<p className="ninaero-paper-ruled ninaero-pattern-ink-foreground/10 bg-background px-[24px] py-(--ninaero-paper-step) text-base leading-(--ninaero-paper-step)">
+\tA journal entry with rules and line height that scale with your font settings.
 </p>`,
   },
   {
@@ -414,7 +414,7 @@ export default function PatternsPage() {
           </li>
           <li>
             <code className="text-foreground">--ninaero-overlay-opacity</code> accepts values from 0
-            to 1. The default is 0.04.
+            to 1. The default is 0.06.
           </li>
           <li>
             <code className="text-foreground">--ninaero-overlay-size</code> sets the tile width and

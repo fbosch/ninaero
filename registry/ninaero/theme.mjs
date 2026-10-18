@@ -172,6 +172,12 @@ const sansFont = {
   stylesheet: "@fontsource-variable/google-sans-flex/full.css",
   roundness: 100,
 };
+const codeFont = {
+  family:
+    "'Google Sans Code Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+  dependency: "@fontsource-variable/google-sans-code",
+  stylesheet: "@fontsource-variable/google-sans-code/full.css",
+};
 
 const paperPalettes = {
   light: {
@@ -243,14 +249,14 @@ function maskedPattern(mask, size) {
 
 const paperPatterns = {
   ruled: {
-    spacing: 24,
+    spacing: "1.5rem",
     styles: {
       "background-image":
         "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--ninaero-pattern-ink, var(--paper-rule)) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
     },
   },
   dotted: {
-    spacing: 16,
+    spacing: "16px",
     styles: {
       "background-image":
         "radial-gradient(circle, var(--ninaero-pattern-ink, var(--paper-dot)) 1px, transparent 1px)",
@@ -258,7 +264,7 @@ const paperPatterns = {
     },
   },
   grid: {
-    spacing: 24,
+    spacing: "24px",
     styles: {
       "background-image":
         "linear-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px), linear-gradient(90deg, var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px)",
@@ -266,7 +272,7 @@ const paperPatterns = {
     },
   },
   notebook: {
-    spacing: notebookStep,
+    spacing: `${notebookStep}px`,
     styles: {
       "--ninaero-notebook-size": `calc(var(--ninaero-paper-step) * ${notebookIntervals})`,
       ...maskedPattern("paper-notebook-mask", "var(--ninaero-notebook-size)"),
@@ -286,10 +292,7 @@ const paperUtilities = Object.fromEntries(
       },
     };
     return [
-      [
-        `@utility ninaero-paper-${name}`,
-        { "--ninaero-paper-step": `${spacing}px`, ...declarations },
-      ],
+      [`@utility ninaero-paper-${name}`, { "--ninaero-paper-step": spacing, ...declarations }],
       [
         `@utility ninaero-paper-${name}-*`,
         {
@@ -315,6 +318,7 @@ const patternInkColor = '--value(--color-*, "transparent", [color])';
 
 export const theme = {
   font: sansFont,
+  codeFont,
   theme: {
     "shadow-flat": elevations.flat,
     "shadow-control": elevations.control,
@@ -327,6 +331,7 @@ export const theme = {
     "shadow-2xl": elevations.dialog,
     "font-heading": "var(--font-sans)",
     "font-sans": sansFont.family,
+    "font-mono": codeFont.family,
     "color-sidebar-ring": "var(--sidebar-ring)",
     "color-sidebar-border": "var(--sidebar-border)",
     "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
@@ -568,7 +573,7 @@ export const theme = {
         "mask-size":
           "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
         "mask-repeat": "repeat",
-        opacity: "var(--ninaero-overlay-opacity, 0.04)",
+        opacity: "var(--ninaero-overlay-opacity, 0.06)",
         "@media (forced-colors: active)": { display: "none" },
         "@media print": { display: "none" },
       },
@@ -644,7 +649,7 @@ export const theme = {
         "@apply bg-background text-foreground": {},
       },
       html: {
-        "@apply font-sans type-body": {},
+        "@apply font-sans type-body antialiased": {},
         "font-family": "var(--font-sans)",
         "font-variation-settings": `"ROND" ${sansFont.roundness}`,
       },
@@ -988,15 +993,15 @@ export const theme = {
         "box-shadow": `inset 0 1px 0 var(--button-highlight), var(--shadow-floating)`,
       },
       ".ninaero-tooltip": {
+        position: "relative",
+        isolation: "isolate",
         "max-width": "min(20rem, var(--available-width))",
-        "border-radius": "1.5rem",
+        "border-radius": "1rem",
         "corner-shape": "round",
         border: "1px solid color-mix(in oklab, var(--foreground), var(--background) 22%)",
         "background-color": "var(--foreground)",
-        "background-image": [
-          "repeating-linear-gradient(180deg, var(--tooltip-scanline-ink) 0 1px, transparent 1px 4px)",
+        "background-image":
           "linear-gradient(180deg in oklab, color-mix(in oklab, var(--foreground), white 12%), color-mix(in oklab, var(--foreground), black 12%))",
-        ].join(", "),
         color: "var(--background)",
         "box-shadow":
           "inset 0 1px 0 color-mix(in oklab, var(--foreground), white 18%), inset 0 -1px 2px color-mix(in oklab, var(--foreground), black 20%), var(--shadow-floating)",
@@ -1005,6 +1010,17 @@ export const theme = {
         opacity: "1",
         transform: "scale(1)",
         transition: "opacity 120ms ease-out, transform 180ms cubic-bezier(0.22, 1.4, 0.35, 1)",
+      },
+      ".ninaero-tooltip::before": {
+        content: '""',
+        position: "absolute",
+        inset: "0",
+        "z-index": "-1",
+        "pointer-events": "none",
+        "border-radius": "inherit",
+        "corner-shape": "inherit",
+        "--paper-fill": "transparent",
+        "--ninaero-pattern-ink": "var(--tooltip-scanline-ink)",
       },
       ".ninaero-tooltip[data-starting-style]": {
         opacity: "0",
@@ -1410,6 +1426,7 @@ export const theme = {
           color: "CanvasText",
           "box-shadow": "none",
         },
+        ".ninaero-tooltip::before": { display: "none" },
         ":is(.ninaero-checkbox, .ninaero-radio-group-item)": {
           "forced-color-adjust": "none",
           "border-color": "CanvasText",

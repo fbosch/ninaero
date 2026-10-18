@@ -18,7 +18,7 @@ test("consumer font installation appears in the dry run without editing the cons
   const root = await mkdtemp(join(tmpdir(), "ninaero-font-install-"));
   try {
     const registry = createRegistry(theme, manifest.dependencies, []);
-    const font = registry.items.find(({ name }) => name === "font-google-sans-flex");
+    const font = registry.items.find(({ name }) => name === "font-google-sans-code");
     const themeItem = registry.items.find(({ name }) => name === "theme");
     const fontPath = join(root, "font.json");
     const themePath = join(root, "theme.json");
@@ -80,8 +80,8 @@ test("consumer font installation appears in the dry run without editing the cons
       { timeout: 20000, maxBuffer: 1024 * 1024 },
     );
 
-    assert.ok(stdout.includes(theme.font.stylesheet));
-    assert.ok(stdout.includes(theme.font.family));
+    assert.ok(stdout.includes(theme.codeFont.stylesheet));
+    assert.ok(stdout.includes(theme.codeFont.family));
     assert.equal(await readFile(join(root, "src/styles.css"), "utf8"), '@import "tailwindcss";\n');
   } finally {
     await rm(root, { recursive: true, force: true });

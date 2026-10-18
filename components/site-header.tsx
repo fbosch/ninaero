@@ -38,10 +38,10 @@ export function SiteHeader() {
         pathname === "/" ? " site-header--home" : ""
       }`}
     >
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-5 sm:px-8 lg:grid lg:grid-cols-3">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-[20px] py-5 sm:px-[32px] lg:grid lg:grid-cols-3">
         <nav
           aria-label="Main navigation"
-          className="flex shrink-0 flex-wrap items-center gap-5 text-sm"
+          className="flex min-w-0 max-w-full flex-wrap items-center gap-5 text-sm"
         >
           <Link href="/" className="type-title inline-flex items-center gap-2">
             <FrutigerDolloMark className="shrink-0" />

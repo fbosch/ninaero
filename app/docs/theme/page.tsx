@@ -108,9 +108,10 @@ export default function ThemeDocsPage() {
           Typography
         </h2>
         <p className="text-sm type-prose text-muted-foreground">
-          Google Sans Flex keeps its rounded terminals across the theme. Pair a font size with a
-          type-* role to set weight, line height, and letter spacing. Headings use tighter spacing;
-          body text, controls, and captions keep normal spacing.
+          Google Sans Flex handles interface text and headings, with its ROND axis set to 100.
+          Google Sans Code handles code and other monospaced text. Pair a font size with a type-*
+          role to set weight, line height, and letter spacing. Headings use tighter spacing; body
+          text, controls, and captions keep normal spacing.
         </p>
         <CodeBlock
           code={

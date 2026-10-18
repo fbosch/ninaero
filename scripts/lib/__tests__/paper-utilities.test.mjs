@@ -65,6 +65,16 @@ for (const name of [
     assert.doesNotThrow(() => compiler.build([]));
   });
 }
+test("installed ruled prose compiles with a shared relative rule interval and line height", async () => {
+  for (const utilities of [
+    "ninaero-paper-ruled py-(--ninaero-paper-step) text-base leading-(--ninaero-paper-step)",
+    "ninaero-paper-ruled [--ninaero-paper-step:2rem] py-(--ninaero-paper-step) text-lg leading-(--ninaero-paper-step)",
+  ]) {
+    const compiler = await compileConsumer(utilities);
+    assert.doesNotThrow(() => compiler.build([]));
+  }
+});
+
 test("installed site-wide dither compiles with opacity, size, and responsive overrides", async () => {
   for (const utilities of [
     "ninaero-overlay-dither",

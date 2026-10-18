@@ -5,7 +5,7 @@ import test from "node:test";
 import catalog from "../../../registry/ninaero/catalog.json" with { type: "json" };
 import { theme } from "../../../registry/ninaero/theme.mjs";
 import { readCatalogSources, resolveCatalog } from "../catalog.mjs";
-import { createRegistry, normalizeRegistryUrl } from "../theme.mjs";
+import { createRegistry, normalizeRegistryUrl, renderThemeCss } from "../theme.mjs";
 
 const manifest = JSON.parse(await readFile(new URL("../../../package.json", import.meta.url)));
 const components = resolveCatalog(
@@ -13,7 +13,7 @@ const components = resolveCatalog(
   await readCatalogSources(catalog, new URL("../../../", import.meta.url)),
 );
 
-test("consumer registry installs the self-hosted font style with its package dependency", () => {
+test("consumer registry installs both self-hosted font styles with their package dependencies", () => {
   const registry = createRegistry(
     theme,
     manifest.dependencies,
@@ -22,14 +22,41 @@ test("consumer registry installs the self-hosted font style with its package dep
   );
   const themeItem = registry.items.find(({ name }) => name === "theme");
   const font = registry.items.find(({ name }) => name === "font-google-sans-flex");
+  const codeFont = registry.items.find(({ name }) => name === "font-google-sans-code");
 
   assert.deepEqual(themeItem.registryDependencies, [
     "https://ninaero.example/r/font-google-sans-flex.json",
+    "https://ninaero.example/r/font-google-sans-code.json",
   ]);
   assert.equal(font.type, "registry:style");
   assert.deepEqual(font.dependencies, [
     `${theme.font.dependency}@${manifest.dependencies[theme.font.dependency]}`,
   ]);
+  assert.deepEqual(font.css, {
+    [`@import "${theme.font.stylesheet}"`]: {},
+    ":root": {
+      "--font-sans": theme.theme["font-sans"],
+      "--font-heading": theme.theme["font-heading"],
+    },
+  });
+
+  assert.equal(codeFont.type, "registry:style");
+  assert.deepEqual(codeFont.dependencies, [
+    `${theme.codeFont.dependency}@${manifest.dependencies[theme.codeFont.dependency]}`,
+  ]);
+  assert.deepEqual(codeFont.css, {
+    [`@import "${theme.codeFont.stylesheet}"`]: {},
+    ":root": { "--font-mono": theme.theme["font-mono"] },
+  });
+});
+
+test("rendered theme CSS imports both self-hosted fonts and maps the code family", () => {
+  const css = renderThemeCss(theme);
+  const tailwindImport = css.indexOf('@import "tailwindcss";');
+
+  assert.ok(css.indexOf(`@import "${theme.font.stylesheet}";`) < tailwindImport);
+  assert.ok(css.indexOf(`@import "${theme.codeFont.stylesheet}";`) < tailwindImport);
+  assert.ok(css.includes(`--font-mono: ${theme.codeFont.family};`));
 });
 
 test("every registry dependency resolves to an item published by the registry", () => {

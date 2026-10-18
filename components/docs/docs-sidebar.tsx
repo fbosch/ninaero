@@ -37,7 +37,7 @@ export function DocsSidebar() {
         aria-controls={menuId}
         onClick={() => setExpanded((value) => !value)}
       >
-        Browse documentation
+        Browse docs
       </Button>
       <nav
         id={menuId}
