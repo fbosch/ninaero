@@ -1,60 +1,17 @@
-"use client";
+import {
+  CodeBlockActions,
+  CodeBlockCopyButton,
+  CodeBlockHeader as CodeBlockHeaderRoot,
+  CodeBlockTitle,
+} from "@/registry/ninaero/ui/code-block";
 
-import { type ReactNode, useState } from "react";
-
-import { CheckIcon, CopyIcon } from "@/lib/icons";
-import { Button } from "@/registry/ninaero/ui/button";
-
-export function CodeBlockHeader({
-  code,
-  label,
-  children,
-}: {
-  code: string;
-  label: string;
-  children?: ReactNode;
-}) {
-  const [result, setResult] = useState<{
-    code: string;
-    state: "copying" | "copied" | "error";
-  } | null>(null);
-  const state = result?.code === code ? result.state : null;
-
-  async function copyCode() {
-    setResult({ code, state: "copying" });
-    try {
-      await navigator.clipboard.writeText(code);
-      setResult({ code, state: "copied" });
-    } catch {
-      setResult({ code, state: "error" });
-    }
-  }
-
+export function CodeBlockHeader({ code, label }: { code: string; label: string }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2 border-b px-4 py-2">
-      {children ?? <span className="text-xs font-medium text-muted-foreground">{label}</span>}
-      <div className="flex items-center gap-3">
-        <output aria-live="polite" className="text-xs text-muted-foreground">
-          {state === "copying"
-            ? "Copying…"
-            : state === "copied"
-              ? "Code copied"
-              : state === "error"
-                ? "Unable to copy code."
-                : ""}
-        </output>
-        <Button
-          type="button"
-          size="sm"
-          variant="ghost"
-          onClick={copyCode}
-          disabled={state === "copying"}
-          aria-label={`Copy ${label}`}
-        >
-          {state === "copied" ? <CheckIcon aria-hidden="true" /> : <CopyIcon aria-hidden="true" />}{" "}
-          Copy
-        </Button>
-      </div>
-    </div>
+    <CodeBlockHeaderRoot>
+      <CodeBlockTitle>{label}</CodeBlockTitle>
+      <CodeBlockActions>
+        <CodeBlockCopyButton key={code} value={code} size="icon-sm" aria-label={`Copy ${label}`} />
+      </CodeBlockActions>
+    </CodeBlockHeaderRoot>
   );
 }

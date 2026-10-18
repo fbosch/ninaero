@@ -849,6 +849,41 @@ export const theme = {
         ...elevationVariables,
       },
       ".ninaero-surface-paper": shadowSurface("var(--paper-fill)"),
+      ".ninaero-code-block": {
+        "--ninaero-code-highlight": "color-mix(in oklab, var(--card), white 65%)",
+        "box-shadow": "inset 0 1px 0 var(--ninaero-code-highlight)",
+      },
+      ".dark .ninaero-code-block": {
+        "--ninaero-code-highlight": "color-mix(in oklab, var(--card), white 5%)",
+      },
+      ".ninaero-code-block > [data-slot=code-block-header]": {
+        "background-color": "color-mix(in oklab, var(--muted) 15%, var(--card))",
+        "box-shadow": "inset 0 1px 0 var(--ninaero-code-highlight)",
+      },
+      ".ninaero-code-block-content": {
+        "--ninaero-code-rule": "color-mix(in oklab, var(--foreground) 6%, transparent)",
+      },
+      ".dark .ninaero-code-block-content": {
+        "--ninaero-code-rule": "color-mix(in oklab, var(--foreground) 4%, transparent)",
+      },
+      ".ninaero-code-block-content > [data-slot=code-block-code]": {
+        "grid-template-columns": "minmax(0, 1fr)",
+      },
+      ".ninaero-code-block-content[data-numbered] > [data-slot=code-block-code]": {
+        "grid-template-columns": "auto minmax(0, 1fr)",
+      },
+      ".ninaero-code-block-content [data-slot=code-block-line-marker]": {
+        display: "none",
+      },
+      ".ninaero-code-block-content > [data-slot=code-block-code]:has(> [data-variant=added], > [data-variant=removed])":
+        {
+          "grid-template-columns": "1ch minmax(0, 1fr)",
+          "[data-slot=code-block-line-marker]": { display: "block" },
+        },
+      ".ninaero-code-block-content[data-numbered] > [data-slot=code-block-code]:has(> [data-variant=added], > [data-variant=removed])":
+        {
+          "grid-template-columns": "auto 1ch minmax(0, 1fr)",
+        },
       ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
         "--input-corner": "0.75rem",
         "border-radius": "var(--input-corner)",
@@ -1316,6 +1351,8 @@ export const theme = {
         border: "1px solid transparent",
         outline: "2px solid transparent",
         "outline-offset": "-3px",
+        transition:
+          "background-color 80ms ease-out, border-color 80ms ease-out, outline-color 80ms ease-out, color 80ms ease-out",
       },
       ".ninaero-select-item[data-selected]": {
         "border-color": "var(--ring)",
@@ -1634,6 +1671,7 @@ export const theme = {
         },
       "@media (prefers-reduced-motion: reduce)": {
         ".ninaero-dropdown-menu-item": { transition: "none" },
+        ".ninaero-select-item": { transition: "none" },
         ":is(.ninaero-checkbox, .ninaero-radio-group-item)": { transition: "none" },
         ".ninaero-switch, .ninaero-switch-thumb": { transition: "none" },
         ".ninaero-slider-thumb": { transition: "none" },
@@ -1680,6 +1718,16 @@ export const theme = {
       },
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
+        ".ninaero-code-block, .ninaero-code-block > [data-slot=code-block-header]": {
+          "box-shadow": "none",
+        },
+        ".ninaero-code-block-content, .dark .ninaero-code-block-content": {
+          "--ninaero-code-rule": "transparent",
+        },
+        ".ninaero-code-block-content [data-slot=code-block-line][data-variant=highlighted]::after":
+          {
+            "border-color": "Highlight",
+          },
         ".ninaero-tooltip": {
           "forced-color-adjust": "none",
           "background-color": "Canvas",

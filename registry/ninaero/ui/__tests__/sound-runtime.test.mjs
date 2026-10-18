@@ -52,14 +52,14 @@ test("default and disabled players stay silent without loading Foley", async () 
   assert.deepEqual(cues, []);
 });
 
-test("enabling loads Foley once and applies the glass, quiet defaults", async () => {
+test("enabling loads Foley once and applies the glass defaults", async () => {
   const { player, settings, cues, loads } = fixture();
   await player.configure({ enabled: true });
   player.play("tap");
   assert.equal(loads(), 1);
   assert.deepEqual(
     settings.filter(({ theme }) => typeof theme === "string"),
-    [{ theme: "glass", volume: 0.35 }],
+    [{ theme: "glass", volume: 0.5 }],
   );
   assert.deepEqual(cues, ["tap"]);
   player.stop();

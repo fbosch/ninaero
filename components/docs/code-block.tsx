@@ -1,5 +1,7 @@
+import { CodeBlock as CodeBlockRoot } from "@/registry/ninaero/ui/code-block";
+
 import { CodeBlockHeader } from "./code-block-header";
-import { HighlightedCode } from "./highlighted-code";
+import { HighlightedCodeContent } from "./highlighted-code";
 
 export function CodeBlock({
   code,
@@ -11,9 +13,9 @@ export function CodeBlock({
   language?: string;
 }) {
   return (
-    <div className="min-w-0 overflow-hidden rounded-lg border bg-card">
+    <CodeBlockRoot>
       <CodeBlockHeader code={code} label={label} />
-      <HighlightedCode code={code} language={language} />
-    </div>
+      <HighlightedCodeContent code={code} language={language} className="max-h-[32rem]" />
+    </CodeBlockRoot>
   );
 }

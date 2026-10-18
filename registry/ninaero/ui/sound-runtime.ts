@@ -13,7 +13,7 @@ export type CueOptions = Pick<PlayOptions, "pitch" | "volume">;
 
 export const defaultSoundSettings = {
   enabled: false,
-  volume: 0.35,
+  volume: 0.5,
   theme: "glass" as SoundTheme,
 };
 
