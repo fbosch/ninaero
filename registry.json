@@ -159,8 +159,8 @@
           "button-destructive-highlight": "#ffffff66",
           "button-destructive-shade": "#5a1b0a14",
           "button-highlight": "#ffffff80",
-          "shadow-color": "0deg 0% 24%",
-          "shadow-color-paper": "0deg 0% 28%",
+          "shadow-surface": "var(--background)",
+          "shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
           "paper-fill": "#f9f9f9",
           "paper-rule": "#79797914",
           "paper-dot": "#79797929",
@@ -257,8 +257,8 @@
           "button-destructive-highlight": "#ffffff1a",
           "button-destructive-shade": "#00000040",
           "button-highlight": "#ffffff33",
-          "shadow-color": "0deg 0% 3%",
-          "shadow-color-paper": "0deg 0% 5%",
+          "shadow-surface": "var(--background)",
+          "shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
           "paper-fill": "#232323",
           "paper-rule": "#cecece0f",
           "paper-dot": "#cecece24",
@@ -849,7 +849,17 @@
         },
         "@utility ninaero-paper-ruled": {
           "--ninaero-paper-step": "1.5rem",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "background-image": "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--ninaero-pattern-ink, var(--paper-rule)) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
           "@media (forced-colors: active)": {
@@ -859,7 +869,17 @@
         },
         "@utility ninaero-paper-ruled-*": {
           "--ninaero-paper-step": "max(1px, calc(--value(number, [number]) * 1px))",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "background-image": "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--ninaero-pattern-ink, var(--paper-rule)) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
           "@media (forced-colors: active)": {
@@ -869,7 +889,17 @@
         },
         "@utility ninaero-paper-dotted": {
           "--ninaero-paper-step": "16px",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "background-image": "radial-gradient(circle, var(--ninaero-pattern-ink, var(--paper-dot)) 1px, transparent 1px)",
           "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
@@ -880,7 +910,17 @@
         },
         "@utility ninaero-paper-dotted-*": {
           "--ninaero-paper-step": "max(1px, calc(--value(number, [number]) * 1px))",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "background-image": "radial-gradient(circle, var(--ninaero-pattern-ink, var(--paper-dot)) 1px, transparent 1px)",
           "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
@@ -891,7 +931,17 @@
         },
         "@utility ninaero-paper-grid": {
           "--ninaero-paper-step": "24px",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "background-image": "linear-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px), linear-gradient(90deg, var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px)",
           "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
@@ -902,7 +952,17 @@
         },
         "@utility ninaero-paper-grid-*": {
           "--ninaero-paper-step": "max(1px, calc(--value(number, [number]) * 1px))",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "background-image": "linear-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px), linear-gradient(90deg, var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px)",
           "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
@@ -913,7 +973,17 @@
         },
         "@utility ninaero-paper-notebook": {
           "--ninaero-paper-step": "6px",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "--ninaero-notebook-size": "calc(var(--ninaero-paper-step) * 20)",
           "position": "relative",
@@ -942,7 +1012,17 @@
         },
         "@utility ninaero-paper-notebook-*": {
           "--ninaero-paper-step": "max(1px, calc(--value(number, [number]) * 1px))",
-          "--shadow-color": "var(--shadow-color-paper)",
+          "--shadow-surface": "var(--paper-fill)",
+          "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+          "--shadow-flat": "0 0 #0000",
+          "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+          "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+          "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+          "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
           "background-color": "var(--paper-fill)",
           "--ninaero-notebook-size": "calc(var(--ninaero-paper-step) * 20)",
           "position": "relative",
@@ -1151,7 +1231,7 @@
           }
         },
         "@layer utilities": {
-          ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
+          ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
             "--ninaero-focus-edge-top": "color-mix(in oklab, var(--ring), white 15%)",
             "outline": "1px solid var(--ninaero-focus-outline, var(--ring))",
             "outline-offset": "3px",
@@ -1161,10 +1241,10 @@
           },
           "@media (forced-colors: none)": {
             "@supports (mask-composite: exclude)": {
-              ":is(.ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice]):is(:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not([aria-invalid=true]):not([data-invalid]):not(:has([aria-invalid=true]))": {
+              ":is(.ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice]):is(:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not([aria-invalid=true]):not([data-invalid]):not(:has([aria-invalid=true]))": {
                 "--ninaero-focus-outline": "transparent"
               },
-              ":is(.ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice]):is(:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not([aria-invalid=true]):not([data-invalid]):not(:has([aria-invalid=true]))::before": {
+              ":is(.ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice]):is(:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not([aria-invalid=true]):not([data-invalid]):not(:has([aria-invalid=true]))::before": {
                 "content": "\"\"",
                 "position": "absolute",
                 "inset": "-1px",
@@ -1193,7 +1273,7 @@
               "color": "CanvasText",
               "border": "1px solid CanvasText"
             },
-            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
+            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
               "outline": "2px solid Highlight",
               "outline-offset": "3px",
               "box-shadow": "none",
@@ -1201,7 +1281,7 @@
             }
           },
           "@media (prefers-reduced-motion: reduce)": {
-            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
+            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(.ninaero-select-item):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-item][data-highlighted]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
               "transition": "none"
             }
           }
@@ -1210,14 +1290,171 @@
           ".ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice]": {
             "position": "relative"
           },
-          ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-tooltip, .ninaero-slider-thumb, .ninaero-switch-thumb": {
+          ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-tooltip, .ninaero-slider-thumb, .ninaero-switch-thumb, .ninaero-dropdown-menu-item, .shadow-flat, .shadow-control, .shadow-floating, .shadow-dialog, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl": {
             "--shadow-flat": "0 0 #0000",
             "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
             "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-background > *": {
+            "--shadow-surface": "var(--background)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-card > *, [data-slot=card] > *": {
+            "--shadow-surface": "var(--card)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-muted > *": {
+            "--shadow-surface": "var(--muted)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-sidebar > *, [data-slot=sidebar-inner] > *": {
+            "--shadow-surface": "var(--sidebar)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-popover > *, .ninaero-popover > *, .ninaero-dialog > *": {
+            "--shadow-surface": "var(--popover)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".ninaero-tooltip > *": {
+            "--shadow-surface": "var(--foreground)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          "[data-slot=card-footer] > *": {
+            "--shadow-surface": "color-mix(in oklab, var(--muted) 50%, var(--card))",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".ninaero-switch > .ninaero-switch-thumb": {
+            "--shadow-surface": "var(--input-fill)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".ninaero-switch[data-checked] > .ninaero-switch-thumb": {
+            "--shadow-surface": "var(--glass-mark-face-50)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".ninaero-tabs-list[data-variant=default] > *": {
+            "--shadow-surface": "var(--tabs-track-fill)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".ninaero-shadow-surface": {
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
           },
           ".ninaero-surface-paper": {
-            "--shadow-color": "var(--shadow-color-paper)"
+            "--shadow-surface": "var(--paper-fill)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
           },
           ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
             "--input-corner": "0.75rem",
@@ -1544,7 +1781,7 @@
             "box-shadow": "inset 0 1px 0 var(--button-highlight), var(--shadow-floating)",
             "--ninaero-material-shadow": "inset 0 1px 0 var(--button-highlight), var(--shadow-floating)"
           },
-          ".ninaero-popover-content": {
+          ".ninaero-popover-content, .ninaero-dropdown-menu-content": {
             "border-color": "color-mix(in oklab, var(--foreground) 18%, var(--popover))",
             "background-image": "linear-gradient(180deg in oklab, var(--popover), color-mix(in oklab, var(--popover), var(--dialog-fill-shade) 50%))",
             "box-shadow": "inset 0 1px 0 var(--dialog-highlight), inset 0 -1px 2px var(--dialog-shade), var(--shadow-floating)",
@@ -1555,17 +1792,57 @@
             "transform": "scale(1)",
             "transition": "opacity 120ms ease-out, transform 220ms cubic-bezier(0.22, 1.4, 0.35, 1)"
           },
-          ".ninaero-popover-content[data-starting-style]": {
+          ".ninaero-popover-content[data-starting-style], .ninaero-dropdown-menu-content[data-starting-style]": {
             "opacity": "0",
             "transform": "scale(0.94)"
           },
-          ".ninaero-popover-content[data-ending-style]": {
+          ".ninaero-popover-content[data-ending-style], .ninaero-dropdown-menu-content[data-ending-style]": {
             "opacity": "0",
             "transform": "scale(0.98)",
             "transition": "opacity 120ms ease-in, transform 120ms ease-in"
           },
-          ".ninaero-popover-content[data-instant]": {
+          ".ninaero-popover-content[data-instant], .ninaero-dropdown-menu-content[data-instant]": {
             "transition": "none"
+          },
+          ".ninaero-dropdown-menu-content": {
+            "transition": "opacity 100ms ease-out, transform 180ms cubic-bezier(0.22, 1.2, 0.35, 1)"
+          },
+          ".ninaero-dropdown-menu-content[data-starting-style]": {
+            "transform": "scale(0.96)"
+          },
+          ".ninaero-dropdown-menu-item": {
+            "corner-shape": "round",
+            "outline": "2px solid transparent",
+            "outline-offset": "-3px",
+            "transition": "background-color 80ms ease-out",
+            "--ninaero-menu-item-fill": "var(--accent)"
+          },
+          ".ninaero-dropdown-menu-item:where([data-highlighted], [data-popup-open]):not([data-disabled])": {
+            "background-color": "var(--ninaero-menu-item-fill)",
+            "box-shadow": "inset 0 1px 0 color-mix(in oklab, var(--ninaero-menu-item-fill), white var(--recess-highlight-weight)), 0 1px 2px hsl(var(--shadow-color) / 0.06), 0 2px 4px hsl(var(--shadow-color) / 0.03)",
+            "--ninaero-material-shadow": "inset 0 1px 0 color-mix(in oklab, var(--ninaero-menu-item-fill), white var(--recess-highlight-weight)), 0 1px 2px hsl(var(--shadow-color) / 0.06), 0 2px 4px hsl(var(--shadow-color) / 0.03)",
+            "z-index": "1",
+            "color": "var(--accent-foreground)"
+          },
+          ".ninaero-dropdown-menu-item[data-variant=destructive]": {
+            "color": "var(--destructive)",
+            "--ninaero-menu-item-fill": "color-mix(in oklab, var(--destructive) 10%, var(--popover))"
+          },
+          ".ninaero-dropdown-menu-item[data-variant=destructive]:where([data-highlighted], :active):not([data-disabled])": {
+            "background-color": "var(--ninaero-menu-item-fill)",
+            "color": "var(--destructive)"
+          },
+          ".ninaero-dropdown-menu-item:focus-visible": {
+            "outline-color": "var(--ring)"
+          },
+          ".ninaero-dropdown-menu-item[data-disabled]": {
+            "color": "var(--muted-foreground)"
+          },
+          ".ninaero-dropdown-menu-shortcut": {
+            "color": "var(--muted-foreground)"
+          },
+          ".ninaero-dropdown-menu-item:is([data-highlighted], [data-popup-open], [data-disabled]) .ninaero-dropdown-menu-shortcut": {
+            "color": "inherit"
           },
           ".ninaero-tooltip": {
             "position": "relative",
@@ -1944,6 +2221,9 @@
             "background-image": "none"
           },
           "@media (prefers-reduced-motion: reduce)": {
+            ".ninaero-dropdown-menu-item": {
+              "transition": "none"
+            },
             ":is(.ninaero-checkbox, .ninaero-radio-group-item)": {
               "transition": "none"
             },
@@ -1977,7 +2257,7 @@
               "transform": "none",
               "opacity": "1"
             },
-            ".ninaero-popover-content, .ninaero-popover-content[data-starting-style], .ninaero-popover-content[data-ending-style]": {
+            ".ninaero-popover-content, .ninaero-popover-content[data-starting-style], .ninaero-popover-content[data-ending-style], .ninaero-dropdown-menu-content, .ninaero-dropdown-menu-content[data-starting-style], .ninaero-dropdown-menu-content[data-ending-style]": {
               "transition": "none",
               "transform": "none",
               "opacity": "1"
@@ -2207,6 +2487,30 @@
               "color": "CanvasText",
               "box-shadow": "none",
               "--ninaero-material-shadow": "0 0 #0000"
+            },
+            ".ninaero-dropdown-menu-item, .ninaero-dropdown-menu-item[data-variant=destructive]": {
+              "forced-color-adjust": "none",
+              "transition": "none",
+              "background-color": "Canvas",
+              "color": "CanvasText"
+            },
+            ".ninaero-dropdown-menu-item:is([data-highlighted], [data-popup-open]):not([data-disabled])": {
+              "background-color": "Highlight",
+              "color": "HighlightText",
+              "box-shadow": "none",
+              "--ninaero-material-shadow": "0 0 #0000"
+            },
+            ".ninaero-dropdown-menu-item:focus-visible": {
+              "outline-color": "Highlight"
+            },
+            ".ninaero-dropdown-menu-item[data-highlighted]:focus-visible:not([data-disabled])": {
+              "outline-color": "HighlightText"
+            },
+            ".ninaero-dropdown-menu-item[data-disabled]": {
+              "color": "GrayText"
+            },
+            ".ninaero-dropdown-menu-shortcut": {
+              "color": "inherit"
             },
             ".ninaero-select-icon": {
               "color": "ButtonText"

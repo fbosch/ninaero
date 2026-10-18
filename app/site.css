@@ -129,6 +129,11 @@ body:not(.ninaero-overlay-dither) .home-page::after {
   z-index: 0;
 }
 
+.site-header--home::after {
+  /* Keep the texture from blocking backdrop sampling by ::before. */
+  mix-blend-mode: normal;
+}
+
 .site-header > div {
   position: relative;
   z-index: 1;

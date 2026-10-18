@@ -203,7 +203,7 @@ Review the full transition at actual component sizes in light and dark modes and
 
 ## Shadows and elevation
 
-Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomeau.com/css/designing-shadows/) as the reference for cast shadows. His article connects consistent lighting, layered shadows, and background-matched color. The following choices adapt those principles to Ninaero's shallow handheld controls and paper surfaces.
+Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomeau.com/css/designing-shadows/) as the default approach for all UI cast shadows. Require consistent lighting, layered falloff, and color derived from the receiving background. Apply these rules to new components and when revising existing shadows, rather than tuning each shadow in isolation.
 
 ### Shared lighting and materials
 
@@ -212,6 +212,29 @@ Use [Josh W. Comeau's Designing Beautiful Shadows in CSS](https://www.joshwcomea
 - Keep Primary, Secondary, and Destructive on the same shallow elevation. Their fills communicate hierarchy and meaning; a destructive action does not need a taller shadow. Outline keeps a background-matched face with a fine top inset highlight, a lower rim, and a tiny contact shadow. It stays shallower than Secondary, without its gradient fill. Ghost and Link remain flat.
 - Soften control cast shadows by broadening blur relative to the downward offset and tapering each layer's opacity. Keep enough shadow strength to show shallow elevation. A subtle fade should not make the shadow nearly invisible. The rim and bevel still define the Button; avoid a hard-edged dark silhouette beneath it.
 - Do not turn shadows into accent-colored glow. Keep cast shadows achromatic on neutral paper and panels, and tune their lightness to the receiving material. A red button on neutral paper should not automatically cast a red shadow.
+
+### Receiving-background color
+
+Cast shadows must respond to the background beneath the component. Derive the shadow's hue from that background, reduce its saturation and lightness, and control strength through each layer's alpha. Neutral backgrounds produce neutral shadows. A colored control on neutral paper still casts a neutral shadow; a control over a tinted panel can cast a muted shadow of the panel's hue.
+
+`--shadow-surface` identifies the opaque receiving background. The shared recipe mixes 40% of that background with black in Oklab, reducing perceptual lightness and chroma while preserving hue. It exposes the resulting tone through `--shadow-color` for `hsl(var(--shadow-color) / alpha)`. Darkening before the HSL conversion avoids unstable saturation near white. Keep this recipe shared rather than adding per-accent shadow colors.
+
+The page derives its context from `--background`. Standard opaque background classes, Cards, popup and dialog interiors, paper materials, Switch tracks, and segmented Tabs establish local contexts for their contents. Rebind color-dependent elevation tokens where they are used; an elevation computed at the page root cannot respond to a different inherited color later.
+
+For a custom background, use `ninaero-shadow-surface` and declare the same color for its fill and receiving-background token:
+
+```css
+.example-panel {
+  background-color: var(--example-panel-fill);
+  --shadow-surface: var(--example-panel-fill);
+}
+```
+
+Apply both `example-panel` and `ninaero-shadow-surface` to the background container. Its raised descendants then use that context. CSS cannot infer an arbitrary painted background from a class name or sample the pixels behind an element. Gradients and translucent backgrounds need a representative opaque or composited color.
+
+Keep a panel's exterior and interior contexts separate. Its own cast shadow belongs to the background beneath the panel; controls inside it cast onto the panel's fill. Portals inherit from their DOM container, not their React trigger. If a portalled layer sits over a different colored region, provide its receiving-background context explicitly at the portal container.
+
+Do not use a dark opaque lower rim to make a cast shadow stronger. A rim describes material thickness and must remain distinct from soft falloff. Highlighted menu rows sit closer to their popup surface than raised Buttons do, so use the lighter menu contact-shadow recipe and a fine upper highlight. Keep disabled rows flat and focus outlines independent.
 
 ### Layered elevation
 
@@ -252,7 +275,7 @@ The shared recipes live in `registry/ninaero/theme.mjs`. The `--shadow-flat`, `-
 
 The standard `shadow-sm` utility also uses control elevation; `shadow-md` and `shadow-lg` use floating elevation; `shadow-xl` and `shadow-2xl` use dialog elevation. Dialog, Alert Dialog, and Sheet use the dialog level; the chart tooltip uses the floating level.
 
-Shadow color inherits from `--shadow-color`. The `ninaero-surface-paper` class selects the light/dark paper shadow color for its descendants, including the header's appearance controls. Installed components resolve color-dependent shadow variables locally so an ancestor's receiving-material color remains effective. Review the result on the actual background in both modes.
+Shadow color inherits from `--shadow-color`. The `ninaero-surface-paper` class derives it from `--paper-fill`, including for the header's appearance controls. Use `ninaero-shadow-surface` with `--shadow-surface` for other custom receiving backgrounds. Installed components and standard elevation utilities resolve color-dependent shadow variables locally. Review the result on the actual background in both modes.
 
 ## Interaction and accessibility
 

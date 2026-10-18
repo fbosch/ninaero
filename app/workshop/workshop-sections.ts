@@ -54,6 +54,11 @@ const componentSpecimens = [
     title: "Popovers",
     description: "Floating panels, forms, placement, dismissal, and keyboard focus.",
   },
+  {
+    href: "/workshop/dropdown-menu",
+    title: "Dropdown Menu",
+    description: "Actions, checked items, submenus, placement, and keyboard navigation.",
+  },
 ] as const;
 
 const foundationSpecimens = [

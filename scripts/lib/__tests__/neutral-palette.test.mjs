@@ -86,9 +86,6 @@ test("neutral materials and ordinary edges remain grayscale across accents and m
       for (const token of neutralRoles) {
         assertGrayscale(resolve(palette, token), `${mode} ${name} ${token}`);
       }
-      for (const token of ["shadow-color", "shadow-color-paper"]) {
-        assert.match(palette[token], /^\d+deg 0% \d+%$/, `${mode} ${name} ${token}`);
-      }
     }
   }
 });

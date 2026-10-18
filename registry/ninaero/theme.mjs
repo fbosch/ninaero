@@ -21,7 +21,7 @@ const segmentedTabSelector =
 const selectItemFocus = ".ninaero-select-item:is(:focus-visible, [data-highlighted])";
 const enabledFocus =
   ":not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])";
-const focusable = `:focus-visible${enabledFocus}:not(.ninaero-select-item):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input)`;
+const focusable = `:focus-visible${enabledFocus}:not(.ninaero-select-item):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input)`;
 const focusFrames = [
   ".ninaero-button",
   ".ninaero-toggle",
@@ -119,8 +119,32 @@ export const elevations = {
   ].join(", "),
 };
 const elevationVariables = Object.fromEntries(
-  Object.entries(elevations).map(([level, shadow]) => [`--shadow-${level}`, shadow]),
+  Object.entries({
+    ...elevations,
+    sm: elevations.control,
+    md: elevations.floating,
+    lg: elevations.floating,
+    xl: elevations.dialog,
+    "2xl": elevations.dialog,
+  }).map(([level, shadow]) => [`--shadow-${level}`, shadow]),
 );
+
+function shadowColorChannels(surface) {
+  return `from color-mix(in oklab, ${surface} 40%, black) h s l`;
+}
+
+function shadowSurface(surface) {
+  return {
+    "--shadow-surface": surface,
+    "--shadow-color": shadowColorChannels("var(--shadow-surface)"),
+    ...elevationVariables,
+  };
+}
+
+const menuItemCastShadow = [
+  "0 1px 2px hsl(var(--shadow-color) / 0.06)",
+  "0 2px 4px hsl(var(--shadow-color) / 0.03)",
+].join(", ");
 const controlCastShadow = "var(--button-cast-shadow, var(--shadow-control))";
 
 function recessShadow(fill) {
@@ -283,7 +307,7 @@ const paperPatterns = {
 const paperUtilities = Object.fromEntries(
   Object.entries(paperPatterns).flatMap(([name, { spacing, styles }]) => {
     const declarations = {
-      "--shadow-color": "var(--shadow-color-paper)",
+      ...shadowSurface("var(--paper-fill)"),
       "background-color": "var(--paper-fill)",
       ...styles,
       "@media (forced-colors: active)": {
@@ -320,15 +344,9 @@ export const theme = {
   font: sansFont,
   codeFont,
   theme: {
-    "shadow-flat": elevations.flat,
-    "shadow-control": elevations.control,
-    "shadow-floating": elevations.floating,
-    "shadow-dialog": elevations.dialog,
-    "shadow-sm": elevations.control,
-    "shadow-md": elevations.floating,
-    "shadow-lg": elevations.floating,
-    "shadow-xl": elevations.dialog,
-    "shadow-2xl": elevations.dialog,
+    ...Object.fromEntries(
+      Object.entries(elevationVariables).map(([name, value]) => [name.slice(2), value]),
+    ),
     "font-heading": "var(--font-sans)",
     "font-sans": sansFont.family,
     "font-mono": codeFont.family,
@@ -437,8 +455,8 @@ export const theme = {
     "button-destructive-highlight": "#ffffff66",
     "button-destructive-shade": "#5a1b0a14",
     "button-highlight": "#ffffff80",
-    "shadow-color": "0deg 0% 24%",
-    "shadow-color-paper": "0deg 0% 28%",
+    "shadow-surface": "var(--background)",
+    "shadow-color": shadowColorChannels("var(--shadow-surface)"),
     ...paperPalettes.light,
     "paper-notebook-mask": notebookMask(),
     "dither-mask": ditherMask(),
@@ -509,8 +527,8 @@ export const theme = {
     "button-destructive-highlight": "#ffffff1a",
     "button-destructive-shade": "#00000040",
     "button-highlight": "#ffffff33",
-    "shadow-color": "0deg 0% 3%",
-    "shadow-color-paper": "0deg 0% 5%",
+    "shadow-surface": "var(--background)",
+    "shadow-color": shadowColorChannels("var(--shadow-surface)"),
     ...paperPalettes.dark,
     "ninaero-overlay-blend-mode": "screen",
   },
@@ -696,12 +714,29 @@ export const theme = {
     },
     "@layer components": withMaterialShadows({
       [focusFrames]: { position: "relative" },
-      // Resolve color-dependent tokens locally so receiving-material colors can inherit.
-      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-tooltip, .ninaero-slider-thumb, .ninaero-switch-thumb":
+      // Rebind recipes at each caster so inherited receiving-background colors stay effective.
+      ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-tooltip, .ninaero-slider-thumb, .ninaero-switch-thumb, .ninaero-dropdown-menu-item, .shadow-flat, .shadow-control, .shadow-floating, .shadow-dialog, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl":
         elevationVariables,
-      ".ninaero-surface-paper": {
-        "--shadow-color": "var(--shadow-color-paper)",
+      // A panel casts onto its parent; only its children receive the panel's color context.
+      ".bg-background > *": shadowSurface("var(--background)"),
+      ".bg-card > *, [data-slot=card] > *": shadowSurface("var(--card)"),
+      ".bg-muted > *": shadowSurface("var(--muted)"),
+      ".bg-sidebar > *, [data-slot=sidebar-inner] > *": shadowSurface("var(--sidebar)"),
+      ".bg-popover > *, .ninaero-popover > *, .ninaero-dialog > *": shadowSurface("var(--popover)"),
+      ".ninaero-tooltip > *": shadowSurface("var(--foreground)"),
+      "[data-slot=card-footer] > *": shadowSurface(
+        "color-mix(in oklab, var(--muted) 50%, var(--card))",
+      ),
+      ".ninaero-switch > .ninaero-switch-thumb": shadowSurface("var(--input-fill)"),
+      ".ninaero-switch[data-checked] > .ninaero-switch-thumb": shadowSurface(
+        "var(--glass-mark-face-50)",
+      ),
+      ".ninaero-tabs-list[data-variant=default] > *": shadowSurface("var(--tabs-track-fill)"),
+      ".ninaero-shadow-surface": {
+        "--shadow-color": shadowColorChannels("var(--shadow-surface)"),
+        ...elevationVariables,
       },
+      ".ninaero-surface-paper": shadowSurface("var(--paper-fill)"),
       ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
         "--input-corner": "0.75rem",
         "border-radius": "var(--input-corner)",
@@ -992,7 +1027,7 @@ export const theme = {
         "background-color": "var(--popover)",
         "box-shadow": `inset 0 1px 0 var(--button-highlight), var(--shadow-floating)`,
       },
-      ".ninaero-popover-content": {
+      ".ninaero-popover-content, .ninaero-dropdown-menu-content": {
         "border-color": "color-mix(in oklab, var(--foreground) 18%, var(--popover))",
         "background-image":
           "linear-gradient(180deg in oklab, var(--popover), color-mix(in oklab, var(--popover), var(--dialog-fill-shade) 50%))",
@@ -1003,16 +1038,62 @@ export const theme = {
         transform: "scale(1)",
         transition: "opacity 120ms ease-out, transform 220ms cubic-bezier(0.22, 1.4, 0.35, 1)",
       },
-      ".ninaero-popover-content[data-starting-style]": {
-        opacity: "0",
-        transform: "scale(0.94)",
+      ".ninaero-popover-content[data-starting-style], .ninaero-dropdown-menu-content[data-starting-style]":
+        {
+          opacity: "0",
+          transform: "scale(0.94)",
+        },
+      ".ninaero-popover-content[data-ending-style], .ninaero-dropdown-menu-content[data-ending-style]":
+        {
+          opacity: "0",
+          transform: "scale(0.98)",
+          transition: "opacity 120ms ease-in, transform 120ms ease-in",
+        },
+      ".ninaero-popover-content[data-instant], .ninaero-dropdown-menu-content[data-instant]": {
+        transition: "none",
       },
-      ".ninaero-popover-content[data-ending-style]": {
-        opacity: "0",
-        transform: "scale(0.98)",
-        transition: "opacity 120ms ease-in, transform 120ms ease-in",
+      ".ninaero-dropdown-menu-content": {
+        transition: "opacity 100ms ease-out, transform 180ms cubic-bezier(0.22, 1.2, 0.35, 1)",
       },
-      ".ninaero-popover-content[data-instant]": { transition: "none" },
+      ".ninaero-dropdown-menu-content[data-starting-style]": {
+        transform: "scale(0.96)",
+      },
+      ".ninaero-dropdown-menu-item": {
+        "corner-shape": "round",
+        outline: "2px solid transparent",
+        "outline-offset": "-3px",
+        transition: "background-color 80ms ease-out",
+        "--ninaero-menu-item-fill": "var(--accent)",
+      },
+      ".ninaero-dropdown-menu-item:where([data-highlighted], [data-popup-open]):not([data-disabled])":
+        {
+          "background-color": "var(--ninaero-menu-item-fill)",
+          "box-shadow": `inset 0 1px 0 color-mix(in oklab, var(--ninaero-menu-item-fill), white var(--recess-highlight-weight)), ${menuItemCastShadow}`,
+          "z-index": "1",
+          color: "var(--accent-foreground)",
+        },
+      ".ninaero-dropdown-menu-item[data-variant=destructive]": {
+        color: "var(--destructive)",
+        "--ninaero-menu-item-fill": "color-mix(in oklab, var(--destructive) 10%, var(--popover))",
+      },
+      ".ninaero-dropdown-menu-item[data-variant=destructive]:where([data-highlighted], :active):not([data-disabled])":
+        {
+          "background-color": "var(--ninaero-menu-item-fill)",
+          color: "var(--destructive)",
+        },
+      ".ninaero-dropdown-menu-item:focus-visible": {
+        "outline-color": "var(--ring)",
+      },
+      ".ninaero-dropdown-menu-item[data-disabled]": {
+        color: "var(--muted-foreground)",
+      },
+      ".ninaero-dropdown-menu-shortcut": {
+        color: "var(--muted-foreground)",
+      },
+      ".ninaero-dropdown-menu-item:is([data-highlighted], [data-popup-open], [data-disabled]) .ninaero-dropdown-menu-shortcut":
+        {
+          color: "inherit",
+        },
       ".ninaero-tooltip": {
         position: "relative",
         isolation: "isolate",
@@ -1399,6 +1480,7 @@ export const theme = {
           "background-image": "none",
         },
       "@media (prefers-reduced-motion: reduce)": {
+        ".ninaero-dropdown-menu-item": { transition: "none" },
         ":is(.ninaero-checkbox, .ninaero-radio-group-item)": { transition: "none" },
         ".ninaero-switch, .ninaero-switch-thumb": { transition: "none" },
         ".ninaero-slider-thumb": { transition: "none" },
@@ -1429,7 +1511,7 @@ export const theme = {
             transform: "none",
             opacity: "1",
           },
-        ".ninaero-popover-content, .ninaero-popover-content[data-starting-style], .ninaero-popover-content[data-ending-style]":
+        ".ninaero-popover-content, .ninaero-popover-content[data-starting-style], .ninaero-popover-content[data-ending-style], .ninaero-dropdown-menu-content, .ninaero-dropdown-menu-content[data-starting-style], .ninaero-dropdown-menu-content[data-ending-style]":
           {
             transition: "none",
             transform: "none",
@@ -1640,6 +1722,30 @@ export const theme = {
           "background-image": "none",
           color: "CanvasText",
           "box-shadow": "none",
+        },
+        ".ninaero-dropdown-menu-item, .ninaero-dropdown-menu-item[data-variant=destructive]": {
+          "forced-color-adjust": "none",
+          transition: "none",
+          "background-color": "Canvas",
+          color: "CanvasText",
+        },
+        ".ninaero-dropdown-menu-item:is([data-highlighted], [data-popup-open]):not([data-disabled])":
+          {
+            "background-color": "Highlight",
+            color: "HighlightText",
+            "box-shadow": "none",
+          },
+        ".ninaero-dropdown-menu-item:focus-visible": {
+          "outline-color": "Highlight",
+        },
+        ".ninaero-dropdown-menu-item[data-highlighted]:focus-visible:not([data-disabled])": {
+          "outline-color": "HighlightText",
+        },
+        ".ninaero-dropdown-menu-item[data-disabled]": {
+          color: "GrayText",
+        },
+        ".ninaero-dropdown-menu-shortcut": {
+          color: "inherit",
         },
         ".ninaero-select-icon": {
           color: "ButtonText",

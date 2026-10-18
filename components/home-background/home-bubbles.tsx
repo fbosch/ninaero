@@ -76,11 +76,12 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
 
   useEffect(() => {
     const fieldElement = fieldRef.current;
-    const lensField = lensFieldRef.current;
+    const lensFieldElement = lensFieldRef.current;
     const surfaceElement = fieldElement?.closest("main");
     const popElement = popLayerRef.current;
-    if (!fieldElement || !lensField || !surfaceElement || !popElement) return;
+    if (!fieldElement || !lensFieldElement || !surfaceElement || !popElement) return;
     const field = fieldElement;
+    const lensField = lensFieldElement;
     const surface = surfaceElement;
     const popLayer = popElement;
 
@@ -230,6 +231,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     function syncAnimation() {
       cancelAnimationFrame(frame);
       previousTime = null;
+      lensField.dataset.motion = enabled() ? "running" : "paused";
       entrances.sync(
         pausedRef.current || document.hidden,
         reducedMotion.matches || forcedColors.matches,
@@ -279,6 +281,32 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       if (event.pointerType === "mouse") event.preventDefault();
       paint();
       syncAnimation();
+    }
+
+    function onDoubleClick(event: MouseEvent) {
+      if (!enabled() || held) return;
+      const target = event.target;
+      if (
+        !(target instanceof HTMLElement) ||
+        target.closest("a, button, input, textarea, select, pre, code, [role], [contenteditable]")
+      )
+        return;
+      const bounds = field.getBoundingClientRect();
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      const bubble = bubbles.find(
+        (candidate) => Math.hypot(x - candidate.x, y - candidate.y) <= candidate.radius,
+      );
+      if (!bubble) return;
+      event.preventDefault();
+      entrances.clear();
+      showBubblePop(popLayer, bubble, {
+        pop: styles.pop,
+        popRing: styles.popRing,
+        popDroplet: styles.popDroplet,
+      });
+      bubbles.splice(bubbles.indexOf(bubble), 1);
+      paint();
     }
 
     function onPointerMove(event: PointerEvent) {
@@ -359,6 +387,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     forcedColors.addEventListener("change", syncAnimation);
     document.addEventListener("visibilitychange", syncAnimation);
     surface.addEventListener("pointerdown", onPointerDown);
+    surface.addEventListener("dblclick", onDoubleClick);
     surface.addEventListener("pointermove", onPointerMove);
     surface.addEventListener("pointerup", onPointerUp);
     surface.addEventListener("pointercancel", onPointerCancel);
@@ -378,6 +407,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       forcedColors.removeEventListener("change", syncAnimation);
       document.removeEventListener("visibilitychange", syncAnimation);
       surface.removeEventListener("pointerdown", onPointerDown);
+      surface.removeEventListener("dblclick", onDoubleClick);
       surface.removeEventListener("pointermove", onPointerMove);
       surface.removeEventListener("pointerup", onPointerUp);
       surface.removeEventListener("pointercancel", onPointerCancel);
