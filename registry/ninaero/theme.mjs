@@ -1127,14 +1127,14 @@ export const theme = {
       ".ninaero-progress-circular-edge": {
         stroke: "var(--input-edge)",
       },
-      ".ninaero-progress-track-shade": {
-        "stop-color": "color-mix(in oklab, var(--input-fill), black var(--recess-shade-weight))",
+      ".ninaero-progress-circular-track": {
+        stroke: "var(--input-fill)",
       },
-      ".ninaero-progress-track-fill": {
-        "stop-color": "var(--input-fill)",
+      ".ninaero-progress-track-shade": {
+        "flood-color": "color-mix(in oklab, var(--input-fill), black var(--recess-shade-weight))",
       },
       ".ninaero-progress-track-highlight": {
-        "stop-color":
+        "flood-color":
           "color-mix(in oklab, var(--input-fill), white var(--recess-highlight-weight))",
       },
       ".ninaero-progress-circular-rim": {
@@ -1820,7 +1820,7 @@ export const theme = {
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
         ".ninaero-progress-circular-edge": { display: "none" },
-        ".ninaero-progress-circular-track": { stroke: "GrayText" },
+        ".ninaero-progress-circular-track": { stroke: "GrayText", filter: "none" },
         ".ninaero-progress-circular-indicator > path": { stroke: "Highlight" },
         ".ninaero-code-block, .ninaero-code-block > [data-slot=code-block-header]": {
           "box-shadow": "none",

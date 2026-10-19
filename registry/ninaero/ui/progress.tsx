@@ -53,11 +53,28 @@ function Progress({
           className="ninaero-progress-circular size-5 shrink-0"
         >
           <defs>
-            <linearGradient id={`${gradientId}-track`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" className="ninaero-progress-track-shade" />
-              <stop offset="0.5" className="ninaero-progress-track-fill" />
-              <stop offset="1" className="ninaero-progress-track-highlight" />
-            </linearGradient>
+            <filter id={`${gradientId}-track`} colorInterpolationFilters="sRGB">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="0.65" result="shade-blur" />
+              <feOffset in="shade-blur" dy="0.75" result="shade-offset" />
+              <feComposite in="SourceAlpha" in2="shade-offset" operator="out" result="shade-mask" />
+              <feFlood className="ninaero-progress-track-shade" />
+              <feComposite in2="shade-mask" operator="in" result="shade" />
+              <feGaussianBlur in="SourceAlpha" stdDeviation="0.35" result="highlight-blur" />
+              <feOffset in="highlight-blur" dy="-0.5" result="highlight-offset" />
+              <feComposite
+                in="SourceAlpha"
+                in2="highlight-offset"
+                operator="out"
+                result="highlight-mask"
+              />
+              <feFlood className="ninaero-progress-track-highlight" />
+              <feComposite in2="highlight-mask" operator="in" result="highlight" />
+              <feMerge>
+                <feMergeNode in="SourceGraphic" />
+                <feMergeNode in="shade" />
+                <feMergeNode in="highlight" />
+              </feMerge>
+            </filter>
             <linearGradient id={`${gradientId}-indicator`} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" className="ninaero-progress-indicator-highlight" />
               <stop offset="0.5" className="ninaero-progress-indicator-middle" />
@@ -75,7 +92,7 @@ function Progress({
             cx="12"
             cy="12"
             r="9"
-            stroke={`url(#${gradientId}-track)`}
+            filter={`url(#${gradientId}-track)`}
             className="ninaero-progress-circular-track"
           />
           <g

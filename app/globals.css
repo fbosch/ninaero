@@ -2008,14 +2008,14 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   .ninaero-progress-circular-edge {
     stroke: var(--input-edge);
   }
-  .ninaero-progress-track-shade {
-    stop-color: color-mix(in oklab, var(--input-fill), black var(--recess-shade-weight));
+  .ninaero-progress-circular-track {
+    stroke: var(--input-fill);
   }
-  .ninaero-progress-track-fill {
-    stop-color: var(--input-fill);
+  .ninaero-progress-track-shade {
+    flood-color: color-mix(in oklab, var(--input-fill), black var(--recess-shade-weight));
   }
   .ninaero-progress-track-highlight {
-    stop-color: color-mix(in oklab, var(--input-fill), white var(--recess-highlight-weight));
+    flood-color: color-mix(in oklab, var(--input-fill), white var(--recess-highlight-weight));
   }
   .ninaero-progress-circular-rim {
     stroke: color-mix(in oklab, var(--button-primary-edge) 55%, var(--glass-mark-face-50));
@@ -2725,6 +2725,7 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
     }
     .ninaero-progress-circular-track {
       stroke: GrayText;
+      filter: none;
     }
     .ninaero-progress-circular-indicator > path {
       stroke: Highlight;
