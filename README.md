@@ -146,19 +146,26 @@ Pages uses Node.js 22, pnpm 11.20.0, build output `out/`, and this build command
 REGISTRY_URL="${REGISTRY_URL:-${CF_PAGES_URL:?CF_PAGES_URL is required}/r}" pnpm build
 ```
 
-Preview registry dependencies point to that deployment's own URL. The Pages production branch is `production`, with automatic Git production builds disabled. This name selects the production environment for uploads; no Git branch needs to be created.
+Preview registry dependencies point to that deployment's own URL. The Pages production branch is `production`, with automatic Git production builds disabled. The release workflow creates that branch if needed, advances it to the checked release commit, then sends a POST request to a deploy hook configured for `production`. Cloudflare builds the site from that branch. No Cloudflare API token is required.
 
-The [release workflow](.github/workflows/release.yml) follows the release-please pattern used in [pkdx](https://github.com/fbosch/pkdx). Conventional commits on `main` update a release PR. Merging it creates a `ninaero-vX.Y.Z` tag and GitHub release. A dependent job checks out that tag, runs `pnpm check` and `pnpm check:shadcn:release`, then uploads `out/` to production. Production builds embed `https://ninaero.fbb.sh/r`.
+The [release workflow](.github/workflows/release.yml) follows the release-please pattern used in [pkdx](https://github.com/fbosch/pkdx). Conventional commits on `main` update a release PR. Merging it creates a `ninaero-vX.Y.Z` tag and GitHub release. A dependent job checks out that tag and runs `pnpm check` and `pnpm check:shadcn:release` before promoting it. Production builds embed `https://ninaero.fbb.sh/r`.
 
-Deployment runs in the same workflow because releases created with `GITHUB_TOKEN` do not trigger a separate release-event workflow. Ordinary pushes to `main` do not deploy production.
+The promotion and hook request run in the same workflow because releases created with `GITHUB_TOKEN` do not trigger a separate release-event workflow. Ordinary pushes to `main` do not deploy production. The built-in GitHub token grants this job permission to update the production branch without a personal access token.
 
-#### Finish setup before the first release
+#### Enable deploy-hook releases
 
-1. Create a Cloudflare API token with **Account > Cloudflare Pages > Edit**, scoped to the Frederik Bosch account. Add it as the `CLOUDFLARE_API_TOKEN` Actions secret in `fbosch/ninaero`. Never put the token in this repository.
-2. Confirm the Actions variable `CLOUDFLARE_ACCOUNT_ID` is `f0ae75173744ab127102e1922a58f59e`. Actions must be allowed to create pull requests; this setting is enabled.
-3. Commit and push the workflow and release-please configuration when ready. No workflow is active until those files reach GitHub.
-4. Merge a release PR when the site is ready. After the tagged production deployment succeeds, add `ninaero.fbb.sh` under the Pages project's custom domains and create its proxied CNAME to `ninaero.pages.dev`. Confirm domain validation, HTTPS, and registry reachability before announcing the release.
+1. In Cloudflare, open Pages project `ninaero` > **Settings > Builds > Add deploy hook**. Name it `ninaero-releases` and select branch `production`. Keep automatic production deployments disabled. If the dashboard requires an existing branch, create `production` from the intended release tag first, then complete setup and retry that release.
+2. Store the hook URL as the `CLOUDFLARE_DEPLOY_HOOK` repository Actions secret in `fbosch/ninaero`. Treat the URL as a credential. Anyone who knows it can trigger builds. Use GitHub's secret form or this secure CLI prompt:
+
+   ```sh
+   gh secret set CLOUDFLARE_DEPLOY_HOOK --repo fbosch/ninaero
+   ```
+
+3. Commit and push the deploy-hook workflow and scripts when ready. The previous token-upload workflow stays active until these changes reach GitHub. Actions must be allowed to create pull requests; that setting is enabled.
+4. Merge a release PR when the site is ready. The workflow validates the hook URL before changing the branch and only allows fast-forward promotion. A missing secret, protected branch, or older release stops the request without force-pushing.
+5. Confirm the production build succeeds in Cloudflare before promoting another release. The workflow reports only that the hook accepted the build request. It does not wait for build completion, and advancing `production` again too early could change the commit a queued build fetches.
+6. After the tagged production deployment succeeds, add `ninaero.fbb.sh` under the Pages project's custom domains and create its proxied CNAME to `ninaero.pages.dev`. Confirm domain validation, HTTPS, and registry reachability before announcing the release.
 
 The custom domain remains unconnected during development. The initial setup build at `ninaero.pages.dev` predates the release-only configuration; do not treat it as a tagged release.
 
-To retry a failed deployment, run the **Release** workflow on `main` with `release_tag` set to an existing stable GitHub release such as `ninaero-v0.2.0`. The workflow rejects draft and prerelease releases and deploys the tag rather than the latest `main`.
+To retry a failed build, run the **Release** workflow on `main` with `release_tag` set to an existing stable GitHub release such as `ninaero-v0.2.0`. The workflow rejects draft and prerelease releases. Retrying the current release is supported; promoting an older commit is not. To roll back code, publish a new release containing the rollback instead of rewriting `production`.

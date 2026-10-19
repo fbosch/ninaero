@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 export default function Icon() {
   const palette = accentPresets[defaultAccent];
 
-  return new Response(renderFrutigerDolloSvg(palette.light, size.width, palette.dark), {
+  return new Response(renderFrutigerDolloSvg(palette.dark, size.width), {
     headers: { "Content-Type": contentType },
   });
 }

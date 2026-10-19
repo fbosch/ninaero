@@ -1,9 +1,8 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, type CSSProperties, type ReactNode } from "react";
 
 import { useAccent } from "@/components/accent-provider";
 import { AppearanceSelectors } from "@/components/appearance-selectors";
@@ -19,21 +18,22 @@ import dolloStyles from "./frutiger-dollo-mark.module.css";
 
 const destinations = [["/docs", "Docs"]] as const;
 
-export function SiteHeader() {
+export function SiteHeader({ children }: { children?: ReactNode }) {
   const pathname = usePathname();
   const { accent } = useAccent();
-  const { resolvedTheme } = useTheme();
+  const logoStyle = {
+    "--button-primary-fill": accentPresets[accent].dark["button-primary-fill"],
+  } as CSSProperties;
 
   useEffect(() => {
     const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
     if (!favicon) return;
 
-    const colorMode = resolvedTheme === "dark" ? "dark" : "light";
-    const palette = accentPresets[accent][colorMode];
+    const palette = accentPresets[accent].dark;
     favicon.href = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
       renderFrutigerDolloSvg(palette, 32),
     )}`;
-  }, [accent, resolvedTheme]);
+  }, [accent]);
 
   return (
     <header
@@ -50,6 +50,7 @@ export function SiteHeader() {
             <Link
               href="/"
               aria-label="Ninaero"
+              style={logoStyle}
               className={`type-title inline-flex items-center gap-2 ${dolloStyles.wordmark}`}
             >
               <FrutigerDolloMark className="shrink-0" />
@@ -91,6 +92,7 @@ export function SiteHeader() {
           </FieldSet>
         </div>
       </div>
+      {children}
     </header>
   );
 }

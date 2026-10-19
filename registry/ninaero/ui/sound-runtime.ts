@@ -22,21 +22,29 @@ type CueProfile = {
   notes?: readonly number[];
   pace?: number;
   level?: number;
+  spec?: Spec;
   transform: ThemeTransform;
 };
 
 // Page-change/back intervals are shortened and lowered for frequent UI feedback.
 const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
   hover: {
-    source: "tick",
-    transform: {
-      pitch: 0.5,
-      attack: 0.5,
-      decay: 1.3,
-      noiseLvl: 0.35,
-      noiseF: 0.25,
-      q: 0.45,
-    },
+    spec: [
+      {
+        kind: "noise",
+        at: 0,
+        filter: "lowpass",
+        f: 1000,
+        f2: 450,
+        glide: 0.018,
+        q: 0.45,
+        a: 0.006,
+        d: 0.028,
+        peak: 0.02,
+        send: 0,
+      },
+    ],
+    transform: {},
   },
   tick: {
     source: "tick",
@@ -156,7 +164,7 @@ export function createHoverSoundGate() {
   };
 }
 
-type SoundEngine = Pick<typeof import("@foleyjs/core"), "play" | "set" | "getSpec">;
+type SoundEngine = Pick<typeof import("@foleyjs/core"), "play" | "set" | "getSpec" | "unlock">;
 type SoundSettings = typeof defaultSoundSettings;
 
 export function createSoundPlayer(
@@ -169,6 +177,7 @@ export function createSoundPlayer(
   let generation = 0;
   let active = false;
 
+  let initialized = false;
   function stop() {
     active = false;
     generation++;
@@ -196,7 +205,13 @@ export function createSoundPlayer(
         });
       }
       const loaded = await loading;
-      if (active && generation === request) engine = loaded;
+      if (active && generation === request) {
+        if (!initialized) {
+          loaded.unlock();
+          initialized = true;
+        }
+        engine = loaded;
+      }
     },
     play(cue: SoundCue, options?: CueOptions) {
       if (!active || !engine) return;
@@ -213,7 +228,7 @@ export function createSoundPlayer(
       engine.set({ theme: settings.theme, volume: settings.volume });
       const profile = settings.theme === "glass" ? cueProfiles[cue] : undefined;
       if (profile) {
-        const spec = profileSpec(engine.getSpec(profile.source ?? cue), profile);
+        const spec = profileSpec(profile.spec ?? engine.getSpec(profile.source ?? cue), profile);
         engine.set({
           theme: {
             transform: {

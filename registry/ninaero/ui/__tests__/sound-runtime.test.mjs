@@ -23,6 +23,7 @@ function fixture() {
   let loads = 0;
   const engine = {
     getSpec: foley.getSpec,
+    unlock() {},
     set(value) {
       settings.push(value);
     },
@@ -65,6 +66,26 @@ test("enabling loads Foley once and applies the glass defaults", async () => {
   player.stop();
   await player.configure({ enabled: true });
   assert.equal(loads(), 1);
+});
+
+test("enabling unlocks the audio engine before the first cue", async () => {
+  const events = [];
+  const player = createSoundPlayer(async () => ({
+    getSpec: foley.getSpec,
+    unlock() {
+      events.push("unlock");
+    },
+    set() {},
+    play(cue) {
+      events.push(cue);
+    },
+  }));
+
+  await player.configure({ enabled: true });
+  await player.configure({ enabled: true, volume: 0.5 });
+  player.play("hover");
+
+  assert.deepEqual(events, ["unlock", "hover"]);
 });
 
 test("custom theme and volume take effect at playback, including zero volume", async () => {
@@ -131,6 +152,7 @@ test("disabling during a pending load never re-enables or queues sounds", async 
   player.play("tap");
   await player.configure({ enabled: false });
   resolve({
+    unlock() {},
     set() {},
     play(cue) {
       cues.push(cue);
@@ -158,6 +180,7 @@ test("rapid enable, disable, and enable uses the latest settings and a single lo
     volume: 0.2,
   });
   resolve({
+    unlock() {},
     set(value) {
       settings.push(value);
     },
@@ -177,7 +200,7 @@ test("load failures reach the caller and a later enable can retry", async () => 
   const failure = new Error("Unable to load Foley.");
   const player = createSoundPlayer(async () => {
     if (++attempts === 1) throw failure;
-    return { set() {}, play() {} };
+    return { unlock() {}, set() {}, play() {} };
   });
   await assert.rejects(player.configure({ enabled: true }), failure);
   await player.configure({ enabled: true });
@@ -238,30 +261,51 @@ function toneSignature(performance) {
   };
 }
 
-test("glass pointer cues use short handheld-like pitches and envelopes through real Foley specs", async (t) => {
+test("glass hover stays warm, muted, and unpitched with a rounded attack", async (t) => {
   const { player, performances } = acousticFixture(t);
   await player.configure({ enabled: true });
   player.play("hover");
+  player.play("tick");
+
+  const [hover, tick] = performances;
+  assert.ok(hover.spec.length > 0);
+  for (const layer of hover.spec) {
+    assert.equal(layer.kind, "noise");
+    assert.equal(layer.filter, "lowpass", "hover should soften the treble");
+    assert.equal(layer.at, 0, "hover feedback starts immediately");
+    const cutoff = layer.f * (hover.transform.noiseF ?? 1);
+    const endCutoff = layer.f2 * (hover.transform.noiseF ?? 1);
+    assert.ok(cutoff >= 600 && cutoff <= 1200, `hover cutoff: ${cutoff} Hz`);
+    assert.ok(endCutoff > 0 && endCutoff <= 600 && endCutoff < cutoff);
+    assert.ok(layer.q * (hover.transform.q ?? 1) <= 0.7, "avoid a ringing resonance");
+    const attackMs = 1000 * layer.a * (hover.transform.attack ?? 1);
+    assert.ok(attackMs >= 4 && attackMs <= 8, `hover attack: ${attackMs} ms`);
+    const durationMs = attackMs + 1000 * layer.d * ((hover.transform.decay ?? 1) * 0.7 + 0.3);
+    assert.ok(durationMs >= 30 && durationMs <= 45, `hover duration: ${durationMs} ms`);
+  }
+  const hoverPeak = hover.spec.reduce((sum, layer) => sum + layer.peak, 0);
+  const tickPeak = Math.max(...tick.spec.map(({ peak }) => peak));
+  assert.ok(hoverPeak >= 0.01 && hoverPeak <= 0.025);
+  assert.ok(hoverPeak < tickPeak * 0.3);
+  assert.notEqual(hover.transform.shimmer, true);
+  assert.equal(hover.transform.send, 0);
+});
+
+test("glass tick keeps its crisp envelope and per-call pitch and volume", async (t) => {
+  const { player, performances } = acousticFixture(t);
+  await player.configure({ enabled: true });
   for (const pitch of [-6, 0, 6]) player.play("tick", { pitch, volume: 0.25 });
-  assert.deepEqual(
-    performances.map(({ cue }) => cue),
-    ["hover", "tick", "tick", "tick"],
-  );
-  const [hover, low, middle, high] = performances.map(toneSignature);
-  assert.ok(hover.hz >= 1000 && hover.hz <= 1400);
-  assert.ok(hover.ms >= 20 && hover.ms <= 35);
+  const [low, middle, high] = performances.map(toneSignature);
   assert.ok(middle.hz >= 2200 && middle.hz <= 2400);
   assert.ok(middle.ms >= 5 && middle.ms <= 12);
   assert.ok(low.hz < middle.hz && middle.hz < high.hz);
   assert.ok(Math.abs(high.hz / low.hz - 2) < 1e-10);
   for (const performance of performances) {
+    assert.equal(performance.cue, "tick");
     assert.notEqual(performance.transform.shimmer, true);
     assert.equal(performance.transform.send, 0);
+    assert.equal(performance.options.volume, 0.25);
   }
-  assert.deepEqual(
-    performances.slice(1).map(({ options }) => options.volume),
-    [0.25, 0.25, 0.25],
-  );
 });
 
 function cueSignature(performance) {
@@ -335,7 +379,8 @@ test("glass interaction cues stay within a similar peak-volume range", async (t)
   }
   for (const { cue, spec } of performances) {
     const peak = Math.max(...spec.map((layer) => layer.peak));
-    assert.ok(peak >= 0.08 && peak <= 0.12, `${cue}: peak ${peak}`);
+    const minimumPeak = cue === "hover" ? 0.015 : 0.08;
+    assert.ok(peak >= minimumPeak && peak <= 0.12, `${cue}: peak ${peak}`);
   }
 });
 
