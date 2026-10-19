@@ -5,6 +5,7 @@ import {
   bubbleGap,
   bubbleCurrent,
   bubbleShape,
+  bubblesNeedFullFrameRate,
   updateBubbleWarp,
   createBubbles,
   dragBubble,
@@ -476,4 +477,30 @@ test("paced scenes maintain coverage over the same ambient time window", () => {
     assert.ok(top / samples > 0.15 && top / samples < 0.4);
     assert.ok(bottom / samples > 0.15 && bottom / samples < 0.4);
   }
+});
+
+test("only held, thrown, or wobbling bubbles need display-rate frames", () => {
+  const width = 1440;
+  const height = 1800;
+  const bubbles = createBubbles(width, height, seeded(7));
+  let time = 0;
+  const step = (seconds) => {
+    for (let elapsed = 0; elapsed < seconds; elapsed += 1 / 120) {
+      stepBubbles(bubbles, width, height, 1 / 120, time);
+      time += 1 / 120;
+    }
+  };
+
+  step(3);
+  for (let check = 0; check < 60; check++) {
+    step(0.5);
+    assert.equal(bubblesNeedFullFrameRate(bubbles), false, `ambient drift at ${time}s`);
+  }
+
+  bubbles[0].held = true;
+  assert.equal(bubblesNeedFullFrameRate(bubbles), true);
+  releaseBubble(bubbles[0], { vx: 300, vy: 0 });
+  assert.equal(bubblesNeedFullFrameRate(bubbles), true);
+  step(10);
+  assert.equal(bubblesNeedFullFrameRate(bubbles), false);
 });

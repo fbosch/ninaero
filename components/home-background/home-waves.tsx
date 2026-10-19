@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef } from "react";
 
-import { ambientMotionRate } from "./home-motion.mjs";
+import { ambientMotionRate, isAmbientFrame } from "./home-motion.mjs";
 import { createWavePaths, waveLayers, waveViewBox } from "./home-waves.mjs";
 
 import styles from "./home-background.module.css";
@@ -29,6 +29,8 @@ export function HomeWaves({ paused }: { paused: boolean }) {
 
     function animate(time: number) {
       if (!canAnimate()) return;
+      frame = requestAnimationFrame(animate);
+      if (!isAmbientFrame(time, previousTime)) return;
       if (previousTime !== null) {
         timeRef.current += Math.min((time - previousTime) / 1000, 0.05) * 0.25 * ambientMotionRate;
       }
@@ -36,7 +38,6 @@ export function HomeWaves({ paused }: { paused: boolean }) {
       waveLayers.forEach((layer, index) => {
         paths[index].setAttribute("d", createWavePaths(layer, timeRef.current).body);
       });
-      frame = requestAnimationFrame(animate);
     }
 
     function syncAnimation() {

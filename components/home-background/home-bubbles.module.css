@@ -64,11 +64,8 @@
   opacity: 0.45;
   animation: bubbleFilm var(--bubble-film-duration, 16s) ease-in-out var(--bubble-film-delay, -2s)
     infinite;
+  /* Stepped from the capped bubble loop; see advanceFilm in home-bubbles.tsx. */
   animation-play-state: paused;
-}
-
-.lensField[data-motion="running"] .bubbleLens::after {
-  animation-play-state: running;
 }
 
 .bubble:nth-child(3n + 2) {

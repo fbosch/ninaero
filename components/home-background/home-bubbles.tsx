@@ -7,6 +7,7 @@ import { useSound } from "@/registry/ninaero/ui/sound-provider";
 import { createBubbleEntrances } from "./bubble-entrance";
 import {
   bubbleShape,
+  bubblesNeedFullFrameRate,
   createBubbles,
   dragBubble,
   growBubble,
@@ -22,6 +23,7 @@ import {
 import { clearBubblePops, showBubblePop } from "./bubble-pop";
 import { bubbleRefractionTexture } from "./bubble-refraction";
 import { bubbleRefractionStrength } from "./bubble-refraction.mjs";
+import { isAmbientFrame } from "./home-motion.mjs";
 
 import styles from "./home-bubbles.module.css";
 
@@ -221,6 +223,10 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     function animate(time: number) {
       frame = 0;
       if (!enabled()) return;
+      if (!held && !bubblesNeedFullFrameRate(bubbles) && !isAmbientFrame(time, previousTime)) {
+        frame = requestAnimationFrame(animate);
+        return;
+      }
       const elapsed = previousTime === null ? 0 : Math.min((time - previousTime) / 1000, 0.05);
       previousTime = time;
       if (held && elapsed > 0) {
@@ -234,13 +240,27 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       stepBubbles(bubbles, width, height, elapsed, simulationTime);
       simulationTime += elapsed;
       paint();
+      advanceFilm(elapsed);
       if (enabled()) frame = requestAnimationFrame(animate);
+    }
+
+    // A running CSS animation repaints the refracting lenses at display rate, so the
+    // paused film animation is stepped with the capped simulation instead.
+    function advanceFilm(elapsed: number) {
+      if (elapsed <= 0) return;
+      for (const lens of lensElements) {
+        if (lens.hidden) continue;
+        for (const animation of lens.getAnimations({ subtree: true })) {
+          if (!(animation instanceof CSSAnimation)) continue;
+          const current = typeof animation.currentTime === "number" ? animation.currentTime : 0;
+          animation.currentTime = current + elapsed * 1000;
+        }
+      }
     }
 
     function syncAnimation() {
       cancelAnimationFrame(frame);
       previousTime = null;
-      lensField.dataset.motion = enabled() ? "running" : "paused";
       entrances.sync(
         pausedRef.current || document.hidden,
         reducedMotion.matches || forcedColors.matches,

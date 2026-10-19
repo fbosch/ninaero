@@ -60,3 +60,4 @@ export function stepBubbles(
   elapsed: number,
   time?: number,
 ): void;
+export function bubblesNeedFullFrameRate(bubbles: Bubble[]): boolean;

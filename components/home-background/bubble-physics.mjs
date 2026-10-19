@@ -514,3 +514,16 @@ export function stepBubbles(bubbles, width, height, elapsed, time = 0) {
     }
   }
 }
+
+const ambientSpeedLimit = 30;
+const ambientWarpLimit = 0.05;
+
+/** Thrown, held, or wobbling bubbles need display-rate frames; ambient drift does not. */
+export function bubblesNeedFullFrameRate(bubbles) {
+  return bubbles.some(
+    (bubble) =>
+      bubble.held ||
+      Math.hypot(bubble.vx, bubble.vy) > ambientSpeedLimit ||
+      Math.hypot(bubble.warpVX ?? 0, bubble.warpVY ?? 0) > ambientWarpLimit,
+  );
+}
