@@ -88,7 +88,7 @@ body:not(.ninaero-overlay-dither) .home-page::after {
 }
 
 .home-tagline {
-  --home-tagline-ink: color-mix(in oklab, var(--button-link-ink) 75%, var(--background));
+  --home-tagline-ink: var(--button-link-ink);
   color: var(--home-tagline-ink);
   filter: drop-shadow(0 1px 1px var(--display-ink-shadow));
   text-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
@@ -101,7 +101,7 @@ body:not(.ninaero-overlay-dither) .home-page::after {
 
 @supports (color: oklch(from red calc(l + 0.1) c h)) {
   .home-tagline {
-    --home-tagline-ink: oklch(from var(--button-link-ink) calc(l + 0.1) c h);
+    --home-tagline-ink: oklch(from var(--button-link-ink) calc(l + 0.14) c h);
   }
 }
 
