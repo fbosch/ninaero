@@ -6,7 +6,7 @@ Ninaero combines a Nintendo handheld-inspired layout with paper details and rest
 
 Paper is the main material. Wii-style framing gives the controls their shape and shallow depth. Glass marks primary actions, selection, and floating layers. Flipnote-inspired illustration and dithering remain optional artwork.
 
-This document records the agreed visual direction. Button is the first fully styled component. Tidepool is the default accent, with Aurora, Lavender, Slate, Lagoon, Sky, Blossom, Lime, Anemone, and Sunflower alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Status colors remain independent of the accent, and destructive states keep semantic red.
+This document records the agreed visual direction. Tidepool is the default accent, with Aurora, Lavender, Slate, Lagoon, Sky, Blossom, Lime, Anemone, and Sunflower alternatives. Primary, selection, and focus roles follow the chosen preset; structural borders stay grayscale. Paper, panels, and ordinary controls use achromatic fills and ink. Status colors remain independent of the accent, and destructive states keep semantic red.
 
 ## Reference hierarchy
 
@@ -38,7 +38,7 @@ Layer original PSP-inspired ribbons behind the bubbles. Derive their gradients f
 Use Josh W. Comeau's [Next-level frosted glass with backdrop-filter](https://www.joshwcomeau.com/css/backdrop-filter/) as the reference for backdrop sampling, masking, and readability. The homepage adapts these principles to a soft blur of the bubbles behind its content, rather than a framed glass card.
 
 - Keep the blur on a decorative child or pseudo-element, separate from text and controls. Use `pointer-events: none` and leave keyboard-focus outlines unclipped.
-- Make the sampling area larger than the visible glass. Nearby objects should contribute to the blur before they cross its visible edge. Mask the oversized layer to control what gets painted. The article reports that overflow clipping also works in Chrome 142 and newer; check the target browsers before relying on clipping alone.
+- Make the sampling area larger than the visible glass. Nearby objects should contribute to the blur before they cross its visible edge. Mask the oversized layer to control what gets painted. The article reports that overflow clipping also works in Chrome 142 and newer; retain the mask unless clipping alone has been visually verified to preserve the same sampling and visible edges.
 - Treat blur radius, visible shape, and edge feathering as separate choices. Use a rounded mask with a broad, smooth falloff for the homepage. Intersecting horizontal and vertical fades can leave boxy corners. Its blur continues beneath the header without a top fade; only the sides and bottom blend into the page. The site-only mask lives in `public/home-glass-mask.svg`.
 - Keep fill opacity independent of blur strength. Use the actual page background for a neutral tint, rather than a lighter card gradient that reveals a rectangular panel. For the homepage, use an untinted, moderate blur that keeps bubble silhouettes visible rather than hiding them. Use less blur in light mode so faint bubble edges remain visible. Form controls and ordinary code blocks keep their opaque fills. The homepage install command is the only code-block exception.
 - Extending a backdrop does not recover pixels outside the viewport. If scrolling produces flicker at a viewport edge, conceal that edge with a page-colored gradient, as the article demonstrates. Do not weaken the blur with a transparency fade over the heading.
@@ -133,7 +133,9 @@ Reserve the chosen accent for primary actions, links, selected controls, active 
 
 Code syntax tokens use bundled Shiki themes chosen for each accent in light and dark mode. Only token colors are applied; theme italics and other font treatments are ignored. Colors that fall below 4.5:1 are adjusted toward neutral ink while retaining their hue. Uncolored code text and the containing surface remain neutral.
 
-Keep resting neutral borders close to their surrounding fills, using pale gray in light mode and charcoal in dark mode. Resting borders have no 3:1 contrast minimum. Preserve the existing contrast targets for text, keyboard focus, selected states, and errors.
+Keep resting neutral borders close to their surrounding fills, using pale gray in light mode and charcoal in dark mode. Resting borders have no 3:1 contrast minimum.
+
+Require at least 4.5:1 contrast for text, links, placeholders, and error text against their backgrounds. Keyboard-focus outlines and selected or invalid boundaries need at least 3:1 against adjacent surfaces. Existing palette checks cover [accent text and focus](scripts/lib/__tests__/accent-theme.test.mjs), [field text and placeholders](scripts/lib/__tests__/input-theme.test.mjs), [selection and invalid boundaries](scripts/lib/__tests__/checkbox-theme.test.mjs), and [destructive text](scripts/lib/__tests__/destructive-theme.test.mjs).
 
 | Role                  | Direction                                                                 |
 | --------------------- | ------------------------------------------------------------------------- |
@@ -207,7 +209,7 @@ Keep raised controls lighter at the top and darker below, consistent with the sh
 
 Gradients remain local to existing material treatments and restrained glass accents. Keep fields plain and opaque, ordinary panels matte, and text solid except for opt-in hero display ink. The article's [Gradient Generator](https://www.joshwcomeau.com/gradient-generator/) is an authoring aid, not a runtime dependency. Its color stops can also serve radial or conic gradients, but those shapes need a specific lighting or artwork purpose.
 
-Define shared recipes in `registry/ninaero/theme.mjs` and accent-specific colors in `registry/ninaero/accents.mjs`. Check interpolation support in target browsers before relying on it; if a required browser lacks it, use precomputed stops or a readable solid fill. Do not add runtime JavaScript to calculate decorative gradients.
+Define shared recipes in `registry/ninaero/theme.mjs` and accent-specific colors in `registry/ninaero/accents.mjs`. Verify interpolation and its fallback in the browser versions recorded for visual review. When interpolation is unavailable, use precomputed stops or a readable solid fill. Do not add runtime JavaScript to calculate decorative gradients.
 
 Review the full transition at actual component sizes in light and dark modes and across all accent presets. Check hover, pressed, disabled, invalid, and keyboard-focus states. Verify text and control contrast against the least favorable background beneath them, including intermediate colors and translucent layers. Remove decorative gradients in forced-colors mode and retain system-color boundaries. These rules guide future styling; adding them does not establish that existing gradients have been audited.
 
@@ -304,9 +306,9 @@ These are design requirements. They have not yet been verified in a themed inter
 
 ## Shared theme constraints
 
-The homepage at `/` has a concise introduction and an install command; it does not feature a composed interface example. `/docs` contains component documentation and a searchable component list in its sidebar. The standalone `/components` and `/examples` pages and their example routes are removed. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
+The homepage at `/` follows Afterglow's structure: a prominent heading, concise introduction, and an install command. It does not feature a composed interface example. `/docs` contains component documentation and a searchable component list in its sidebar. The standalone `/components` and `/examples` pages and their example routes are removed. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
 
-Borrow Afterglow's homepage structure: a prominent heading and an install command. Use faint dots on the neutral homepage background. Keep grid in catalogue previews and reserve ruling for line-aligned prose. Separate sections with space, not decorative divider lines. Retain borders for controls. Keep catalogues, token swatches, state matrices, and composed examples off the homepage. Keep the accent picker in the header only. Tint the hero tagline with a muted version of the selected accent; keep the main heading and page background neutral. The header also has a compact, icon-only System, Dark, Light Button Group. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
+Keep catalogues, token swatches, and state matrices off the homepage. Keep the accent picker in the header only. The header also has a compact, icon-only System, Dark, Light Button Group. Workshop pages remain available by URL without a detached footer link. Example compositions are not registry blocks unless explicitly registered. Keep UI text action-led and remove captions that repeat nearby labels; retain necessary preview and persistence qualifications.
 
 - Keep shared tokens and theme rules in `registry/ninaero/theme.mjs`.
 - Keep installable component styling in `registry/ninaero/ui/`.
@@ -348,7 +350,7 @@ Secondary uses a paper-material edge; Outline uses a neutral ink/paper edge. Bot
 
 ### Input fields
 
-Input, Textarea, and Select triggers use regular rounded corners with a 12px radius, distinct from Button's squircle proportions. Default fields share `field-height` and `field-padding-inline`, currently `2.25rem` and `1rem`. Textarea shares the horizontal inset but retains its multiline height. Compact Select triggers keep their 28px height and `0.5rem` horizontal inset. InputGroup shares the default row height and outside inset, including its adornments.
+Use the shared field dimensions in [Control geometry](#control-geometry) and the role-based radii in [Corner geometry](#corner-geometry).
 
 Use an opaque neutral `input-fill` slightly darker than the surrounding panel and a fine neutral edge. Its dedicated `input-edge` token is quieter than the shared control border in both modes. Strengthen the neutral edge on hover without overriding invalid or disabled states.
 
@@ -356,17 +358,23 @@ Give fields the shared soft paper recess described above, using `input-fill` for
 
 Invalid fields retain this material and use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
 
-Textarea keeps its `4rem` minimum height, `0.5rem` vertical padding, native resizing, and content-based sizing. Inside InputGroup, suppress its inner border, inset lighting, and focus outline so the group owns the frame.
+Textarea retains native resizing and content-based sizing. Inside InputGroup, suppress its inner border, inset lighting, and focus outline so the group owns the frame.
 
-Select uses the shared default field height, retains its compact trigger size, and preserves Base UI's positioning and keyboard behavior. Its menu uses the shared neutral floating frame with regular rounded `radius-xl` corners, currently `0.875rem`. Selected options have a pale accent fill, a defined edge, and a check mark. Highlighted options use an inset outline that stays inside the menu. Disabled options remain opaque with muted ink. Keep their highlight visible when Base UI focuses them for inspection; they cannot be selected. Reduced motion removes popup and chevron transitions; forced-colors mode preserves selection and highlights with system colors.
+Select preserves Base UI's positioning and keyboard behavior. Its menu uses the shared neutral floating frame. Selected options have a pale accent fill, a defined edge, and a check mark. Highlighted options use an inset outline that stays inside the menu. Disabled options remain opaque with muted ink. Keep their highlight visible when Base UI focuses them for inspection; they cannot be selected. Reduced motion removes popup and chevron transitions; forced-colors mode preserves selection and highlights with system colors.
 
-The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded, distinct from squircle action buttons and dialog frames. DS nickname-field geometry has not been independently verified.
+The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded, distinct from squircle action buttons and dialog frames.
 
 ### Sliders
 
 Keep the 10px recessed channel neutral. Use the chosen accent's glass gradient colors for the convex selected range, with a lit upper rim and a shaded lower edge. Give neutral horizontal native-squircle grabbers secondary Button's fill, border, highlight, shade, and control shadow. Use short grip marks with softened ends. Light-mode marks have etched shading; dark-mode marks match the neutral border. Do not add an inset outline. Keep the overhead lighting consistent on vertical sliders. Hover uses Button's neutral hover fill. Pressing or dragging replaces the lighting and cast shadow with Button's shallow recess, without changing the grabber's size or delaying position updates. Squircle grabbers have the same native browser-support requirement as Button.
 
 Keep the pointer target at least 32px and leave the thumb's shadow and keyboard-focus outline unclipped. Disabled sliders keep their values and lose decorative lighting. Invalid states use semantic-red grip marks, separate from the accent focus outline. Reduced motion removes material transitions. Forced-colors mode uses system colors without gradients or shadows.
+
+### Progress
+
+Use `<Progress variant="circular" value={62} />` for compact progress icons. This is a Ninaero extension; the default remains `linear`. Both variants keep Base UI's accessible value, minimum, and maximum.
+
+The circular variant uses a neutral track and an accent arc, starting at the top. Null values show a partial ring that rotates unless reduced motion is enabled. Keep determinate rings still, and use system colors in forced-colors mode.
 
 ### Tabs
 
@@ -402,6 +410,7 @@ A successful specimen has a clear hierarchy with the decorative effects removed.
 - Paper-pattern spacing and opacity.
 - Where translucency is useful, and its strength.
 - Motion timing for remaining components and the original illustration style.
+- Browser/version support baseline for interpolation and backdrop sampling. Until it is agreed, record the browser versions used for visual review and verify the documented fallbacks.
 
 Refine these from the specimen rather than treating moodboard images as ready-made tokens. A Button specimen is available in the workshop; broader themed components still need their own browser and interaction checks.
 

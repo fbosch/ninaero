@@ -261,32 +261,28 @@ function toneSignature(performance) {
   };
 }
 
-test("glass hover stays warm, muted, and unpitched with a rounded attack", async (t) => {
+test("glass hover has rolled-off treble, a gentle onset, and no pitch sweep", async (t) => {
   const { player, performances } = acousticFixture(t);
   await player.configure({ enabled: true });
   player.play("hover");
-  player.play("tick");
 
-  const [hover, tick] = performances;
+  const hover = performances.at(-1);
   assert.ok(hover.spec.length > 0);
   for (const layer of hover.spec) {
     assert.equal(layer.kind, "noise");
-    assert.equal(layer.filter, "lowpass", "hover should soften the treble");
+    assert.equal(layer.filter, "lowpass");
     assert.equal(layer.at, 0, "hover feedback starts immediately");
+    assert.equal(layer.f2, null, "a hover cue should not fall like an impact");
     const cutoff = layer.f * (hover.transform.noiseF ?? 1);
-    const endCutoff = layer.f2 * (hover.transform.noiseF ?? 1);
-    assert.ok(cutoff >= 600 && cutoff <= 1200, `hover cutoff: ${cutoff} Hz`);
-    assert.ok(endCutoff > 0 && endCutoff <= 600 && endCutoff < cutoff);
-    assert.ok(layer.q * (hover.transform.q ?? 1) <= 0.7, "avoid a ringing resonance");
+    assert.ok(cutoff >= 1200 && cutoff <= 1800, `hover cutoff: ${cutoff} Hz`);
+    assert.ok(layer.q * (hover.transform.q ?? 1) <= 0.5, "the low-pass filter should not ring");
     const attackMs = 1000 * layer.a * (hover.transform.attack ?? 1);
-    assert.ok(attackMs >= 4 && attackMs <= 8, `hover attack: ${attackMs} ms`);
+    assert.ok(attackMs >= 10 && attackMs <= 15, `hover attack: ${attackMs} ms`);
     const durationMs = attackMs + 1000 * layer.d * ((hover.transform.decay ?? 1) * 0.7 + 0.3);
     assert.ok(durationMs >= 30 && durationMs <= 45, `hover duration: ${durationMs} ms`);
   }
-  const hoverPeak = hover.spec.reduce((sum, layer) => sum + layer.peak, 0);
-  const tickPeak = Math.max(...tick.spec.map(({ peak }) => peak));
-  assert.ok(hoverPeak >= 0.01 && hoverPeak <= 0.025);
-  assert.ok(hoverPeak < tickPeak * 0.3);
+  const totalPeak = hover.spec.reduce((sum, layer) => sum + layer.peak, 0);
+  assert.ok(totalPeak >= 0.1 && totalPeak <= 0.13);
   assert.notEqual(hover.transform.shimmer, true);
   assert.equal(hover.transform.send, 0);
 });
@@ -359,7 +355,7 @@ for (const [cue, count, lowHz, highHz, lowMs, highMs] of [
   });
 }
 
-test("glass interaction cues stay within a similar peak-volume range", async (t) => {
+test("glass interaction levels stay bounded at playback", async (t) => {
   const { player, performances } = acousticFixture(t);
   await player.configure({ enabled: true });
   for (const cue of [
@@ -379,8 +375,8 @@ test("glass interaction cues stay within a similar peak-volume range", async (t)
   }
   for (const { cue, spec } of performances) {
     const peak = Math.max(...spec.map((layer) => layer.peak));
-    const minimumPeak = cue === "hover" ? 0.015 : 0.08;
-    assert.ok(peak >= minimumPeak && peak <= 0.12, `${cue}: peak ${peak}`);
+    const [minimumPeak, maximumPeak] = cue === "hover" ? [0.1, 0.16] : [0.08, 0.12];
+    assert.ok(peak >= minimumPeak && peak <= maximumPeak, `${cue}: peak ${peak}`);
   }
 });
 

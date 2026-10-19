@@ -1124,6 +1124,39 @@ export const theme = {
         "background-image": "none",
         "box-shadow": "none",
       },
+      ".ninaero-progress-circular-edge": {
+        stroke: "var(--input-edge)",
+      },
+      ".ninaero-progress-track-shade": {
+        "stop-color": "color-mix(in oklab, var(--input-fill), black var(--recess-shade-weight))",
+      },
+      ".ninaero-progress-track-fill": {
+        "stop-color": "var(--input-fill)",
+      },
+      ".ninaero-progress-track-highlight": {
+        "stop-color":
+          "color-mix(in oklab, var(--input-fill), white var(--recess-highlight-weight))",
+      },
+      ".ninaero-progress-circular-rim": {
+        stroke: "color-mix(in oklab, var(--button-primary-edge) 55%, var(--glass-mark-face-50))",
+      },
+      ".ninaero-progress-indicator-highlight": {
+        "stop-color": "var(--glass-mark-face-0)",
+      },
+      ".ninaero-progress-indicator-middle": {
+        "stop-color": "var(--glass-mark-face-50)",
+      },
+      ".ninaero-progress-indicator-fill": {
+        "stop-color": "var(--glass-mark-face-100)",
+      },
+      "@keyframes ninaero-progress-circular": {
+        from: { "stroke-dashoffset": "100" },
+        to: { "stroke-dashoffset": "0" },
+      },
+      ".ninaero-progress-circular-indicator[data-indeterminate]": {
+        animation: "ninaero-progress-circular 1s linear infinite",
+        "@media (prefers-reduced-motion: reduce)": { animation: "none" },
+      },
       ".ninaero-slider-control": {
         "min-block-size": "2rem",
       },
@@ -1786,6 +1819,9 @@ export const theme = {
       },
       "@media (forced-colors: active)": {
         ...glassMarkForcedColors,
+        ".ninaero-progress-circular-edge": { display: "none" },
+        ".ninaero-progress-circular-track": { stroke: "GrayText" },
+        ".ninaero-progress-circular-indicator > path": { stroke: "Highlight" },
         ".ninaero-code-block, .ninaero-code-block > [data-slot=code-block-header]": {
           "box-shadow": "none",
         },

@@ -29,18 +29,19 @@ type CueProfile = {
 // Page-change/back intervals are shortened and lowered for frequent UI feedback.
 const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
   hover: {
+    level: 0.85,
     spec: [
       {
         kind: "noise",
         at: 0,
         filter: "lowpass",
-        f: 1000,
-        f2: 450,
-        glide: 0.018,
-        q: 0.45,
-        a: 0.006,
-        d: 0.028,
-        peak: 0.02,
+        f: 1600,
+        f2: null,
+        glide: 0.01,
+        q: 0.4,
+        a: 0.012,
+        d: 0.026,
+        peak: 0.14,
         send: 0,
       },
     ],

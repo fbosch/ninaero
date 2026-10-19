@@ -6,6 +6,8 @@ import { parseComponentProgress } from "@/lib/component-progress";
 import { Alert, AlertDescription, AlertTitle } from "@/registry/ninaero/ui/alert";
 import { Progress } from "@/registry/ninaero/ui/progress";
 
+import styles from "./development-notice.module.css";
+
 export async function DevelopmentNotice() {
   const markdown = await readFile(join(process.cwd(), "COMPONENTS.md"), "utf8");
   const { themed, total } = parseComponentProgress(
@@ -15,22 +17,23 @@ export async function DevelopmentNotice() {
   const summary = `${themed} of ${total} components themed`;
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-[2] px-[20px] sm:px-[32px] xl:bottom-[max(1.25rem,env(safe-area-inset-bottom))]">
+    <div className={styles.dock}>
       <Alert
         role="note"
         aria-labelledby="development-notice-title"
-        className="pointer-events-auto mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 supports-backdrop-filter:bg-card/80 supports-backdrop-filter:backdrop-blur-md forced-colors:backdrop-blur-none"
+        className={`pointer-events-auto mx-auto grid w-full max-w-full grid-cols-[auto_minmax(0,1fr)] gap-x-3 sm:flex sm:w-fit sm:flex-wrap sm:items-center sm:justify-center sm:gap-y-2 ${styles.surface}`}
       >
-        <AlertTitle id="development-notice-title">In development</AlertTitle>
-        <AlertDescription>{summary}</AlertDescription>
         <Progress
+          variant="circular"
           value={themed}
           max={total}
           aria-label="Component theming"
           aria-valuetext={summary}
           sound={false}
-          className="w-20 shrink-0"
+          className="row-span-2 shrink-0 self-center"
         />
+        <AlertTitle id="development-notice-title">In development</AlertTitle>
+        <AlertDescription>{summary}</AlertDescription>
       </Alert>
     </div>
   );

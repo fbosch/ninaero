@@ -5,6 +5,7 @@ import { useEffect, useId, useRef } from "react";
 import { useSound } from "@/registry/ninaero/ui/sound-provider";
 
 import { createBubbleEntrances } from "./bubble-entrance";
+import { bubbleHoldOutcome } from "./bubble-hold.mjs";
 import {
   bubbleShape,
   bubblesNeedFullFrameRate,
@@ -183,17 +184,17 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
         !pausedRef.current && !document.hidden && !reducedMotion.matches && !forcedColors.matches
       );
     }
-
     function endHold(action: "launch" | "cancel" | "pop") {
       if (!held) return;
       const current = held;
       const { bubble, pointerId } = current;
       held = null;
-      if (action === "launch") {
+      const outcome = bubbleHoldOutcome(action, current.created);
+      if (outcome === "launch") {
         const velocity = Math.hypot(current.vx, current.vy) > 8 ? current : undefined;
         releaseBubble(bubble, velocity);
-      } else if (action === "pop" || current.created) {
-        if (action === "pop" && enabled()) {
+      } else if (outcome === "pop") {
+        if (enabled()) {
           showPop({ ...bubble, vx: current.vx, vy: current.vy });
         }
         bubbles.splice(bubbles.indexOf(bubble), 1);

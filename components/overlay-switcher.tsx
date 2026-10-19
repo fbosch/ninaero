@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "cn";
-import { useState } from "react";
 
+import { ChevronDownIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 import {
   DropdownMenu,
@@ -23,10 +23,20 @@ const overlayItems = [
   { value: "flipnote", label: "Flipnote dither", className: "ninaero-overlay-flipnote" },
 ] as const;
 
-export function OverlaySwitcher() {
-  const [overlay, setOverlay] = useState<(typeof overlayItems)[number]["value"]>("checker");
-  const currentOverlay = overlayItems.find((item) => item.value === overlay);
-  if (!currentOverlay) throw new Error(`Unknown overlay: ${overlay}`);
+export type OverlayValue = (typeof overlayItems)[number]["value"];
+
+type OverlayMenuProps = {
+  value: OverlayValue;
+  onValueChange: (value: OverlayValue) => void;
+};
+
+export function OverlaySwitcher({
+  value,
+  onValueChange,
+  showLabel = false,
+}: OverlayMenuProps & { showLabel?: boolean }) {
+  const currentOverlay = overlayItems.find((item) => item.value === value);
+  if (!currentOverlay) throw new Error(`Unknown overlay: ${value}`);
   const label = `Overlay: ${currentOverlay.label}`;
 
   return (
@@ -35,50 +45,64 @@ export function OverlaySwitcher() {
         <TooltipTrigger
           render={
             <DropdownMenuTrigger
-              render={<Button size="icon-sm" variant="secondary" />}
+              render={
+                <Button
+                  size={showLabel ? "sm" : "icon-sm"}
+                  variant="secondary"
+                  className={cn(showLabel && "ninaero-rounded-control w-40 justify-between")}
+                />
+              }
               aria-label={label}
             />
           }
         >
           <span
             aria-hidden="true"
-            data-overlay={overlay}
+            data-overlay={value}
             className={cn(styles.swatch, currentOverlay.className)}
           />
+          {showLabel ? (
+            <>
+              <span className="min-w-0 flex-1 text-left">{currentOverlay.label}</span>
+              <ChevronDownIcon data-icon="inline-end" />
+            </>
+          ) : null}
         </TooltipTrigger>
         <TooltipContent>{label}</TooltipContent>
       </Tooltip>
       <DropdownMenuContent className="w-max min-w-44" align="end" aria-label="Overlay">
-        <DropdownMenuRadioGroup
-          value={overlay}
-          onValueChange={(value) => {
-            const selected = overlayItems.find((item) => item.value === value);
-            if (!selected) throw new Error(`Unknown overlay: ${value}`);
-            for (const item of overlayItems) {
-              if (item.className) document.body.classList.remove(item.className);
-            }
-            document.body.classList.toggle("ninaero-overlay-dither", selected.value !== "off");
-            if (selected.className) document.body.classList.add(selected.className);
-            setOverlay(selected.value);
-          }}
-        >
-          {overlayItems.map((item) => (
-            <DropdownMenuRadioItem
-              key={item.value}
-              value={item.value}
-              className="gap-2"
-              closeOnClick
-            >
-              <span
-                aria-hidden="true"
-                data-overlay={item.value}
-                className={cn(styles.swatch, item.className)}
-              />
-              {item.label}
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
+        <OverlayMenuOptions value={value} onValueChange={onValueChange} />
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+function OverlayMenuOptions({ value, onValueChange }: OverlayMenuProps) {
+  return (
+    <DropdownMenuRadioGroup
+      aria-label="Overlay"
+      value={value}
+      onValueChange={(nextValue) => {
+        const selected = overlayItems.find((item) => item.value === nextValue);
+        if (!selected) throw new Error(`Unknown overlay: ${nextValue}`);
+        for (const item of overlayItems) {
+          if (item.className) document.body.classList.remove(item.className);
+        }
+        document.body.classList.toggle("ninaero-overlay-dither", selected.value !== "off");
+        if (selected.className) document.body.classList.add(selected.className);
+        onValueChange(selected.value);
+      }}
+    >
+      {overlayItems.map((item) => (
+        <DropdownMenuRadioItem key={item.value} value={item.value} className="gap-2" closeOnClick>
+          <span
+            aria-hidden="true"
+            data-overlay={item.value}
+            className={cn(styles.swatch, item.className)}
+          />
+          {item.label}
+        </DropdownMenuRadioItem>
+      ))}
+    </DropdownMenuRadioGroup>
   );
 }

@@ -279,10 +279,13 @@ export const displayPreviews = {
   "message-scroller": MessageScrollerPreview,
   progress: function ProgressPreview() {
     return (
-      <Progress value={62} className="w-full">
-        <ProgressLabel>Example progress</ProgressLabel>
-        <ProgressValue />
-      </Progress>
+      <div className="flex w-full flex-col gap-6">
+        <Progress value={62} className="w-full">
+          <ProgressLabel>Example progress</ProgressLabel>
+          <ProgressValue />
+        </Progress>
+        <Progress variant="circular" value={62} aria-label="Example circular progress" />
+      </div>
     );
   },
   resizable: ResizablePreview,

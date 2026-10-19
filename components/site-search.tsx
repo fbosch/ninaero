@@ -112,7 +112,7 @@ export function SiteSearch() {
         <DialogContent
           finalFocus={() => returnFocusRef.current ?? false}
           showCloseButton={false}
-          className="top-16 flex max-h-[calc(100dvh-5rem)] translate-y-0 flex-col sm:top-24 sm:max-h-[calc(100dvh-7rem)] sm:max-w-lg"
+          className="top-16 flex max-h-[calc(100dvh-5rem)] translate-y-0 flex-col p-3 sm:top-24 sm:p-6 sm:max-h-[calc(100dvh-7rem)] sm:max-w-lg"
         >
           <DialogHeader className="sr-only">
             <DialogTitle>Search documentation</DialogTitle>
@@ -125,14 +125,14 @@ export function SiteSearch() {
             <div className="shrink-0">
               <CommandInput
                 aria-label="Search documentation"
-                placeholder="Search components and guides…"
+                placeholder="Search docs…"
                 value={query}
                 onValueChange={setQuery}
                 maxLength={200}
                 autoFocus
               />
             </div>
-            <CommandList className="min-h-0 flex-1 scroll-py-3 py-3 [mask-image:linear-gradient(to_bottom,transparent,black_12px,black_calc(100%_-_12px),transparent)] forced-colors:[mask-image:none]">
+            <CommandList className="min-h-0 flex-1 scroll-py-1 py-1 sm:scroll-py-3 sm:py-3 [mask-image:linear-gradient(to_bottom,transparent,black_12px,black_calc(100%_-_12px),transparent)] forced-colors:[mask-image:none]">
               <CommandEmpty>No documentation matches your search.</CommandEmpty>
               {groups
                 .filter((group) => group.entries.length > 0)

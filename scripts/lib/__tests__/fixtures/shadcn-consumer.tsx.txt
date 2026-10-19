@@ -26,6 +26,7 @@ import {
   DialogTrigger,
 } from "@/custom/ui/dialog";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/custom/ui/select";
+import { Progress } from "@/custom/ui/progress";
 import { Slider } from "@/custom/ui/slider";
 import { SoundProvider, useSound } from "@/custom/ui/sound-provider";
 import { Toggle } from "@/custom/ui/toggle";
@@ -117,6 +118,9 @@ export function ConsumerFixture() {
           <TooltipContent>Rendered trigger context.</TooltipContent>
         </Tooltip>
       </TooltipProvider>
+      <Progress variant="circular" value={19} max={68} aria-label="Components themed" />
+      <Progress variant="circular" value={30} min={20} max={40} aria-label="Offset progress" />
+      <Progress variant="circular" value={null} aria-label="Loading" />
       <Slider defaultValue={40} max={100} />
       <Slider variant="simple" defaultValue={35} aria-label="Volume" />
       <Slider defaultValue={[20, 80]} max={100} />

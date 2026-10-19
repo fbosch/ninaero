@@ -29,10 +29,10 @@ export default function Home() {
         aria-hidden="true"
         className="home-paper ninaero-paper-dotted mix-blend-multiply dark:mix-blend-screen ninaero-pattern-ink-foreground/12 dark:ninaero-pattern-ink-foreground/8"
       />
-      <div className="home-content mx-auto flex w-full max-w-6xl flex-col gap-12 px-[20px] pt-8 pb-44 sm:px-[32px] lg:pt-[clamp(4rem,18vh,11rem)] xl:pb-28">
+      <div className="home-content mx-auto flex w-full max-w-6xl flex-col gap-12 px-[20px] pt-8 pb-28 sm:px-[32px] lg:pt-[clamp(4rem,18vh,11rem)]">
         <section className="home-hero relative flex flex-col gap-8 sm:gap-12 lg:ml-0 lg:mr-auto lg:w-full lg:max-w-4xl">
           <header className="flex min-w-0 max-w-4xl flex-col gap-4">
-            <h1 className="text-balance text-5xl type-display sm:text-6xl">
+            <h1 className="text-balance text-[clamp(2.25rem,9vw,3.75rem)] type-display">
               <span className="ninaero-display-ink block">
                 An optimistic & nostalgic theme for a
               </span>{" "}
@@ -68,8 +68,8 @@ export default function Home() {
           here.
         </p>
       </div>
-      <HomeBackground />
       <DevelopmentNotice />
+      <HomeBackground />
     </main>
   );
 }

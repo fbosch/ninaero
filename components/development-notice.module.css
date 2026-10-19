@@ -1,0 +1,29 @@
+.dock {
+  position: fixed;
+  inset-inline: 20px;
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (width >= 40rem) {
+  .dock {
+    inset-inline: 32px;
+  }
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .surface {
+    background-color: color-mix(in oklab, var(--card) 65%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(1.15);
+    backdrop-filter: blur(20px) saturate(1.15);
+  }
+}
+
+@media (forced-colors: active) {
+  .surface {
+    background-color: Canvas;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
