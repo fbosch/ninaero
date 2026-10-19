@@ -1,0 +1,119 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing stable release tag to redeploy
+        required: false
+        type: string
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release-please:
+    name: Release Please
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.release-context.outputs.release_created }}
+      tag_name: ${{ steps.release-context.outputs.tag_name }}
+    steps:
+      - name: Run release-please
+        if: >-
+          ${{ github.event_name != 'workflow_dispatch' ||
+          inputs.release_tag == '' }}
+        id: release
+        # v5
+        uses: "googleapis/release-please-action@\
+          45996ed1f6d02564a971a2fa1b5860e934307cf7"
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      - name: Resolve release context
+        id: release-context
+        env:
+          MANUAL_RELEASE_TAG: ${{ inputs.release_tag }}
+          RELEASE_CREATED: ${{ steps.release.outputs.release_created }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag_name }}
+        run: |
+          if [ -n "$MANUAL_RELEASE_TAG" ]; then
+            RELEASE_CREATED=true
+            RELEASE_TAG="$MANUAL_RELEASE_TAG"
+          fi
+          if [ "$RELEASE_CREATED" = true ]; then
+            if [[ ! "$RELEASE_TAG" =~ ^ninaero-v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "::error::Expected a stable ninaero-vX.Y.Z release tag."
+              exit 1
+            fi
+          fi
+          echo "release_created=${RELEASE_CREATED:-false}" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    name: Deploy release to Cloudflare Pages
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.deployment-url }}
+    env:
+      REGISTRY_URL: https://ninaero.fbb.sh/r
+    steps:
+      - name: Verify published stable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.release-please.outputs.tag_name }}
+        run: |
+          stable=$(gh release view "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" --json isDraft,isPrerelease \
+            --jq '(.isDraft == false) and (.isPrerelease == false)')
+          test "$stable" = true
+
+      - name: Check out release tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: refs/tags/${{ needs.release-please.outputs.tag_name }}
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build and check
+        run: pnpm check
+
+      - name: Check release registry contracts
+        run: pnpm check:shadcn:release
+
+      - name: Deploy production
+        id: deploy
+        # v4.1.3
+        uses: >-
+          cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4.151.2"
+          command: pages deploy out --project-name=ninaero --branch=production

@@ -88,7 +88,7 @@ body:not(.ninaero-overlay-dither) .home-page::after {
 }
 
 .home-tagline {
-  --home-tagline-ink: var(--button-link-ink);
+  --home-tagline-ink: color-mix(in oklab, var(--button-link-ink) 75%, var(--background));
   color: var(--home-tagline-ink);
   filter: drop-shadow(0 1px 1px var(--display-ink-shadow));
   text-shadow: 0 1px 2px rgb(0 0 0 / 0.18);

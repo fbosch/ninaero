@@ -1,6 +1,6 @@
 export const syntaxThemePairs = {
-  tidepool: { light: "material-theme-lighter", dark: "material-theme-ocean" },
-  aurora: { light: "one-light", dark: "aurora-x" },
+  tidepool: { light: "solarized-light", dark: "solarized-dark" },
+  aurora: { light: "kanagawa-lotus", dark: "kanagawa-wave" },
   lavender: { light: "catppuccin-latte", dark: "catppuccin-mocha" },
   slate: { light: "github-light-high-contrast", dark: "github-dark-high-contrast" },
   lagoon: { light: "vitesse-light", dark: "vitesse-dark" },

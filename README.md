@@ -135,3 +135,30 @@ REGISTRY_URL=https://your-domain.example/r pnpm build
 The build embeds this URL in registry dependencies. Do not publish with the localhost default. Set the variable in the shell or deployment environment, not `.env.local`.
 
 With `output: "export"` in `next.config.ts`, `pnpm build` writes the static site to `out/` and removes the `/workshop` pages. `pnpm dev` keeps the workshop available locally. For Cloudflare Pages, use `pnpm build` as the build command and `out` as the build directory.
+
+### Cloudflare deployment
+
+Cloudflare Pages project `ninaero` connects to `fbosch/ninaero`. Pushes to `main` build development previews at [main.ninaero.pages.dev](https://main.ninaero.pages.dev). Each preview also has an immutable `<hash>.ninaero.pages.dev` URL. Other branches get their own preview aliases. Previews are public and receive Cloudflare's `noindex` header.
+
+Pages uses Node.js 22, pnpm 11.20.0, build output `out/`, and this build command:
+
+```sh
+REGISTRY_URL="${REGISTRY_URL:-${CF_PAGES_URL:?CF_PAGES_URL is required}/r}" pnpm build
+```
+
+Preview registry dependencies point to that deployment's own URL. The Pages production branch is `production`, with automatic Git production builds disabled. This name selects the production environment for uploads; no Git branch needs to be created.
+
+The [release workflow](.github/workflows/release.yml) follows the release-please pattern used in [pkdx](https://github.com/fbosch/pkdx). Conventional commits on `main` update a release PR. Merging it creates a `ninaero-vX.Y.Z` tag and GitHub release. A dependent job checks out that tag, runs `pnpm check` and `pnpm check:shadcn:release`, then uploads `out/` to production. Production builds embed `https://ninaero.fbb.sh/r`.
+
+Deployment runs in the same workflow because releases created with `GITHUB_TOKEN` do not trigger a separate release-event workflow. Ordinary pushes to `main` do not deploy production.
+
+#### Finish setup before the first release
+
+1. Create a Cloudflare API token with **Account > Cloudflare Pages > Edit**, scoped to the Frederik Bosch account. Add it as the `CLOUDFLARE_API_TOKEN` Actions secret in `fbosch/ninaero`. Never put the token in this repository.
+2. Confirm the Actions variable `CLOUDFLARE_ACCOUNT_ID` is `f0ae75173744ab127102e1922a58f59e`. Actions must be allowed to create pull requests; this setting is enabled.
+3. Commit and push the workflow and release-please configuration when ready. No workflow is active until those files reach GitHub.
+4. Merge a release PR when the site is ready. After the tagged production deployment succeeds, add `ninaero.fbb.sh` under the Pages project's custom domains and create its proxied CNAME to `ninaero.pages.dev`. Confirm domain validation, HTTPS, and registry reachability before announcing the release.
+
+The custom domain remains unconnected during development. The initial setup build at `ninaero.pages.dev` predates the release-only configuration; do not treat it as a tagged release.
+
+To retry a failed deployment, run the **Release** workflow on `main` with `release_tag` set to an existing stable GitHub release such as `ninaero-v0.2.0`. The workflow rejects draft and prerelease releases and deploys the tag rather than the latest `main`.

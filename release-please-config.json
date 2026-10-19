@@ -1,0 +1,10 @@
+{
+  "packages": {
+    ".": {
+      "package-name": "ninaero",
+      "component": "ninaero",
+      "release-type": "node",
+      "include-component-in-tag": true
+    }
+  }
+}

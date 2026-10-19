@@ -385,14 +385,14 @@
   --glass-mark-face-100: #92a6e3;
 }
 [data-accent="lavender"] {
-  --button-primary-fill: #e2d4ef;
-  --button-primary-hover: #d6c3e7;
-  --button-primary-pressed: #c8b2dc;
-  --button-primary-ink: #453052;
-  --button-primary-edge: #8b6a9e;
-  --button-link-ink: #715080;
-  --button-focus: #76518b;
-  --accent-soft: #f5effa;
+  --button-primary-fill: #ddceec;
+  --button-primary-hover: #d0bde4;
+  --button-primary-pressed: #c1abd8;
+  --button-primary-ink: #3e294a;
+  --button-primary-edge: #8a699c;
+  --button-link-ink: #6c4c7b;
+  --button-focus: #734d88;
+  --accent-soft: #f4edf8;
   --primary: var(--button-primary-fill);
   --primary-foreground: var(--button-primary-ink);
   --accent: var(--accent-soft);
@@ -406,22 +406,22 @@
   --sidebar-accent: var(--accent-soft);
   --sidebar-accent-foreground: var(--button-link-ink);
   --sidebar-ring: var(--button-focus);
-  --glass-mark-rim-0: #8b6a9e;
-  --glass-mark-rim-50: #836495;
-  --glass-mark-rim-100: #7c5e8d;
-  --glass-mark-face-0: #d6c3e7;
-  --glass-mark-face-50: #cfbae2;
-  --glass-mark-face-100: #c8b2dc;
+  --glass-mark-rim-0: #8a699c;
+  --glass-mark-rim-50: #826393;
+  --glass-mark-rim-100: #7b5d8b;
+  --glass-mark-face-0: #d0bde4;
+  --glass-mark-face-50: #c8b4de;
+  --glass-mark-face-100: #c1abd8;
 }
 .dark[data-accent="lavender"], .dark [data-accent="lavender"] {
-  --button-primary-fill: #cbb1e1;
-  --button-primary-hover: #dcc6ed;
-  --button-primary-pressed: #b89bd2;
-  --button-primary-ink: #281b32;
-  --button-primary-edge: #e3ccf5;
-  --button-link-ink: #dfc7ef;
-  --button-focus: #e4ccfa;
-  --accent-soft: #3d2f49;
+  --button-primary-fill: #c7a7df;
+  --button-primary-hover: #d7bceb;
+  --button-primary-pressed: #b498ce;
+  --button-primary-ink: #271a31;
+  --button-primary-edge: #e2c6f4;
+  --button-link-ink: #dbc4ec;
+  --button-focus: #dec2f5;
+  --accent-soft: #3d2e48;
   --primary: var(--button-primary-fill);
   --primary-foreground: var(--button-primary-ink);
   --accent: var(--accent-soft);
@@ -435,12 +435,12 @@
   --sidebar-accent: var(--accent-soft);
   --sidebar-accent-foreground: var(--button-link-ink);
   --sidebar-ring: var(--button-focus);
-  --glass-mark-rim-0: #e3ccf5;
-  --glass-mark-rim-50: #d7c1e8;
-  --glass-mark-rim-100: #cbb6db;
-  --glass-mark-face-0: #dcc6ed;
-  --glass-mark-face-50: #cab0e0;
-  --glass-mark-face-100: #b89bd2;
+  --glass-mark-rim-0: #e2c6f4;
+  --glass-mark-rim-50: #d6bbe7;
+  --glass-mark-rim-100: #cab1da;
+  --glass-mark-face-0: #d7bceb;
+  --glass-mark-face-50: #c5aadc;
+  --glass-mark-face-100: #b498ce;
 }
 [data-accent="slate"] {
   --button-primary-fill: #d8e1e9;

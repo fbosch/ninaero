@@ -32,9 +32,16 @@ import { createRegistry, defaultRegistryUrl } from "./lib/theme.mjs";
 const runFile = promisify(execFile);
 const require = createRequire(import.meta.url);
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
-const manifest = JSON.parse(await readFile(join(projectRoot, "package.json"), "utf8"));
-const shadcnPackage = JSON.parse(
-  await readFile(new URL("../package.json", import.meta.resolve("shadcn")), "utf8"),
+async function readPackageManifest(file) {
+  try {
+    return JSON.parse(await readFile(file, "utf8"));
+  } catch (error) {
+    throw new Error(`Unable to read package manifest ${file}.`, { cause: error });
+  }
+}
+const manifest = await readPackageManifest(join(projectRoot, "package.json"));
+const shadcnPackage = await readPackageManifest(
+  new URL("../package.json", import.meta.resolve("shadcn")),
 );
 const release = process.argv.slice(2).includes("--release");
 if (process.argv.slice(2).some((arg) => arg !== "--release") || process.argv.slice(2).length > 1) {
@@ -94,9 +101,9 @@ try {
   await symlink(join(projectRoot, "registry/ninaero"), join(tempRoot, "registry/ninaero"), "dir");
   await symlink(join(projectRoot, "lib"), join(tempRoot, "lib"), "dir");
 
-  await runCli(["registry", "validate", sourceRegistry], tempRoot);
+  await runCli(["registry", "validate", sourceRegistry, "--cwd", tempRoot], tempRoot);
   const builtRegistry = join(tempRoot, "public/r");
-  await runCli(["build", sourceRegistry, "--output", builtRegistry], tempRoot);
+  await runCli(["build", sourceRegistry, "--cwd", tempRoot, "--output", builtRegistry], tempRoot);
 
   const consumer = join(tempRoot, "consumer");
   const consumerRegistry = join(consumer, "registry");
