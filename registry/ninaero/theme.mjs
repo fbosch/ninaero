@@ -25,6 +25,20 @@ const codeCopyButtonSelector =
   ".ninaero-button--ghost[data-slot=code-block-copy-button]:not(:disabled):not([data-disabled]):not([aria-disabled=true])";
 const raisedButtonSelector =
   ":is(.ninaero-button--primary, .ninaero-button--secondary, .ninaero-button--destructive)";
+// Squircle corner extent per Button size, so an all-raised Button Group's cast shadow follows its
+// buttons' outer corners. Default Buttons use 1rem.
+// shortcut: these duplicate the `[--button-corner:*]` classes in ui/button.tsx, which must stay there
+// because consumers apply buttonVariants() to elements without data-size. Update both together;
+// move to one source if Button sizes start reading corners from the theme.
+const buttonCorners = {
+  xs: "0.75rem",
+  "icon-xs": "0.75rem",
+  sm: "0.875rem",
+  "icon-sm": "0.875rem",
+  lg: "1.125rem",
+  "icon-lg": "1.125rem",
+  xl: "1.5rem",
+};
 const raisedButtonGroupSelector = [
   ".ninaero-button-group",
   `:has(> ${raisedButtonSelector}:not(:disabled):not([data-disabled]):not([aria-disabled=true]))`,
@@ -1030,21 +1044,18 @@ export const theme = {
         "box-shadow": "none",
         cursor: "not-allowed",
       },
+      // The dot is a small raised paper bead, the same material as Switch and Slider thumbs.
       ".ninaero-radio-group-dot": {
         ...shadowSurface("var(--glass-mark-face-50)"),
-        "background-color": "currentColor",
+        border: "1px solid",
+        ...paperThumbMaterial,
       },
       ".ninaero-radio-group-item:where(:active:not([data-disabled]):not([data-readonly])) .ninaero-radio-group-dot":
         {
           "--shadow-surface": "var(--button-recess-fill)",
         },
-      ":where(:root:not(.dark)) .ninaero-radio-group-dot": {
-        border: "1px solid var(--button-paper-edge)",
-        "background-color": "white",
-        "background-image": "linear-gradient(180deg in oklab, white, #e6e6e6)",
-        "box-shadow": "inset 0 1px 0 white, inset 0 -1px 0 #00000014, var(--shadow-control)",
-      },
       ".ninaero-radio-group-item:where([data-disabled]) .ninaero-radio-group-dot": {
+        "border-color": "currentColor",
         "background-color": "currentColor",
         "background-image": "none",
         "box-shadow": "none",
@@ -1320,6 +1331,19 @@ export const theme = {
         },
       ".ninaero-popover-content[data-instant], .ninaero-dropdown-menu-content[data-instant]": {
         transition: "none",
+      },
+      ".ninaero-popover-content": {
+        "--popover-enter-x": "0px",
+        "--popover-enter-y": "0px",
+        transform: "translate(0, 0) scale(1)",
+        transition: "opacity 120ms ease-out, transform 240ms cubic-bezier(0.22, 2, 0.35, 1)",
+      },
+      ".ninaero-popover-content[data-side=top]": { "--popover-enter-y": "3px" },
+      ".ninaero-popover-content[data-side=bottom]": { "--popover-enter-y": "-3px" },
+      ".ninaero-popover-content[data-side=left]": { "--popover-enter-x": "3px" },
+      ".ninaero-popover-content[data-side=right]": { "--popover-enter-x": "-3px" },
+      ".ninaero-popover-content[data-starting-style]": {
+        transform: "translate(var(--popover-enter-x), var(--popover-enter-y)) scale(0.95)",
       },
       ".ninaero-dropdown-menu-content": {
         // Keep keyboard-scrolled highlights and their cast shadows clear of the clipping edge.
@@ -1703,6 +1727,12 @@ export const theme = {
         "corner-shape": "squircle",
         "box-shadow": "var(--shadow-control)",
       },
+      ...Object.fromEntries(
+        Object.entries(buttonCorners).map(([size, corner]) => [
+          `${raisedButtonGroupSelector}:has(> .ninaero-button[data-size=${size}])`,
+          { "--button-group-corner": corner },
+        ]),
+      ),
       [`${raisedButtonGroupSelector} > .ninaero-button`]: {
         "--button-cast-shadow": "var(--shadow-flat)",
       },

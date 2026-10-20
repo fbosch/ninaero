@@ -291,7 +291,7 @@ function DropdownMenuShortcut({ className, ...props }: React.ComponentProps<"spa
   return (
     <span
       data-slot="dropdown-menu-shortcut"
-      className={cn("ninaero-dropdown-menu-shortcut ms-auto text-xs tracking-widest", className)}
+      className={cn("ninaero-dropdown-menu-shortcut ms-auto text-xs type-caption", className)}
       {...props}
     />
   );
