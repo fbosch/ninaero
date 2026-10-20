@@ -29,22 +29,22 @@ type CueProfile = {
 // Page-change/back intervals are shortened and lowered for frequent UI feedback.
 const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
   hover: {
-    level: 0.85,
+    level: 0.55,
+    // Upper partials fade first so the short pointer tick does not ring.
     spec: [
-      {
-        kind: "noise",
-        at: 0,
-        filter: "lowpass",
-        f: 1600,
-        f2: null,
-        glide: 0.01,
-        q: 0.4,
-        a: 0.012,
-        d: 0.026,
-        peak: 0.14,
-        send: 0,
-      },
-    ],
+      { f: 2600, a: 0.002, d: 0.014, peak: 0.05 },
+      { f: 2800, a: 0.002, d: 0.009, peak: 0.035 },
+      { f: 5500, a: 0.0015, d: 0.006, peak: 0.02 },
+      { f: 7600, a: 0.0015, d: 0.005, peak: 0.01 },
+    ].map((layer): Spec[number] => ({
+      kind: "tone",
+      at: 0,
+      wave: "sine",
+      f2: null,
+      glide: 0.01,
+      send: 0,
+      ...layer,
+    })),
     transform: {},
   },
   tick: {

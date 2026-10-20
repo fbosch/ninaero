@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { AccentProvider } from "@/components/accent-provider";
+import { HomeMotionProvider } from "@/components/home-background/home-motion-settings";
 import { HomeSoundProvider, PageSoundBoundary } from "@/components/home-background/home-sound";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -35,8 +36,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   >
                     Skip to content
                   </a>
-                  <SiteHeader />
-                  <PageSoundBoundary>{children}</PageSoundBoundary>
+                  <HomeMotionProvider>
+                    <SiteHeader />
+                    <PageSoundBoundary>{children}</PageSoundBoundary>
+                  </HomeMotionProvider>
                 </TooltipProvider>
               </HomeSoundProvider>
             </AccentProvider>

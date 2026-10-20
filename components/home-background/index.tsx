@@ -8,6 +8,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/ninaero/ui/t
 
 import { watchAmbientActivity } from "./ambient-activity";
 import { HomeBubbles } from "./home-bubbles";
+import { useHomeMotion } from "./home-motion-settings";
 import { HomeSky } from "./home-sky";
 import { HomeSoundToggle } from "./home-sound";
 import { HomeWaves } from "./home-waves";
@@ -15,7 +16,7 @@ import { HomeWaves } from "./home-waves";
 import styles from "./home-background.module.css";
 
 export function HomeBackground() {
-  const [paused, setPaused] = useState(false);
+  const { paused, setPaused } = useHomeMotion();
   const [active, setActive] = useState(true);
   const controlsRef = useRef<HTMLDivElement>(null);
 
