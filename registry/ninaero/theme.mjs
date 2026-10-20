@@ -220,6 +220,15 @@ const selectedTrackMaterial = {
   "box-shadow":
     "inset 0 1px 0 color-mix(in oklab, var(--glass-mark-face-0), white 25%), inset 0 -1px 0 color-mix(in oklab, var(--glass-mark-face-100), black 8%)",
 };
+// Invalid Switch and Slider rebind the selected glass to the semantic destructive material, so the
+// on/selected parts turn red with the same shading. Off and empty states keep the red border alone.
+const invalidSelectedMaterial = {
+  "--button-primary-fill": "var(--button-destructive-fill)",
+  "--glass-mark-face-0": "var(--button-destructive-hover)",
+  "--glass-mark-face-50":
+    "color-mix(in oklab, var(--button-destructive-hover), var(--button-destructive-pressed))",
+  "--glass-mark-face-100": "var(--button-destructive-pressed)",
+};
 const paperThumbMaterial = {
   "border-color": "var(--button-paper-edge)",
   "background-color": "var(--button-paper-fill)",
@@ -1073,6 +1082,7 @@ export const theme = {
         pressedThumbMaterial,
       ".ninaero-switch:where([aria-invalid=true], [data-invalid])": {
         "border-color": "var(--destructive)",
+        ...invalidSelectedMaterial,
       },
       ".ninaero-switch:where([data-readonly])": { cursor: "default" },
       ".ninaero-switch:where([data-disabled])": {
@@ -1175,7 +1185,6 @@ export const theme = {
       },
       ".ninaero-slider:where([data-variant=simple])": {
         "--slider-simple-ink": "var(--foreground)",
-        "--ring": "var(--foreground)",
       },
       ".ninaero-slider:where([data-variant=simple]) .ninaero-slider-track": {
         border: "none",
@@ -1203,6 +1212,10 @@ export const theme = {
         },
       ".ninaero-slider:where([data-variant=simple]):where([data-invalid], [aria-invalid=true])": {
         "--slider-simple-ink": "var(--destructive)",
+      },
+      ".ninaero-slider:where([data-invalid], [aria-invalid=true])": invalidSelectedMaterial,
+      ".ninaero-slider:where([data-invalid], [aria-invalid=true]) .ninaero-slider-track": {
+        "border-color": "var(--destructive)",
       },
       ".ninaero-slider:where([data-invalid], [aria-invalid=true]) .ninaero-slider-thumb": {
         "--slider-grip-ink": "var(--destructive)",
@@ -1870,6 +1883,9 @@ export const theme = {
           "border-color": "GrayText",
           "background-color": "Canvas",
         },
+        ".ninaero-switch:where([aria-invalid=true], [data-invalid])": {
+          "border-style": "dashed",
+        },
         ".ninaero-slider": { "forced-color-adjust": "none" },
         ".ninaero-slider .ninaero-slider-track": {
           border: "1px solid CanvasText",
@@ -1891,6 +1907,11 @@ export const theme = {
         ".ninaero-slider .ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
           "outline-color": "Highlight",
         },
+        // System colors cannot carry the semantic red, so invalid keeps a non-color dashed cue.
+        ".ninaero-slider:where([data-invalid], [aria-invalid=true]) :is(.ninaero-slider-track, .ninaero-slider-thumb)":
+          {
+            "border-style": "dashed",
+          },
         ".ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-track, .ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-thumb":
           {
             "border-color": "GrayText",

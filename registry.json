@@ -1953,7 +1953,11 @@
             "--ninaero-material-shadow": "inset 0 2px 6px color-mix(in oklab, var(--button-paper-pressed), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--button-paper-pressed), white var(--recess-highlight-weight))"
           },
           ".ninaero-switch:where([aria-invalid=true], [data-invalid])": {
-            "border-color": "var(--destructive)"
+            "border-color": "var(--destructive)",
+            "--button-primary-fill": "var(--button-destructive-fill)",
+            "--glass-mark-face-0": "var(--button-destructive-hover)",
+            "--glass-mark-face-50": "color-mix(in oklab, var(--button-destructive-hover), var(--button-destructive-pressed))",
+            "--glass-mark-face-100": "var(--button-destructive-pressed)"
           },
           ".ninaero-switch:where([data-readonly])": {
             "cursor": "default"
@@ -2076,8 +2080,7 @@
             "outline-offset": "2px"
           },
           ".ninaero-slider:where([data-variant=simple])": {
-            "--slider-simple-ink": "var(--foreground)",
-            "--ring": "var(--foreground)"
+            "--slider-simple-ink": "var(--foreground)"
           },
           ".ninaero-slider:where([data-variant=simple]) .ninaero-slider-track": {
             "border": "none",
@@ -2107,6 +2110,15 @@
           },
           ".ninaero-slider:where([data-variant=simple]):where([data-invalid], [aria-invalid=true])": {
             "--slider-simple-ink": "var(--destructive)"
+          },
+          ".ninaero-slider:where([data-invalid], [aria-invalid=true])": {
+            "--button-primary-fill": "var(--button-destructive-fill)",
+            "--glass-mark-face-0": "var(--button-destructive-hover)",
+            "--glass-mark-face-50": "color-mix(in oklab, var(--button-destructive-hover), var(--button-destructive-pressed))",
+            "--glass-mark-face-100": "var(--button-destructive-pressed)"
+          },
+          ".ninaero-slider:where([data-invalid], [aria-invalid=true]) .ninaero-slider-track": {
+            "border-color": "var(--destructive)"
           },
           ".ninaero-slider:where([data-invalid], [aria-invalid=true]) .ninaero-slider-thumb": {
             "--slider-grip-ink": "var(--destructive)"
@@ -2782,6 +2794,9 @@
               "border-color": "GrayText",
               "background-color": "Canvas"
             },
+            ".ninaero-switch:where([aria-invalid=true], [data-invalid])": {
+              "border-style": "dashed"
+            },
             ".ninaero-slider": {
               "forced-color-adjust": "none"
             },
@@ -2809,6 +2824,9 @@
             },
             ".ninaero-slider .ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
               "outline-color": "Highlight"
+            },
+            ".ninaero-slider:where([data-invalid], [aria-invalid=true]) :is(.ninaero-slider-track, .ninaero-slider-thumb)": {
+              "border-style": "dashed"
             },
             ".ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-track, .ninaero-slider:where([data-disabled], [aria-disabled=true]) .ninaero-slider-thumb": {
               "border-color": "GrayText"
