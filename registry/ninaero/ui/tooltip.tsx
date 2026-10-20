@@ -1,5 +1,6 @@
 "use client";
 
+import { useDirection } from "@base-ui/react/direction-provider";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { useRender } from "@base-ui/react/use-render";
 import { cn } from "cn";
@@ -143,6 +144,7 @@ function TooltipContent({
   ...props
 }: TooltipPrimitive.Popup.Props &
   Pick<TooltipPrimitive.Positioner.Props, "align" | "alignOffset" | "side" | "sideOffset">) {
+  const direction = useDirection();
   const description = React.useContext(TooltipDescriptionContext);
   const generatedId = React.useId();
   const popupId = id ?? generatedId;
@@ -163,6 +165,7 @@ function TooltipContent({
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           id={popupId}
+          dir={direction}
           role="tooltip"
           className={cn(
             "ninaero-tooltip before:ninaero-paper-ruled-4 z-50 inline-flex w-fit items-center gap-1.5 px-4 py-2 text-xs type-caption **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm",

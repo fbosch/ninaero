@@ -1340,8 +1340,10 @@ export const theme = {
       },
       ".ninaero-popover-content[data-side=top]": { "--popover-enter-y": "3px" },
       ".ninaero-popover-content[data-side=bottom]": { "--popover-enter-y": "-3px" },
-      ".ninaero-popover-content[data-side=left]": { "--popover-enter-x": "3px" },
-      ".ninaero-popover-content[data-side=right]": { "--popover-enter-x": "-3px" },
+      ".ninaero-popover-content:is([data-side=left], [data-side=inline-start][dir=ltr], [data-side=inline-end][dir=rtl])":
+        { "--popover-enter-x": "3px" },
+      ".ninaero-popover-content:is([data-side=right], [data-side=inline-end][dir=ltr], [data-side=inline-start][dir=rtl])":
+        { "--popover-enter-x": "-3px" },
       ".ninaero-popover-content[data-starting-style]": {
         transform: "translate(var(--popover-enter-x), var(--popover-enter-y)) scale(0.95)",
       },
@@ -1423,8 +1425,10 @@ export const theme = {
       },
       ".ninaero-tooltip[data-side=top]": { "--tooltip-enter-y": "4px" },
       ".ninaero-tooltip[data-side=bottom]": { "--tooltip-enter-y": "-4px" },
-      ".ninaero-tooltip[data-side=left]": { "--tooltip-enter-x": "4px" },
-      ".ninaero-tooltip[data-side=right]": { "--tooltip-enter-x": "-4px" },
+      ".ninaero-tooltip:is([data-side=left], [data-side=inline-start][dir=ltr], [data-side=inline-end][dir=rtl])":
+        { "--tooltip-enter-x": "4px" },
+      ".ninaero-tooltip:is([data-side=right], [data-side=inline-end][dir=ltr], [data-side=inline-start][dir=rtl])":
+        { "--tooltip-enter-x": "-4px" },
       ".ninaero-tooltip[data-starting-style]": {
         opacity: "0",
         transform: "translate(var(--tooltip-enter-x), var(--tooltip-enter-y)) scale(0.88)",

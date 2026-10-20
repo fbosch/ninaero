@@ -2233,10 +2233,10 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   .ninaero-popover-content[data-side=bottom] {
     --popover-enter-y: -3px;
   }
-  .ninaero-popover-content[data-side=left] {
+  .ninaero-popover-content:is([data-side=left], [data-side=inline-start][dir=ltr], [data-side=inline-end][dir=rtl]) {
     --popover-enter-x: 3px;
   }
-  .ninaero-popover-content[data-side=right] {
+  .ninaero-popover-content:is([data-side=right], [data-side=inline-end][dir=ltr], [data-side=inline-start][dir=rtl]) {
     --popover-enter-x: -3px;
   }
   .ninaero-popover-content[data-starting-style] {
@@ -2320,10 +2320,10 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   .ninaero-tooltip[data-side=bottom] {
     --tooltip-enter-y: -4px;
   }
-  .ninaero-tooltip[data-side=left] {
+  .ninaero-tooltip:is([data-side=left], [data-side=inline-start][dir=ltr], [data-side=inline-end][dir=rtl]) {
     --tooltip-enter-x: 4px;
   }
-  .ninaero-tooltip[data-side=right] {
+  .ninaero-tooltip:is([data-side=right], [data-side=inline-end][dir=ltr], [data-side=inline-start][dir=rtl]) {
     --tooltip-enter-x: -4px;
   }
   .ninaero-tooltip[data-starting-style] {

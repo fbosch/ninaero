@@ -64,6 +64,11 @@ const componentSpecimens = [
     title: "Dropdown Menu",
     description: "Actions, checked items, submenus, placement, and keyboard navigation.",
   },
+  {
+    href: "/workshop/field",
+    title: "Fields",
+    description: "Labels, descriptions, errors, orientation, choice cards, and states.",
+  },
 ] as const;
 
 const foundationSpecimens = [
