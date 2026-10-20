@@ -17,7 +17,7 @@ Ninaero is an installable shadcn/ui theme with a local workshop and component do
 
 - Build interactive components on `@base-ui/react` primitives, using shadcn-style wrappers and Ninaero's shared theme. Preserve Base UI's accessibility and interaction behavior rather than reimplementing it.
 - Prefer shadcn/ui's documented Base UI component APIs, composition, variants, and semantic theme tokens. Consult the [official docs](https://ui.shadcn.com/docs) before introducing alternatives. Apply Ninaero's materials within those conventions.
-- Follow [DESIGN.md's shadow guidance](DESIGN.md#shadows-and-elevation) for all UI cast shadows. Use shared layered elevation and background-aware color; establish a receiving-background context when a surface changes. Do not substitute fixed black or the control's accent for the receiving color. Keep cast shadows separate from bevels, focus, and invalid styling.
+- Follow [the shadow guidance](docs/design/lighting.md#shadows-and-elevation) for all UI cast shadows. Use shared layered elevation and background-aware color; establish a receiving-background context when a surface changes. Do not substitute fixed black or the control's accent for the receiving color. Keep cast shadows separate from bevels, focus, and invalid styling.
 - Keep `destructive` for destructive actions and error/invalid emphasis. Add custom semantic tokens or variants only for concrete component needs, and document them as Ninaero extensions. Status palettes such as `success`, `warning`, and `info` are not baseline shadcn theme tokens.
 - Keep Dialog and AlertDialog in separate shadcn source files backed by their own Base UI primitives. Reuse installed theme CSS and tokens for visual consistency; do not replace them with a shared React modal wrapper or import one implementation into the other.
 - Preserve primitive-specific roles, dismissal, and focus behavior when restyling. AlertDialog blocks outside-click dismissal and uses explicit actions. Keep Cancel backed by its Close primitive and leave Action completion and closure to the caller. Do not add Dialog's corner close button or make every alert destructive.
@@ -36,7 +36,7 @@ Ninaero is an installable shadcn/ui theme with a local workshop and component do
 
 ## References
 
-- Before changing visual styling or interactions, read [DESIGN.md](DESIGN.md) for the agreed direction, accessibility requirements, and native squircle browser-support constraint.
+- Before changing visual styling or interactions, read [DESIGN.md](DESIGN.md) for the agreed direction and shared constraints, then the `docs/design/` references its index lists for the area you are changing. Accessibility requirements are in [motion.md](docs/design/motion.md); the native squircle browser-support constraint is in [layout.md](docs/design/layout.md#rendering-squircles).
 - Before adding registry items, changing generation, or testing consumer installation, read [README.md](README.md) for the source layout and registry workflow.
 
 <!-- BEGIN:nextjs-agent-rules -->

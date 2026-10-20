@@ -51,7 +51,7 @@ Components include the shared theme and their dependencies. Keep the local serve
 
 3. Open [localhost:3000](http://localhost:3000). Browse [the docs](http://localhost:3000/docs) for component guides or [the workshop](http://localhost:3000/workshop) to test component states.
 
-The dev server regenerates theme CSS, component docs, and registry files when their sources change. See [DESIGN.md](DESIGN.md) for visual guidelines.
+The dev server regenerates theme CSS, component docs, and registry files when their sources change. See [DESIGN.md](DESIGN.md) for visual guidelines and its index of detailed references in `docs/design/`.
 
 ## Checks
 

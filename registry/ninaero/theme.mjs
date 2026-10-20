@@ -1381,8 +1381,10 @@ export const theme = {
         "overflow-wrap": "anywhere",
         "transform-origin": "var(--transform-origin)",
         opacity: "1",
-        transform: "scale(1)",
-        transition: "opacity 120ms ease-out, transform 180ms cubic-bezier(0.22, 1.4, 0.35, 1)",
+        "--tooltip-enter-x": "0px",
+        "--tooltip-enter-y": "0px",
+        transform: "translate(0, 0) scale(1)",
+        transition: "opacity 120ms ease-out, transform 240ms cubic-bezier(0.22, 2, 0.35, 1)",
       },
       ".ninaero-tooltip::before": {
         content: '""',
@@ -1395,9 +1397,13 @@ export const theme = {
         "--paper-fill": "transparent",
         "--ninaero-pattern-ink": "var(--tooltip-scanline-ink)",
       },
+      ".ninaero-tooltip[data-side=top]": { "--tooltip-enter-y": "4px" },
+      ".ninaero-tooltip[data-side=bottom]": { "--tooltip-enter-y": "-4px" },
+      ".ninaero-tooltip[data-side=left]": { "--tooltip-enter-x": "4px" },
+      ".ninaero-tooltip[data-side=right]": { "--tooltip-enter-x": "-4px" },
       ".ninaero-tooltip[data-starting-style]": {
         opacity: "0",
-        transform: "scale(0.96)",
+        transform: "translate(var(--tooltip-enter-x), var(--tooltip-enter-y)) scale(0.88)",
       },
       ".ninaero-tooltip[data-ending-style]": {
         opacity: "0",
@@ -1411,13 +1417,19 @@ export const theme = {
         opacity: "1",
         transform: "none",
       },
+      // Unaligned Select popups share Dropdown Menu's floating-list motion.
       ".ninaero-select-content": {
         "transform-origin": "var(--transform-origin)",
-        transition: "opacity 80ms ease-out, transform 80ms ease-out",
+        transition: "opacity 100ms ease-out, transform 180ms cubic-bezier(0.22, 1.2, 0.35, 1)",
       },
-      ".ninaero-select-content[data-starting-style], .ninaero-select-content[data-ending-style]": {
+      ".ninaero-select-content[data-starting-style]": {
+        opacity: "0",
+        transform: "scale(0.96)",
+      },
+      ".ninaero-select-content[data-ending-style]": {
         opacity: "0",
         transform: "scale(0.98)",
+        transition: "opacity 120ms ease-in, transform 120ms ease-in",
       },
       ".ninaero-select-content[data-align-trigger=true]": {
         opacity: "1",
@@ -1790,6 +1802,7 @@ export const theme = {
           {
             opacity: "1",
             transform: "none",
+            transition: "none",
           },
         ".ninaero-tooltip, .ninaero-tooltip[data-starting-style], .ninaero-tooltip[data-ending-style]":
           {
