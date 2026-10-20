@@ -440,7 +440,7 @@ Use an opaque neutral `input-fill` slightly darker than the surrounding panel an
 
 Give fields the shared soft paper recess described above, using `input-fill` for both lighting tones. Keep the center flat and opaque. Placeholder ink must retain contrast against both inset tones.
 
-Invalid fields retain this material and use a semantic-red border. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
+Invalid fields retain this material and use a semantic-red border. Their upper inset shade keeps the neutral shade's lightness but takes a faint destructive tint (`input-invalid-shade`), so text and placeholders keep their contrast. Keyboard focus adds a separate accent outline, including on invalid and read-only fields. Disabled fields remain opaque and lose the inset lighting; their dark fill must not become brighter than an enabled field. Forced-colors mode removes decorative inset lighting and preserves system boundaries. Do not add raised Button bevels, cast shadows, glossy gradients, glass, movement, or paper texture inside a field.
 
 Textarea retains native resizing and content-based sizing. Inside InputGroup, suppress its inner border, inset lighting, and focus outline so the group owns the frame.
 

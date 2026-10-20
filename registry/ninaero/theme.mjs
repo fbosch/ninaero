@@ -481,6 +481,8 @@ export const theme = {
     "neutral-input": "#b8b8b8",
     "input-edge": "#c8c8c8",
     "input-fill": "oklch(0.975 0 0)",
+    // The neutral recess shade's lightness (input-fill less 6%), tinted toward the destructive hue.
+    "input-invalid-shade": "oklch(0.9165 0.04 25)",
     "input-placeholder": "oklch(0.5 0 0)",
     "input-disabled-fill": "var(--muted)",
     "tabs-track-fill": "#ededed",
@@ -561,6 +563,8 @@ export const theme = {
     "neutral-input": "#555555",
     "input-edge": "#454545",
     "input-fill": "oklch(0.18 0 0)",
+    // The neutral recess shade's lightness (input-fill less 12%), tinted toward the destructive hue.
+    "input-invalid-shade": "oklch(0.1584 0.07 22)",
     "input-placeholder": "var(--muted-foreground)",
     "input-disabled-fill": "var(--input-fill)",
     "tabs-track-fill": "#242424",
@@ -944,6 +948,7 @@ export const theme = {
       ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true])":
         {
           "border-color": "var(--destructive)",
+          "box-shadow": `inset 0 2px 6px var(--input-invalid-shade), inset 0 -1px 2px color-mix(in oklab, var(--input-fill), white var(--recess-highlight-weight))`,
         },
       ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled], .ninaero-input-group:has(> [data-slot=input-group-control]:disabled)":
         {
