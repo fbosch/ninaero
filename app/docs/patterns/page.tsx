@@ -111,6 +111,45 @@ const backgroundPatterns = [
     example:
       '<div aria-hidden="true" className="h-20 rounded-lg ninaero-checker-wide-12 ninaero-pattern-ink-foreground/12 bg-muted" />',
   },
+  {
+    title: "Ordered dots",
+    guidance: patternGuidance["ordered-dots"],
+    note: "Decorative only. Also used by the header overlay's Ordered dots texture.",
+    defaultSpacing: "4px tiles",
+    samples: [
+      { className: "ninaero-ordered-dots-4", spacing: "4px tiles" },
+      { className: "ninaero-ordered-dots-8", spacing: "8px tiles" },
+      { className: "ninaero-ordered-dots-12", spacing: "12px tiles" },
+    ],
+    example:
+      '<div aria-hidden="true" className="h-20 rounded-lg ninaero-ordered-dots-8 ninaero-pattern-ink-foreground/15 bg-muted" />',
+  },
+  {
+    title: "Diagonal lines",
+    guidance: patternGuidance["diagonal-lines"],
+    note: "Decorative only. Do not use hatching to mark a state.",
+    defaultSpacing: "4px tiles",
+    samples: [
+      { className: "ninaero-diagonal-lines-4", spacing: "4px tiles" },
+      { className: "ninaero-diagonal-lines-8", spacing: "8px tiles" },
+      { className: "ninaero-diagonal-lines-12", spacing: "12px tiles" },
+    ],
+    example:
+      '<div aria-hidden="true" className="h-20 rounded-lg ninaero-diagonal-lines-8 ninaero-pattern-ink-foreground/15 bg-muted" />',
+  },
+  {
+    title: "Flipnote dither",
+    guidance: patternGuidance.flipnote,
+    note: "Decorative only. Keep the stipple sparse and off text.",
+    defaultSpacing: "8px tiles",
+    samples: [
+      { className: "ninaero-flipnote-8", spacing: "8px tiles" },
+      { className: "ninaero-flipnote-12", spacing: "12px tiles" },
+      { className: "ninaero-flipnote-16", spacing: "16px tiles" },
+    ],
+    example:
+      '<div aria-hidden="true" className="h-20 rounded-lg ninaero-flipnote-8 ninaero-pattern-ink-foreground/20 bg-muted" />',
+  },
 ];
 
 const ditherSamples = [

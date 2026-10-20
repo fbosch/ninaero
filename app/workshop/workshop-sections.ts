@@ -69,6 +69,11 @@ const componentSpecimens = [
     title: "Fields",
     description: "Labels, descriptions, errors, orientation, choice cards, and states.",
   },
+  {
+    href: "/workshop/card",
+    title: "Cards",
+    description: "Paper panels, sizes, header actions, footers, images, and RTL.",
+  },
 ] as const;
 
 const foundationSpecimens = [

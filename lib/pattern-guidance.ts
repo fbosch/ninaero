@@ -34,4 +34,19 @@ export const patternGuidance = {
     caution:
       "Use as decoration, not a layout grid or a state indicator. The numeric size sets height; width stays twice the height.",
   },
+  "ordered-dots": {
+    suggestedUse: "Image overlays, retro screen textures, and illustration shading.",
+    caution:
+      "Decorative only. Keep it off dense text and controls, and tint it with a pattern ink instead of raising its opacity.",
+  },
+  "diagonal-lines": {
+    suggestedUse: "Hatched illustration shading, image overlays, and placeholder media.",
+    caution:
+      "Decorative only. Diagonal hatching can read as an unavailable state, so do not use it to mark state.",
+  },
+  flipnote: {
+    suggestedUse: "Flipnote-inspired artwork, image overlays, and empty-state illustrations.",
+    caution:
+      "Static and decorative, not an image-dithering filter. Keep it sparse and off text and controls.",
+  },
 } as const;

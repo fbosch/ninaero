@@ -171,6 +171,7 @@
           "overlay-flipnote-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22white%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200h1v1H0z%20M4%201h1v1H4z%20M2%203h1v1H2z%20M6%203h1v1H6z%20M1%205h1v1H1z%20M5%205h1v1H5z%20M3%207h1v1H3z%20M7%207h1v1H7z%22%2F%3E%3C%2Fsvg%3E\")",
           "overlay-dots-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22white%22%3E%3Ccircle%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%220.75%22%2F%3E%3C%2Fsvg%3E\")",
           "overlay-checker-mask": "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
+          "overlay-lines-mask": "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
           "ninaero-overlay-blend-mode": "multiply",
           "ninaero-overlay-opacity": "0.06",
           "ninaero-overlay-coverage": "0.5",
@@ -1187,7 +1188,7 @@
           "--ninaero-overlay-coverage": "clamp(0, calc(pi * pow(0.75px / var(--ninaero-overlay-size, var(--ninaero-overlay-tile)), 2)), 1)"
         },
         "@utility ninaero-overlay-lines": {
-          "--ninaero-overlay-pattern": "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
+          "--ninaero-overlay-pattern": "var(--overlay-lines-mask)",
           "--ninaero-overlay-tile": "4px",
           "--ninaero-overlay-coverage": "0.25"
         },
@@ -1195,6 +1196,138 @@
           "--ninaero-overlay-pattern": "var(--overlay-flipnote-mask)",
           "--ninaero-overlay-tile": "8px",
           "--ninaero-overlay-coverage": "0.125"
+        },
+        "@utility ninaero-ordered-dots": {
+          "--ninaero-ordered-dots-step": "4px",
+          "position": "relative",
+          "isolation": "isolate",
+          "&::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "pointer-events": "none",
+            "border-radius": "inherit",
+            "corner-shape": "inherit",
+            "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
+            "mask-image": "var(--overlay-dots-mask)",
+            "mask-mode": "alpha",
+            "mask-size": "var(--ninaero-ordered-dots-step) var(--ninaero-ordered-dots-step)",
+            "mask-repeat": "repeat",
+            "@media (forced-colors: active)": {
+              "display": "none"
+            }
+          }
+        },
+        "@utility ninaero-ordered-dots-*": {
+          "--ninaero-ordered-dots-step": "max(1px, calc(--value(number, [number]) * 1px))",
+          "position": "relative",
+          "isolation": "isolate",
+          "&::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "pointer-events": "none",
+            "border-radius": "inherit",
+            "corner-shape": "inherit",
+            "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
+            "mask-image": "var(--overlay-dots-mask)",
+            "mask-mode": "alpha",
+            "mask-size": "var(--ninaero-ordered-dots-step) var(--ninaero-ordered-dots-step)",
+            "mask-repeat": "repeat",
+            "@media (forced-colors: active)": {
+              "display": "none"
+            }
+          }
+        },
+        "@utility ninaero-diagonal-lines": {
+          "--ninaero-diagonal-lines-step": "4px",
+          "position": "relative",
+          "isolation": "isolate",
+          "&::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "pointer-events": "none",
+            "border-radius": "inherit",
+            "corner-shape": "inherit",
+            "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
+            "mask-image": "var(--overlay-lines-mask)",
+            "mask-mode": "alpha",
+            "mask-size": "var(--ninaero-diagonal-lines-step) var(--ninaero-diagonal-lines-step)",
+            "mask-repeat": "repeat",
+            "@media (forced-colors: active)": {
+              "display": "none"
+            }
+          }
+        },
+        "@utility ninaero-diagonal-lines-*": {
+          "--ninaero-diagonal-lines-step": "max(1px, calc(--value(number, [number]) * 1px))",
+          "position": "relative",
+          "isolation": "isolate",
+          "&::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "pointer-events": "none",
+            "border-radius": "inherit",
+            "corner-shape": "inherit",
+            "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
+            "mask-image": "var(--overlay-lines-mask)",
+            "mask-mode": "alpha",
+            "mask-size": "var(--ninaero-diagonal-lines-step) var(--ninaero-diagonal-lines-step)",
+            "mask-repeat": "repeat",
+            "@media (forced-colors: active)": {
+              "display": "none"
+            }
+          }
+        },
+        "@utility ninaero-flipnote": {
+          "--ninaero-flipnote-step": "8px",
+          "position": "relative",
+          "isolation": "isolate",
+          "&::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "pointer-events": "none",
+            "border-radius": "inherit",
+            "corner-shape": "inherit",
+            "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
+            "mask-image": "var(--overlay-flipnote-mask)",
+            "mask-mode": "alpha",
+            "mask-size": "var(--ninaero-flipnote-step) var(--ninaero-flipnote-step)",
+            "mask-repeat": "repeat",
+            "@media (forced-colors: active)": {
+              "display": "none"
+            }
+          }
+        },
+        "@utility ninaero-flipnote-*": {
+          "--ninaero-flipnote-step": "max(1px, calc(--value(number, [number]) * 1px))",
+          "position": "relative",
+          "isolation": "isolate",
+          "&::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "pointer-events": "none",
+            "border-radius": "inherit",
+            "corner-shape": "inherit",
+            "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
+            "mask-image": "var(--overlay-flipnote-mask)",
+            "mask-mode": "alpha",
+            "mask-size": "var(--ninaero-flipnote-step) var(--ninaero-flipnote-step)",
+            "mask-repeat": "repeat",
+            "@media (forced-colors: active)": {
+              "display": "none"
+            }
+          }
         },
         ".ninaero-syntax-token": {
           "color": "var(--n-p0)",
@@ -1500,19 +1633,6 @@
           },
           ".ninaero-tooltip > *": {
             "--shadow-surface": "var(--foreground)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          "[data-slot=card-footer] > *": {
-            "--shadow-surface": "color-mix(in srgb, var(--muted) 50%, var(--card))",
             "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
             "--shadow-flat": "0 0 #0000",
             "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",

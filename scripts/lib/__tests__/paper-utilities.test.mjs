@@ -46,6 +46,9 @@ for (const name of [
   "ninaero-dither",
   "ninaero-checker",
   "ninaero-checker-wide",
+  "ninaero-ordered-dots",
+  "ninaero-diagonal-lines",
+  "ninaero-flipnote",
 ]) {
   test(`${name} consumer utilities compile standalone defaults, numeric intervals, and variants`, async () => {
     const compiler = await compileConsumer(
@@ -128,6 +131,9 @@ test("installed patterns compile semantic, palette, arbitrary, and variable ink 
     "ninaero-dither-8",
     "ninaero-checker-8",
     "ninaero-checker-wide-8",
+    "ninaero-ordered-dots-8",
+    "ninaero-diagonal-lines-8",
+    "ninaero-flipnote-8",
   ]) {
     const compiler = await compileConsumer([pattern, ...colors].join(" "));
     assert.doesNotThrow(() => compiler.build([]));
@@ -136,7 +142,7 @@ test("installed patterns compile semantic, palette, arbitrary, and variable ink 
 
 test("zero and subpixel interval arguments compile for consumers", async () => {
   const compiler = await compileConsumer(
-    "ninaero-paper-grid-0 ninaero-paper-notebook-0.5 ninaero-dither-0 ninaero-dither-12.5 ninaero-checker-0 ninaero-checker-0.5 ninaero-checker-wide-0 ninaero-checker-wide-0.5",
+    "ninaero-paper-grid-0 ninaero-paper-notebook-0.5 ninaero-dither-0 ninaero-dither-12.5 ninaero-checker-0 ninaero-checker-0.5 ninaero-checker-wide-0 ninaero-checker-wide-0.5 ninaero-ordered-dots-0 ninaero-diagonal-lines-0.5 ninaero-flipnote-0",
   );
   assert.doesNotThrow(() => compiler.build([]));
 });

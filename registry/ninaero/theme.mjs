@@ -428,6 +428,13 @@ const paperUtilities = Object.fromEntries(
   }),
 );
 const ditherStyles = maskedPattern("dither-mask", "var(--ninaero-dither-step)");
+// The header overlay textures as ordinary element patterns, sharing the overlay's mask tokens.
+const orderedDotsStyles = maskedPattern("overlay-dots-mask", "var(--ninaero-ordered-dots-step)");
+const diagonalLinesStyles = maskedPattern(
+  "overlay-lines-mask",
+  "var(--ninaero-diagonal-lines-step)",
+);
+const flipnoteStyles = maskedPattern("overlay-flipnote-mask", "var(--ninaero-flipnote-step)");
 const checkerStyles = {
   "background-image":
     "conic-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 25%, transparent 0 50%, var(--ninaero-pattern-ink, var(--paper-rule)) 0 75%, transparent 0)",
@@ -566,6 +573,8 @@ export const theme = {
     "overlay-dots-mask": overlayDotsMask(),
     "overlay-checker-mask":
       "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
+    "overlay-lines-mask":
+      "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
     "ninaero-overlay-blend-mode": "multiply",
     "ninaero-overlay-opacity": "0.06",
     "ninaero-overlay-coverage": "0.5",
@@ -730,8 +739,7 @@ export const theme = {
       "--ninaero-overlay-coverage": `clamp(0, calc(pi * pow(${overlayDotRadius}px / var(--ninaero-overlay-size, var(--ninaero-overlay-tile)), 2)), 1)`,
     },
     "@utility ninaero-overlay-lines": {
-      "--ninaero-overlay-pattern":
-        "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
+      "--ninaero-overlay-pattern": "var(--overlay-lines-mask)",
       "--ninaero-overlay-tile": "4px",
       "--ninaero-overlay-coverage": "0.25",
     },
@@ -739,6 +747,30 @@ export const theme = {
       "--ninaero-overlay-pattern": "var(--overlay-flipnote-mask)",
       "--ninaero-overlay-tile": "8px",
       "--ninaero-overlay-coverage": "0.125",
+    },
+    "@utility ninaero-ordered-dots": {
+      "--ninaero-ordered-dots-step": "4px",
+      ...orderedDotsStyles,
+    },
+    "@utility ninaero-ordered-dots-*": {
+      "--ninaero-ordered-dots-step": "max(1px, calc(--value(number, [number]) * 1px))",
+      ...orderedDotsStyles,
+    },
+    "@utility ninaero-diagonal-lines": {
+      "--ninaero-diagonal-lines-step": "4px",
+      ...diagonalLinesStyles,
+    },
+    "@utility ninaero-diagonal-lines-*": {
+      "--ninaero-diagonal-lines-step": "max(1px, calc(--value(number, [number]) * 1px))",
+      ...diagonalLinesStyles,
+    },
+    "@utility ninaero-flipnote": {
+      "--ninaero-flipnote-step": "8px",
+      ...flipnoteStyles,
+    },
+    "@utility ninaero-flipnote-*": {
+      "--ninaero-flipnote-step": "max(1px, calc(--value(number, [number]) * 1px))",
+      ...flipnoteStyles,
     },
     ".ninaero-syntax-token": {
       ...syntaxStyle(defaultSyntaxVariants.light),
@@ -859,9 +891,6 @@ export const theme = {
         shadowSurface("var(--sidebar)"),
       ".bg-popover > *, .ninaero-popover > *, .ninaero-dialog > *": shadowSurface("var(--popover)"),
       ".ninaero-tooltip > *": shadowSurface("var(--foreground)"),
-      "[data-slot=card-footer] > *": shadowSurface(
-        "color-mix(in srgb, var(--muted) 50%, var(--card))",
-      ),
       ...bubbleShadowContexts,
       "[data-slot=bubble] > [data-slot=bubble-content] > *": shadowSurface(
         "var(--ninaero-bubble-shadow-surface)",

@@ -82,6 +82,30 @@ const patterns = [
     spacing: 12,
     description: "Height of each check. Width is twice the height.",
   },
+  {
+    value: "ordered-dots",
+    label: "Ordered dots",
+    utility: "ninaero-ordered-dots",
+    previewClass: "ninaero-ordered-dots-(number:--workshop-pattern-step)",
+    spacing: 4,
+    description: "Tile size of the ordered dot grid.",
+  },
+  {
+    value: "diagonal-lines",
+    label: "Diagonal lines",
+    utility: "ninaero-diagonal-lines",
+    previewClass: "ninaero-diagonal-lines-(number:--workshop-pattern-step)",
+    spacing: 4,
+    description: "Tile size of the diagonal hatching.",
+  },
+  {
+    value: "flipnote",
+    label: "Flipnote dither",
+    utility: "ninaero-flipnote",
+    previewClass: "ninaero-flipnote-(number:--workshop-pattern-step)",
+    spacing: 8,
+    description: "Tile size of the sparse pixel stipple.",
+  },
 ] as const;
 
 const backgrounds = [
