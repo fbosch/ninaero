@@ -21,6 +21,7 @@ type CueProfile = {
   source?: SoundCue;
   notes?: readonly number[];
   pace?: number;
+  glide?: number;
   level?: number;
   spec?: Spec;
   transform: ThemeTransform;
@@ -74,6 +75,13 @@ const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
     level: 1,
     transform: { attack: 0.5, decay: 0.3 },
   },
+
+  rise: {
+    // Match the dialog's 124ms overshoot and 260ms settle.
+    glide: 0.124,
+    level: 0.85,
+    transform: { decay: 1.28 },
+  },
   success: {
     notes: [739.99, 830.61, 987.77],
     pace: 0.55,
@@ -121,6 +129,7 @@ function profileSpec(spec: Spec, profile: CueProfile): Spec {
       at: layer.at * (profile.pace ?? 1),
       peak: layer.peak * (profile.level ?? 1),
     };
+    if (profile.glide !== undefined && "glide" in next) next.glide = profile.glide;
     const f = next.kind === "tone" ? profile.notes?.[tone++] : undefined;
     return f === undefined ? next : { ...next, f, f2: null };
   });

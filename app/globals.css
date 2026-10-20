@@ -2452,14 +2452,14 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
     text-shadow: var(--control-label-text-shadow);
   }
   .ninaero-toggle[aria-pressed=true] {
-    background-color: color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%);
+    background-color: var(--accent);
     background-image: none;
-    box-shadow: inset 0 1px 1px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), white var(--recess-highlight-weight));
-    --ninaero-material-shadow: inset 0 1px 1px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), white var(--recess-highlight-weight));
-    --button-recess-fill: color-mix(in oklab, color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%), black var(--recess-shade-weight));
-    color: var(--button-paper-ink);
+    box-shadow: inset 0 2px 6px color-mix(in oklab, var(--accent), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--accent), white var(--recess-highlight-weight));
+    --ninaero-material-shadow: inset 0 2px 6px color-mix(in oklab, var(--accent), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--accent), white var(--recess-highlight-weight));
+    --button-recess-fill: color-mix(in oklab, var(--accent), black var(--recess-shade-weight));
+    color: color-mix(in oklab, var(--accent-foreground), var(--foreground) 20%);
     text-shadow: none;
-    border-color: var(--input-edge);
+    border-color: var(--ring);
   }
   .ninaero-toggle[aria-invalid=true] {
     border-color: var(--button-destructive-edge);
@@ -2467,8 +2467,8 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   .ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true]) {
     background-color: var(--button-recess-fill);
     background-image: none;
-    box-shadow: inset 0 1px 1px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight));
-    --ninaero-material-shadow: inset 0 1px 1px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 1.25)), inset 0 3px 4px color-mix(in oklab, var(--button-recess-fill), black calc(var(--recess-shade-weight) * 0.75)), inset 0 -1px 0 color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight));
+    box-shadow: inset 0 2px 6px color-mix(in oklab, var(--button-recess-fill), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight));
+    --ninaero-material-shadow: inset 0 2px 6px color-mix(in oklab, var(--button-recess-fill), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--button-recess-fill), white var(--recess-highlight-weight));
     text-shadow: none;
   }
   .ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true] {
@@ -2582,10 +2582,14 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
       background-color: var(--button-paper-hover);
     }
     .ninaero-toggle:where(:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-invalid=true]))[aria-pressed=true] {
-      border-color: var(--neutral-input);
+      background-color: color-mix(in oklab, var(--accent), var(--ring) 8%);
     }
     .ninaero-button--primary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]) {
       background-color: var(--button-primary-hover);
+      --button-hover-glow: color-mix(in oklab, var(--button-primary-fill), var(--button-primary-edge) 20%);
+      background-image: linear-gradient(180deg in oklab, color-mix(in oklab, var(--button-highlight), white 55%), transparent 50%);
+      box-shadow: inset 0 1px 0 color-mix(in oklab, var(--button-highlight), white 60%), var(--button-cast-shadow, var(--shadow-control)), 0 1px 2px color-mix(in oklab, var(--button-hover-glow) 18%, transparent), 0 3px 6px color-mix(in oklab, var(--button-hover-glow) 12%, transparent), 0 6px 12px color-mix(in oklab, var(--button-hover-glow) 6%, transparent);
+      --ninaero-material-shadow: inset 0 1px 0 color-mix(in oklab, var(--button-highlight), white 60%), var(--button-cast-shadow, var(--shadow-control)), 0 1px 2px color-mix(in oklab, var(--button-hover-glow) 18%, transparent), 0 3px 6px color-mix(in oklab, var(--button-hover-glow) 12%, transparent), 0 6px 12px color-mix(in oklab, var(--button-hover-glow) 6%, transparent);
     }
     .ninaero-button--secondary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]), .ninaero-button--outline:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]), .ninaero-button--ghost:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]) {
       background-color: var(--button-paper-hover);

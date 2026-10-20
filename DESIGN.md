@@ -304,6 +304,90 @@ Begin feedback immediately. Larger layers may take 220 to 280ms to settle; dismi
 
 These are design requirements. They have not yet been verified in a themed interactive prototype.
 
+### Animation and audio alignment
+
+Treat component motion and its audio cue as one response. Sound supplements visible feedback; the interaction must remain clear when muted.
+
+- Start the cue with the visible state change, not merely a request to change state or an animation-complete callback. For Dialog and AlertDialog, play `rise` when the popup begins opening. Canceled opens and hidden, mounted popups stay silent.
+- Match the cue to the motion's landmarks. For an opening bounce, align the rising pitch's arrival with the first overshoot and let the decay finish as the panel settles. Equal total durations alone do not establish alignment.
+- Keep paired timing values in a shared definition where practical. Distinguish fixed-duration CSS easing from a physics-based spring. For cubic Bézier easing, convert the curve parameter to elapsed time through its x-coordinate; the parameter itself is not elapsed progress. Recheck the cue whenever the duration or easing changes.
+- Handle interrupted transitions, rapid reopening, and unmounting without delayed or duplicate cues. Never delay an interaction for audio or queue a stale cue while the audio engine loads.
+- Honor provider mute and volume settings and `sound={false}`. Under reduced motion, update the visual state immediately and keep enabled audio feedback immediate too; do not wait for a transition that no longer runs.
+- Review motion and audio together in a browser, including keyboard activation, controlled opens, interruptions, and reduced motion. Tests can check cue timing and playback behavior, but listening alongside the animation establishes perceptual alignment.
+
+#### Calculate the motion landmarks
+
+For CSS `cubic-bezier(x1, y1, x2, y2)`, let `u` be the curve parameter and `T` the transition duration. Use seconds for all timing calculations.
+
+```text
+Bx(u) = 3(1-u)^2 u x1 + 3(1-u)u^2 x2 + u^3
+By(u) = 3(1-u)^2 u y1 + 3(1-u)u^2 y2 + u^3
+
+elapsed_time = T * Bx(u)
+animated_value = start_value + (end_value - start_value) * By(u)
+```
+
+To find the first overshoot, solve the derivative below. Choose the first root inside `0 < u < 1` where `By'(u)` changes from positive to negative and `By(u) > 1`.
+
+```text
+By'(u) = a*u^2 + b*u + c
+
+a = 3(1 - 3*y2 + 3*y1)
+b = 6(y2 - 2*y1)
+c = 3*y1
+
+u = (-b +/- sqrt(b^2 - 4*a*c)) / (2*a)
+t_peak = T * Bx(u_peak)
+```
+
+If `a = 0`, solve the linear equation instead. A curve without a qualifying root has no overshoot to synchronize with. For another landmark, such as the first arrival at the resting position, solve `By(u) = 1` and convert that root through `Bx`. Do not use `T * u`.
+
+These equations apply to an uninterrupted CSS transition. A physics-based spring needs its own solver's position and velocity: locate the first overshoot where velocity changes sign, and define settling with explicit position and velocity tolerances. Interrupted transitions also need their actual remaining motion rather than the original full-duration calculation.
+
+#### Calculate the audio timing
+
+Let `s` be the cue's scheduled start offset from the visible motion's start, `L` the measured extra audio latency relative to that visible start, `at` the layer's offset within the cue, and `g` its pitch-glide duration. Foley's pitch glide starts at the layer's onset and reaches its target after `g`; that is separate from the gain peak.
+
+```text
+audible_pitch_arrival = s + L + at + g
+s = t_peak - L - at - g
+
+# To start the cue with the motion, set s = 0 and solve for the glide:
+g = t_peak - L - at
+```
+
+A negative `s` would require playing before the visible motion starts. Shorten the glide or choose another landmark instead of delaying the interaction. If the required `g` is not positive, the landmark is too early for the measured latency. Do not assume zero device latency establishes sample-accurate synchronization.
+
+For a Foley tone layer, let `attack` and `decay` be its base envelope durations and `A` and `D` the effective theme multipliers. Align the dry gain-envelope endpoint with the motion's settling time:
+
+```text
+gain_peak = s + L + at + attack*A
+envelope_end = s + L + at + attack*A + decay*D
+D = (t_settle - s - L - at - attack*A) / decay
+```
+
+Require a positive base decay and a valid multiplier. Check every layer: Foley noise uses `decay * (0.7*D + 0.3)` rather than `decay*D`. The cue's dry envelope ends at the latest layer endpoint. Reverb can ring beyond it; oscillator cleanup time is not an audible timing target. Keep these equations consistent with the installed audio engine.
+
+#### Dialog calculation
+
+The dialog's `cubic-bezier(0.22, 2.2, 0.35, 1)` and 260ms duration give:
+
+```text
+By'(u) = 13.8*u^2 - 20.4*u + 6.6
+u_peak = 11/23 = 0.47826087
+Bx(u_peak) = 0.32062464
+t_peak = 0.260 * 0.32062464 = 0.08336241 seconds
+```
+
+The first overshoot therefore occurs around 83.36ms, not 124ms. For the dry `rise` tone, an immediate cue with no additional latency, no layer offset, a 4ms attack, and a 200ms base decay gives these design targets:
+
+```text
+g = 0.08336241 seconds
+D = (0.260 - 0.004) / 0.200 = 1.28
+```
+
+This aligns pitch arrival with the overshoot and the dry envelope endpoint with the 260ms settle. It does not align the loudness peak with the overshoot. Treat these as calculation targets, then verify the audible result alongside the animation.
+
 ## Shared theme constraints
 
 The homepage at `/` follows Afterglow's structure: a prominent heading, concise introduction, and an install command. It does not feature a composed interface example. `/docs` contains component documentation and a searchable component list in its sidebar. The standalone `/components` and `/examples` pages and their example routes are removed. `/workshop` links to separate Button, Input, Dialog, and token specimens rather than collecting every state on one page. All routes use the same theme and independent color-mode and accent controls.
@@ -392,6 +476,8 @@ Use native squircle corners at `3rem` (48px). This is Ninaero's chosen geometry,
 
 Use one continuous panel without a contrasting footer band or divider. The outer frame owns the 24px inset; group content and actions with 24px of space, and keep 8px between actions. Dialog titles use 20px type with a 24px line height. Give actions a useful minimum width, using Button's large size for short prompt actions. Center short system prompts and keep forms left-aligned. Inset the corner close button by 16px and reserve header space for it only when present. Preserve existing focus management and do not clip shadows or keyboard outlines. Forced-colors mode removes decorative lighting and retains a system-color boundary.
 Dialog opens from 92% scale and 8px below its resting position, with a 260ms elastic transform transition and a 140ms fade. The easing supplies one small overshoot before settling. Closing uses a 140ms shrink to 96% scale and a 4px downward shift with a fade. The scrim fades in over 160ms and out over 140ms without bouncing. CSS transitions let interrupted opening and closing continue from the current position. Under reduced motion, both layers change immediately.
+
+The opening bounce uses fixed-duration CSS easing, not a physics-based spring. When sound is enabled, align its `rise` cue using [Animation and audio alignment](#animation-and-audio-alignment).
 
 ## First design specimen
 

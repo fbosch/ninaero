@@ -89,25 +89,38 @@ for (const mode of ["light", "dark"]) {
     });
   }
 
-  test(`${mode}: neutral toggle selection and deeper presses preserve label contrast`, () => {
-    const palette = theme[mode];
-    const ink = linearRgb(palette["button-paper-ink"]);
-    const resting = toOklab(linearRgb(palette["button-paper-fill"]));
-    const pressedBase = toOklab(linearRgb(palette["button-paper-pressed"]));
-    const fill = resting.map((channel, index) => (channel + pressedBase[index]) / 2);
-    const shadeWeight = Number.parseFloat(palette["recess-shade-weight"]) / 100;
-    const highlightWeight = Number.parseFloat(palette["recess-highlight-weight"]) / 100;
-    const pressed = mixTone(fill, 0, shadeWeight);
+  for (const [name, preset] of Object.entries(accentPresets)) {
+    test(`${name} ${mode}: accent toggle selection, hover, and press preserve label and edge contrast`, () => {
+      const palette = preset[mode];
+      const foreground = [
+        Number.parseFloat(/oklch\(([\d.]+) 0 0\)/.exec(theme[mode].foreground)[1]),
+        0,
+        0,
+      ];
+      const linkInk = toOklab(linearRgb(palette["button-link-ink"]));
+      const ink = fromOklab(
+        linkInk.map((channel, index) => channel * 0.8 + foreground[index] * 0.2),
+      );
+      const fill = toOklab(linearRgb(palette["accent-soft"]));
+      const ring = toOklab(linearRgb(palette["button-focus"]));
+      const shadeWeight = Number.parseFloat(theme[mode]["recess-shade-weight"]) / 100;
+      const highlightWeight = Number.parseFloat(theme[mode]["recess-highlight-weight"]) / 100;
+      const hover = fill.map((channel, index) => channel * 0.92 + ring[index] * 0.08);
+      const pressed = mixTone(fill, 0, shadeWeight);
 
-    const tones = [fill, pressed].flatMap((face) => [
-      face,
-      mixTone(face, 0, shadeWeight * 1.25),
-      mixTone(face, 0, shadeWeight * 0.75),
-      mixTone(face, 1, highlightWeight),
-    ]);
-    for (const tone of tones) {
-      const ratio = contrast(ink, fromOklab(tone));
-      assert.ok(ratio >= 4.5, `toggle label: ${ratio.toFixed(2)}:1`);
-    }
-  });
+      const tones = [fill, hover, pressed].flatMap((face) => [
+        face,
+        mixTone(face, 0, shadeWeight),
+        mixTone(face, 1, highlightWeight),
+      ]);
+      for (const tone of tones) {
+        const ratio = contrast(ink, fromOklab(tone));
+        assert.ok(ratio >= 4.5, `toggle label: ${ratio.toFixed(2)}:1`);
+      }
+      for (const face of [fill, hover]) {
+        const ratio = contrast(linearRgb(palette["button-focus"]), fromOklab(face));
+        assert.ok(ratio >= 3, `toggle selection edge: ${ratio.toFixed(2)}:1`);
+      }
+    });
+  }
 }

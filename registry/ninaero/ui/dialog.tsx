@@ -7,10 +7,27 @@ import type * as React from "react";
 import { XIcon } from "@/lib/icons";
 import { Button } from "@/registry/ninaero/ui/button";
 
-import { HoverSound } from "./sound-feedback";
+import { HoverSound, SoundGroup, useControlSound } from "./sound-feedback";
 
-function Dialog({ ...props }: DialogPrimitive.Root.Props) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />;
+function Dialog({
+  onOpenChange,
+  sound = true,
+  ...props
+}: DialogPrimitive.Root.Props & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
+
+  return (
+    <SoundGroup sound={sound}>
+      <DialogPrimitive.Root
+        data-slot="dialog"
+        {...props}
+        onOpenChange={(open, details) => {
+          onOpenChange?.(open, details);
+          if (open && !details.isCanceled) play("rise");
+        }}
+      />
+    </SoundGroup>
+  );
 }
 
 function DialogTrigger({

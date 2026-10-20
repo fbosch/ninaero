@@ -327,6 +327,8 @@ function cueSignature(performance) {
         hz: layer.f * (transform.pitch ?? 1) * 2 ** ((options?.pitch ?? 0) / 12),
         at: layer.at,
         wave: transform.wave?.[layer.wave] ?? layer.wave,
+        endHz: layer.f2,
+        glideMs: layer.glide * 1000,
       })),
     ms:
       1000 *
@@ -369,6 +371,22 @@ for (const [cue, count, lowHz, highHz, lowMs, highMs] of [
   });
 }
 
+test("dialog rise follows elastic overshoot and opening settle", async (t) => {
+  const { player, performances } = acousticFixture(t);
+  await player.configure({ enabled: true });
+  player.play("rise");
+
+  const { tones, ms } = cueSignature(performances.at(-1));
+  assert.equal(tones.length, 1);
+  assert.ok(tones[0].hz >= 200 && tones[0].hz <= 220, `rise start: ${tones[0].hz} Hz`);
+  assert.ok(tones[0].endHz >= 850 && tones[0].endHz <= 870, `rise end: ${tones[0].endHz} Hz`);
+  assert.ok(
+    tones[0].glideMs >= 120 && tones[0].glideMs <= 130,
+    `rise glide: ${tones[0].glideMs} ms`,
+  );
+  assert.ok(ms >= 255 && ms <= 265, `rise duration: ${ms} ms`);
+});
+
 test("glass interaction levels stay bounded at playback", async (t) => {
   const { player, performances } = acousticFixture(t);
   await player.configure({ enabled: true });
@@ -379,6 +397,7 @@ test("glass interaction levels stay bounded at playback", async (t) => {
     "on",
     "off",
     "ping",
+    "rise",
     "success",
     "complete",
     "warning",

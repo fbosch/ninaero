@@ -185,6 +185,18 @@ const menuItemCastShadow = [
   "0 2px 4px hsl(var(--shadow-color) / 0.03)",
 ].join(", ");
 const controlCastShadow = "var(--button-cast-shadow, var(--shadow-control))";
+// Primary hover bloom follows the elevation recipe: zero horizontal offset, blur broader than the
+// downward offset, and alpha tapering as layers widen. Its tone is a pale accent, read as light.
+const primaryHoverBloom = [
+  ["1px", "2px", "18%"],
+  ["3px", "6px", "12%"],
+  ["6px", "12px", "6%"],
+]
+  .map(
+    ([offset, blur, alpha]) =>
+      `0 ${offset} ${blur} color-mix(in oklab, var(--button-hover-glow) ${alpha}, transparent)`,
+  )
+  .join(", ");
 
 function recessShadow(fill) {
   return [
@@ -193,16 +205,8 @@ function recessShadow(fill) {
   ].join(", ");
 }
 
-const toggleSelectedFill =
-  "color-mix(in oklab, var(--button-paper-pressed), var(--button-paper-fill) 50%)";
-
-function toggleRecessShadow(fill) {
-  return [
-    `inset 0 1px 1px color-mix(in oklab, ${fill}, black calc(var(--recess-shade-weight) * 1.25))`,
-    `inset 0 3px 4px color-mix(in oklab, ${fill}, black calc(var(--recess-shade-weight) * 0.75))`,
-    `inset 0 -1px 0 color-mix(in oklab, ${fill}, white var(--recess-highlight-weight))`,
-  ].join(", ");
-}
+// Toggle selection shares Select's pale accent fill and edge, recessed to read as pushed in.
+const toggleSelectedFill = "var(--accent)";
 
 const recessedTrackMaterial = {
   border: "1px solid var(--input-edge)",
@@ -1550,13 +1554,14 @@ export const theme = {
         "text-shadow": "var(--control-label-text-shadow)",
       },
       ".ninaero-toggle[aria-pressed=true]": {
-        ...pressedThumbMaterial,
         "background-color": toggleSelectedFill,
-        "box-shadow": toggleRecessShadow(toggleSelectedFill),
+        "background-image": "none",
+        "box-shadow": recessShadow(toggleSelectedFill),
         "--button-recess-fill": `color-mix(in oklab, ${toggleSelectedFill}, black var(--recess-shade-weight))`,
-        color: "var(--button-paper-ink)",
+        // Pull the link ink toward foreground so labels keep 4.5:1 on the recessed and hover tones.
+        color: "color-mix(in oklab, var(--accent-foreground), var(--foreground) 20%)",
         "text-shadow": "none",
-        "border-color": "var(--input-edge)",
+        "border-color": "var(--ring)",
       },
       ".ninaero-toggle[aria-invalid=true]": {
         "border-color": "var(--button-destructive-edge)",
@@ -1564,7 +1569,7 @@ export const theme = {
       ".ninaero-toggle:active:not(:disabled):not([data-disabled]):not([aria-disabled=true])": {
         "background-color": "var(--button-recess-fill)",
         "background-image": "none",
-        "box-shadow": toggleRecessShadow("var(--button-recess-fill)"),
+        "box-shadow": recessShadow("var(--button-recess-fill)"),
         "text-shadow": "none",
       },
       ".ninaero-toggle:disabled, .ninaero-toggle[data-disabled], .ninaero-toggle[aria-disabled=true]":
@@ -1683,11 +1688,19 @@ export const theme = {
           },
         ".ninaero-toggle:where(:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-invalid=true]))[aria-pressed=true]":
           {
-            "border-color": "var(--neutral-input)",
+            "background-color": "color-mix(in oklab, var(--accent), var(--ring) 8%)",
           },
         ".ninaero-button--primary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
           {
             "background-color": "var(--button-primary-hover)",
+            // Hover catches more of the shared overhead light: a brighter top sheen that fades by half
+            // height, and light passing through the glassy face as a pale accent bloom below it. The
+            // bloom sits alongside the neutral cast shadow, not in place of it. Primary actions only.
+            "--button-hover-glow":
+              "color-mix(in oklab, var(--button-primary-fill), var(--button-primary-edge) 20%)",
+            "background-image":
+              "linear-gradient(180deg in oklab, color-mix(in oklab, var(--button-highlight), white 55%), transparent 50%)",
+            "box-shadow": `inset 0 1px 0 color-mix(in oklab, var(--button-highlight), white 60%), ${controlCastShadow}, ${primaryHoverBloom}`,
           },
         ".ninaero-button--secondary:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]), .ninaero-button--outline:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]), .ninaero-button--ghost:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true])":
           {

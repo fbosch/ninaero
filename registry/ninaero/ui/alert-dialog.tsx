@@ -6,10 +6,27 @@ import type * as React from "react";
 
 import { Button } from "@/registry/ninaero/ui/button";
 
-import { HoverSound } from "./sound-feedback";
+import { HoverSound, SoundGroup, useControlSound } from "./sound-feedback";
 
-function AlertDialog({ ...props }: AlertDialogPrimitive.Root.Props) {
-  return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
+function AlertDialog({
+  onOpenChange,
+  sound = true,
+  ...props
+}: AlertDialogPrimitive.Root.Props & { sound?: boolean }) {
+  const { play } = useControlSound(sound);
+
+  return (
+    <SoundGroup sound={sound}>
+      <AlertDialogPrimitive.Root
+        data-slot="alert-dialog"
+        {...props}
+        onOpenChange={(open, details) => {
+          onOpenChange?.(open, details);
+          if (open && !details.isCanceled) play("rise");
+        }}
+      />
+    </SoundGroup>
+  );
 }
 
 function AlertDialogTrigger({
