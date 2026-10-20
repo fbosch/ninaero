@@ -46,11 +46,12 @@ const raisedButtonGroupSelector = [
 ].join("");
 const segmentedTabSelector =
   ".ninaero-tabs-list[data-variant=default] > .ninaero-tabs-trigger:where(:not(:disabled):not([data-disabled]):not([aria-disabled=true]))";
-// Select options keep focus inside their scroll-clipped list.
-const selectItemFocus = ".ninaero-select-item:is(:focus-visible, [data-highlighted])";
+// Selection options keep focus inside their scroll-clipped list.
+const selectItemFocus =
+  ":is(.ninaero-select-item, .ninaero-combobox-item):is(:focus-visible, [data-highlighted])";
 const enabledFocus =
   ":not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])";
-const focusable = `:focus-visible${enabledFocus}:not(.ninaero-select-item):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input)`;
+const focusable = `:focus-visible${enabledFocus}:not(:is(.ninaero-select-item, .ninaero-combobox-item)):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input)`;
 const focusFrames = [
   ".ninaero-button",
   ".ninaero-toggle",
@@ -88,7 +89,6 @@ const proxyFocus = [
   `.ninaero-slider-thumb:has(:focus-visible)${enabledFocus}`,
   "[data-slot=input-otp-slot][data-active=true]",
   // These primitives retain DOM focus on the input or list while moving the active option.
-  "[data-slot=combobox-item][data-highlighted]",
   "[data-slot=command]:focus-within [data-slot=command-item][data-selected=true]",
 ]
   .map((selector) => `${selector}${enabledFocus}`)
@@ -967,33 +967,34 @@ export const theme = {
         {
           "grid-template-columns": "auto 1ch minmax(0, 1fr)",
         },
-      ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
-        "--input-corner": "0.75rem",
-        "border-radius": "var(--input-corner)",
-        "corner-shape": "round",
-        border: "1px solid var(--input-edge)",
-        color: "var(--card-foreground)",
-        "background-color": "var(--input-fill)",
-        "box-shadow": recessShadow("var(--input-fill)"),
-        outline: "2px solid transparent",
-        "outline-offset": "3px",
-        transition: "background-color 80ms ease-out, border-color 80ms ease-out",
-      },
-      ".ninaero-input:where(:hover:not(:disabled)), .ninaero-textarea:where(:hover:not(:disabled)), .ninaero-select-trigger:where(:hover:not(:disabled):not([data-disabled])), .ninaero-input-group:where(:hover:not(:has(> [data-slot=input-group-control]:disabled)))":
+      ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group, .ninaero-combobox-chips":
+        {
+          "--input-corner": "0.75rem",
+          "border-radius": "var(--input-corner)",
+          "corner-shape": "round",
+          border: "1px solid var(--input-edge)",
+          color: "var(--card-foreground)",
+          "background-color": "var(--input-fill)",
+          "box-shadow": recessShadow("var(--input-fill)"),
+          outline: "2px solid transparent",
+          "outline-offset": "3px",
+          transition: "background-color 80ms ease-out, border-color 80ms ease-out",
+        },
+      ".ninaero-input:where(:hover:not(:disabled)), .ninaero-textarea:where(:hover:not(:disabled)), .ninaero-select-trigger:where(:hover:not(:disabled):not([data-disabled])), .ninaero-input-group:where(:hover:not(:has(> [data-slot=input-group-control]:disabled))), .ninaero-combobox-chips:where(:hover:not([data-disabled]):not(:has(input:disabled)))":
         {
           "border-color": "var(--neutral-input)",
         },
-      ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder], .ninaero-input-group > [data-slot=input-group-control]::placeholder":
+      ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder], .ninaero-input-group > [data-slot=input-group-control]::placeholder, .ninaero-combobox-chips input::placeholder":
         {
           color: "var(--input-placeholder)",
           opacity: "1",
         },
-      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true])":
+      ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true]), .ninaero-combobox-chips[aria-invalid=true], .ninaero-combobox-chips[data-invalid], .ninaero-combobox-chips:has(input[aria-invalid=true])":
         {
           "border-color": "var(--destructive)",
           "box-shadow": `inset 0 2px 6px var(--input-invalid-shade), inset 0 -1px 2px color-mix(in oklab, var(--input-fill), white var(--recess-highlight-weight))`,
         },
-      ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled], .ninaero-input-group:has(> [data-slot=input-group-control]:disabled)":
+      ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled], .ninaero-input-group:has(> [data-slot=input-group-control]:disabled), .ninaero-combobox-chips[data-disabled], .ninaero-combobox-chips:has(input:disabled)":
         {
           "border-color": "var(--border)",
           "background-color": "var(--input-disabled-fill)",
@@ -1492,15 +1493,16 @@ export const theme = {
         transform: "none",
       },
       // Unaligned Select popups share Dropdown Menu's floating-list motion.
-      ".ninaero-select-content": {
+      ".ninaero-select-content, .ninaero-combobox-content": {
         "transform-origin": "var(--transform-origin)",
         transition: "opacity 100ms ease-out, transform 180ms cubic-bezier(0.22, 1.2, 0.35, 1)",
       },
-      ".ninaero-select-content[data-starting-style]": {
-        opacity: "0",
-        transform: "scale(0.96)",
-      },
-      ".ninaero-select-content[data-ending-style]": {
+      ".ninaero-select-content[data-starting-style], .ninaero-combobox-content[data-starting-style]":
+        {
+          opacity: "0",
+          transform: "scale(0.96)",
+        },
+      ".ninaero-select-content[data-ending-style], .ninaero-combobox-content[data-ending-style]": {
         opacity: "0",
         transform: "scale(0.98)",
         transition: "opacity 120ms ease-in, transform 120ms ease-in",
@@ -1516,14 +1518,14 @@ export const theme = {
         transform: "none",
         transition: "none",
       },
-      ".ninaero-select-icon": {
+      ".ninaero-select-icon, .ninaero-combobox-trigger > svg": {
         color: "var(--input-placeholder)",
         transition: "transform 80ms ease-out",
       },
-      ".ninaero-select-icon[data-popup-open]": {
+      ".ninaero-select-icon[data-popup-open], .ninaero-combobox-trigger[data-popup-open] > svg": {
         transform: "rotate(180deg)",
       },
-      ".ninaero-select-item": {
+      ":is(.ninaero-select-item, .ninaero-combobox-item)": {
         "border-radius": "var(--radius-md)",
         "corner-shape": "round",
         border: "1px solid transparent",
@@ -1532,7 +1534,7 @@ export const theme = {
         transition:
           "background-color 80ms ease-out, border-color 80ms ease-out, outline-color 80ms ease-out, color 80ms ease-out",
       },
-      ".ninaero-select-item[data-selected]": {
+      ":is(.ninaero-select-item, .ninaero-combobox-item)[data-selected]": {
         "border-color": "var(--ring)",
         "background-color": "var(--accent)",
         color: "var(--accent-foreground)",
@@ -1540,11 +1542,27 @@ export const theme = {
       [selectItemFocus]: {
         "outline-color": "var(--ring)",
       },
-      ".ninaero-select-item[data-highlighted]:not([data-selected]):not([data-disabled])": {
-        "background-color": "var(--muted)",
-      },
-      ".ninaero-select-item[data-disabled]": {
+      ":is(.ninaero-select-item, .ninaero-combobox-item)[data-highlighted]:not([data-selected]):not([data-disabled])":
+        {
+          "background-color": "var(--muted)",
+        },
+      ":is(.ninaero-select-item, .ninaero-combobox-item)[data-disabled]": {
         color: "var(--muted-foreground)",
+      },
+      ".ninaero-combobox-chip": {
+        "border-color": "var(--ring)",
+        "background-color": "var(--accent)",
+        color: "var(--accent-foreground)",
+        "overflow-wrap": "anywhere",
+      },
+      ".ninaero-combobox-chips[data-disabled] .ninaero-combobox-chip, .ninaero-combobox-chip[data-disabled]":
+        {
+          "border-color": "var(--border)",
+          "background-color": "var(--input-disabled-fill)",
+          color: "var(--muted-foreground)",
+        },
+      ".ninaero-combobox-chips input": {
+        color: "inherit",
       },
       ".ninaero-tabs-list": {
         "border-radius": "var(--radius-lg)",
@@ -1869,7 +1887,7 @@ export const theme = {
       },
       "@media (prefers-reduced-motion: reduce)": {
         ".ninaero-dropdown-menu-item": { transition: "none" },
-        ".ninaero-select-item": { transition: "none" },
+        ":is(.ninaero-select-item, .ninaero-combobox-item)": { transition: "none" },
         ":is(.ninaero-checkbox, .ninaero-radio-group-item)": { transition: "none" },
         ".ninaero-field-label:has(> [data-slot=field])": { transition: "none" },
         ".ninaero-switch, .ninaero-switch-thumb": { transition: "none" },
@@ -1884,13 +1902,15 @@ export const theme = {
             transform: "none",
             opacity: "1",
           },
-        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
-          transition: "none",
-        },
-        ".ninaero-select-content, .ninaero-select-icon": {
-          transition: "none",
-        },
-        ".ninaero-select-content[data-starting-style], .ninaero-select-content[data-ending-style]":
+        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group, .ninaero-combobox-chips":
+          {
+            transition: "none",
+          },
+        ".ninaero-select-content, .ninaero-select-icon, .ninaero-combobox-content, .ninaero-combobox-trigger > svg":
+          {
+            transition: "none",
+          },
+        ".ninaero-select-content[data-starting-style], .ninaero-select-content[data-ending-style], .ninaero-combobox-content[data-starting-style], .ninaero-combobox-content[data-ending-style]":
           {
             opacity: "1",
             transform: "none",
@@ -2104,25 +2124,26 @@ export const theme = {
           color: "CanvasText",
           "box-shadow": "none",
         },
-        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group": {
-          "border-color": "CanvasText",
-          "background-color": "Canvas",
-          color: "CanvasText",
-          "box-shadow": "none",
-        },
-        ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder], .ninaero-input-group > [data-slot=input-group-control]::placeholder":
+        ".ninaero-input, .ninaero-textarea, .ninaero-select-trigger, .ninaero-input-group, .ninaero-combobox-chips":
+          {
+            "border-color": "CanvasText",
+            "background-color": "Canvas",
+            color: "CanvasText",
+            "box-shadow": "none",
+          },
+        ".ninaero-input::placeholder, .ninaero-textarea::placeholder, .ninaero-select-trigger[data-placeholder], .ninaero-input-group > [data-slot=input-group-control]::placeholder, .ninaero-combobox-chips input::placeholder":
           {
             color: "GrayText",
           },
-        ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true])":
+        ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true]), .ninaero-combobox-chips[aria-invalid=true], .ninaero-combobox-chips[data-invalid], .ninaero-combobox-chips:has(input[aria-invalid=true])":
           {
             "border-color": "CanvasText",
           },
-        ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible, .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible)":
+        ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible, .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible), .ninaero-combobox-chips:has(input:focus-visible)":
           {
             "outline-color": "Highlight",
           },
-        ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled], .ninaero-input-group:has(> [data-slot=input-group-control]:disabled)":
+        ".ninaero-input:disabled, .ninaero-textarea:disabled, .ninaero-select-trigger:disabled, .ninaero-select-trigger[data-disabled], .ninaero-input-group:has(> [data-slot=input-group-control]:disabled), .ninaero-combobox-chips[data-disabled], .ninaero-combobox-chips:has(input:disabled)":
           {
             "border-color": "GrayText",
             "background-color": "Canvas",
@@ -2163,20 +2184,20 @@ export const theme = {
         ".ninaero-dropdown-menu-shortcut": {
           color: "inherit",
         },
-        ".ninaero-select-icon": {
+        ".ninaero-select-icon, .ninaero-combobox-trigger > svg": {
           color: "ButtonText",
         },
-        ".ninaero-select-trigger:disabled .ninaero-select-icon, .ninaero-select-trigger[data-disabled] .ninaero-select-icon":
+        ".ninaero-select-trigger:disabled .ninaero-select-icon, .ninaero-select-trigger[data-disabled] .ninaero-select-icon, .ninaero-combobox-trigger[data-disabled] > svg":
           {
             color: "GrayText",
           },
-        ".ninaero-select-item": {
+        ":is(.ninaero-select-item, .ninaero-combobox-item)": {
           "border-color": "Canvas",
           "outline-color": "Canvas",
           "background-color": "Canvas",
           color: "CanvasText",
         },
-        ".ninaero-select-item[data-selected]": {
+        ":is(.ninaero-select-item, .ninaero-combobox-item)[data-selected]": {
           "border-color": "Highlight",
           "background-color": "Highlight",
           color: "HighlightText",
@@ -2187,14 +2208,26 @@ export const theme = {
         [`${selectItemFocus}[data-selected]`]: {
           "outline-color": "HighlightText",
         },
-        ".ninaero-select-item[data-highlighted]:not([data-selected]):not([data-disabled])": {
-          "background-color": "Canvas",
-        },
-        ".ninaero-select-item[data-disabled]": {
+        ":is(.ninaero-select-item, .ninaero-combobox-item)[data-highlighted]:not([data-selected]):not([data-disabled])":
+          {
+            "background-color": "Canvas",
+          },
+        ":is(.ninaero-select-item, .ninaero-combobox-item)[data-disabled]": {
           "border-color": "Canvas",
           "background-color": "Canvas",
           color: "GrayText",
         },
+        ".ninaero-combobox-chip": {
+          "border-color": "Highlight",
+          "background-color": "Canvas",
+          color: "CanvasText",
+        },
+        ".ninaero-combobox-chips[data-disabled] .ninaero-combobox-chip, .ninaero-combobox-chip[data-disabled]":
+          {
+            "border-color": "GrayText",
+            "background-color": "Canvas",
+            color: "GrayText",
+          },
         ".ninaero-toggle, .ninaero-toggle[aria-pressed=true]": {
           "border-color": "ButtonText",
           "background-color": "ButtonFace",

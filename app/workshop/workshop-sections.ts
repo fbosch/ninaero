@@ -74,6 +74,12 @@ const componentSpecimens = [
     title: "Cards",
     description: "Paper panels, sizes, header actions, footers, images, and RTL.",
   },
+  {
+    href: "/workshop/combobox",
+    title: "Combobox",
+    description:
+      "Search, single and multiple selection, chips, field states, and keyboard navigation.",
+  },
 ] as const;
 
 const foundationSpecimens = [

@@ -104,10 +104,10 @@ function CheckboxPreview() {
 function ComboboxPreview() {
   const id = useId();
   return (
-    <div className="w-full max-w-64 space-y-2">
-      <Label htmlFor={id}>Fruit</Label>
+    <Field className="w-full max-w-64">
+      <FieldLabel htmlFor={id}>Fruit</FieldLabel>
       <Combobox items={["Apple", "Banana", "Cherry"]}>
-        <ComboboxInput id={id} placeholder="Choose a fruit" />
+        <ComboboxInput id={id} placeholder="Choose a fruit" showClear />
         <ComboboxContent>
           <ComboboxEmpty>No matching fruit</ComboboxEmpty>
           <ComboboxList>
@@ -119,7 +119,7 @@ function ComboboxPreview() {
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
-    </div>
+    </Field>
   );
 }
 

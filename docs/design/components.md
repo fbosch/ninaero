@@ -16,6 +16,8 @@ Textarea retains native resizing and content-based sizing. Inside InputGroup, su
 
 Select preserves Base UI's positioning and keyboard behavior. Its menu uses the shared neutral floating frame. Selected options have a pale accent fill, a defined edge, and a check mark. Highlighted options use an inset outline that stays inside the menu. Disabled options remain opaque with muted ink. Keep their highlight visible when Base UI focuses them for inspection; they cannot be selected. Reduced motion removes popup and chevron transitions; forced-colors mode preserves selection and highlights with system colors.
 
+Combobox shares InputGroup's recessed field and Select's floating frame, option spacing, selection, and inset highlight. Multiple-selection chips use the same pale accent fill and defined edge; their enclosing field owns focus, invalid, and disabled treatment. Keep chip removal, filtering, empty results, and keyboard navigation backed by Base UI.
+
 The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded, distinct from squircle action buttons and dialog frames.
 
 ## Field and Label
