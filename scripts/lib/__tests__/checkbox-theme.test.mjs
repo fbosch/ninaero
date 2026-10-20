@@ -51,6 +51,29 @@ for (const mode of ["light", "dark"]) {
     }
   });
 
+  test(`${mode} invalid checked marks retain contrast on the destructive selection material`, () => {
+    const palette = theme[mode];
+    const hover = palette["button-destructive-hover"];
+    const pressed = palette["button-destructive-pressed"];
+    const middle = mixOklab(hover, pressed, 0.5);
+    const tones = [
+      palette["button-destructive-fill"],
+      mixOklab(hover, "#ffffff", 0.25),
+      mixOklab(pressed, "#000000", 0.08),
+      mixOklab(pressed, "#000000", Number.parseFloat(palette["recess-shade-weight"]) / 100),
+      mixOklab(pressed, "#ffffff", Number.parseFloat(palette["recess-highlight-weight"]) / 100),
+      ...[0, 0.25, 0.5, 0.75, 1].flatMap((amount) => [
+        mixOklab(hover, middle, amount),
+        mixOklab(middle, pressed, amount),
+      ]),
+    ];
+    for (const tone of tones) {
+      const ink = mixOklab(palette["button-destructive-ink"], "#000000", 0.12);
+      const ratio = contrast(ink, tone);
+      assert.ok(ratio >= 4.5, `${mode} invalid selection mark: ${ratio.toFixed(2)}:1`);
+    }
+  });
+
   test(`${mode} checkbox and radio selection and invalid boundaries remain distinct on paper and panels`, () => {
     for (const [name, preset] of Object.entries(accentPresets)) {
       const palette = { ...theme[mode], ...preset[mode] };

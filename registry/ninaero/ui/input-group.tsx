@@ -15,7 +15,7 @@ function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="input-group"
       role="group"
       className={cn(
-        "ninaero-input-group group/input-group relative flex h-(--field-height) w-full min-w-0 items-center has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-start]]:[&>input]:pt-0 has-[>[data-align=block-end]]:[&>input]:pb-0 has-[>[data-align=block-start]]:[&>textarea]:pt-0 has-[>[data-align=block-end]]:[&>textarea]:pb-0 has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=inline-start]]:[&>input]:pl-2",
+        "ninaero-input-group group/input-group relative flex h-(--field-height) w-full min-w-0 items-center has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-start]]:[&>input]:pt-0 has-[>[data-align=block-end]]:[&>input]:pb-0 has-[>[data-align=block-start]]:[&>textarea]:pt-0 has-[>[data-align=block-end]]:[&>textarea]:pb-0 has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=inline-start]]:[&>input]:pl-2 has-[>[data-align=inline-end]]:[&>textarea]:pr-2 has-[>[data-align=inline-start]]:[&>textarea]:pl-2",
         className,
       )}
       {...props}

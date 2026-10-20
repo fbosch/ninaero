@@ -99,7 +99,7 @@
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --destructive: #b02f1e;
+  --destructive: #b21823;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -147,13 +147,13 @@
   --button-paper-pressed: #e3e3e3;
   --button-paper-highlight: #ffffffa6;
   --button-paper-shade: #3333330d;
-  --button-destructive-fill: #ffd9cd;
-  --button-destructive-hover: #ffcab9;
-  --button-destructive-pressed: #f5b3a0;
-  --button-destructive-ink: #7e291b;
-  --button-destructive-edge: #c25038;
-  --button-destructive-highlight: #ffffff66;
-  --button-destructive-shade: #5a1b0a14;
+  --button-destructive-fill: #ffd0d1;
+  --button-destructive-hover: #ffc3c3;
+  --button-destructive-pressed: #ffafae;
+  --button-destructive-ink: #79191b;
+  --button-destructive-edge: #c43f40;
+  --button-destructive-highlight: #ffffff80;
+  --button-destructive-shade: #5a0a1014;
   --button-highlight: #ffffff80;
   --shadow-surface: var(--background);
   --shadow-color: from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l;
@@ -206,7 +206,7 @@
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --destructive: #ff9b83;
+  --destructive: #ff9996;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -251,12 +251,12 @@
   --button-paper-pressed: #2e2e2e;
   --button-paper-highlight: #ffffff0d;
   --button-paper-shade: #00000040;
-  --button-destructive-fill: #ffa088;
-  --button-destructive-hover: #ffb39d;
-  --button-destructive-pressed: #ed8b73;
-  --button-destructive-ink: #35160f;
-  --button-destructive-edge: #ffc5b5;
-  --button-destructive-highlight: #ffffff1a;
+  --button-destructive-fill: #fb9494;
+  --button-destructive-hover: #ffa4a3;
+  --button-destructive-pressed: #f18381;
+  --button-destructive-ink: #330b0a;
+  --button-destructive-edge: #feb9b8;
+  --button-destructive-highlight: #ffffff26;
   --button-destructive-shade: #00000040;
   --button-highlight: #ffffff33;
   --shadow-surface: var(--background);
@@ -1848,6 +1848,14 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
   }
   :is(.ninaero-checkbox, .ninaero-radio-group-item):where([aria-invalid=true], [data-invalid]) {
     border-color: var(--destructive);
+  }
+  :is(.ninaero-checkbox, .ninaero-radio-group-item):where([data-checked], [data-indeterminate]):where([aria-invalid=true], [data-invalid]) {
+    --button-primary-fill: var(--button-destructive-fill);
+    --glass-mark-face-0: var(--button-destructive-hover);
+    --glass-mark-face-50: color-mix(in oklab, var(--button-destructive-hover), var(--button-destructive-pressed));
+    --glass-mark-face-100: var(--button-destructive-pressed);
+    --button-recess-fill: var(--button-destructive-pressed);
+    color: color-mix(in oklab, var(--button-destructive-ink), black 12%);
   }
   :is(.ninaero-checkbox, .ninaero-radio-group-item):where([data-readonly]) {
     cursor: default;
