@@ -6,14 +6,14 @@ import type { PreviewProps } from "@/lib/component-overview";
 import { Calendar } from "@/registry/ninaero/ui/calendar";
 
 export default function CalendarPreview({ interactive }: PreviewProps) {
-  const [selected, setSelected] = useState<Date>();
+  const [selected, setSelected] = useState<Date | undefined>(new Date(2026, 4, 14));
   return (
-    <div className="space-y-2">
+    <div className="flex flex-col gap-2">
       <Calendar
         mode="single"
         selected={selected}
         onSelect={interactive ? setSelected : undefined}
-        defaultMonth={new Date(2025, 4, 1)}
+        defaultMonth={new Date(2026, 4, 1)}
         className="mx-auto"
       />
       {interactive && (

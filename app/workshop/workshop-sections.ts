@@ -80,6 +80,11 @@ const componentSpecimens = [
     description:
       "Search, single and multiple selection, chips, field states, and keyboard navigation.",
   },
+  {
+    href: "/workshop/calendar",
+    title: "Calendar",
+    description: "Single dates, ranges, unavailable dates, month navigation, and keyboard focus.",
+  },
 ] as const;
 
 const foundationSpecimens = [

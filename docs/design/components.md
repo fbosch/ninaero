@@ -20,6 +20,10 @@ Combobox shares InputGroup's recessed field and Select's floating frame, option 
 
 The [Wii Internet Channel text-entry reference](https://www.nintendo.com/eu/media/images/06_screenshots/systems_4/wii_10/wii_channels/internet_channel/Internet_Channel_Wii_Channel_04_EN_CMM_big.jpg) shows a long rectangular field with restrained corners, distinct from its rounder action buttons. It does not establish mathematical squircle curves. Ninaero keeps these fields conventionally rounded, distinct from squircle action buttons and dialog frames.
 
+## Calendar
+
+Calendar uses a matte neutral frame without a cast shadow. Day cells keep conventional rounded corners, pale accent selection, and a defined edge; range interiors join into a band with logical row-end corners in either direction. Today has an underline independent of selection, and keyboard focus uses a separate inset outline. Keep unavailable dates opaque with muted ink, and use the shared Select for month/year navigation. Date arithmetic, selection, labels, and keyboard movement remain backed by DayPicker.
+
 ## Field and Label
 
 Field, FieldSet, and Label are structural: they arrange library controls and their text without a framed silhouette of their own. Follow the roles in [Spacing and density](layout.md#spacing-and-density), with one owner for each gap. A Field stacks its label, control, description, and error 8px apart, including a FieldContent's label and description; descriptions do not pull themselves closer with negative margins. A legend keeps 8px below it. FieldGroup separates fields by 16px and widens to 24px when it holds FieldSets; checkbox and radio option lists keep their tighter 12px.
