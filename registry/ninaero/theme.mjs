@@ -80,25 +80,8 @@ const proxyFocus = [
   .map((selector) => `${selector}${enabledFocus}`)
   .join(", ");
 const focusTargets = `${focusable}, ${proxyFocus}`;
-const gradientFocus = `:is(${focusFrames}):is(${focusTargets}):not([aria-invalid=true]):not([data-invalid]):not(:has([aria-invalid=true]))`;
-const fieldFocus = `:is(.ninaero-input, .ninaero-textarea):focus-visible${enabledFocus}:not([aria-invalid=true]), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible${enabledFocus}):not([aria-invalid=true]):not(:has([aria-invalid=true]))`;
-const focusGlowShadow =
-  "0 0 0 4px color-mix(in oklab, var(--ring) 12%, transparent), 0 0 14px 2px color-mix(in oklab, var(--ring) 18%, transparent)";
+const focusGlowShadow = "0 0 12px 1px color-mix(in oklab, var(--ring) 16%, transparent)";
 const focusShadow = `var(--ninaero-material-shadow, var(--tw-shadow, 0 0 #0000)), ${focusGlowShadow}`;
-const focusEdge = {
-  content: '""',
-  position: "absolute",
-  inset: "-1px",
-  "box-sizing": "border-box",
-  "z-index": "1",
-  "pointer-events": "none",
-  "border-radius": "inherit",
-  "corner-shape": "inherit",
-  border: "1px solid transparent",
-  background: "linear-gradient(180deg, var(--ninaero-focus-edge-top), var(--ring)) border-box",
-  mask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
-  "mask-composite": "exclude",
-};
 
 // Preserve each material and pressed-state shadow when adding the shared focus halo.
 function withMaterialShadows(rules) {
@@ -786,7 +769,6 @@ export const theme = {
       "*": {
         "@apply border-border outline-ring/50": {},
         "--ninaero-material-shadow": "initial",
-        "--ninaero-focus-outline": "initial",
       },
       "@media (forced-colors: none)": {
         "::selection": {
@@ -805,26 +787,11 @@ export const theme = {
     },
     "@layer utilities": {
       [focusTargets]: {
-        "--ninaero-focus-edge-top": "color-mix(in oklab, var(--ring), white 15%)",
-        outline: "1px solid var(--ninaero-focus-outline, var(--ring))",
-        "outline-offset": "3px",
+        outline: "1px solid var(--ring)",
+        "outline-offset": "2px",
         "--tw-ring-shadow": "0 0 #0000",
         "--tw-ring-offset-shadow": "0 0 #0000",
         "box-shadow": focusShadow,
-      },
-      "@media (forced-colors: none)": {
-        "@supports (mask-composite: exclude)": {
-          [gradientFocus]: { "--ninaero-focus-outline": "transparent" },
-          [`${gradientFocus}::before`]: focusEdge,
-        },
-        [fieldFocus]: {
-          "border-color": "transparent",
-          "--ninaero-focus-outline": "transparent",
-          "background-image":
-            "linear-gradient(var(--input-fill), var(--input-fill)), linear-gradient(180deg, var(--ninaero-focus-edge-top), var(--ring))",
-          "background-origin": "border-box",
-          "background-clip": "padding-box, border-box",
-        },
       },
       "@media (forced-colors: active)": {
         ".ninaero-tooltip [data-slot=kbd]": {
@@ -960,10 +927,6 @@ export const theme = {
         {
           color: "var(--input-placeholder)",
           opacity: "1",
-        },
-      ".ninaero-input:focus-visible, .ninaero-textarea:focus-visible, .ninaero-select-trigger:focus-visible, .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible)":
-        {
-          "outline-color": "transparent",
         },
       ".ninaero-input[aria-invalid=true], .ninaero-textarea[aria-invalid=true], .ninaero-select-trigger[aria-invalid=true], .ninaero-select-trigger[data-invalid], .ninaero-input-group[aria-invalid=true], .ninaero-input-group:has(> [data-slot=input-group-control][aria-invalid=true])":
         {
@@ -1204,7 +1167,7 @@ export const theme = {
       },
       ".ninaero-slider-thumb:where(:focus-visible, :has(:focus-visible))": {
         outline: "1px solid var(--ring)",
-        "outline-offset": "3px",
+        "outline-offset": "2px",
       },
       ".ninaero-slider:where([data-variant=simple])": {
         "--slider-simple-ink": "var(--foreground)",
@@ -1595,9 +1558,6 @@ export const theme = {
         "text-shadow": "none",
         "border-color": "var(--input-edge)",
       },
-      ".ninaero-toggle:focus-visible": {
-        "outline-color": "transparent",
-      },
       ".ninaero-toggle[aria-invalid=true]": {
         "border-color": "var(--button-destructive-edge)",
       },
@@ -1683,9 +1643,6 @@ export const theme = {
         {
           "background-color": "var(--button-paper-hover)",
         },
-      ".ninaero-button:focus-visible": {
-        "outline-color": "transparent",
-      },
       ".ninaero-button[aria-invalid=true]": {
         "border-color": "var(--button-destructive-edge)",
       },

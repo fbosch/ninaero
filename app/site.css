@@ -105,12 +105,21 @@ body:not(.ninaero-overlay-dither) .home-page::after {
   letter-spacing: 0;
 }
 
+/* Clipped-gradient text only paints inside the span's box; extend it past descenders
+   without changing the line rhythm. */
+.home-heading > span {
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+}
+
 /* Accent tokens only, so every preset keeps its full chroma without grey or black mixing. */
 .home-tagline {
   --home-tagline-top: var(--button-primary-edge);
   --home-tagline-bottom: var(--button-link-ink);
   color: var(--button-link-ink);
   filter: drop-shadow(0 1px 1px var(--display-ink-shadow));
+  /* The scene's black heading text-shadow would paint over the clipped gradient. */
+  text-shadow: none;
 }
 
 /* Some dark presets have edges darker than their link ink, so derive the highlight instead. */

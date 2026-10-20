@@ -57,8 +57,8 @@
   --sky-cloud: rgb(255 255 255 / 0.65);
   --sky-reading: white;
   --sky-reading-field: radial-gradient(
-    ellipse 70% 55% at 30% 42%,
-    var(--sky-reading) 40%,
+    ellipse 55% 45% at 30% 42%,
+    var(--sky-reading) 25%,
     transparent
   );
   position: absolute;
@@ -186,10 +186,11 @@
 }
 
 [class~="dark"] .sky {
-  --sky-top: #252525;
-  --sky-air: #2a2a2a;
-  --sky-horizon: #2e2e2e;
-  --sky-ground: #2a2a2a;
+  /* A faint accent tint keeps each preset recognisable without lifting the dark sky. */
+  --sky-top: color-mix(in oklab, #252525 90%, var(--primary));
+  --sky-air: color-mix(in oklab, #2a2a2a 93%, var(--primary));
+  --sky-horizon: color-mix(in oklab, #2e2e2e 95%, var(--primary));
+  --sky-ground: color-mix(in oklab, #2a2a2a 92%, var(--home-companion));
   --sky-cloud: rgb(255 255 255 / 0.045);
   --sky-reading: rgb(42 42 42 / 0.8);
 }
@@ -198,13 +199,13 @@
   --wave-color: color-mix(in oklab, var(--ring) 55%, var(--primary));
   --wave-highlight: color-mix(in oklab, var(--primary) 55%, white);
   --wave-meadow: var(--home-companion);
-  --wave-meadow-wash: color-mix(in oklab, var(--wave-meadow) 14%, transparent);
+  --wave-meadow-wash: color-mix(in oklab, var(--wave-meadow) 22%, transparent);
   --wave-sky-wash: color-mix(in oklab, var(--primary) 20%, transparent);
   position: absolute;
   inset: 0;
   z-index: -5;
   overflow: hidden;
-  opacity: 0.45;
+  opacity: 0.65;
   pointer-events: none;
   background:
     radial-gradient(ellipse at 15% 100%, var(--wave-meadow-wash), transparent 65%),
@@ -242,21 +243,21 @@
 [class~="dark"] .waves {
   --wave-color: color-mix(in oklab, var(--primary) 85%, white);
   --wave-highlight: color-mix(in oklab, var(--primary) 55%, white);
-  opacity: 0.45;
+  opacity: 0.55;
 }
 
 [data-accent="tidepool"] .waves {
   --wave-color: #438ec4;
   --wave-highlight: #edfaff;
   --wave-sky-wash: color-mix(in oklab, var(--wave-color) 16%, transparent);
-  opacity: 0.55;
+  opacity: 0.7;
 }
 
 [class~="dark"][data-accent="tidepool"] .waves {
   --wave-color: #6f9fbd;
   --wave-highlight: #c0dce5;
   --wave-meadow: #819661;
-  opacity: 0.45;
+  opacity: 0.55;
 }
 
 .controls {
