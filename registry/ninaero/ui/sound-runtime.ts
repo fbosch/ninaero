@@ -77,10 +77,10 @@ const cueProfiles: Partial<Record<SoundCue, CueProfile>> = {
   },
 
   rise: {
-    // Match the dialog's 124ms overshoot and 260ms settle.
+    // Keep a dry rise through the dialog's 260ms opening.
     glide: 0.124,
-    level: 0.85,
-    transform: { decay: 1.28 },
+    level: 0.55,
+    transform: { pitch: 0.85, decay: 1.28, noiseLvl: 0.6 },
   },
   success: {
     notes: [739.99, 830.61, 987.77],

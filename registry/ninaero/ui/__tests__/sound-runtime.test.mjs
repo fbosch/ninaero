@@ -320,14 +320,15 @@ test("glass tick keeps its crisp envelope and per-call pitch and volume", async 
 
 function cueSignature(performance) {
   const { spec, transform, options } = performance;
+  const pitch = (transform.pitch ?? 1) * 2 ** ((options?.pitch ?? 0) / 12);
   return {
     tones: spec
       .filter((layer) => layer.kind === "tone")
       .map((layer) => ({
-        hz: layer.f * (transform.pitch ?? 1) * 2 ** ((options?.pitch ?? 0) / 12),
+        hz: layer.f * pitch,
         at: layer.at,
         wave: transform.wave?.[layer.wave] ?? layer.wave,
-        endHz: layer.f2,
+        endHz: layer.f2 === null ? null : layer.f2 * pitch,
         glideMs: layer.glide * 1000,
       })),
     ms:
@@ -371,15 +372,20 @@ for (const [cue, count, lowHz, highHz, lowMs, highMs] of [
   });
 }
 
-test("dialog rise follows elastic overshoot and opening settle", async (t) => {
+test("dialog rise stays low and quiet through its opening envelope", async (t) => {
   const { player, performances } = acousticFixture(t);
   await player.configure({ enabled: true });
   player.play("rise");
 
-  const { tones, ms } = cueSignature(performances.at(-1));
+  const performance = performances.at(-1);
+  const { tones, ms } = cueSignature(performance);
   assert.equal(tones.length, 1);
-  assert.ok(tones[0].hz >= 200 && tones[0].hz <= 220, `rise start: ${tones[0].hz} Hz`);
-  assert.ok(tones[0].endHz >= 850 && tones[0].endHz <= 870, `rise end: ${tones[0].endHz} Hz`);
+  assert.ok(tones[0].hz >= 170 && tones[0].hz <= 190, `rise start: ${tones[0].hz} Hz`);
+  assert.ok(tones[0].endHz >= 720 && tones[0].endHz <= 750, `rise end: ${tones[0].endHz} Hz`);
+  const noise = performance.spec.find((layer) => layer.kind === "noise");
+  assert.ok(noise);
+  const noisePeak = noise.peak * (performance.transform.noiseLvl ?? 1);
+  assert.ok(noisePeak >= 0.01 && noisePeak <= 0.02, `rise noise: ${noisePeak}`);
   assert.ok(
     tones[0].glideMs >= 120 && tones[0].glideMs <= 130,
     `rise glide: ${tones[0].glideMs} ms`,
@@ -408,7 +414,8 @@ test("glass interaction levels stay bounded at playback", async (t) => {
   }
   for (const { cue, spec } of performances) {
     const peak = Math.max(...spec.map((layer) => layer.peak));
-    const [minimumPeak, maximumPeak] = cue === "hover" ? [0.025, 0.03] : [0.08, 0.12];
+    const peakBounds = { hover: [0.025, 0.03], rise: [0.06, 0.08] };
+    const [minimumPeak, maximumPeak] = peakBounds[cue] ?? [0.08, 0.12];
     assert.ok(peak >= minimumPeak && peak <= maximumPeak, `${cue}: peak ${peak}`);
   }
 });

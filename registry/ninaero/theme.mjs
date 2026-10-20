@@ -188,9 +188,9 @@ const controlCastShadow = "var(--button-cast-shadow, var(--shadow-control))";
 // Primary hover bloom follows the elevation recipe: zero horizontal offset, blur broader than the
 // downward offset, and alpha tapering as layers widen. Its tone is a pale accent, read as light.
 const primaryHoverBloom = [
-  ["1px", "2px", "18%"],
-  ["3px", "6px", "12%"],
-  ["6px", "12px", "6%"],
+  ["1px", "3px", "9%"],
+  ["3px", "8px", "6%"],
+  ["6px", "16px", "3%"],
 ]
   .map(
     ([offset, blur, alpha]) =>
