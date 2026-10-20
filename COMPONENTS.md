@@ -18,11 +18,11 @@ Keep one entry for every component and composed guide in `lib/component-overview
 - [ ] `command`
 - [ ] `data-table`
 - [ ] `date-picker`
-- [ ] `field`
+- [x] `field`
 - [x] `input`
 - [x] `input-group`
 - [ ] `input-otp`
-- [ ] `label`
+- [x] `label`
 - [ ] `native-select`
 - [ ] `questionnaire`
 - [x] `radio-group`

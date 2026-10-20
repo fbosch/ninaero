@@ -1044,6 +1044,23 @@ export const theme = {
         "box-shadow": "none",
         cursor: "not-allowed",
       },
+      // Choice cards (a FieldLabel wrapping a Field) are selection controls: neutral at rest,
+      // and Select/Toggle's pale accent fill with a defined ring edge when their control is checked.
+      ".ninaero-field-label:has(> [data-slot=field])": {
+        "border-radius": "var(--radius-lg)",
+        "corner-shape": "round",
+        border: "1px solid var(--border)",
+        transition: "background-color 80ms ease-out, border-color 80ms ease-out",
+      },
+      ".ninaero-field-label:has(> [data-slot=field]):has([data-checked])": {
+        "background-color": "var(--accent)",
+        "border-color": "var(--ring)",
+      },
+      // Muted descriptions need a little more ink to keep 4.5:1 on the accent fill; the control inside owns the depth.
+      ".ninaero-field-label:has(> [data-slot=field]):has([data-checked]) [data-slot=field-description]":
+        {
+          color: "color-mix(in oklab, var(--muted-foreground), var(--foreground) 15%)",
+        },
       // The dot is a small raised paper bead, the same material as Switch and Slider thumbs.
       ".ninaero-radio-group-dot": {
         ...shadowSurface("var(--glass-mark-face-50)"),
@@ -1460,6 +1477,12 @@ export const theme = {
         transition: "opacity 120ms ease-in, transform 120ms ease-in",
       },
       ".ninaero-select-content[data-align-trigger=true]": {
+        // Base UI shifts an aligned popup so the selected option's text sits over the trigger's value.
+        // Option text starts deeper (popup border + p-2 + item border + pl-3) than trigger text
+        // (border + field inset), so widen by that offset on both sides to overhang evenly.
+        // shortcut: assumes the default trigger inset; small triggers still overhang unevenly.
+        "--select-align-offset": "calc(0.5rem + 0.75rem + 1px - var(--field-padding-inline))",
+        "--select-popup-width": "calc(var(--anchor-width) + 2 * var(--select-align-offset))",
         opacity: "1",
         transform: "none",
         transition: "none",
@@ -1752,6 +1775,11 @@ export const theme = {
           {
             "background-color": "var(--tabs-hover-fill)",
           },
+        ".ninaero-field-label:has(> [data-slot=field]):not(:has(:disabled, [data-disabled])):not(:has([data-checked])):hover":
+          {
+            "background-color": "color-mix(in oklab, var(--muted) 50%, transparent)",
+            "border-color": "var(--neutral-input)",
+          },
         ".ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true])":
           {
             "background-color": "var(--button-paper-hover)",
@@ -1814,6 +1842,7 @@ export const theme = {
         ".ninaero-dropdown-menu-item": { transition: "none" },
         ".ninaero-select-item": { transition: "none" },
         ":is(.ninaero-checkbox, .ninaero-radio-group-item)": { transition: "none" },
+        ".ninaero-field-label:has(> [data-slot=field])": { transition: "none" },
         ".ninaero-switch, .ninaero-switch-thumb": { transition: "none" },
         ".ninaero-slider-thumb": { transition: "none" },
         ".ninaero-tabs-trigger": {
@@ -1904,6 +1933,10 @@ export const theme = {
           "border-color": "GrayText",
           "background-color": "Canvas",
           color: "GrayText",
+        },
+        ".ninaero-field-label:has(> [data-slot=field])": { "border-color": "CanvasText" },
+        ".ninaero-field-label:has(> [data-slot=field]):has([data-checked])": {
+          "border-color": "Highlight",
         },
         ".ninaero-radio-group-dot": {
           "border-color": "currentColor",

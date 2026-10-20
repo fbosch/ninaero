@@ -109,7 +109,7 @@ function SelectContent({
           data-slot="select-content"
           data-align-trigger={alignItemWithTrigger}
           className={cn(
-            "ninaero-popover ninaero-select-content relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 overflow-x-hidden overflow-y-auto p-2",
+            "ninaero-popover ninaero-select-content relative isolate z-50 max-h-(--available-height) w-[var(--select-popup-width,var(--anchor-width))] min-w-36 overflow-x-hidden overflow-y-auto p-2",
             className,
           )}
           {...props}

@@ -1873,6 +1873,19 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
     --ninaero-material-shadow: 0 0 #0000;
     cursor: not-allowed;
   }
+  .ninaero-field-label:has(> [data-slot=field]) {
+    border-radius: var(--radius-lg);
+    corner-shape: round;
+    border: 1px solid var(--border);
+    transition: background-color 80ms ease-out, border-color 80ms ease-out;
+  }
+  .ninaero-field-label:has(> [data-slot=field]):has([data-checked]) {
+    background-color: var(--accent);
+    border-color: var(--ring);
+  }
+  .ninaero-field-label:has(> [data-slot=field]):has([data-checked]) [data-slot=field-description] {
+    color: color-mix(in oklab, var(--muted-foreground), var(--foreground) 15%);
+  }
   .ninaero-radio-group-dot {
     --shadow-surface: var(--glass-mark-face-50);
     --shadow-color: from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l;
@@ -2356,6 +2369,8 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
     transition: opacity 120ms ease-in, transform 120ms ease-in;
   }
   .ninaero-select-content[data-align-trigger=true] {
+    --select-align-offset: calc(0.5rem + 0.75rem + 1px - var(--field-padding-inline));
+    --select-popup-width: calc(var(--anchor-width) + 2 * var(--select-align-offset));
     opacity: 1;
     transform: none;
     transition: none;
@@ -2662,6 +2677,10 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
     .ninaero-tabs-list[data-variant=default] > .ninaero-tabs-trigger:where(:not(:disabled):not([data-disabled]):not([aria-disabled=true])):hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([data-active]) {
       background-color: var(--tabs-hover-fill);
     }
+    .ninaero-field-label:has(> [data-slot=field]):not(:has(:disabled, [data-disabled])):not(:has([data-checked])):hover {
+      background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+      border-color: var(--neutral-input);
+    }
     .ninaero-toggle:hover:not(:disabled):not([data-disabled]):not([aria-disabled=true]):not([aria-pressed=true]) {
       background-color: var(--button-paper-hover);
     }
@@ -2716,6 +2735,9 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
       transition: none;
     }
     :is(.ninaero-checkbox, .ninaero-radio-group-item) {
+      transition: none;
+    }
+    .ninaero-field-label:has(> [data-slot=field]) {
       transition: none;
     }
     .ninaero-switch, .ninaero-switch-thumb {
@@ -2823,6 +2845,12 @@ body.ninaero-overlay-dither:has(.ninaero-dialog-overlay) {
       border-color: GrayText;
       background-color: Canvas;
       color: GrayText;
+    }
+    .ninaero-field-label:has(> [data-slot=field]) {
+      border-color: CanvasText;
+    }
+    .ninaero-field-label:has(> [data-slot=field]):has([data-checked]) {
+      border-color: Highlight;
     }
     .ninaero-radio-group-dot {
       border-color: currentColor;
