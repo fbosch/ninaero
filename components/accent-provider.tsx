@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 import { readAccent, saveAccent } from "@/lib/accent-preference.mjs";
 import {
@@ -10,6 +17,8 @@ import {
   isAccent,
 } from "@/registry/ninaero/accents.mjs";
 
+const accentChangeEvent = "ninaero:accent-change";
+
 const AccentContext = createContext<{
   accent: AccentName;
   mounted: boolean;
@@ -17,31 +26,66 @@ const AccentContext = createContext<{
   setAccent: (value: AccentName) => void;
 } | null>(null);
 
+function getAccentSnapshot(): AccentName {
+  const accent = document.documentElement.dataset.accent;
+  return isAccent(accent) ? accent : defaultAccent;
+}
+
+function getServerAccentSnapshot(): AccentName {
+  return defaultAccent;
+}
+
+function subscribeToNothing() {
+  return () => {};
+}
+
+function getClientMountedSnapshot() {
+  return true;
+}
+
+function getServerMountedSnapshot() {
+  return false;
+}
+
+function subscribeAccent(onChange: () => void) {
+  function syncAccent(event: StorageEvent) {
+    if (event.key !== accentStorageKey && event.key !== null) return;
+    const value = readAccent({ getItem: () => event.newValue });
+    document.documentElement.dataset.accent = value;
+    onChange();
+  }
+
+  window.addEventListener("storage", syncAccent);
+  window.addEventListener(accentChangeEvent, onChange);
+  return () => {
+    window.removeEventListener("storage", syncAccent);
+    window.removeEventListener(accentChangeEvent, onChange);
+  };
+}
+
 export function AccentProvider({ children }: { children: ReactNode }) {
-  const [accent, updateAccent] = useState<AccentName>(defaultAccent);
-  const [mounted, setMounted] = useState(false);
+  const accent = useSyncExternalStore(subscribeAccent, getAccentSnapshot, getServerAccentSnapshot);
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    getClientMountedSnapshot,
+    getServerMountedSnapshot,
+  );
   const [saved, setSaved] = useState(true);
 
   useEffect(() => {
-    const initial = document.documentElement.dataset.accent;
-    if (isAccent(initial)) updateAccent(initial);
-    setMounted(true);
-
-    function syncAccent(event: StorageEvent) {
+    function markAccentSaved(event: StorageEvent) {
       if (event.key !== accentStorageKey && event.key !== null) return;
-      const value = readAccent({ getItem: () => event.newValue });
-      document.documentElement.dataset.accent = value;
-      updateAccent(value);
       setSaved(true);
     }
-    window.addEventListener("storage", syncAccent);
-    return () => window.removeEventListener("storage", syncAccent);
+
+    window.addEventListener("storage", markAccentSaved);
+    return () => window.removeEventListener("storage", markAccentSaved);
   }, []);
 
   function setAccent(value: AccentName) {
     if (!isAccent(value)) throw new Error(`Unknown accent: ${value}`);
     document.documentElement.dataset.accent = value;
-    updateAccent(value);
+    window.dispatchEvent(new Event(accentChangeEvent));
     try {
       setSaved(saveAccent(window.localStorage, value));
     } catch {

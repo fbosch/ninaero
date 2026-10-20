@@ -342,7 +342,7 @@ The installed `ninaero-rounded-control` class gives a composed Button convention
 
 Button, Dialog, AlertDialog, and Slider thumbs use native CSS `corner-shape: squircle` with a nonzero `border-radius` to define the corner extent. This produces superellipse curves without a clipping mask, extra DOM, or JavaScript measurement. Shadows and focus outlines remain outside the component.
 
-True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded action buttons and dialog frames, which do not fulfill their intended squircle geometry. The Button workshop identifies that limitation. No polyfill is included. Conventional rounded fields and other panels do not depend on squircle support.
+True squircle rendering requires browser support for `corner-shape`. Unsupported browsers display ordinary rounded action buttons and dialog frames without a browser-support notice. No polyfill is included. Conventional rounded fields and other panels do not depend on squircle support.
 
 Accent presets live in `registry/ninaero/accents.mjs` and feed the same theme source and registry output as the Button rules. The root `data-accent` attribute selects a preset independently of light/dark mode. The workshop provides an Accent selector and side-by-side Button comparisons. Accent fills, selection, and focus follow the chosen preset; structural borders stay neutral.
 

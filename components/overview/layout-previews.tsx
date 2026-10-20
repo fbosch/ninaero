@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { CSSProperties } from "react";
 
 import { FolderIcon, HomeIcon } from "@/lib/icons";
@@ -53,13 +54,13 @@ export function SidebarPreview() {
             <SidebarGroupLabel>Workshop</SidebarGroupLabel>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton render={<a href="/">Theme workshop</a>}>
+                <SidebarMenuButton render={<Link href="/">Theme workshop</Link>}>
                   <HomeIcon />
                   <span>Theme workshop</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton isActive render={<a href="/docs">Components</a>}>
+                <SidebarMenuButton isActive render={<Link href="/docs">Components</Link>}>
                   <FolderIcon />
                   <span>Components</span>
                 </SidebarMenuButton>

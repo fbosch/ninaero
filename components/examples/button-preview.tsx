@@ -129,10 +129,6 @@ export function ButtonPreview() {
             <Button variant="secondary">Third</Button>
           </ButtonGroup>
         </div>
-        <p className="squircle-support-note text-xs text-muted-foreground">
-          This browser does not support CSS squircle corners. Buttons display ordinary rounded
-          corners here.
-        </p>
       </div>
     </div>
   );

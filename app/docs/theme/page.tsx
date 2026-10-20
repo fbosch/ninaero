@@ -197,6 +197,7 @@ export default function ThemeDocsPage() {
           label="Theme token source"
           language="json"
         />
+        {/* oxlint-disable-next-line next/no-html-link-for-pages -- /r/theme.json is a static registry resource, not an app route. */}
         <a href="/r/theme.json" className="inline-block text-sm underline underline-offset-4">
           Theme registry JSON
         </a>
