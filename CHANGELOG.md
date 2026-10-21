@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.1](https://github.com/fbosch/ninaero/compare/ninaero-v0.2.0...ninaero-v0.2.1) (2026-10-21)
+
+### Miscellaneous Chores
+
+- prepare 0.2.1 release ([eca5055](https://github.com/fbosch/ninaero/commit/eca5055f40a3eee03b7153be9a9f06c078e133fa))
+
 ## [0.2.0](https://github.com/fbosch/ninaero/compare/ninaero-v0.1.0...ninaero-v0.2.0) (2026-10-21)
 
 ### Features
