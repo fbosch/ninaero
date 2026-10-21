@@ -1571,6 +1571,10 @@ export const theme = {
         transition:
           "background-color 80ms ease-out, border-color 80ms ease-out, outline-color 80ms ease-out, color 80ms ease-out",
       },
+      ".ninaero-select-item + .ninaero-select-item, .ninaero-combobox-item + .ninaero-combobox-item, .ninaero-dropdown-menu-item + .ninaero-dropdown-menu-item":
+        {
+          "margin-block-start": "0.25rem",
+        },
       ":is(.ninaero-select-item, .ninaero-combobox-item)[data-selected]": {
         "border-color": "var(--ring)",
         "background-color": "var(--accent)",
