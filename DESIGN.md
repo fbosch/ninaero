@@ -24,15 +24,15 @@ The lined announcement-bar reference is the clearest bridge between paper and li
 
 This file holds the direction and shared constraints. Detailed rules live in one reference each; read the ones that cover the area you are changing.
 
-| Reference                                                       | Read before changing                                                                                                              |
-| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [Materials and patterns](docs/design/materials.md)              | Page and panel materials, homepage waves, backdrop glass, paper patterns, overlays, or tooltip scanlines                          |
-| [Layout and geometry](docs/design/layout.md)                    | Spacing, control heights and insets, corner radii and squircles, CSS units, or font scaling                                       |
-| [Color and typography](docs/design/color-and-typography.md)     | Palette roles, contrast targets, syntax colors, `type-*` utilities, or display ink                                                |
-| [Lighting: gradients and shadows](docs/design/lighting.md)      | Gradients, bevels, cast shadows, elevation levels, receiving-background color, or pressed recesses                                |
-| [Interaction, motion, and accessibility](docs/design/motion.md) | Motion timing, easing, reduced motion, focus and state cues, or animation and audio alignment                                     |
-| [Component details](docs/design/components.md)                  | Input fields, Select, Field and Label, Card, Sliders, Progress, Tabs, Dialogs, or invalid-state treatments for selection controls |
-| [Specimens and moodboard](docs/design/moodboard.md)             | Design specimens or moodboard references                                                                                          |
+| Reference                                                       | Read before changing                                                                                                                         |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Materials and patterns](docs/design/materials.md)              | Page and panel materials, homepage waves, backdrop glass, paper patterns, overlays, or tooltip scanlines                                     |
+| [Layout and geometry](docs/design/layout.md)                    | Spacing, control heights and insets, corner radii and squircles, CSS units, or font scaling                                                  |
+| [Color and typography](docs/design/color-and-typography.md)     | Palette roles, contrast targets, syntax colors, `type-*` utilities, or display ink                                                           |
+| [Lighting: gradients and shadows](docs/design/lighting.md)      | Gradients, bevels, cast shadows, elevation levels, receiving-background color, or pressed recesses                                           |
+| [Interaction, motion, and accessibility](docs/design/motion.md) | Motion timing, easing, reduced motion, focus and state cues, or animation and audio alignment                                                |
+| [Component details](docs/design/components.md)                  | Input fields, Select, Field and Label, Card, Accordion, Sliders, Progress, Tabs, Dialogs, or invalid-state treatments for selection controls |
+| [Specimens and moodboard](docs/design/moodboard.md)             | Design specimens or moodboard references                                                                                                     |
 
 ## Component recipes
 

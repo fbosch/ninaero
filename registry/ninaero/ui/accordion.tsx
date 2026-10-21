@@ -1,7 +1,7 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cn } from "cn";
 
-import { ChevronDownIcon, ChevronUpIcon } from "@/lib/icons";
+import { ChevronDownIcon } from "@/lib/icons";
 
 import { HoverSound } from "./sound-feedback";
 
@@ -19,7 +19,7 @@ function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn("not-last:border-b", className)}
+      className={cn("ninaero-accordion-item not-last:border-b", className)}
       {...props}
     />
   );
@@ -37,7 +37,7 @@ function AccordionTrigger({
         <AccordionPrimitive.Trigger
           data-slot="accordion-trigger"
           className={cn(
-            "group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm type-label transition-all outline-none hover:underline aria-disabled:pointer-events-none aria-disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
+            "ninaero-accordion-trigger group/accordion-trigger relative flex min-h-12 flex-1 items-start justify-between gap-3 rounded-lg border border-transparent px-4 py-3 text-start text-sm type-label outline-none **:data-[slot=accordion-trigger-icon]:size-4",
             className,
           )}
           {...props}
@@ -45,11 +45,8 @@ function AccordionTrigger({
           {children}
           <ChevronDownIcon
             data-slot="accordion-trigger-icon"
-            className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
-          />
-          <ChevronUpIcon
-            data-slot="accordion-trigger-icon"
-            className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+            aria-hidden="true"
+            className="ninaero-accordion-icon pointer-events-none mt-0.5 ms-auto shrink-0"
           />
         </AccordionPrimitive.Trigger>
       </HoverSound>
@@ -61,12 +58,12 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
-      className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      className="ninaero-accordion-content overflow-hidden text-sm type-body"
       {...props}
     >
       <div
         className={cn(
-          "h-(--accordion-panel-height) pt-0 pb-2.5 data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+          "px-4 pt-1 pb-4 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
           className,
         )}
       >

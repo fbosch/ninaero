@@ -878,6 +878,27 @@ export const theme = {
     },
     "@layer components": withMaterialShadows({
       [focusFrames]: { position: "relative" },
+      ".ninaero-accordion-trigger": {
+        color: "var(--foreground)",
+        transition: "background-color 140ms ease, color 140ms ease",
+        "&:not([data-disabled]):hover": {
+          "background-color": "color-mix(in oklab, var(--muted) 50%, transparent)",
+        },
+        "&:not([data-disabled]):active": { "background-color": "var(--muted)" },
+        "&[data-disabled]": { color: "var(--muted-foreground)", cursor: "not-allowed" },
+      },
+      ".ninaero-accordion-icon": {
+        color: "var(--muted-foreground)",
+        transition: "transform 160ms ease",
+        ".ninaero-accordion-trigger[aria-expanded=true] &": { transform: "rotate(180deg)" },
+      },
+      ".ninaero-accordion-content": {
+        // Base UI measures the panel during transitions and restores auto height at rest.
+        height: "var(--accordion-panel-height)",
+        transition: "height 220ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "&[data-starting-style], &[data-ending-style]": { height: "0" },
+        "&[data-ending-style]": { "transition-duration": "140ms" },
+      },
       // Rebind recipes at each caster so inherited receiving-background colors stay effective.
       ".ninaero-button, .ninaero-button-group, .ninaero-dialog, .ninaero-popover, .ninaero-tooltip, .ninaero-slider-thumb, .ninaero-switch-thumb, .ninaero-dropdown-menu-item, .shadow-flat, .shadow-control, .shadow-floating, .shadow-dialog, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl":
         elevationVariables,
@@ -1038,8 +1059,21 @@ export const theme = {
         [`${codeCopyButtonSelector}:active`]: {
           "background-color": "var(--button-recess-fill)",
         },
+        ".ninaero-checkbox": {
+          "--checkbox-mark-surface": "var(--glass-mark-face-50)",
+        },
+        ".ninaero-checkbox:where(:active:not([data-disabled]):not([data-readonly]))": {
+          "--checkbox-mark-surface": "var(--button-recess-fill)",
+        },
         ".ninaero-checkbox:where(:not([data-disabled])) [data-slot=checkbox-indicator] > svg": {
-          filter: "drop-shadow(0 -0.5px 0 #ffffff66) drop-shadow(0 0.5px 0.25px #00000033)",
+          "--checkbox-mark-highlight":
+            "color-mix(in oklab, var(--checkbox-mark-surface), white 60%)",
+          "--checkbox-mark-shadow": shadowColorChannels("var(--checkbox-mark-surface)"),
+          filter: [
+            "drop-shadow(0 -0.5px 0 color-mix(in oklab, var(--checkbox-mark-highlight) 40%, transparent))",
+            "drop-shadow(0 0.5px 0.5px hsl(var(--checkbox-mark-shadow) / 0.16))",
+            "drop-shadow(0 1px 1.5px hsl(var(--checkbox-mark-shadow) / 0.08))",
+          ].join(" "),
         },
       },
       ":is(.ninaero-checkbox, .ninaero-radio-group-item):where(:hover:not([data-disabled]):not([data-readonly])[data-unchecked]:not([data-indeterminate]))":
@@ -2000,6 +2034,9 @@ export const theme = {
         "border-color": "var(--neutral-input)",
       },
       "@media (prefers-reduced-motion: reduce)": {
+        ".ninaero-accordion-trigger, .ninaero-accordion-icon, .ninaero-accordion-content": {
+          transition: "none",
+        },
         ".ninaero-dropdown-menu-item": { transition: "none" },
         ":is(.ninaero-select-item, .ninaero-combobox-item)": { transition: "none" },
         ":is(.ninaero-checkbox, .ninaero-radio-group-item)": { transition: "none" },
@@ -2051,6 +2088,20 @@ export const theme = {
         },
       },
       "@media (forced-colors: active)": {
+        ".ninaero-accordion-item": { "border-color": "CanvasText" },
+        ".ninaero-accordion-trigger": {
+          color: "ButtonText",
+          "&:not([data-disabled]):hover": {
+            "background-color": "Canvas",
+            "text-decoration": "underline",
+          },
+          "&:not([data-disabled]):active": {
+            "background-color": "Highlight",
+            color: "HighlightText",
+          },
+          "&[data-disabled]": { color: "GrayText" },
+        },
+        ".ninaero-accordion-icon": { color: "currentColor" },
         ...glassMarkForcedColors,
         ".ninaero-progress-circular-edge": { display: "none" },
         ".ninaero-progress-circular-track": { stroke: "GrayText", filter: "none" },

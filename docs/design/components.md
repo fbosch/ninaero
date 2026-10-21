@@ -2,6 +2,14 @@
 
 Part of the [Ninaero design direction](../../DESIGN.md).
 
+## Accordion
+
+Accordion is structural, with no outer frame, raised bevel, cast shadow, or selected accent fill. Separate rows with fine neutral borders. Triggers have a 48px relative minimum height, 16px horizontal inset, 12px vertical inset, and an unboxed label. Content shares the 16px text edge. Long labels wrap while the trailing chevron stays aligned with the first line, including in RTL.
+
+Hover adds a faint neutral fill and press strengthens it without moving the row. Disabled rows retain full opacity with muted ink. The shared accent outline marks keyboard focus independently of expansion. A single chevron rotates when the panel opens.
+
+Keep expansion, heading semantics, disabled behavior, and keyboard activation backed by Base UI. The panel uses Base UI's measured-height transition, opening in 220ms and closing in 140ms without overshoot. This layout transition is limited to the disclosure region so following content moves with it; do not scale its text. The inner content has enough inset for child focus outlines and shadows. Reduced motion removes panel, chevron, and fill transitions. Forced-colors mode uses system dividers, disabled ink, and focus colors, with an underline on hover.
+
 ## Input fields
 
 Use the shared field dimensions in [Control geometry](layout.md#control-geometry) and the role-based radii in [Corner geometry](layout.md#corner-geometry).

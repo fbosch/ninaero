@@ -85,6 +85,12 @@ const componentSpecimens = [
     title: "Calendar",
     description: "Single dates, ranges, unavailable dates, month navigation, and keyboard focus.",
   },
+  {
+    href: "/workshop/accordion",
+    title: "Accordion",
+    description:
+      "Disclosure rows, multiple expansion, disabled states, wrapping, and keyboard focus.",
+  },
 ] as const;
 
 const foundationSpecimens = [
