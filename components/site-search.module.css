@@ -1,0 +1,23 @@
+.triggerSurface {
+  transition-property: background-color, border-color, box-shadow, color;
+}
+
+.hiddenTrigger {
+  /* Shared-layout followers otherwise regain opacity after projection ends. */
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.popup,
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  left: 1rem;
+  right: 1rem;
+  width: auto;
+  max-width: 32rem;
+  margin-inline: auto;
+  overflow: clip;
+  transform: none;
+  opacity: 1;
+  transition: none;
+}

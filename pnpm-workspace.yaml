@@ -2,3 +2,8 @@ allowBuilds:
   lefthook: true
   sharp: false
   unrs-resolver: false
+minimumReleaseAgeExclude:
+  - framer-motion@14.6.0
+  - motion-dom@14.6.0
+  - motion-utils@14.6.0
+  - motion@14.6.0
