@@ -33,8 +33,10 @@ export const styles = withMaterialShadows({
       "pointer-events": "none",
       "border-radius": "inherit",
       "corner-shape": "inherit",
-      "--paper-fill": "transparent",
+      "--ninaero-paper-step": "4px",
       "--ninaero-pattern-ink": "var(--tooltip-scanline-ink)",
+      "background-image":
+        "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--ninaero-pattern-ink, var(--paper-rule)) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
     },
     ".ninaero-tooltip[data-side=top]": {
       "--tooltip-enter-y": "4px",

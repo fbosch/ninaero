@@ -165,17 +165,7 @@
           "paper-fill": "#f9f9f9",
           "paper-rule": "#79797914",
           "paper-dot": "#79797929",
-          "paper-rule-strong": "#79797940",
-          "paper-notebook-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%206H120%20M0%2012H120%20M0%2018H120%20M0%2024H120%20M0%2030H120%20M0%2036H120%20M0%2042H120%20M0%2048H120%20M0%2054H120%20M0%2060H120%20M0%2066H120%20M0%2072H120%20M0%2078H120%20M0%2084H120%20M0%2090H120%20M0%2096H120%20M0%20102H120%20M0%20108H120%20M0%20114H120%22%20stroke%3D%22white%22%20stroke-opacity%3D%220.3125%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200H120V120H0Z%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200h0%20M120%200h0%20M0%20120h0%20M120%20120h0%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")",
-          "dither-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22none%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200L8%208M8%200L0%208%22%20stroke%3D%22white%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")",
-          "overlay-flipnote-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22white%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200h1v1H0z%20M4%201h1v1H4z%20M2%203h1v1H2z%20M6%203h1v1H6z%20M1%205h1v1H1z%20M5%205h1v1H5z%20M3%207h1v1H3z%20M7%207h1v1H7z%22%2F%3E%3C%2Fsvg%3E\")",
-          "overlay-dots-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22white%22%3E%3Ccircle%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%220.75%22%2F%3E%3C%2Fsvg%3E\")",
-          "overlay-checker-mask": "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
-          "overlay-lines-mask": "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
-          "ninaero-overlay-blend-mode": "multiply",
-          "ninaero-overlay-opacity": "0.06",
-          "ninaero-overlay-coverage": "0.5",
-          "ninaero-overlay-compensation": "1"
+          "paper-rule-strong": "#79797940"
         },
         "dark": {
           "background": "oklch(0.145 0 0)",
@@ -270,8 +260,7 @@
           "paper-fill": "#232323",
           "paper-rule": "#cecece0f",
           "paper-dot": "#cecece24",
-          "paper-rule-strong": "#cecece30",
-          "ninaero-overlay-blend-mode": "screen"
+          "paper-rule-strong": "#cecece30"
         }
       },
       "css": {
@@ -333,527 +322,342 @@
           "--glass-mark-face-50": "#7ccbe0",
           "--glass-mark-face-100": "#62b9d0"
         },
-        "[data-accent=\"aurora\"]": {
-          "--button-primary-fill": "#ccd5f5",
-          "--button-primary-hover": "#b7c5ef",
-          "--button-primary-pressed": "#a4b5e5",
-          "--button-primary-ink": "#26345b",
-          "--button-primary-edge": "#6575a6",
-          "--button-link-ink": "#40558b",
-          "--button-focus": "#4057a0",
-          "--accent-soft": "#edf0fc",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#6575a6",
-          "--glass-mark-rim-50": "#5f6e9d",
-          "--glass-mark-rim-100": "#5a6894",
-          "--glass-mark-face-0": "#b7c5ef",
-          "--glass-mark-face-50": "#adbdea",
-          "--glass-mark-face-100": "#a4b5e5"
+        "@utility type-display": {
+          "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {}
         },
-        ".dark[data-accent=\"aurora\"], .dark [data-accent=\"aurora\"]": {
-          "--button-primary-fill": "#a9baf0",
-          "--button-primary-hover": "#c0cdf8",
-          "--button-primary-pressed": "#92a6e3",
-          "--button-primary-ink": "#182039",
-          "--button-primary-edge": "#c6d1f8",
-          "--button-link-ink": "#bdccfa",
-          "--button-focus": "#c1cfff",
-          "--accent-soft": "#2b3451",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#c6d1f8",
-          "--glass-mark-rim-50": "#bbc6eb",
-          "--glass-mark-rim-100": "#b1bbde",
-          "--glass-mark-face-0": "#c0cdf8",
-          "--glass-mark-face-50": "#a9b9ee",
-          "--glass-mark-face-100": "#92a6e3"
+        "@utility ninaero-display-ink": {
+          "background-image": "linear-gradient(to bottom in oklab, var(--display-ink-top), var(--display-ink-bottom))",
+          "background-clip": "text",
+          "color": "transparent",
+          "filter": "drop-shadow(0 1px 1px var(--display-ink-shadow))",
+          "&::selection": {
+            "background-color": "var(--accent)",
+            "color": "var(--accent-foreground)"
+          },
+          "@media (forced-colors: active)": {
+            "background-image": "none",
+            "color": "CanvasText",
+            "filter": "none",
+            "&::selection": {
+              "background-color": "Highlight",
+              "color": "HighlightText"
+            }
+          }
         },
-        "[data-accent=\"lavender\"]": {
-          "--button-primary-fill": "#ddceec",
-          "--button-primary-hover": "#d0bde4",
-          "--button-primary-pressed": "#c1abd8",
-          "--button-primary-ink": "#3e294a",
-          "--button-primary-edge": "#8a699c",
-          "--button-link-ink": "#6c4c7b",
-          "--button-focus": "#734d88",
-          "--accent-soft": "#f4edf8",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#8a699c",
-          "--glass-mark-rim-50": "#826393",
-          "--glass-mark-rim-100": "#7b5d8b",
-          "--glass-mark-face-0": "#d0bde4",
-          "--glass-mark-face-50": "#c8b4de",
-          "--glass-mark-face-100": "#c1abd8"
+        "@utility type-heading": {
+          "@apply font-[650] leading-[1.25] tracking-[-0.015em]": {}
         },
-        ".dark[data-accent=\"lavender\"], .dark [data-accent=\"lavender\"]": {
-          "--button-primary-fill": "#c7a7df",
-          "--button-primary-hover": "#d7bceb",
-          "--button-primary-pressed": "#b498ce",
-          "--button-primary-ink": "#271a31",
-          "--button-primary-edge": "#e2c6f4",
-          "--button-link-ink": "#dbc4ec",
-          "--button-focus": "#dec2f5",
-          "--accent-soft": "#3d2e48",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#e2c6f4",
-          "--glass-mark-rim-50": "#d6bbe7",
-          "--glass-mark-rim-100": "#cab1da",
-          "--glass-mark-face-0": "#d7bceb",
-          "--glass-mark-face-50": "#c5aadc",
-          "--glass-mark-face-100": "#b498ce"
+        "@utility type-title": {
+          "@apply font-[650] leading-[1.375] tracking-[-0.01em]": {}
         },
-        "[data-accent=\"slate\"]": {
-          "--button-primary-fill": "#d8e1e9",
-          "--button-primary-hover": "#c6d3de",
-          "--button-primary-pressed": "#b5c5d3",
-          "--button-primary-ink": "#2d3b49",
-          "--button-primary-edge": "#6b7d8c",
-          "--button-link-ink": "#4c6275",
-          "--button-focus": "#4c647a",
-          "--accent-soft": "#eef2f6",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#6b7d8c",
-          "--glass-mark-rim-50": "#657684",
-          "--glass-mark-rim-100": "#5f6f7d",
-          "--glass-mark-face-0": "#c6d3de",
-          "--glass-mark-face-50": "#bdccd8",
-          "--glass-mark-face-100": "#b5c5d3"
+        "@utility type-body": {
+          "@apply font-normal leading-normal tracking-normal": {}
         },
-        ".dark[data-accent=\"slate\"], .dark [data-accent=\"slate\"]": {
-          "--button-primary-fill": "#b3c6d7",
-          "--button-primary-hover": "#c9d8e5",
-          "--button-primary-pressed": "#9bb3c8",
-          "--button-primary-ink": "#19252e",
-          "--button-primary-edge": "#d4e2ee",
-          "--button-link-ink": "#c9dbe9",
-          "--button-focus": "#d0e6f8",
-          "--accent-soft": "#303f4c",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#d4e2ee",
-          "--glass-mark-rim-50": "#c9d6e1",
-          "--glass-mark-rim-100": "#becad5",
-          "--glass-mark-face-0": "#c9d8e5",
-          "--glass-mark-face-50": "#b2c5d6",
-          "--glass-mark-face-100": "#9bb3c8"
+        "@utility type-prose": {
+          "@apply font-normal leading-relaxed tracking-normal": {}
         },
-        "[data-accent=\"lagoon\"]": {
-          "--button-primary-fill": "#b6e8db",
-          "--button-primary-hover": "#9fddcd",
-          "--button-primary-pressed": "#86cfbd",
-          "--button-primary-ink": "#153e36",
-          "--button-primary-edge": "#3c8172",
-          "--button-link-ink": "#216c5c",
-          "--button-focus": "#147663",
-          "--accent-soft": "#e5f6f0",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#3c8172",
-          "--glass-mark-rim-50": "#387a6b",
-          "--glass-mark-rim-100": "#357365",
-          "--glass-mark-face-0": "#9fddcd",
-          "--glass-mark-face-50": "#93d6c5",
-          "--glass-mark-face-100": "#86cfbd"
+        "@utility type-label": {
+          "@apply font-[550] leading-5 tracking-normal": {}
         },
-        ".dark[data-accent=\"lagoon\"], .dark [data-accent=\"lagoon\"]": {
-          "--button-primary-fill": "#7cd4bf",
-          "--button-primary-hover": "#9de3d1",
-          "--button-primary-pressed": "#61bea7",
-          "--button-primary-ink": "#102f28",
-          "--button-primary-edge": "#a7e8d7",
-          "--button-link-ink": "#9be5d0",
-          "--button-focus": "#8ce8cf",
-          "--accent-soft": "#203f36",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#a7e8d7",
-          "--glass-mark-rim-50": "#9edccb",
-          "--glass-mark-rim-100": "#95d0c0",
-          "--glass-mark-face-0": "#9de3d1",
-          "--glass-mark-face-50": "#80d0bc",
-          "--glass-mark-face-100": "#61bea7"
+        "@utility type-caption": {
+          "@apply font-normal leading-4 tracking-normal": {}
         },
-        "[data-accent=\"sky\"]": {
-          "--button-primary-fill": "#8bbce2",
-          "--button-primary-hover": "#7eb1d9",
-          "--button-primary-pressed": "#78acd5",
-          "--button-primary-ink": "#15314a",
-          "--button-primary-edge": "#487da6",
-          "--button-link-ink": "#2d608b",
-          "--button-focus": "#28689a",
-          "--accent-soft": "#e8f1f9",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#487da6",
-          "--glass-mark-rim-50": "#43769d",
-          "--glass-mark-rim-100": "#3f6f94",
-          "--glass-mark-face-0": "#7eb1d9",
-          "--glass-mark-face-50": "#7baed7",
-          "--glass-mark-face-100": "#78acd5"
+        "@layer base": {
+          "*": {
+            "@apply border-border outline-ring/50": {},
+            "--ninaero-material-shadow": "initial"
+          },
+          "@media (forced-colors: none)": {
+            "::selection": {
+              "background-color": "var(--accent)",
+              "color": "var(--accent-foreground)"
+            }
+          },
+          "body": {
+            "@apply bg-background text-foreground": {}
+          },
+          "html": {
+            "@apply font-sans type-body antialiased": {},
+            "font-family": "var(--font-sans)",
+            "font-variation-settings": "\"ROND\" 100"
+          }
         },
-        ".dark[data-accent=\"sky\"], .dark [data-accent=\"sky\"]": {
-          "--button-primary-fill": "#7fb2dc",
-          "--button-primary-hover": "#96c3e5",
-          "--button-primary-pressed": "#7bafd8",
-          "--button-primary-ink": "#102538",
-          "--button-primary-edge": "#9bc6e7",
-          "--button-link-ink": "#a4cdea",
-          "--button-focus": "#97c9ed",
-          "--accent-soft": "#263b4d",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#9bc6e7",
-          "--glass-mark-rim-50": "#92bbdb",
-          "--glass-mark-rim-100": "#8ab1cf",
-          "--glass-mark-face-0": "#96c3e5",
-          "--glass-mark-face-50": "#89b9df",
-          "--glass-mark-face-100": "#7bafd8"
+        "@layer utilities": {
+          ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:is(.ninaero-select-item, .ninaero-combobox-item)):not(.ninaero-calendar-day-button):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
+            "outline": "1px solid var(--ring)",
+            "outline-offset": "2px",
+            "--tw-ring-shadow": "0 0 #0000",
+            "--tw-ring-offset-shadow": "0 0 #0000",
+            "box-shadow": "var(--ninaero-material-shadow, var(--tw-shadow, 0 0 #0000)), 0 0 12px 1px color-mix(in oklab, var(--ring) 16%, transparent)"
+          },
+          "@media (forced-colors: active)": {
+            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:is(.ninaero-select-item, .ninaero-combobox-item)):not(.ninaero-calendar-day-button):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
+              "outline": "2px solid Highlight",
+              "outline-offset": "3px",
+              "box-shadow": "none",
+              "filter": "none"
+            }
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:is(.ninaero-select-item, .ninaero-combobox-item)):not(.ninaero-calendar-day-button):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
+              "transition": "none"
+            }
+          }
         },
-        "[data-accent=\"blossom\"]": {
-          "--button-primary-fill": "#f1cee7",
-          "--button-primary-hover": "#e8b8da",
-          "--button-primary-pressed": "#dda1cc",
-          "--button-primary-ink": "#50253f",
-          "--button-primary-edge": "#9a5882",
-          "--button-link-ink": "#824065",
-          "--button-focus": "#8b4070",
-          "--accent-soft": "#faedf6",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#9a5882",
-          "--glass-mark-rim-50": "#91537b",
-          "--glass-mark-rim-100": "#894e74",
-          "--glass-mark-face-0": "#e8b8da",
-          "--glass-mark-face-50": "#e3acd3",
-          "--glass-mark-face-100": "#dda1cc"
-        },
-        ".dark[data-accent=\"blossom\"], .dark [data-accent=\"blossom\"]": {
-          "--button-primary-fill": "#e4a8d1",
-          "--button-primary-hover": "#f0bfdf",
-          "--button-primary-pressed": "#d28fbd",
-          "--button-primary-ink": "#2d1523",
-          "--button-primary-edge": "#f2c9e4",
-          "--button-link-ink": "#f1bedf",
-          "--button-focus": "#f5c3e8",
-          "--accent-soft": "#482c3f",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#f2c9e4",
-          "--glass-mark-rim-50": "#e5bed8",
-          "--glass-mark-rim-100": "#d9b4cc",
-          "--glass-mark-face-0": "#f0bfdf",
-          "--glass-mark-face-50": "#e1a7ce",
-          "--glass-mark-face-100": "#d28fbd"
-        },
-        "[data-accent=\"lime\"]": {
-          "--button-primary-fill": "#96c56b",
-          "--button-primary-hover": "#86b75b",
-          "--button-primary-pressed": "#79aa4f",
-          "--button-primary-ink": "#162d0d",
-          "--button-primary-edge": "#4b7d3b",
-          "--button-link-ink": "#3f6b2d",
-          "--button-focus": "#477735",
-          "--accent-soft": "#eef5e5",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#4b7d3b",
-          "--glass-mark-rim-50": "#467637",
-          "--glass-mark-rim-100": "#426f34",
-          "--glass-mark-face-0": "#86b75b",
-          "--glass-mark-face-50": "#7fb055",
-          "--glass-mark-face-100": "#79aa4f"
-        },
-        ".dark[data-accent=\"lime\"], .dark [data-accent=\"lime\"]": {
-          "--button-primary-fill": "#98c56b",
-          "--button-primary-hover": "#acd383",
-          "--button-primary-pressed": "#88b65d",
-          "--button-primary-ink": "#12260c",
-          "--button-primary-edge": "#b4d78f",
-          "--button-link-ink": "#b6d995",
-          "--button-focus": "#acd586",
-          "--accent-soft": "#2e3d26",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#b4d78f",
-          "--glass-mark-rim-50": "#aacb87",
-          "--glass-mark-rim-100": "#a1c07f",
-          "--glass-mark-face-0": "#acd383",
-          "--glass-mark-face-50": "#9ac470",
-          "--glass-mark-face-100": "#88b65d"
-        },
-        "[data-accent=\"anemone\"]": {
-          "--button-primary-fill": "#f1b274",
-          "--button-primary-hover": "#e8a461",
-          "--button-primary-pressed": "#dd9854",
-          "--button-primary-ink": "#3b200d",
-          "--button-primary-edge": "#a85b24",
-          "--button-link-ink": "#854414",
-          "--button-focus": "#a35117",
-          "--accent-soft": "#fff0df",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#a85b24",
-          "--glass-mark-rim-50": "#9f5621",
-          "--glass-mark-rim-100": "#96511f",
-          "--glass-mark-face-0": "#e8a461",
-          "--glass-mark-face-50": "#e29e5b",
-          "--glass-mark-face-100": "#dd9854"
-        },
-        ".dark[data-accent=\"anemone\"], .dark [data-accent=\"anemone\"]": {
-          "--button-primary-fill": "#ecad70",
-          "--button-primary-hover": "#f3bf8b",
-          "--button-primary-pressed": "#df9e60",
-          "--button-primary-ink": "#241307",
-          "--button-primary-edge": "#ffc58c",
-          "--button-link-ink": "#ffbd80",
-          "--button-focus": "#ffb96d",
-          "--accent-soft": "#4b311e",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#ffc58c",
-          "--glass-mark-rim-50": "#f1ba84",
-          "--glass-mark-rim-100": "#e4b07d",
-          "--glass-mark-face-0": "#f3bf8b",
-          "--glass-mark-face-50": "#e9ae76",
-          "--glass-mark-face-100": "#df9e60"
-        },
-        "[data-accent=\"sunflower\"]": {
-          "--button-primary-fill": "#efd16a",
-          "--button-primary-hover": "#e5c254",
-          "--button-primary-pressed": "#d9b744",
-          "--button-primary-ink": "#493715",
-          "--button-primary-edge": "#93742c",
-          "--button-link-ink": "#76581e",
-          "--button-focus": "#876626",
-          "--accent-soft": "#fbf6df",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#93742c",
-          "--glass-mark-rim-50": "#8b6d29",
-          "--glass-mark-rim-100": "#836726",
-          "--glass-mark-face-0": "#e5c254",
-          "--glass-mark-face-50": "#dfbc4c",
-          "--glass-mark-face-100": "#d9b744"
-        },
-        ".dark[data-accent=\"sunflower\"], .dark [data-accent=\"sunflower\"]": {
-          "--button-primary-fill": "#e6cc76",
-          "--button-primary-hover": "#efdc95",
-          "--button-primary-pressed": "#d3b85f",
-          "--button-primary-ink": "#30250e",
-          "--button-primary-edge": "#f0dda0",
-          "--button-link-ink": "#ecda99",
-          "--button-focus": "#efdb8c",
-          "--accent-soft": "#423923",
-          "--primary": "var(--button-primary-fill)",
-          "--primary-foreground": "var(--button-primary-ink)",
-          "--accent": "var(--accent-soft)",
-          "--accent-foreground": "var(--button-link-ink)",
-          "--ring": "var(--button-focus)",
-          "--border": "var(--neutral-border)",
-          "--input": "var(--neutral-input)",
-          "--sidebar-border": "var(--neutral-border)",
-          "--sidebar-primary": "var(--button-primary-fill)",
-          "--sidebar-primary-foreground": "var(--button-primary-ink)",
-          "--sidebar-accent": "var(--accent-soft)",
-          "--sidebar-accent-foreground": "var(--button-link-ink)",
-          "--sidebar-ring": "var(--button-focus)",
-          "--glass-mark-rim-0": "#f0dda0",
-          "--glass-mark-rim-50": "#e3d197",
-          "--glass-mark-rim-100": "#d7c68f",
-          "--glass-mark-face-0": "#efdc95",
-          "--glass-mark-face-50": "#e1ca7b",
-          "--glass-mark-face-100": "#d3b85f"
+        "@layer components": {
+          ".ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice]": {
+            "position": "relative"
+          },
+          ".shadow-flat, .shadow-control, .shadow-floating, .shadow-dialog, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl": {
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-background > *": {
+            "--shadow-surface": "var(--background)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-card > *, [data-slot=card] > *": {
+            "--shadow-surface": "var(--card)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-muted > *": {
+            "--shadow-surface": "var(--muted)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-primary > *": {
+            "--shadow-surface": "var(--primary)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-secondary > *": {
+            "--shadow-surface": "var(--secondary)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-accent > *": {
+            "--shadow-surface": "var(--accent)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-destructive > *": {
+            "--shadow-surface": "var(--destructive)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-foreground > *": {
+            "--shadow-surface": "var(--foreground)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-sidebar > *, [data-slot=sidebar-inner] > *, [data-slot=sidebar-wrapper]:has([data-variant=inset]) > *": {
+            "--shadow-surface": "var(--sidebar)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".bg-popover > *": {
+            "--shadow-surface": "var(--popover)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".ninaero-shadow-surface": {
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          ".ninaero-popover": {
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "border-radius": "var(--radius-xl)",
+            "corner-shape": "round",
+            "border": "1px solid var(--border)",
+            "color": "var(--popover-foreground)",
+            "background-color": "var(--popover)",
+            "box-shadow": "inset 0 1px 0 var(--button-highlight), var(--shadow-floating)",
+            "--ninaero-material-shadow": "inset 0 1px 0 var(--button-highlight), var(--shadow-floating)"
+          },
+          ".ninaero-popover > *": {
+            "--shadow-surface": "var(--popover)",
+            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
+            "--shadow-flat": "0 0 #0000",
+            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
+            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
+            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
+            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
+          },
+          "@media (forced-colors: active)": {
+            ".ninaero-mark-face": {
+              "fill": "none",
+              "stroke": "CanvasText"
+            },
+            ".ninaero-mark-highlight": {
+              "stroke": "CanvasText"
+            },
+            ".ninaero-popover": {
+              "border-color": "CanvasText",
+              "background-color": "Canvas",
+              "background-image": "none",
+              "color": "CanvasText",
+              "box-shadow": "none",
+              "--ninaero-material-shadow": "0 0 #0000"
+            }
+          }
+        }
+      },
+      "type": "registry:theme"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "font-google-sans-flex",
+      "title": "Google Sans Flex",
+      "dependencies": [
+        "@fontsource-variable/google-sans-flex@5.3.2"
+      ],
+      "css": {
+        "@import \"@fontsource-variable/google-sans-flex/full.css\"": {},
+        ":root": {
+          "--font-sans": "'Google Sans Flex Variable', ui-sans-serif, system-ui, sans-serif",
+          "--font-heading": "var(--font-sans)"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "font-google-sans-code",
+      "title": "Google Sans Code",
+      "dependencies": [
+        "@fontsource-variable/google-sans-code@5.3.2"
+      ],
+      "css": {
+        "@import \"@fontsource-variable/google-sans-code/full.css\"": {},
+        ":root": {
+          "--font-mono": "'Google Sans Code Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "patterns",
+      "title": "Ninaero patterns",
+      "description": "Paper backgrounds and element textures.",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        ":root": {
+          "--paper-notebook-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%206H120%20M0%2012H120%20M0%2018H120%20M0%2024H120%20M0%2030H120%20M0%2036H120%20M0%2042H120%20M0%2048H120%20M0%2054H120%20M0%2060H120%20M0%2066H120%20M0%2072H120%20M0%2078H120%20M0%2084H120%20M0%2090H120%20M0%2096H120%20M0%20102H120%20M0%20108H120%20M0%20114H120%22%20stroke%3D%22white%22%20stroke-opacity%3D%220.3125%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200H120V120H0Z%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%200h0%20M120%200h0%20M0%20120h0%20M120%20120h0%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")",
+          "--dither-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22none%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200L8%208M8%200L0%208%22%20stroke%3D%22white%22%20stroke-width%3D%221%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E\")",
+          "--overlay-flipnote-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22white%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200h1v1H0z%20M4%201h1v1H4z%20M2%203h1v1H2z%20M6%203h1v1H6z%20M1%205h1v1H1z%20M5%205h1v1H5z%20M3%207h1v1H3z%20M7%207h1v1H7z%22%2F%3E%3C%2Fsvg%3E\")",
+          "--overlay-dots-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22white%22%3E%3Ccircle%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%220.75%22%2F%3E%3C%2Fsvg%3E\")",
+          "--overlay-lines-mask": "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)"
         },
         "@utility ninaero-paper-ruled": {
           "--ninaero-paper-step": "1.5rem",
@@ -1142,61 +946,6 @@
             }
           }
         },
-        "@utility ninaero-overlay-dither": {
-          "isolation": "isolate",
-          "@supports (color: color(from red srgb r g b)) and (opacity: calc(1px / 1px)) and (color: if(style(--ninaero-overlay-blend-mode: multiply): red))": {
-            "--ninaero-overlay-compensated-channel": "if(style(--ninaero-overlay-blend-mode: multiply): clamp(0, 2 * r / max(0.000001, 1 - alpha + alpha * 2 * g), 1); style(--ninaero-overlay-blend-mode: screen): clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha * 2 * g), 1); style(--ninaero-overlay-blend-mode: normal): clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha), 1); else: calc(2 * r))",
-            "--ninaero-overlay-effective-opacity": "calc(clamp(0, var(--ninaero-overlay-opacity), 1) * clamp(0, var(--ninaero-overlay-coverage), 1) * clamp(0, var(--ninaero-overlay-compensation), 1))",
-            "--ninaero-overlay-background": "color(from color(from color-mix(in srgb, color(from var(--background) srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0)) srgb r g b / var(--ninaero-overlay-effective-opacity)) srgb var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) / 1)",
-            "--ninaero-overlay-card": "color(from color(from color-mix(in srgb, color(from var(--card) srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0)) srgb r g b / var(--ninaero-overlay-effective-opacity)) srgb var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) / 1)",
-            "--ninaero-overlay-muted": "color(from color(from color-mix(in srgb, color(from var(--muted) srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0)) srgb r g b / var(--ninaero-overlay-effective-opacity)) srgb var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) / 1)",
-            "&:where(body)": {
-              "background-color": "var(--ninaero-overlay-background)"
-            }
-          },
-          "@media (forced-colors: active), print": {
-            "--ninaero-overlay-compensation": "0"
-          },
-          "&::after": {
-            "content": "\"\"",
-            "position": "fixed",
-            "inset": "0",
-            "z-index": "0",
-            "pointer-events": "none",
-            "user-select": "none",
-            "background-color": "var(--foreground)",
-            "mix-blend-mode": "var(--ninaero-overlay-blend-mode)",
-            "mask-image": "var(--ninaero-overlay-pattern, var(--overlay-checker-mask))",
-            "mask-mode": "alpha",
-            "mask-size": "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
-            "mask-repeat": "repeat",
-            "opacity": "var(--ninaero-overlay-opacity)",
-            "@media (forced-colors: active)": {
-              "display": "none"
-            },
-            "@media print": {
-              "display": "none"
-            }
-          }
-        },
-        "body.ninaero-overlay-dither:has(.ninaero-dialog-overlay)": {
-          "--ninaero-overlay-blend-mode": "normal"
-        },
-        "@utility ninaero-overlay-dots": {
-          "--ninaero-overlay-pattern": "var(--overlay-dots-mask)",
-          "--ninaero-overlay-tile": "4px",
-          "--ninaero-overlay-coverage": "clamp(0, calc(pi * pow(0.75px / var(--ninaero-overlay-size, var(--ninaero-overlay-tile)), 2)), 1)"
-        },
-        "@utility ninaero-overlay-lines": {
-          "--ninaero-overlay-pattern": "var(--overlay-lines-mask)",
-          "--ninaero-overlay-tile": "4px",
-          "--ninaero-overlay-coverage": "0.25"
-        },
-        "@utility ninaero-overlay-flipnote": {
-          "--ninaero-overlay-pattern": "var(--overlay-flipnote-mask)",
-          "--ninaero-overlay-tile": "8px",
-          "--ninaero-overlay-coverage": "0.125"
-        },
         "@utility ninaero-ordered-dots": {
           "--ninaero-ordered-dots-step": "4px",
           "position": "relative",
@@ -1329,245 +1078,7 @@
             }
           }
         },
-        "@utility type-display": {
-          "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {}
-        },
-        "@utility ninaero-display-ink": {
-          "background-image": "linear-gradient(to bottom in oklab, var(--display-ink-top), var(--display-ink-bottom))",
-          "background-clip": "text",
-          "color": "transparent",
-          "filter": "drop-shadow(0 1px 1px var(--display-ink-shadow))",
-          "&::selection": {
-            "background-color": "var(--accent)",
-            "color": "var(--accent-foreground)"
-          },
-          "@media (forced-colors: active)": {
-            "background-image": "none",
-            "color": "CanvasText",
-            "filter": "none",
-            "&::selection": {
-              "background-color": "Highlight",
-              "color": "HighlightText"
-            }
-          }
-        },
-        "@utility type-heading": {
-          "@apply font-[650] leading-[1.25] tracking-[-0.015em]": {}
-        },
-        "@utility type-title": {
-          "@apply font-[650] leading-[1.375] tracking-[-0.01em]": {}
-        },
-        "@utility type-body": {
-          "@apply font-normal leading-normal tracking-normal": {}
-        },
-        "@utility type-prose": {
-          "@apply font-normal leading-relaxed tracking-normal": {}
-        },
-        "@utility type-label": {
-          "@apply font-[550] leading-5 tracking-normal": {}
-        },
-        "@utility type-caption": {
-          "@apply font-normal leading-4 tracking-normal": {}
-        },
-        "@layer base": {
-          "*": {
-            "@apply border-border outline-ring/50": {},
-            "--ninaero-material-shadow": "initial"
-          },
-          "@media (forced-colors: none)": {
-            "::selection": {
-              "background-color": "var(--accent)",
-              "color": "var(--accent-foreground)"
-            }
-          },
-          "body": {
-            "@apply bg-background text-foreground": {}
-          },
-          "html": {
-            "@apply font-sans type-body antialiased": {},
-            "font-family": "var(--font-sans)",
-            "font-variation-settings": "\"ROND\" 100"
-          }
-        },
-        "@layer utilities": {
-          ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:is(.ninaero-select-item, .ninaero-combobox-item)):not(.ninaero-calendar-day-button):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
-            "outline": "1px solid var(--ring)",
-            "outline-offset": "2px",
-            "--tw-ring-shadow": "0 0 #0000",
-            "--tw-ring-offset-shadow": "0 0 #0000",
-            "box-shadow": "var(--ninaero-material-shadow, var(--tw-shadow, 0 0 #0000)), 0 0 12px 1px color-mix(in oklab, var(--ring) 16%, transparent)"
-          },
-          "@media (forced-colors: active)": {
-            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:is(.ninaero-select-item, .ninaero-combobox-item)):not(.ninaero-calendar-day-button):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
-              "outline": "2px solid Highlight",
-              "outline-offset": "3px",
-              "box-shadow": "none",
-              "filter": "none"
-            }
-          },
-          "@media (prefers-reduced-motion: reduce)": {
-            ":focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:is(.ninaero-select-item, .ninaero-combobox-item)):not(.ninaero-calendar-day-button):not(.ninaero-dropdown-menu-item):not(.ninaero-dropdown-menu-content):not([data-slot=input-group-control]):not([data-slot=input-otp]):not([data-slot=slider-thumb] input):not([data-slot=combobox-chips] input):not([data-slot=questionnaire-choice] input), .ninaero-input-group:has(> [data-slot=input-group-control]:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=combobox-chips]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=questionnaire-choice]:has(input:focus-visible:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), .ninaero-slider-thumb:has(:focus-visible):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]):not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=input-otp-slot][data-active=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true]), [data-slot=command]:focus-within [data-slot=command-item][data-selected=true]:not(:disabled):not([data-disabled]:not([data-disabled=false])):not([aria-disabled=true])": {
-              "transition": "none"
-            }
-          }
-        },
         "@layer components": {
-          ".ninaero-button, .ninaero-toggle, .ninaero-tabs-trigger, .ninaero-select-trigger, [data-slot=checkbox], [data-slot=radio-group-item], [data-slot=switch], [data-slot=accordion-trigger], [data-slot=navigation-menu-trigger], [data-slot=navigation-menu-link], [data-slot=menubar-trigger], [data-slot=menubar-sub-trigger], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-sub-trigger], [data-slot=dropdown-menu-checkbox-item], [data-slot=dropdown-menu-radio-item], [data-slot=context-menu-item], [data-slot=context-menu-sub-trigger], [data-slot=context-menu-checkbox-item], [data-slot=context-menu-radio-item], [data-slot=menubar-item], [data-slot=menubar-checkbox-item], [data-slot=menubar-radio-item], [data-slot=combobox-item], [data-slot=command-item], [data-slot=input-otp-slot], [data-slot=combobox-chips], [data-slot=questionnaire-choice]": {
-            "position": "relative"
-          },
-          ".shadow-flat, .shadow-control, .shadow-floating, .shadow-dialog, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl": {
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-background > *": {
-            "--shadow-surface": "var(--background)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-card > *, [data-slot=card] > *": {
-            "--shadow-surface": "var(--card)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-muted > *": {
-            "--shadow-surface": "var(--muted)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-primary > *": {
-            "--shadow-surface": "var(--primary)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-secondary > *": {
-            "--shadow-surface": "var(--secondary)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-accent > *": {
-            "--shadow-surface": "var(--accent)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-destructive > *": {
-            "--shadow-surface": "var(--destructive)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-foreground > *": {
-            "--shadow-surface": "var(--foreground)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-sidebar > *, [data-slot=sidebar-inner] > *, [data-slot=sidebar-wrapper]:has([data-variant=inset]) > *": {
-            "--shadow-surface": "var(--sidebar)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".bg-popover > *": {
-            "--shadow-surface": "var(--popover)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".ninaero-shadow-surface": {
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
           ".ninaero-surface-paper": {
             "--shadow-surface": "var(--paper-fill)",
             "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
@@ -1580,86 +1091,707 @@
             "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
             "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
             "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          ".ninaero-popover": {
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "border-radius": "var(--radius-xl)",
-            "corner-shape": "round",
-            "border": "1px solid var(--border)",
-            "color": "var(--popover-foreground)",
-            "background-color": "var(--popover)",
-            "box-shadow": "inset 0 1px 0 var(--button-highlight), var(--shadow-floating)",
-            "--ninaero-material-shadow": "inset 0 1px 0 var(--button-highlight), var(--shadow-floating)"
-          },
-          ".ninaero-popover > *": {
-            "--shadow-surface": "var(--popover)",
-            "--shadow-color": "from color-mix(in oklab, var(--shadow-surface) 40%, black) h s l",
-            "--shadow-flat": "0 0 #0000",
-            "--shadow-control": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-floating": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-dialog": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-sm": "0 1px 1px hsl(var(--shadow-color) / 0.12), 0 2px 3px hsl(var(--shadow-color) / 0.08)",
-            "--shadow-md": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-lg": "0 1px 3px hsl(var(--shadow-color) / 0.08), 0 4px 8px hsl(var(--shadow-color) / 0.06), 0 8px 16px hsl(var(--shadow-color) / 0.03)",
-            "--shadow-xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)",
-            "--shadow-2xl": "0 2px 3px hsl(var(--shadow-color) / 0.12), 0 8px 12px hsl(var(--shadow-color) / 0.08), 0 16px 28px hsl(var(--shadow-color) / 0.04)"
-          },
-          "@media (forced-colors: active)": {
-            ".ninaero-mark-face": {
-              "fill": "none",
-              "stroke": "CanvasText"
-            },
-            ".ninaero-mark-highlight": {
-              "stroke": "CanvasText"
-            },
-            ".ninaero-popover": {
-              "border-color": "CanvasText",
-              "background-color": "Canvas",
-              "background-image": "none",
-              "color": "CanvasText",
-              "box-shadow": "none",
-              "--ninaero-material-shadow": "0 0 #0000"
-            }
           }
-        }
-      },
-      "type": "registry:theme"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "font-google-sans-flex",
-      "title": "Google Sans Flex",
-      "dependencies": [
-        "@fontsource-variable/google-sans-flex@5.3.2"
-      ],
-      "css": {
-        "@import \"@fontsource-variable/google-sans-flex/full.css\"": {},
-        ":root": {
-          "--font-sans": "'Google Sans Flex Variable', ui-sans-serif, system-ui, sans-serif",
-          "--font-heading": "var(--font-sans)"
         }
       },
       "type": "registry:style"
     },
     {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "font-google-sans-code",
-      "title": "Google Sans Code",
-      "dependencies": [
-        "@fontsource-variable/google-sans-code@5.3.2"
+      "name": "overlays",
+      "title": "Ninaero overlays",
+      "description": "Page-wide textures with background compensation.",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
       ],
       "css": {
-        "@import \"@fontsource-variable/google-sans-code/full.css\"": {},
         ":root": {
-          "--font-mono": "'Google Sans Code Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+          "--overlay-flipnote-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%20fill%3D%22white%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M0%200h1v1H0z%20M4%201h1v1H4z%20M2%203h1v1H2z%20M6%203h1v1H6z%20M1%205h1v1H1z%20M5%205h1v1H5z%20M3%207h1v1H3z%20M7%207h1v1H7z%22%2F%3E%3C%2Fsvg%3E\")",
+          "--overlay-dots-mask": "url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22white%22%3E%3Ccircle%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%220.75%22%2F%3E%3C%2Fsvg%3E\")",
+          "--overlay-lines-mask": "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
+          "--overlay-checker-mask": "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
+          "--ninaero-overlay-blend-mode": "multiply",
+          "--ninaero-overlay-opacity": "0.06",
+          "--ninaero-overlay-coverage": "0.5",
+          "--ninaero-overlay-compensation": "1"
+        },
+        ".dark": {
+          "--ninaero-overlay-blend-mode": "screen"
+        },
+        "@utility ninaero-overlay-dither": {
+          "isolation": "isolate",
+          "@supports (color: color(from red srgb r g b)) and (opacity: calc(1px / 1px)) and (color: if(style(--ninaero-overlay-blend-mode: multiply): red))": {
+            "--ninaero-overlay-compensated-channel": "if(style(--ninaero-overlay-blend-mode: multiply): clamp(0, 2 * r / max(0.000001, 1 - alpha + alpha * 2 * g), 1); style(--ninaero-overlay-blend-mode: screen): clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha * 2 * g), 1); style(--ninaero-overlay-blend-mode: normal): clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha), 1); else: calc(2 * r))",
+            "--ninaero-overlay-effective-opacity": "calc(clamp(0, var(--ninaero-overlay-opacity), 1) * clamp(0, var(--ninaero-overlay-coverage), 1) * clamp(0, var(--ninaero-overlay-compensation), 1))",
+            "--ninaero-overlay-background": "color(from color(from color-mix(in srgb, color(from var(--background) srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0)) srgb r g b / var(--ninaero-overlay-effective-opacity)) srgb var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) / 1)",
+            "--ninaero-overlay-card": "color(from color(from color-mix(in srgb, color(from var(--card) srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0)) srgb r g b / var(--ninaero-overlay-effective-opacity)) srgb var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) / 1)",
+            "--ninaero-overlay-muted": "color(from color(from color-mix(in srgb, color(from var(--muted) srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0)) srgb r g b / var(--ninaero-overlay-effective-opacity)) srgb var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) var(--ninaero-overlay-compensated-channel) / 1)",
+            "&:where(body)": {
+              "background-color": "var(--ninaero-overlay-background)"
+            }
+          },
+          "@media (forced-colors: active), print": {
+            "--ninaero-overlay-compensation": "0"
+          },
+          "&::after": {
+            "content": "\"\"",
+            "position": "fixed",
+            "inset": "0",
+            "z-index": "0",
+            "pointer-events": "none",
+            "user-select": "none",
+            "background-color": "var(--foreground)",
+            "mix-blend-mode": "var(--ninaero-overlay-blend-mode)",
+            "mask-image": "var(--ninaero-overlay-pattern, var(--overlay-checker-mask))",
+            "mask-mode": "alpha",
+            "mask-size": "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
+            "mask-repeat": "repeat",
+            "opacity": "var(--ninaero-overlay-opacity)",
+            "@media (forced-colors: active)": {
+              "display": "none"
+            },
+            "@media print": {
+              "display": "none"
+            }
+          }
+        },
+        "body.ninaero-overlay-dither:has(.ninaero-dialog-overlay)": {
+          "--ninaero-overlay-blend-mode": "normal"
+        },
+        "@utility ninaero-overlay-dots": {
+          "--ninaero-overlay-pattern": "var(--overlay-dots-mask)",
+          "--ninaero-overlay-tile": "4px",
+          "--ninaero-overlay-coverage": "clamp(0, calc(pi * pow(0.75px / var(--ninaero-overlay-size, var(--ninaero-overlay-tile)), 2)), 1)"
+        },
+        "@utility ninaero-overlay-lines": {
+          "--ninaero-overlay-pattern": "var(--overlay-lines-mask)",
+          "--ninaero-overlay-tile": "4px",
+          "--ninaero-overlay-coverage": "0.25"
+        },
+        "@utility ninaero-overlay-flipnote": {
+          "--ninaero-overlay-pattern": "var(--overlay-flipnote-mask)",
+          "--ninaero-overlay-tile": "8px",
+          "--ninaero-overlay-coverage": "0.125"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-aurora",
+      "title": "Ninaero Aurora accent",
+      "description": "Aurora light and dark accent preset, selected with data-accent=\"aurora\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"aurora\"]": {
+          "--button-primary-fill": "#ccd5f5",
+          "--button-primary-hover": "#b7c5ef",
+          "--button-primary-pressed": "#a4b5e5",
+          "--button-primary-ink": "#26345b",
+          "--button-primary-edge": "#6575a6",
+          "--button-link-ink": "#40558b",
+          "--button-focus": "#4057a0",
+          "--accent-soft": "#edf0fc",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#6575a6",
+          "--glass-mark-rim-50": "#5f6e9d",
+          "--glass-mark-rim-100": "#5a6894",
+          "--glass-mark-face-0": "#b7c5ef",
+          "--glass-mark-face-50": "#adbdea",
+          "--glass-mark-face-100": "#a4b5e5"
+        },
+        ".dark[data-accent=\"aurora\"], .dark [data-accent=\"aurora\"]": {
+          "--button-primary-fill": "#a9baf0",
+          "--button-primary-hover": "#c0cdf8",
+          "--button-primary-pressed": "#92a6e3",
+          "--button-primary-ink": "#182039",
+          "--button-primary-edge": "#c6d1f8",
+          "--button-link-ink": "#bdccfa",
+          "--button-focus": "#c1cfff",
+          "--accent-soft": "#2b3451",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#c6d1f8",
+          "--glass-mark-rim-50": "#bbc6eb",
+          "--glass-mark-rim-100": "#b1bbde",
+          "--glass-mark-face-0": "#c0cdf8",
+          "--glass-mark-face-50": "#a9b9ee",
+          "--glass-mark-face-100": "#92a6e3"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-lavender",
+      "title": "Ninaero Lavender accent",
+      "description": "Lavender light and dark accent preset, selected with data-accent=\"lavender\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"lavender\"]": {
+          "--button-primary-fill": "#ddceec",
+          "--button-primary-hover": "#d0bde4",
+          "--button-primary-pressed": "#c1abd8",
+          "--button-primary-ink": "#3e294a",
+          "--button-primary-edge": "#8a699c",
+          "--button-link-ink": "#6c4c7b",
+          "--button-focus": "#734d88",
+          "--accent-soft": "#f4edf8",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#8a699c",
+          "--glass-mark-rim-50": "#826393",
+          "--glass-mark-rim-100": "#7b5d8b",
+          "--glass-mark-face-0": "#d0bde4",
+          "--glass-mark-face-50": "#c8b4de",
+          "--glass-mark-face-100": "#c1abd8"
+        },
+        ".dark[data-accent=\"lavender\"], .dark [data-accent=\"lavender\"]": {
+          "--button-primary-fill": "#c7a7df",
+          "--button-primary-hover": "#d7bceb",
+          "--button-primary-pressed": "#b498ce",
+          "--button-primary-ink": "#271a31",
+          "--button-primary-edge": "#e2c6f4",
+          "--button-link-ink": "#dbc4ec",
+          "--button-focus": "#dec2f5",
+          "--accent-soft": "#3d2e48",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#e2c6f4",
+          "--glass-mark-rim-50": "#d6bbe7",
+          "--glass-mark-rim-100": "#cab1da",
+          "--glass-mark-face-0": "#d7bceb",
+          "--glass-mark-face-50": "#c5aadc",
+          "--glass-mark-face-100": "#b498ce"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-slate",
+      "title": "Ninaero Slate accent",
+      "description": "Slate light and dark accent preset, selected with data-accent=\"slate\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"slate\"]": {
+          "--button-primary-fill": "#d8e1e9",
+          "--button-primary-hover": "#c6d3de",
+          "--button-primary-pressed": "#b5c5d3",
+          "--button-primary-ink": "#2d3b49",
+          "--button-primary-edge": "#6b7d8c",
+          "--button-link-ink": "#4c6275",
+          "--button-focus": "#4c647a",
+          "--accent-soft": "#eef2f6",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#6b7d8c",
+          "--glass-mark-rim-50": "#657684",
+          "--glass-mark-rim-100": "#5f6f7d",
+          "--glass-mark-face-0": "#c6d3de",
+          "--glass-mark-face-50": "#bdccd8",
+          "--glass-mark-face-100": "#b5c5d3"
+        },
+        ".dark[data-accent=\"slate\"], .dark [data-accent=\"slate\"]": {
+          "--button-primary-fill": "#b3c6d7",
+          "--button-primary-hover": "#c9d8e5",
+          "--button-primary-pressed": "#9bb3c8",
+          "--button-primary-ink": "#19252e",
+          "--button-primary-edge": "#d4e2ee",
+          "--button-link-ink": "#c9dbe9",
+          "--button-focus": "#d0e6f8",
+          "--accent-soft": "#303f4c",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#d4e2ee",
+          "--glass-mark-rim-50": "#c9d6e1",
+          "--glass-mark-rim-100": "#becad5",
+          "--glass-mark-face-0": "#c9d8e5",
+          "--glass-mark-face-50": "#b2c5d6",
+          "--glass-mark-face-100": "#9bb3c8"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-lagoon",
+      "title": "Ninaero Lagoon accent",
+      "description": "Lagoon light and dark accent preset, selected with data-accent=\"lagoon\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"lagoon\"]": {
+          "--button-primary-fill": "#b6e8db",
+          "--button-primary-hover": "#9fddcd",
+          "--button-primary-pressed": "#86cfbd",
+          "--button-primary-ink": "#153e36",
+          "--button-primary-edge": "#3c8172",
+          "--button-link-ink": "#216c5c",
+          "--button-focus": "#147663",
+          "--accent-soft": "#e5f6f0",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#3c8172",
+          "--glass-mark-rim-50": "#387a6b",
+          "--glass-mark-rim-100": "#357365",
+          "--glass-mark-face-0": "#9fddcd",
+          "--glass-mark-face-50": "#93d6c5",
+          "--glass-mark-face-100": "#86cfbd"
+        },
+        ".dark[data-accent=\"lagoon\"], .dark [data-accent=\"lagoon\"]": {
+          "--button-primary-fill": "#7cd4bf",
+          "--button-primary-hover": "#9de3d1",
+          "--button-primary-pressed": "#61bea7",
+          "--button-primary-ink": "#102f28",
+          "--button-primary-edge": "#a7e8d7",
+          "--button-link-ink": "#9be5d0",
+          "--button-focus": "#8ce8cf",
+          "--accent-soft": "#203f36",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#a7e8d7",
+          "--glass-mark-rim-50": "#9edccb",
+          "--glass-mark-rim-100": "#95d0c0",
+          "--glass-mark-face-0": "#9de3d1",
+          "--glass-mark-face-50": "#80d0bc",
+          "--glass-mark-face-100": "#61bea7"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-sky",
+      "title": "Ninaero Sky accent",
+      "description": "Sky light and dark accent preset, selected with data-accent=\"sky\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"sky\"]": {
+          "--button-primary-fill": "#8bbce2",
+          "--button-primary-hover": "#7eb1d9",
+          "--button-primary-pressed": "#78acd5",
+          "--button-primary-ink": "#15314a",
+          "--button-primary-edge": "#487da6",
+          "--button-link-ink": "#2d608b",
+          "--button-focus": "#28689a",
+          "--accent-soft": "#e8f1f9",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#487da6",
+          "--glass-mark-rim-50": "#43769d",
+          "--glass-mark-rim-100": "#3f6f94",
+          "--glass-mark-face-0": "#7eb1d9",
+          "--glass-mark-face-50": "#7baed7",
+          "--glass-mark-face-100": "#78acd5"
+        },
+        ".dark[data-accent=\"sky\"], .dark [data-accent=\"sky\"]": {
+          "--button-primary-fill": "#7fb2dc",
+          "--button-primary-hover": "#96c3e5",
+          "--button-primary-pressed": "#7bafd8",
+          "--button-primary-ink": "#102538",
+          "--button-primary-edge": "#9bc6e7",
+          "--button-link-ink": "#a4cdea",
+          "--button-focus": "#97c9ed",
+          "--accent-soft": "#263b4d",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#9bc6e7",
+          "--glass-mark-rim-50": "#92bbdb",
+          "--glass-mark-rim-100": "#8ab1cf",
+          "--glass-mark-face-0": "#96c3e5",
+          "--glass-mark-face-50": "#89b9df",
+          "--glass-mark-face-100": "#7bafd8"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-blossom",
+      "title": "Ninaero Blossom accent",
+      "description": "Blossom light and dark accent preset, selected with data-accent=\"blossom\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"blossom\"]": {
+          "--button-primary-fill": "#f1cee7",
+          "--button-primary-hover": "#e8b8da",
+          "--button-primary-pressed": "#dda1cc",
+          "--button-primary-ink": "#50253f",
+          "--button-primary-edge": "#9a5882",
+          "--button-link-ink": "#824065",
+          "--button-focus": "#8b4070",
+          "--accent-soft": "#faedf6",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#9a5882",
+          "--glass-mark-rim-50": "#91537b",
+          "--glass-mark-rim-100": "#894e74",
+          "--glass-mark-face-0": "#e8b8da",
+          "--glass-mark-face-50": "#e3acd3",
+          "--glass-mark-face-100": "#dda1cc"
+        },
+        ".dark[data-accent=\"blossom\"], .dark [data-accent=\"blossom\"]": {
+          "--button-primary-fill": "#e4a8d1",
+          "--button-primary-hover": "#f0bfdf",
+          "--button-primary-pressed": "#d28fbd",
+          "--button-primary-ink": "#2d1523",
+          "--button-primary-edge": "#f2c9e4",
+          "--button-link-ink": "#f1bedf",
+          "--button-focus": "#f5c3e8",
+          "--accent-soft": "#482c3f",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#f2c9e4",
+          "--glass-mark-rim-50": "#e5bed8",
+          "--glass-mark-rim-100": "#d9b4cc",
+          "--glass-mark-face-0": "#f0bfdf",
+          "--glass-mark-face-50": "#e1a7ce",
+          "--glass-mark-face-100": "#d28fbd"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-lime",
+      "title": "Ninaero Lime accent",
+      "description": "Lime light and dark accent preset, selected with data-accent=\"lime\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"lime\"]": {
+          "--button-primary-fill": "#96c56b",
+          "--button-primary-hover": "#86b75b",
+          "--button-primary-pressed": "#79aa4f",
+          "--button-primary-ink": "#162d0d",
+          "--button-primary-edge": "#4b7d3b",
+          "--button-link-ink": "#3f6b2d",
+          "--button-focus": "#477735",
+          "--accent-soft": "#eef5e5",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#4b7d3b",
+          "--glass-mark-rim-50": "#467637",
+          "--glass-mark-rim-100": "#426f34",
+          "--glass-mark-face-0": "#86b75b",
+          "--glass-mark-face-50": "#7fb055",
+          "--glass-mark-face-100": "#79aa4f"
+        },
+        ".dark[data-accent=\"lime\"], .dark [data-accent=\"lime\"]": {
+          "--button-primary-fill": "#98c56b",
+          "--button-primary-hover": "#acd383",
+          "--button-primary-pressed": "#88b65d",
+          "--button-primary-ink": "#12260c",
+          "--button-primary-edge": "#b4d78f",
+          "--button-link-ink": "#b6d995",
+          "--button-focus": "#acd586",
+          "--accent-soft": "#2e3d26",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#b4d78f",
+          "--glass-mark-rim-50": "#aacb87",
+          "--glass-mark-rim-100": "#a1c07f",
+          "--glass-mark-face-0": "#acd383",
+          "--glass-mark-face-50": "#9ac470",
+          "--glass-mark-face-100": "#88b65d"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-anemone",
+      "title": "Ninaero Anemone accent",
+      "description": "Anemone light and dark accent preset, selected with data-accent=\"anemone\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"anemone\"]": {
+          "--button-primary-fill": "#f1b274",
+          "--button-primary-hover": "#e8a461",
+          "--button-primary-pressed": "#dd9854",
+          "--button-primary-ink": "#3b200d",
+          "--button-primary-edge": "#a85b24",
+          "--button-link-ink": "#854414",
+          "--button-focus": "#a35117",
+          "--accent-soft": "#fff0df",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#a85b24",
+          "--glass-mark-rim-50": "#9f5621",
+          "--glass-mark-rim-100": "#96511f",
+          "--glass-mark-face-0": "#e8a461",
+          "--glass-mark-face-50": "#e29e5b",
+          "--glass-mark-face-100": "#dd9854"
+        },
+        ".dark[data-accent=\"anemone\"], .dark [data-accent=\"anemone\"]": {
+          "--button-primary-fill": "#ecad70",
+          "--button-primary-hover": "#f3bf8b",
+          "--button-primary-pressed": "#df9e60",
+          "--button-primary-ink": "#241307",
+          "--button-primary-edge": "#ffc58c",
+          "--button-link-ink": "#ffbd80",
+          "--button-focus": "#ffb96d",
+          "--accent-soft": "#4b311e",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#ffc58c",
+          "--glass-mark-rim-50": "#f1ba84",
+          "--glass-mark-rim-100": "#e4b07d",
+          "--glass-mark-face-0": "#f3bf8b",
+          "--glass-mark-face-50": "#e9ae76",
+          "--glass-mark-face-100": "#df9e60"
+        }
+      },
+      "type": "registry:style"
+    },
+    {
+      "name": "accent-sunflower",
+      "title": "Ninaero Sunflower accent",
+      "description": "Sunflower light and dark accent preset, selected with data-accent=\"sunflower\".",
+      "registryDependencies": [
+        "http://localhost:3000/r/theme.json"
+      ],
+      "css": {
+        "[data-accent=\"sunflower\"]": {
+          "--button-primary-fill": "#efd16a",
+          "--button-primary-hover": "#e5c254",
+          "--button-primary-pressed": "#d9b744",
+          "--button-primary-ink": "#493715",
+          "--button-primary-edge": "#93742c",
+          "--button-link-ink": "#76581e",
+          "--button-focus": "#876626",
+          "--accent-soft": "#fbf6df",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#93742c",
+          "--glass-mark-rim-50": "#8b6d29",
+          "--glass-mark-rim-100": "#836726",
+          "--glass-mark-face-0": "#e5c254",
+          "--glass-mark-face-50": "#dfbc4c",
+          "--glass-mark-face-100": "#d9b744"
+        },
+        ".dark[data-accent=\"sunflower\"], .dark [data-accent=\"sunflower\"]": {
+          "--button-primary-fill": "#e6cc76",
+          "--button-primary-hover": "#efdc95",
+          "--button-primary-pressed": "#d3b85f",
+          "--button-primary-ink": "#30250e",
+          "--button-primary-edge": "#f0dda0",
+          "--button-link-ink": "#ecda99",
+          "--button-focus": "#efdb8c",
+          "--accent-soft": "#423923",
+          "--primary": "var(--button-primary-fill)",
+          "--primary-foreground": "var(--button-primary-ink)",
+          "--accent": "var(--accent-soft)",
+          "--accent-foreground": "var(--button-link-ink)",
+          "--ring": "var(--button-focus)",
+          "--border": "var(--neutral-border)",
+          "--input": "var(--neutral-input)",
+          "--sidebar-border": "var(--neutral-border)",
+          "--sidebar-primary": "var(--button-primary-fill)",
+          "--sidebar-primary-foreground": "var(--button-primary-ink)",
+          "--sidebar-accent": "var(--accent-soft)",
+          "--sidebar-accent-foreground": "var(--button-link-ink)",
+          "--sidebar-ring": "var(--button-focus)",
+          "--glass-mark-rim-0": "#f0dda0",
+          "--glass-mark-rim-50": "#e3d197",
+          "--glass-mark-rim-100": "#d7c68f",
+          "--glass-mark-face-0": "#efdc95",
+          "--glass-mark-face-50": "#e1ca7b",
+          "--glass-mark-face-100": "#d3b85f"
         }
       },
       "type": "registry:style"
@@ -5872,8 +6004,9 @@
             "pointer-events": "none",
             "border-radius": "inherit",
             "corner-shape": "inherit",
-            "--paper-fill": "transparent",
-            "--ninaero-pattern-ink": "var(--tooltip-scanline-ink)"
+            "--ninaero-paper-step": "4px",
+            "--ninaero-pattern-ink": "var(--tooltip-scanline-ink)",
+            "background-image": "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--ninaero-pattern-ink, var(--paper-rule)) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))"
           },
           ".ninaero-tooltip[data-side=top]": {
             "--tooltip-enter-y": "4px"
@@ -5996,9 +6129,20 @@
     {
       "name": "ninaero",
       "title": "Ninaero baseline",
-      "description": "Complete Base UI component catalogue and shared theme tokens.",
+      "description": "Complete Base UI catalogue, shared theme, patterns, overlays, and accent presets.",
       "registryDependencies": [
         "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/patterns.json",
+        "http://localhost:3000/r/overlays.json",
+        "http://localhost:3000/r/accent-aurora.json",
+        "http://localhost:3000/r/accent-lavender.json",
+        "http://localhost:3000/r/accent-slate.json",
+        "http://localhost:3000/r/accent-lagoon.json",
+        "http://localhost:3000/r/accent-sky.json",
+        "http://localhost:3000/r/accent-blossom.json",
+        "http://localhost:3000/r/accent-lime.json",
+        "http://localhost:3000/r/accent-anemone.json",
+        "http://localhost:3000/r/accent-sunflower.json",
         "http://localhost:3000/r/sound-provider.json",
         "http://localhost:3000/r/code-block.json",
         "http://localhost:3000/r/trace.json",

@@ -1,5 +1,6 @@
 import { registrySchema } from "shadcn/schema";
 
+import { optionalStyles } from "../../registry/ninaero/optional-styles.mjs";
 import { itemStyles } from "../../registry/ninaero/ui/styles/index.mjs";
 export const defaultRegistryUrl = "http://localhost:3000/r";
 
@@ -63,7 +64,7 @@ function fontImportRule(font) {
 
 export function renderThemeCss(theme, styles = []) {
   return [
-    "/* Generated from registry/ninaero/theme.mjs and ui/styles/. Run pnpm registry:build. */",
+    "/* Generated from registry/ninaero/ styling sources. Run pnpm registry:build. */",
     `${fontImportRule(theme.font)};`,
     `${fontImportRule(theme.codeFont)};`,
     '@import "tailwindcss";',
@@ -134,6 +135,11 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
           },
         },
       },
+      ...optionalStyles.map((style) => ({
+        ...style,
+        type: "registry:style",
+        registryDependencies: [itemUrl("theme")],
+      })),
       ...components.map((component) => ({
         name: component.name,
         title: `Ninaero ${component.name}`,
@@ -149,14 +155,19 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
       {
         name: "ninaero",
         title: "Ninaero baseline",
-        description: "Complete Base UI component catalogue and shared theme tokens.",
+        description:
+          "Complete Base UI catalogue, shared theme, patterns, overlays, and accent presets.",
         type: "registry:base",
         config: {
           style: "base-nova",
           iconLibrary: "lucide",
           tailwind: { baseColor: "neutral", cssVariables: true },
         },
-        registryDependencies: ["theme", ...components.map(({ name }) => name)].map(itemUrl),
+        registryDependencies: [
+          "theme",
+          ...optionalStyles.map(({ name }) => name),
+          ...components.map(({ name }) => name),
+        ].map(itemUrl),
       },
     ],
   });

@@ -85,7 +85,22 @@ test("every registry dependency resolves to an item published by the registry", 
   }
   const preset = registry.items.find(({ name }) => name === "ninaero");
   assert.equal(preset.type, "registry:base");
-  assert.equal(preset.registryDependencies.length, components.length + 1);
+  const installed = new Set();
+  function install(name) {
+    if (installed.has(name)) return;
+    installed.add(name);
+    const item = registry.items.find((candidate) => candidate.name === name);
+    for (const address of item.registryDependencies ?? []) {
+      install(
+        new URL(address).pathname
+          .split("/")
+          .at(-1)
+          .replace(/\.json$/, ""),
+      );
+    }
+  }
+  install("ninaero");
+  assert.deepEqual(installed, names);
 });
 
 test("registry URLs fail loudly on unsupported or ambiguous values", () => {

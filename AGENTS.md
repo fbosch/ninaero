@@ -8,6 +8,7 @@ Ninaero is an installable shadcn/ui theme with a local workshop and component do
 - Keep shared tokens and genuinely shared material, typography, and focus rules in `registry/ninaero/theme.mjs`, and accent presets in `registry/ninaero/accents.mjs`. Keep item-specific recipes and state styling in `registry/ninaero/ui/styles/` and supporting-hook styling in `registry/ninaero/hooks/styles/` alongside their installable modules; do not centralize unrelated item rules in the shared theme.
 - Keep installable components in `registry/ninaero/ui/` and supporting hooks in `registry/ninaero/hooks/`, not `components/ui/`. Keep preview-only code and workshop styling separate; installed components must not depend on them.
 - Use the same installable styling sources for the site and consumer registry. The local preview may assemble all items; do not maintain preview-only versions of installable recipes.
+- Keep optional patterns, overlays, and accent CSS in `registry/ninaero/patterns.mjs`, `registry/ninaero/overlays.mjs`, and `registry/ninaero/accent-styles.mjs`, and list their registry items in `registry/ninaero/optional-styles.mjs`. Keep the default accent in the shared theme. Component recipes must not rely on optional artwork styles.
 - Keep homepage bubbles, waves, and their animation helpers, styles, and tests in `components/home-background/`. They are presentation-only; do not include them in theme tokens, installable components, or registry items.
 - Use existing controls from `registry/ninaero/ui/` throughout the site, including the homepage, header, settings, examples, previews, workshops, and docs. Compose library controls rather than recreating them with native elements; use native controls only when explicitly demonstrating native behavior.
 - Preserve the library controls' themed appearance and interaction behavior. Prefer existing variants and sizes; use local styling for layout, not to turn a library control into a bespoke widget. For selectors such as the accent picker, start with an existing Select, ToggleGroup, or RadioGroup. If none fits, ask before introducing a custom control.
@@ -17,7 +18,7 @@ Ninaero is an installable shadcn/ui theme with a local workshop and component do
 ## Registry styling
 
 - Use shadcn's documented `cssVars`, `css`, and `registryDependencies` mechanisms rather than adding a parallel styling runtime.
-- `theme.json` installs shared foundations, individual items add their own styling and required dependencies, and `ninaero.json` installs the complete baseline. Read [styling ownership and installation](DESIGN.md#styling-ownership-and-installation) before changing packaging, and update consumer documentation alongside packaging changes.
+- `theme.json` installs shared foundations and the default accent. Individual items add their own styling and required dependencies. Patterns, overlays, and additional accents are opt-in; `ninaero.json` and the local preview include them all. Read [styling ownership and installation](DESIGN.md#styling-ownership-and-installation) before changing packaging, and update consumer documentation alongside packaging changes.
 
 ## Component behavior
 

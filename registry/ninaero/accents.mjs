@@ -255,19 +255,3 @@ export const accentSemanticTokens = {
   "sidebar-accent-foreground": "var(--button-link-ink)",
   "sidebar-ring": "var(--button-focus)",
 };
-
-function variables(palette) {
-  return Object.fromEntries(
-    Object.entries({ ...palette, ...accentSemanticTokens }).map(([key, value]) => [
-      `--${key}`,
-      value,
-    ]),
-  );
-}
-
-export const accentRules = Object.fromEntries(
-  Object.entries(accentPresets).flatMap(([name, preset]) => [
-    [`[data-accent="${name}"]`, variables(preset.light)],
-    [`.dark[data-accent="${name}"], .dark [data-accent="${name}"]`, variables(preset.dark)],
-  ]),
-);

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CodeBlock } from "@/components/docs/code-block";
+import { docsRegistryUrl } from "@/lib/component-documentation";
 import { theme } from "@/registry/ninaero/theme.mjs";
 import {
   Card,
@@ -10,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ninaero/ui/card";
+import { registryCommand } from "@/scripts/lib/registry-command.mjs";
 
 export const metadata: Metadata = {
   title: "Theme | Ninaero",
@@ -71,9 +73,19 @@ export default function ThemeDocsPage() {
           browser storage is available.
         </p>
         <p className="text-sm type-prose text-muted-foreground">
-          Installed themes support the same presets without a React provider. Set data-accent on the
-          root element and use the dark class for dark mode. Edit preset colors in
-          registry/ninaero/accents.mjs, then regenerate the registry.
+          The shared theme includes Tidepool. Add an accent item for another preset, such as
+          accent-lavender.json for Lavender. The complete Ninaero preset includes every accent. No
+          React provider is required.
+        </p>
+        <CodeBlock
+          code={registryCommand("add", "accent-lavender", docsRegistryUrl)}
+          label="Install Lavender"
+          language="bash"
+        />
+        <p className="text-sm type-prose text-muted-foreground">
+          Set data-accent on the root element or a subtree to select an installed preset, and use
+          the dark class for dark mode. Edit preset colors in registry/ninaero/accents.mjs, then
+          regenerate the registry.
         </p>
         <CodeBlock
           code={'<html data-accent="lavender" class="dark">'}

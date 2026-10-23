@@ -15,13 +15,18 @@ const root = fileURLToPath(new URL("../../../", import.meta.url));
 const manifest = JSON.parse(await readFile(new URL("../../../package.json", import.meta.url)));
 const registry = createRegistry(theme, manifest.dependencies, []);
 const installedTheme = registry.items.find(({ name }) => name === "theme");
-const consumerCss = renderThemeCss({
-  ...theme,
-  theme: installedTheme.cssVars.theme,
-  light: installedTheme.cssVars.light,
-  dark: installedTheme.cssVars.dark,
-  css: installedTheme.css,
-});
+const consumerCss = renderThemeCss(
+  {
+    ...theme,
+    theme: installedTheme.cssVars.theme,
+    light: installedTheme.cssVars.light,
+    dark: installedTheme.cssVars.dark,
+    css: installedTheme.css,
+  },
+  registry.items
+    .filter(({ name }) => ["patterns", "overlays"].includes(name))
+    .map(({ css }) => css),
+);
 
 async function compileConsumer(utilities) {
   return compile(`${consumerCss}\n.specimen { @apply ${utilities}; }`, {

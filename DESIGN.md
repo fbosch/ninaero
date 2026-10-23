@@ -63,7 +63,7 @@ The visual direction does not require changing component APIs or interaction beh
 
 ## Styling ownership and installation
 
-An installable item module should own its unique recipes and state styling. Shared tokens, material definitions, typography, and common focus behavior stay in `registry/ninaero/theme.mjs`; accent presets stay in `registry/ninaero/accents.mjs`.
+An installable item module should own its unique recipes and state styling. Shared tokens, material definitions, typography, and common focus behavior stay in `registry/ninaero/theme.mjs`; accent presets stay in `registry/ninaero/accents.mjs`. Optional pattern and overlay CSS belongs in `registry/ninaero/patterns.mjs` and `registry/ninaero/overlays.mjs`. `registry/ninaero/accent-styles.mjs` derives accent CSS from the presets, and `registry/ninaero/optional-styles.mjs` lists the optional registry items.
 
 This ownership improves locality: changes to an item's states belong with its source rather than among unrelated global rules. It adds depth to the installed-item module by hiding recipe details behind the item's interface, while shared materials retain leverage across items. The existing registry-item seam is sufficient; no generic adapter framework or new styling runtime is needed. Use shadcn's supported `cssVars`, `css`, and `registryDependencies` mechanisms.
 
@@ -71,9 +71,12 @@ The site and consumer registry must use the same installable styling sources. Th
 
 ### Installation contract
 
-- `theme.json` installs shared foundations, not every item's recipes.
+- `theme.json` installs shared foundations and the default Tidepool accent.
 - An individual item installs the shared foundations, its own styling, and its required dependency closure.
-- `ninaero.json` installs the complete baseline, including all items and their styling.
+- `patterns.json` adds reusable paper backgrounds and element textures.
+- `overlays.json` adds page-wide textures and their background compensation.
+- `accent-<name>.json` adds an additional light and dark preset, selected with `data-accent="<name>"`.
+- `ninaero.json` installs the complete baseline, including all components, optional styles, and accent presets.
 
 Make source, generator, and consumer-documentation changes together. Preserve Base UI behavior, accent presets, shared focus and forced-color behavior, and installed defaults. Check shared foundations, representative isolated-item installs, and the complete baseline through the real shadcn CLI with TypeScript and Tailwind CSS compilation. Verify the resulting interactions visually as required by `AGENTS.md`.
 

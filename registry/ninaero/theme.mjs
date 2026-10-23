@@ -1,5 +1,6 @@
-import { accentPresets, accentRules, accentSemanticTokens, defaultAccent } from "./accents.mjs";
-import { createGlassGradientTokens, withGlassGradientVariables } from "./glass-materials.mjs";
+import { accentStyles } from "./accent-styles.mjs";
+import { accentPresets, accentSemanticTokens, defaultAccent } from "./accents.mjs";
+import { createGlassGradientTokens } from "./glass-materials.mjs";
 
 export const glassMarkForcedColors = {
   ".ninaero-mark-face": { fill: "none", stroke: "CanvasText" },
@@ -184,169 +185,6 @@ const paperPalettes = {
   },
 };
 
-const notebookIntervals = 20;
-const notebookStep = 6;
-
-function notebookMask() {
-  const size = notebookIntervals * notebookStep;
-  const rules = Array.from(
-    { length: notebookIntervals - 1 },
-    (_, index) => `M0 ${(index + 1) * notebookStep}H${size}`,
-  ).join(" ");
-  const fixedStroke = 'vector-effect="non-scaling-stroke"';
-  // Round caps on zero-length paths keep junctions the same size as the tile scales.
-  const svg = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none">`,
-    `<path d="${rules}" stroke="white" stroke-opacity="0.3125" stroke-width="1" ${fixedStroke}/>`,
-    `<path d="M0 0H${size}V${size}H0Z" stroke="white" stroke-width="2" ${fixedStroke}/>`,
-    `<path d="M0 0h0 M${size} 0h0 M0 ${size}h0 M${size} ${size}h0" stroke="white" stroke-width="6" stroke-linecap="round" ${fixedStroke}/>`,
-    "</svg>",
-  ].join("");
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-}
-
-function ditherMask() {
-  const svg = [
-    '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" shape-rendering="crispEdges">',
-    '<path d="M0 0L8 8M8 0L0 8" stroke="white" stroke-width="1" vector-effect="non-scaling-stroke"/>',
-    "</svg>",
-  ].join("");
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-}
-
-function flipnoteMask() {
-  const svg = [
-    '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="white" shape-rendering="crispEdges">',
-    '<path d="M0 0h1v1H0z M4 1h1v1H4z M2 3h1v1H2z M6 3h1v1H6z M1 5h1v1H1z M5 5h1v1H5z M3 7h1v1H3z M7 7h1v1H7z"/>',
-    "</svg>",
-  ].join("");
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-}
-const overlayDotRadius = 0.75;
-
-function overlayDotsMask() {
-  // Relative dimensions let mask-size set the viewport without scaling the dot.
-  const svg = [
-    '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="white">',
-    `<circle cx="50%" cy="50%" r="${overlayDotRadius}"/>`,
-    "</svg>",
-  ].join("");
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-}
-const overlayChannels = {
-  multiply: "clamp(0, 2 * r / max(0.000001, 1 - alpha + alpha * 2 * g), 1)",
-  screen: "clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha * 2 * g), 1)",
-  normal: "clamp(0, (2 * r - alpha * 2 * g) / max(0.000001, 1 - alpha), 1)",
-};
-
-function overlaySurface(surface) {
-  // Neutral surfaces and ink have equal RGB channels. Pack surface/ink into R/G
-  // and effective opacity into alpha so relative CSS colors can invert the blend.
-  const pair = `color-mix(in srgb, color(from ${surface} srgb r 0 0) 50%, color(from var(--foreground) srgb 0 g 0))`;
-  const origin = `color(from ${pair} srgb r g b / var(--ninaero-overlay-effective-opacity))`;
-  const channel = "var(--ninaero-overlay-compensated-channel)";
-  return `color(from ${origin} srgb ${channel} ${channel} ${channel} / 1)`;
-}
-
-function maskedPattern(mask, size) {
-  return {
-    position: "relative",
-    isolation: "isolate",
-    // Keep the decorative SVG behind content without masking the container or its fill.
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      inset: "0",
-      "z-index": "-1",
-      "pointer-events": "none",
-      "border-radius": "inherit",
-      "corner-shape": "inherit",
-      "background-color": "var(--ninaero-pattern-ink, var(--paper-rule-strong))",
-      "mask-image": `var(--${mask})`,
-      "mask-mode": "alpha",
-      "mask-size": `${size} ${size}`,
-      "mask-repeat": "repeat",
-      "@media (forced-colors: active)": { display: "none" },
-    },
-  };
-}
-
-const paperPatterns = {
-  ruled: {
-    spacing: "1.5rem",
-    styles: {
-      "background-image":
-        "repeating-linear-gradient(transparent 0 calc(var(--ninaero-paper-step) - 1px), var(--ninaero-pattern-ink, var(--paper-rule)) calc(var(--ninaero-paper-step) - 1px) var(--ninaero-paper-step))",
-    },
-  },
-  dotted: {
-    spacing: "16px",
-    styles: {
-      "background-image":
-        "radial-gradient(circle, var(--ninaero-pattern-ink, var(--paper-dot)) 1px, transparent 1px)",
-      "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
-    },
-  },
-  grid: {
-    spacing: "24px",
-    styles: {
-      "background-image":
-        "linear-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px), linear-gradient(90deg, var(--ninaero-pattern-ink, var(--paper-rule)) 1px, transparent 1px)",
-      "background-size": "var(--ninaero-paper-step) var(--ninaero-paper-step)",
-    },
-  },
-  notebook: {
-    spacing: `${notebookStep}px`,
-    styles: {
-      "--ninaero-notebook-size": `calc(var(--ninaero-paper-step) * ${notebookIntervals})`,
-      ...maskedPattern("paper-notebook-mask", "var(--ninaero-notebook-size)"),
-    },
-  },
-};
-
-const paperUtilities = Object.fromEntries(
-  Object.entries(paperPatterns).flatMap(([name, { spacing, styles }]) => {
-    const declarations = {
-      ...shadowSurface("var(--paper-fill)"),
-      "background-color": "var(--paper-fill)",
-      ...styles,
-      "@media (forced-colors: active)": {
-        "background-image": "none",
-        "background-color": "Canvas",
-      },
-    };
-    return [
-      [`@utility ninaero-paper-${name}`, { "--ninaero-paper-step": spacing, ...declarations }],
-      [
-        `@utility ninaero-paper-${name}-*`,
-        {
-          "--ninaero-paper-step": "max(1px, calc(--value(number, [number]) * 1px))",
-          ...declarations,
-        },
-      ],
-    ];
-  }),
-);
-const ditherStyles = maskedPattern("dither-mask", "var(--ninaero-dither-step)");
-// The header overlay textures as ordinary element patterns, sharing the overlay's mask tokens.
-const orderedDotsStyles = maskedPattern("overlay-dots-mask", "var(--ninaero-ordered-dots-step)");
-const diagonalLinesStyles = maskedPattern(
-  "overlay-lines-mask",
-  "var(--ninaero-diagonal-lines-step)",
-);
-const flipnoteStyles = maskedPattern("overlay-flipnote-mask", "var(--ninaero-flipnote-step)");
-const checkerStyles = {
-  "background-image":
-    "conic-gradient(var(--ninaero-pattern-ink, var(--paper-rule)) 25%, transparent 0 50%, var(--ninaero-pattern-ink, var(--paper-rule)) 0 75%, transparent 0)",
-  "background-size": "calc(var(--ninaero-checker-step) * 2) calc(var(--ninaero-checker-step) * 2)",
-  "@media (forced-colors: active)": { "background-image": "none" },
-};
-const wideCheckerStyles = {
-  ...checkerStyles,
-  "background-size": "calc(var(--ninaero-checker-step) * 4) calc(var(--ninaero-checker-step) * 2)",
-};
-const patternInkColor = '--value(--color-*, "transparent", [color])';
-
 export const theme = {
   font: sansFont,
   codeFont,
@@ -467,18 +305,6 @@ export const theme = {
     "shadow-surface": "var(--background)",
     "shadow-color": shadowColorChannels("var(--shadow-surface)"),
     ...paperPalettes.light,
-    "paper-notebook-mask": notebookMask(),
-    "dither-mask": ditherMask(),
-    "overlay-flipnote-mask": flipnoteMask(),
-    "overlay-dots-mask": overlayDotsMask(),
-    "overlay-checker-mask":
-      "conic-gradient(black 25%, transparent 0 50%, black 0 75%, transparent 0)",
-    "overlay-lines-mask":
-      "linear-gradient(45deg, black 12.5%, transparent 0 50%, black 0 62.5%, transparent 0)",
-    "ninaero-overlay-blend-mode": "multiply",
-    "ninaero-overlay-opacity": "0.06",
-    "ninaero-overlay-coverage": "0.5",
-    "ninaero-overlay-compensation": "1",
   },
   dark: {
     background: "oklch(0.145 0 0)",
@@ -548,130 +374,9 @@ export const theme = {
     "shadow-surface": "var(--background)",
     "shadow-color": shadowColorChannels("var(--shadow-surface)"),
     ...paperPalettes.dark,
-    "ninaero-overlay-blend-mode": "screen",
   },
   css: {
-    ...Object.fromEntries(
-      Object.entries(accentRules).map(([selector, variables]) => [
-        selector,
-        withGlassGradientVariables(variables),
-      ]),
-    ),
-    ...paperUtilities,
-    "@utility ninaero-pattern-ink-*": {
-      "--ninaero-pattern-ink": patternInkColor,
-      // Tailwind omits each optional override when its modifier type does not match.
-      "&": {
-        "--ninaero-pattern-ink": `--alpha(${patternInkColor} / calc(--modifier(number) * 1%))`,
-        "&": {
-          "--ninaero-pattern-ink": `--alpha(${patternInkColor} / --modifier([number], [percentage]))`,
-        },
-      },
-    },
-    "@utility ninaero-checker": {
-      "--ninaero-checker-step": "12px",
-      ...checkerStyles,
-    },
-    "@utility ninaero-checker-*": {
-      "--ninaero-checker-step": "max(1px, calc(--value(number, [number]) * 1px))",
-      ...checkerStyles,
-    },
-    "@utility ninaero-checker-wide": {
-      "--ninaero-checker-step": "12px",
-      ...wideCheckerStyles,
-    },
-    "@utility ninaero-checker-wide-*": {
-      "--ninaero-checker-step": "max(1px, calc(--value(number, [number]) * 1px))",
-      ...wideCheckerStyles,
-    },
-    "@utility ninaero-dither": {
-      "--ninaero-dither-step": "8px",
-      ...ditherStyles,
-    },
-    "@utility ninaero-dither-*": {
-      "--ninaero-dither-step": "max(1px, calc(--value(number, [number]) * 1px))",
-      ...ditherStyles,
-    },
-    "@utility ninaero-overlay-dither": {
-      isolation: "isolate",
-      "@supports (color: color(from red srgb r g b)) and (opacity: calc(1px / 1px)) and (color: if(style(--ninaero-overlay-blend-mode: multiply): red))":
-        {
-          "--ninaero-overlay-compensated-channel": `if(${Object.entries(overlayChannels)
-            .map(([mode, channel]) => `style(--ninaero-overlay-blend-mode: ${mode}): ${channel}`)
-            .join("; ")}; else: calc(2 * r))`,
-          "--ninaero-overlay-effective-opacity":
-            "calc(clamp(0, var(--ninaero-overlay-opacity), 1) * clamp(0, var(--ninaero-overlay-coverage), 1) * clamp(0, var(--ninaero-overlay-compensation), 1))",
-          "--ninaero-overlay-background": overlaySurface("var(--background)"),
-          "--ninaero-overlay-card": overlaySurface("var(--card)"),
-          "--ninaero-overlay-muted": overlaySurface("var(--muted)"),
-          "&:where(body)": { "background-color": "var(--ninaero-overlay-background)" },
-        },
-      "@media (forced-colors: active), print": {
-        "--ninaero-overlay-compensation": "0",
-      },
-      "&::after": {
-        content: '""',
-        position: "fixed",
-        inset: "0",
-        // Keep the texture below page content and portaled UI.
-        "z-index": "0",
-        "pointer-events": "none",
-        "user-select": "none",
-        "background-color": "var(--foreground)",
-        "mix-blend-mode": "var(--ninaero-overlay-blend-mode)",
-        "mask-image": "var(--ninaero-overlay-pattern, var(--overlay-checker-mask))",
-        "mask-mode": "alpha",
-        "mask-size":
-          "var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px)) var(--ninaero-overlay-size, var(--ninaero-overlay-tile, 2px))",
-        "mask-repeat": "repeat",
-        opacity: "var(--ninaero-overlay-opacity)",
-        "@media (forced-colors: active)": { display: "none" },
-        "@media print": { display: "none" },
-      },
-    },
-    // A blended texture escapes backdrop-filter sampling; use normal blending while modals blur it.
-    "body.ninaero-overlay-dither:has(.ninaero-dialog-overlay)": {
-      "--ninaero-overlay-blend-mode": "normal",
-    },
-    "@utility ninaero-overlay-dots": {
-      "--ninaero-overlay-pattern": "var(--overlay-dots-mask)",
-      "--ninaero-overlay-tile": "4px",
-      "--ninaero-overlay-coverage": `clamp(0, calc(pi * pow(${overlayDotRadius}px / var(--ninaero-overlay-size, var(--ninaero-overlay-tile)), 2)), 1)`,
-    },
-    "@utility ninaero-overlay-lines": {
-      "--ninaero-overlay-pattern": "var(--overlay-lines-mask)",
-      "--ninaero-overlay-tile": "4px",
-      "--ninaero-overlay-coverage": "0.25",
-    },
-    "@utility ninaero-overlay-flipnote": {
-      "--ninaero-overlay-pattern": "var(--overlay-flipnote-mask)",
-      "--ninaero-overlay-tile": "8px",
-      "--ninaero-overlay-coverage": "0.125",
-    },
-    "@utility ninaero-ordered-dots": {
-      "--ninaero-ordered-dots-step": "4px",
-      ...orderedDotsStyles,
-    },
-    "@utility ninaero-ordered-dots-*": {
-      "--ninaero-ordered-dots-step": "max(1px, calc(--value(number, [number]) * 1px))",
-      ...orderedDotsStyles,
-    },
-    "@utility ninaero-diagonal-lines": {
-      "--ninaero-diagonal-lines-step": "4px",
-      ...diagonalLinesStyles,
-    },
-    "@utility ninaero-diagonal-lines-*": {
-      "--ninaero-diagonal-lines-step": "max(1px, calc(--value(number, [number]) * 1px))",
-      ...diagonalLinesStyles,
-    },
-    "@utility ninaero-flipnote": {
-      "--ninaero-flipnote-step": "8px",
-      ...flipnoteStyles,
-    },
-    "@utility ninaero-flipnote-*": {
-      "--ninaero-flipnote-step": "max(1px, calc(--value(number, [number]) * 1px))",
-      ...flipnoteStyles,
-    },
+    ...accentStyles[defaultAccent],
     "@utility type-display": {
       "@apply font-[650] leading-[1.15] tracking-[-0.025em]": {},
     },
@@ -773,7 +478,6 @@ export const theme = {
         "--shadow-color": shadowColorChannels("var(--shadow-surface)"),
         ...elevationVariables,
       },
-      ".ninaero-surface-paper": shadowSurface("var(--paper-fill)"),
       // Popover, Select, Combobox, and DropdownMenu share this receiving surface.
       ".ninaero-popover": {
         ...elevationVariables,

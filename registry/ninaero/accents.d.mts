@@ -19,4 +19,3 @@ export const accentPresets: Record<
 export const accentNames: AccentName[];
 export function isAccent(value: unknown): value is AccentName;
 export const accentSemanticTokens: Record<string, string>;
-export const accentRules: Record<string, Record<string, string>>;

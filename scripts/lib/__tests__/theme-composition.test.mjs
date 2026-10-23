@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 
 import { compile } from "tailwindcss";
 
+import { optionalStyles } from "../../../registry/ninaero/optional-styles.mjs";
 import { theme } from "../../../registry/ninaero/theme.mjs";
 import { renderThemeCss } from "../theme.mjs";
 
@@ -40,6 +41,7 @@ async function compilePreview(styles, utilities) {
 test("preview composition retains foundation utilities and every item's utilities", async () => {
   await compilePreview(
     [
+      ...optionalStyles.map(({ css }) => css),
       { "@utility first-item": { display: "block" } },
       { "@utility second-item": { "text-wrap": "balance" } },
     ],

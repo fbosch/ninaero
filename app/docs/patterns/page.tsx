@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CodeBlock } from "@/components/docs/code-block";
+import { docsRegistryUrl } from "@/lib/component-documentation";
 import { patternGuidance } from "@/lib/pattern-guidance";
 import {
   Card,
@@ -10,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ninaero/ui/card";
+import { registryCommand } from "@/scripts/lib/registry-command.mjs";
 
 export const metadata: Metadata = {
   title: "Patterns | Ninaero",
@@ -190,6 +192,20 @@ export default function PatternsPage() {
           across the viewport.
         </p>
       </header>
+      <section aria-labelledby="pattern-install-heading" className="flex flex-col gap-4">
+        <h2 id="pattern-install-heading" className="text-xl type-heading">
+          Install patterns
+        </h2>
+        <p className="text-sm type-prose text-muted-foreground">
+          Add patterns.json for paper backgrounds and element textures. It includes the shared
+          theme. The complete Ninaero preset already includes these styles.
+        </p>
+        <CodeBlock
+          code={registryCommand("add", "patterns", docsRegistryUrl)}
+          label="Install patterns"
+          language="bash"
+        />
+      </section>
 
       <section aria-labelledby="pattern-sizing-heading" className="flex flex-col gap-4">
         <h2 id="pattern-sizing-heading" className="text-xl type-heading">
@@ -347,6 +363,15 @@ export default function PatternsPage() {
           A site-wide overlay adds a static texture behind page content and controls, including
           menus and dialogs. Overlays are off by default.
         </p>
+        <p className="text-sm type-prose text-muted-foreground">
+          Add overlays.json before applying the overlay classes. It includes the shared theme. The
+          complete Ninaero preset already includes these styles.
+        </p>
+        <CodeBlock
+          code={registryCommand("add", "overlays", docsRegistryUrl)}
+          label="Install overlays"
+          language="bash"
+        />
         <p className="text-sm type-prose text-muted-foreground">
           Keep <code className="text-foreground">body::after</code> free for the overlay. Do not
           apply transforms to <code className="text-foreground">body</code>.

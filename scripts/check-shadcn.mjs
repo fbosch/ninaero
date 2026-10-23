@@ -20,8 +20,10 @@ import { promisify } from "node:util";
 import { compile } from "tailwindcss";
 
 import catalog from "../registry/ninaero/catalog.json" with { type: "json" };
+import { optionalStyles } from "../registry/ninaero/optional-styles.mjs";
 import { theme } from "../registry/ninaero/theme.mjs";
 import { readCatalogSources, resolveCatalog } from "./lib/catalog.mjs";
+import { buildConsumerCss } from "./lib/consumer-css.mjs";
 import {
   formatTypeScriptDiagnostics,
   releaseRegistryError,
@@ -260,7 +262,7 @@ try {
         join(projectRoot, "scripts/lib/__tests__/fixtures/shadcn-consumer.tsx.txt"),
         "utf8",
       );
-    } else if (name === "theme") {
+    } else if (["registry:theme", "registry:style"].includes(builtItems.get(name).type)) {
       fixture = "export const foundation = true;\n";
     } else {
       const directory = builtItems.get(name).type === "registry:hook" ? "hooks" : "ui";
@@ -282,9 +284,16 @@ try {
 
     const consumerRequire = createRequire(join(consumer, "package.json"));
     const stylesheet = await readFile(join(consumerSource, "styles.css"), "utf8");
-    const foundationUtilities = selected.has("theme")
-      ? "bg-background text-foreground type-body ninaero-paper-ruled"
-      : "font-mono";
+    const utilities = selected.has("theme")
+      ? ["bg-background", "text-foreground", "type-body"]
+      : ["font-mono"];
+    if (selected.has("patterns")) {
+      utilities.push("ninaero-paper-ruled", "ninaero-paper-notebook", "ninaero-ordered-dots");
+    }
+    if (selected.has("overlays")) {
+      utilities.push("ninaero-overlay-dither", "ninaero-overlay-dots");
+    }
+    const foundationUtilities = utilities.join(" ");
     const compiler = await compile(
       `${stylesheet}\n.consumer-check { @apply ${foundationUtilities}; }\n`,
       {
@@ -300,11 +309,11 @@ try {
         },
       },
     );
-    await writeFile(
-      join(consumerSource, "compiled.css"),
-      compiler.build(["inline-flex", "bg-background", "font-sans", "dark:bg-background"]),
-    );
+    const result = buildConsumerCss(compiler, consumerSource);
+    await writeFile(join(consumerSource, "compiled.css"), result.css);
+    await writeFile(join(consumerSource, "minified.css"), result.minified);
     console.log(`Compiled ${name} consumer with ${selected.size} registry items.`);
+    return { item: name, items: selected.size, ...result.sizes };
   }
 
   // The CLI reads its base palette even when every install address is local.
@@ -322,29 +331,34 @@ try {
   });
   const consumers = [
     "theme",
+    ...optionalStyles.map(({ name }) => name),
     "button",
     "input",
     "checkbox",
     "dialog",
     "alert-dialog",
     "select",
+    "tooltip",
     "radio-group",
     "calendar",
     "code-block",
     "use-highlighted-code",
     "ninaero",
   ];
+  const cssSizes = [];
   try {
     server.listen(0, "127.0.0.1");
     await once(server, "listening");
     const address = server.address();
     for (const name of consumers) {
-      await checkConsumer(name, {
-        REGISTRY_URL: `http://127.0.0.1:${address.port}/r`,
-        NO_PROXY: "127.0.0.1,localhost",
-        no_proxy: "127.0.0.1,localhost",
-        npm_config_offline: "true",
-      });
+      cssSizes.push(
+        await checkConsumer(name, {
+          REGISTRY_URL: `http://127.0.0.1:${address.port}/r`,
+          NO_PROXY: "127.0.0.1,localhost",
+          no_proxy: "127.0.0.1,localhost",
+          npm_config_offline: "true",
+        }),
+      );
       if (unexpectedRequests.size) {
         throw new Error(
           `CLI requested unpinned registry inputs: ${[...unexpectedRequests].join(", ")}`,
@@ -355,6 +369,8 @@ try {
     server.closeAllConnections();
     await new Promise((done) => server.close(done));
   }
+  console.log("Installed consumer CSS sizes in bytes; gzip is applied to minified CSS.");
+  console.table(cssSizes);
   console.log(
     `Validated ${builtItems.size} registry items and compiled ${consumers.length} installed consumers with TypeScript and Tailwind.`,
   );
