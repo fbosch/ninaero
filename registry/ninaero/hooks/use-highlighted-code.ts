@@ -1,206 +1,111 @@
 "use client";
 
 import * as React from "react";
-import { createHighlighterCore, type GrammarState, type HighlighterCore } from "shiki/core";
-import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
-import { syntaxThemeNames, syntaxThemeSelection, syntaxTokenStyles } from "./syntax-themes.mjs";
+import { defaultAccent } from "./accent-config.mjs";
+import type { CodeHighlighter, SyntaxToken } from "./code-highlighter.mjs";
 
-const languages = {
-  bash: () => import("shiki/langs/shellscript.mjs"),
-  css: () => import("shiki/langs/css.mjs"),
-  diff: () => import("shiki/langs/diff.mjs"),
-  html: () => import("shiki/langs/html.mjs"),
-  javascript: () => import("shiki/langs/javascript.mjs"),
-  json: () => import("shiki/langs/json.mjs"),
-  jsx: () => import("shiki/langs/jsx.mjs"),
-  markdown: () => import("shiki/langs/markdown.mjs"),
-  python: () => import("shiki/langs/python.mjs"),
-  sql: () => import("shiki/langs/sql.mjs"),
-  tsx: () => import("shiki/langs/tsx.mjs"),
-  typescript: () => import("shiki/langs/typescript.mjs"),
-  yaml: () => import("shiki/langs/yaml.mjs"),
+export type InitialHighlight = {
+  value: string;
+  language: string;
+  accent: string;
+  lines: React.ReactNode[];
 };
 
-type Language = keyof typeof languages;
-
-const aliases: Record<string, Language> = {
-  js: "javascript",
-  md: "markdown",
-  py: "python",
-  sh: "bash",
-  shell: "bash",
-  shellscript: "bash",
-  ts: "typescript",
-  yml: "yaml",
-  zsh: "bash",
-};
-
-function isLanguage(value: string): value is Language {
-  return Object.prototype.hasOwnProperty.call(languages, value);
+function renderLines(lines: SyntaxToken[][]) {
+  return lines.map((line) =>
+    line.map((token, index) =>
+      React.createElement(
+        "span",
+        {
+          key: index,
+          style: token.style as React.CSSProperties,
+          className: "ninaero-syntax-token",
+        },
+        token.content,
+      ),
+    ),
+  );
 }
 
-let highlighterPromise: Promise<HighlighterCore> | undefined;
-
-function getHighlighter() {
-  highlighterPromise ??= createHighlighterCore({
-    themes: [
-      import("shiki/themes/material-theme-lighter.mjs"),
-      import("shiki/themes/material-theme-ocean.mjs"),
-      import("shiki/themes/one-light.mjs"),
-      import("shiki/themes/aurora-x.mjs"),
-      import("shiki/themes/catppuccin-latte.mjs"),
-      import("shiki/themes/catppuccin-mocha.mjs"),
-      import("shiki/themes/github-light-high-contrast.mjs"),
-      import("shiki/themes/github-dark-high-contrast.mjs"),
-      import("shiki/themes/vitesse-light.mjs"),
-      import("shiki/themes/vitesse-dark.mjs"),
-      import("shiki/themes/night-owl-light.mjs"),
-      import("shiki/themes/night-owl.mjs"),
-      import("shiki/themes/rose-pine-dawn.mjs"),
-      import("shiki/themes/rose-pine-moon.mjs"),
-      import("shiki/themes/everforest-light.mjs"),
-      import("shiki/themes/everforest-dark.mjs"),
-      import("shiki/themes/ayu-light.mjs"),
-      import("shiki/themes/ayu-mirage.mjs"),
-      import("shiki/themes/gruvbox-light-medium.mjs"),
-      import("shiki/themes/gruvbox-dark-medium.mjs"),
-    ],
-    langs: [],
-    engine: createJavaScriptRegexEngine({ forgiving: true }),
-  }).then((shiki) => {
-    const loaded = shiki.getLoadedThemes();
-    for (const name of syntaxThemeNames) {
-      if (!loaded.includes(name)) throw new Error(`Missing bundled syntax theme: ${name}`);
-    }
-    return shiki;
-  });
-
-  return highlighterPromise;
-}
-
-function resolveLanguage(language: string): Language | "ansi" | null {
-  const normalized = language.toLowerCase();
-
-  if (normalized === "ansi") {
-    return normalized;
-  }
-
-  if (isLanguage(normalized)) {
-    return normalized;
-  }
-
-  return aliases[normalized] ?? null;
-}
-
-async function loadHighlighter(language: string) {
-  const lang = resolveLanguage(language);
-
-  if (!lang) {
-    return null;
-  }
-
-  const shiki = await getHighlighter();
-
-  if (lang !== "ansi" && !shiki.getLoadedLanguages().includes(lang)) {
-    await shiki.loadLanguage(languages[lang]);
-  }
-
-  return {
-    highlight(code: string, state?: GrammarState) {
-      const tokenize = (text: string) =>
-        shiki.codeToTokens(text, {
-          lang,
-          themes: syntaxThemeSelection,
-          defaultColor: false,
-          cssVariablePrefix: "--n-",
-          grammarState: state,
-        }).tokens;
-
-      const tokens =
-        lang === "ansi" ? code.split("\n").flatMap((line) => tokenize(line)) : tokenize(code);
-
-      return {
-        lines: tokens.map((line) =>
-          line.map((token, index) =>
-            React.createElement(
-              "span",
-              {
-                key: index,
-                style: syntaxTokenStyles(token.htmlStyle) as React.CSSProperties,
-                className: "ninaero-syntax-token",
-              },
-              token.content,
-            ),
-          ),
-        ),
-        state: shiki.getLastGrammarState(tokens),
-      };
-    },
-  };
-}
-
-export function useHighlightedCode(value: string, language: string) {
-  const code = value.endsWith("\n") ? value.slice(0, -1) : value;
-  const [loaded, setLoaded] = React.useState<{
-    language: string;
-    highlighter: Awaited<ReturnType<typeof loadHighlighter>>;
-  } | null>(null);
-  const highlighter = loaded?.language === language ? loaded.highlighter : null;
+export function useHighlightedCode(value: string, language: string, initial?: InitialHighlight) {
+  const code = value.replace(/\r\n|\r/g, "\n").replace(/\n$/, "");
+  const [element, setElement] = React.useState<HTMLSpanElement | null>(null);
+  const [accent, setAccent] = React.useState<string | null>(null);
+  const initialLines =
+    initial?.value === value && initial.language === language ? initial.lines : null;
+  const showInitial = initialLines !== null && (accent === null || accent === initial?.accent);
 
   React.useEffect(() => {
+    if (!element) return;
+    function syncAccent() {
+      setAccent(element?.closest("[data-accent]")?.getAttribute("data-accent") ?? defaultAccent);
+    }
+    syncAccent();
+    const observer = new MutationObserver(syncAccent);
+    for (let ancestor: HTMLElement | null = element; ancestor; ancestor = ancestor.parentElement) {
+      observer.observe(ancestor, { attributes: true, attributeFilter: ["data-accent"] });
+    }
+    return () => observer.disconnect();
+  }, [element]);
+
+  const [loaded, setLoaded] = React.useState<{
+    language: string;
+    highlighter: CodeHighlighter | null;
+  } | null>(null);
+  const highlighter = !showInitial && loaded?.language === language ? loaded.highlighter : null;
+
+  React.useEffect(() => {
+    if (accent === null || showInitial) return;
     let cancelled = false;
-
-    loadHighlighter(language)
+    import("./code-highlighter.mjs")
+      .then(({ loadCodeHighlighter }) => loadCodeHighlighter(language, accent))
       .then((next) => {
-        if (!cancelled) {
-          setLoaded({ language, highlighter: next });
-        }
+        if (!cancelled) setLoaded({ language, highlighter: next });
       })
-      .catch(() => {});
-
+      .catch((error: unknown) => {
+        if (!cancelled) console.error("Unable to load syntax highlighting.", error);
+      });
     return () => {
       cancelled = true;
     };
-  }, [language]);
+  }, [language, accent, showInitial]);
 
   const [done, setDone] = React.useState<{
     highlighter: typeof highlighter;
     text: string;
     lines: React.ReactNode[];
-    state?: Parameters<NonNullable<typeof highlighter>["highlight"]>[1];
+    state?: Parameters<CodeHighlighter["highlight"]>[1];
   }>({ highlighter: null, text: "", lines: [] });
-
   let next = done;
-
   if (next.highlighter !== highlighter || !code.startsWith(next.text)) {
     next = { highlighter, text: "", lines: [] };
   }
-
   const end = code.lastIndexOf("\n") + 1;
-
   if (highlighter && end > next.text.length) {
     const result = highlighter.highlight(code.slice(next.text.length, end - 1), next.state);
-
     next = {
       highlighter,
       text: code.slice(0, end),
-      lines: [...next.lines, ...result.lines],
+      lines: [...next.lines, ...renderLines(result.lines)],
       state: result.state,
     };
   }
-
-  if (next !== done) {
-    setDone(next);
-  }
+  if (next !== done) setDone(next);
 
   const tail = code.slice(end);
+  const lines = React.useMemo(() => {
+    if (showInitial && initialLines) return initialLines;
+    if (!highlighter) return initialLines ?? code.split("\n");
+    return [...next.lines, renderLines(highlighter.highlight(tail, next.state).lines)[0]];
+  }, [showInitial, initialLines, highlighter, code, next, tail]);
 
-  return React.useMemo(() => {
-    if (!highlighter) {
-      return code.split("\n");
-    }
-
-    return [...next.lines, highlighter.highlight(tail, next.state).lines[0]];
-  }, [code, highlighter, next, tail]);
+  // The rendered anchor observes inherited accents without a site-only provider.
+  return React.useMemo(
+    () => [
+      React.createElement("span", { key: "scope", ref: setElement }, lines[0]),
+      ...lines.slice(1),
+    ],
+    [lines, setElement],
+  );
 }

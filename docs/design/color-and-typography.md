@@ -8,7 +8,7 @@ Ninaero is neutral-first in both color modes. Page backgrounds, cards, popovers,
 
 Reserve the chosen accent for primary actions, links, selected controls, active states, and keyboard focus. Secondary and Outline controls keep neutral materials. Feedback colors retain their semantic meaning. Syntax highlighting and data marks may use color to distinguish content, while their containers stay neutral. Popover and menu containers use the neutral card palette independently of Button material tokens; their selected items and controls may use the accent.
 
-Code syntax tokens use bundled Shiki themes chosen for each accent in light and dark mode. Only token colors are applied; theme italics and other font treatments are ignored. Colors that fall below 4.5:1 are adjusted toward neutral ink while retaining their hue. Uncolored code text and the containing surface remain neutral.
+Code syntax tokens use Shiki themes chosen for each accent in light and dark mode. Load only the active accent's pair and cache it for reuse. Keep existing highlighting visible while another pair loads, and use CSS to switch light/dark colors without re-tokenizing. Server-rendered code includes the default pair and loads browser-side highlighting only when another accent is selected. Only token colors are applied; theme italics and other font treatments are ignored. Colors that fall below 4.5:1 are adjusted toward neutral ink while retaining their hue. Uncolored code text and the containing surface remain neutral.
 
 Keep resting neutral borders close to their surrounding fills, using pale gray in light mode and charcoal in dark mode. Resting borders have no 3:1 contrast minimum.
 

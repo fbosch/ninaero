@@ -42,7 +42,11 @@
       "files": [
         { "path": "registry/ninaero/hooks/use-highlighted-code.ts", "type": "registry:hook" },
         { "path": "registry/ninaero/hooks/syntax-themes.mjs", "type": "registry:hook" },
-        { "path": "registry/ninaero/hooks/syntax-themes.d.mts", "type": "registry:hook" }
+        { "path": "registry/ninaero/hooks/syntax-themes.d.mts", "type": "registry:hook" },
+        { "path": "registry/ninaero/hooks/accent-config.mjs", "type": "registry:hook" },
+        { "path": "registry/ninaero/hooks/accent-config.d.mts", "type": "registry:hook" },
+        { "path": "registry/ninaero/hooks/code-highlighter.mjs", "type": "registry:hook" },
+        { "path": "registry/ninaero/hooks/code-highlighter.d.mts", "type": "registry:hook" }
       ]
     },
     {

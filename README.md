@@ -51,6 +51,8 @@ pnpm dlx shadcn@latest add http://localhost:3000/r/accent-aurora.json
 
 Select an installed preset with `data-accent="aurora"` on the root element or a subtree. Additional accent names are `aurora`, `lavender`, `slate`, `lagoon`, `sky`, `blossom`, `lime`, `anemone`, and `sunflower`. Tidepool is included in the shared theme.
 
+Highlighted code loads only the active accent's light/dark Shiki pair and caches it for reuse. Other pairs stay lazy-loaded. Accent changes keep the current highlighting visible until the new pair is ready; light/dark switches reuse the loaded pair through CSS.
+
 ## Run
 
 1. Install dependencies:

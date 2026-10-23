@@ -1,27 +1,60 @@
-export const syntaxThemePairs = {
-  tidepool: { light: "solarized-light", dark: "solarized-dark" },
-  aurora: { light: "kanagawa-lotus", dark: "kanagawa-wave" },
-  lavender: { light: "catppuccin-latte", dark: "catppuccin-mocha" },
-  slate: { light: "github-light-high-contrast", dark: "github-dark-high-contrast" },
-  lagoon: { light: "vitesse-light", dark: "vitesse-dark" },
-  sky: { light: "night-owl-light", dark: "night-owl" },
-  blossom: { light: "rose-pine-dawn", dark: "rose-pine-moon" },
-  lime: { light: "everforest-light", dark: "everforest-dark" },
-  anemone: { light: "ayu-light", dark: "ayu-mirage" },
-  sunflower: { light: "gruvbox-light-medium", dark: "gruvbox-dark-medium" },
+import { defaultAccent } from "./accent-config.mjs";
+
+export const syntaxThemeLoaders = {
+  tidepool: {
+    light: () => import("shiki/themes/solarized-light.mjs"),
+    dark: () => import("shiki/themes/solarized-dark.mjs"),
+  },
+  aurora: {
+    light: () => import("shiki/themes/kanagawa-lotus.mjs"),
+    dark: () => import("shiki/themes/kanagawa-wave.mjs"),
+  },
+  lavender: {
+    light: () => import("shiki/themes/catppuccin-latte.mjs"),
+    dark: () => import("shiki/themes/catppuccin-mocha.mjs"),
+  },
+  slate: {
+    light: () => import("shiki/themes/github-light-high-contrast.mjs"),
+    dark: () => import("shiki/themes/github-dark-high-contrast.mjs"),
+  },
+  lagoon: {
+    light: () => import("shiki/themes/vitesse-light.mjs"),
+    dark: () => import("shiki/themes/vitesse-dark.mjs"),
+  },
+  sky: {
+    light: () => import("shiki/themes/night-owl-light.mjs"),
+    dark: () => import("shiki/themes/night-owl.mjs"),
+  },
+  blossom: {
+    light: () => import("shiki/themes/rose-pine-dawn.mjs"),
+    dark: () => import("shiki/themes/rose-pine-moon.mjs"),
+  },
+  lime: {
+    light: () => import("shiki/themes/everforest-light.mjs"),
+    dark: () => import("shiki/themes/everforest-dark.mjs"),
+  },
+  anemone: {
+    light: () => import("shiki/themes/ayu-light.mjs"),
+    dark: () => import("shiki/themes/ayu-mirage.mjs"),
+  },
+  sunflower: {
+    light: () => import("shiki/themes/gruvbox-light-medium.mjs"),
+    dark: () => import("shiki/themes/gruvbox-dark-medium.mjs"),
+  },
 };
+export const syntaxAccentNames = Object.keys(syntaxThemeLoaders);
 
-export const syntaxThemeVariants = Object.fromEntries(
-  Object.entries(syntaxThemePairs).flatMap(([accent, pair], index) => [
-    [`p${index * 2}`, { accent, mode: "light", name: pair.light }],
-    [`p${index * 2 + 1}`, { accent, mode: "dark", name: pair.dark }],
-  ]),
-);
-
-export const syntaxThemeNames = Object.values(syntaxThemeVariants).map(({ name }) => name);
-export const syntaxThemeSelection = Object.fromEntries(
-  Object.entries(syntaxThemeVariants).map(([alias, { name }]) => [alias, name]),
-);
+export async function loadSyntaxThemePair(accent = defaultAccent) {
+  if (!Object.hasOwn(syntaxThemeLoaders, accent))
+    throw new Error(`Unknown syntax accent: ${accent}`);
+  const loaders = syntaxThemeLoaders[accent];
+  const [light, dark] = await Promise.all([loaders.light(), loaders.dark()]);
+  const pair = { light: light.default, dark: dark.default };
+  if (!pair.light.name || !pair.dark.name || pair.light.name === pair.dark.name) {
+    throw new Error(`Invalid syntax theme pair: ${accent}`);
+  }
+  return pair;
+}
 
 // shortcut: fixed contrast bounds cover today's faint code-line fills; derive them from theme tokens if those fills change.
 const surfaces = {
@@ -99,13 +132,11 @@ export function syntaxColor(color, mode) {
 }
 
 export function syntaxTokenStyles(style) {
-  return Object.fromEntries(
-    Object.entries(style ?? {}).flatMap(([property, value]) => {
-      const match = /^--n-(p\d+)$/.exec(property);
-      if (!match) return [];
-      const variant = syntaxThemeVariants[match[1]];
-      if (!variant) throw new Error(`Unknown syntax theme variant: ${match[1]}`);
-      return [[property, syntaxColor(value, variant.mode)]];
-    }),
-  );
+  const result = {};
+  for (const mode of ["light", "dark"]) {
+    const property = `--n-${mode}`;
+    const color = style?.[property];
+    if (color) result[property] = syntaxColor(color, mode);
+  }
+  return result;
 }

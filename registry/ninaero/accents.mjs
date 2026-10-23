@@ -1,4 +1,4 @@
-export const defaultAccent = "tidepool";
+export { defaultAccent } from "./hooks/accent-config.mjs";
 export const accentStorageKey = "ninaero-accent";
 
 export const accentPresets = {
