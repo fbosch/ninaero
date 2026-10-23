@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   output: "export",
   /* config options here */
   experimental: {
+    agentUpgrade: "security",
     // shortcut: bypass stale generated-CSS entries in the dev filesystem cache.
     // Re-enable when regenerated Button CSS survives a cached dev-server restart.
     turbopackFileSystemCacheForDev: false,
