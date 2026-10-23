@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 import catalog from "../registry/ninaero/catalog.json" with { type: "json" };
 import { theme } from "../registry/ninaero/theme.mjs";
+import { itemStyles } from "../registry/ninaero/ui/styles/index.mjs";
 import { readCatalogSources, resolveCatalog } from "./lib/catalog.mjs";
 import { createComponentDocs, readPreviewSources } from "./lib/component-docs.mjs";
 import { componentGuides } from "./lib/component-guides.mjs";
@@ -37,7 +38,7 @@ await Promise.all([
     new URL("generated/component-docs.json", root),
     `${JSON.stringify(documentation, null, 2)}\n`,
   ),
-  writeFile(new URL("app/globals.css", root), renderThemeCss(theme)),
+  writeFile(new URL("app/globals.css", root), renderThemeCss(theme, Object.values(itemStyles))),
   writeFile(new URL("registry.json", root), `${JSON.stringify(registry, null, 2)}\n`),
 ]);
 console.log(`Generated theme CSS and registry for ${registry.homepage}.`);

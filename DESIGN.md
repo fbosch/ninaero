@@ -61,6 +61,24 @@ Keep catalogues, token swatches, and state matrices off the homepage. Keep the a
 
 The visual direction does not require changing component APIs or interaction behavior.
 
+## Styling ownership and installation
+
+An installable item module should own its unique recipes and state styling. Shared tokens, material definitions, typography, and common focus behavior stay in `registry/ninaero/theme.mjs`; accent presets stay in `registry/ninaero/accents.mjs`.
+
+This ownership improves locality: changes to an item's states belong with its source rather than among unrelated global rules. It adds depth to the installed-item module by hiding recipe details behind the item's interface, while shared materials retain leverage across items. The existing registry-item seam is sufficient; no generic adapter framework or new styling runtime is needed. Use shadcn's supported `cssVars`, `css`, and `registryDependencies` mechanisms.
+
+The site and consumer registry must use the same installable styling sources. The local preview can assemble all items, but must not maintain a separate implementation of their recipes.
+
+### Installation contract
+
+- `theme.json` installs shared foundations, not every item's recipes.
+- An individual item installs the shared foundations, its own styling, and its required dependency closure.
+- `ninaero.json` installs the complete baseline, including all items and their styling.
+
+Make source, generator, and consumer-documentation changes together. Preserve Base UI behavior, accent presets, shared focus and forced-color behavior, and installed defaults. Check shared foundations, representative isolated-item installs, and the complete baseline through the real shadcn CLI with TypeScript and Tailwind CSS compilation. Verify the resulting interactions visually as required by `AGENTS.md`.
+
+Moving the same global stylesheet behind imports does not change styling ownership or selective installation. The complete baseline and local preview may still produce substantial CSS; raw source size is not a production transfer measurement.
+
 ## Decisions still open
 
 - Exact light and dark palette values.

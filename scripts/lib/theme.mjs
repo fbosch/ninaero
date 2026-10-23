@@ -1,5 +1,6 @@
 import { registrySchema } from "shadcn/schema";
 
+import { itemStyles } from "../../registry/ninaero/ui/styles/index.mjs";
 export const defaultRegistryUrl = "http://localhost:3000/r";
 
 function parseRegistryUrl(value) {
@@ -42,13 +43,27 @@ function rules(values, depth = 0) {
     .join("\n");
 }
 
+function mergeCss(...sources) {
+  const merged = {};
+  for (const source of sources) {
+    for (const [name, value] of Object.entries(source)) {
+      const previous = merged[name];
+      merged[name] =
+        typeof previous === "object" && typeof value === "object"
+          ? mergeCss(previous, value)
+          : value;
+    }
+  }
+  return merged;
+}
+
 function fontImportRule(font) {
   return `@import "${font.stylesheet}"`;
 }
 
-export function renderThemeCss(theme) {
+export function renderThemeCss(theme, styles = []) {
   return [
-    "/* Generated from registry/ninaero/theme.mjs. Run pnpm registry:build. */",
+    "/* Generated from registry/ninaero/theme.mjs and ui/styles/. Run pnpm registry:build. */",
     `${fontImportRule(theme.font)};`,
     `${fontImportRule(theme.codeFont)};`,
     '@import "tailwindcss";',
@@ -58,7 +73,7 @@ export function renderThemeCss(theme) {
     `@theme inline {\n${variables(theme.theme)}\n}`,
     `:root {\n${variables(theme.light)}\n}`,
     `.dark {\n${variables(theme.dark)}\n}`,
-    rules(theme.css),
+    rules(mergeCss(theme.css, ...styles)),
     "",
   ].join("\n\n");
 }
@@ -83,7 +98,8 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
         $schema: "https://ui.shadcn.com/schema/registry-item.json",
         name: "theme",
         title: "Ninaero theme",
-        description: "Shared light and dark tokens with Ninaero squircle Button styling.",
+        description:
+          "Shared light and dark tokens, materials, typography, and accessibility rules.",
         type: "registry:theme",
         dependencies: packages(["shadcn", "tw-animate-css"]),
         registryDependencies: [itemUrl(fontName), itemUrl(codeFontName)],
@@ -128,6 +144,7 @@ export function createRegistry(theme, dependencies, components, registryUrl = de
           ...component.items,
         ].map(itemUrl),
         files: component.files,
+        css: itemStyles[component.name],
       })),
       {
         name: "ninaero",

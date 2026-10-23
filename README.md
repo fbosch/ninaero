@@ -33,7 +33,7 @@ pnpm dlx shadcn@latest add http://localhost:3000/r/theme.json
 pnpm dlx shadcn@latest add http://localhost:3000/r/button.json
 ```
 
-Components include the shared theme and their dependencies. Keep the local server running during installation.
+`theme.json` installs shared tokens, fonts, materials, typography, focus and accessibility rules, and reusable paper utilities. Each component adds its own styling and required components or hooks. `ninaero.json` installs the complete baseline. Keep the local server running during installation.
 
 ## Run
 
@@ -53,13 +53,15 @@ Components include the shared theme and their dependencies. Keep the local serve
 
 The dev server regenerates theme CSS, component docs, and registry files when their sources change. See [DESIGN.md](DESIGN.md) for visual guidelines and its index of detailed references in `docs/design/`.
 
+Shared foundations live in `registry/ninaero/theme.mjs`. Component recipes live in `registry/ninaero/ui/styles/`, and supporting-hook recipes live in `registry/ninaero/hooks/styles/`. Their registry entries carry these recipes in shadcn's `css` field. The local preview assembles those same sources for all items. Do not edit the generated `app/globals.css`, `registry.json`, or `public/r/` files.
+
 ## Checks
 
 ```sh
 pnpm check
 ```
 
-Runs the production build, registry contract checks, lint, formatting checks, typecheck, and tests.
+Runs the production build, registry contract checks, lint, formatting checks, typecheck, and tests. The registry check installs the shared foundations, representative individual components, and the complete baseline into isolated consumers, then compiles their TypeScript and Tailwind CSS using only their declared dependencies.
 
 ## Credits
 
