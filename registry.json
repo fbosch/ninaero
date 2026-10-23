@@ -1977,10 +1977,7 @@
       "css": {
         ".ninaero-syntax-token": {
           "color": "var(--n-p0)",
-          "font-style": "normal",
-          "@media (forced-colors: active)": {
-            "color": "CanvasText !important"
-          }
+          "font-style": "normal"
         },
         ".dark .ninaero-syntax-token": {
           "color": "var(--n-p1)"
@@ -2044,6 +2041,11 @@
         },
         ".dark[data-accent=\"sunflower\"] .ninaero-syntax-token, .dark [data-accent=\"sunflower\"] .ninaero-syntax-token": {
           "color": "var(--n-p19)"
+        },
+        "@media (forced-colors: active)": {
+          ".ninaero-syntax-token": {
+            "color": "CanvasText !important"
+          }
         }
       },
       "type": "registry:hook"
@@ -2864,13 +2866,6 @@
             "color": "var(--accent-foreground)",
             "border-color": "var(--ring)"
           },
-          ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):where(:not(:disabled):not([aria-disabled=true]))": {
-            "@media (forced-colors: none)": {
-              "background-image": "linear-gradient(180deg in oklab, color-mix(in oklab, var(--accent), white var(--recess-highlight-weight)), var(--accent) 32%, var(--accent) 72%, color-mix(in oklab, var(--accent), black var(--recess-shade-weight)))",
-              "box-shadow": "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)",
-              "--ninaero-material-shadow": "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)"
-            }
-          },
           ".ninaero-calendar-day[data-selected]:not([data-hidden]) + .ninaero-calendar-day[data-selected]:not([data-hidden]) > .ninaero-calendar-day-button:is([data-range-start=true], [data-range-middle=true], [data-range-end=true])": {
             "border-inline-start-width": "0",
             "border-start-start-radius": "0",
@@ -2884,22 +2879,23 @@
           ".ninaero-calendar-day-button:is([data-range-start=true], [data-range-end=true])": {
             "font-weight": "600"
           },
-          ".ninaero-calendar-day-button.ninaero-button:active:not(:disabled):not([aria-disabled=true])": {
-            "@media (forced-colors: none)": {
+          "@media (forced-colors: none)": {
+            ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):where(:not(:disabled):not([aria-disabled=true]))": {
+              "background-image": "linear-gradient(180deg in oklab, color-mix(in oklab, var(--accent), white var(--recess-highlight-weight)), var(--accent) 32%, var(--accent) 72%, color-mix(in oklab, var(--accent), black var(--recess-shade-weight)))",
+              "box-shadow": "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)",
+              "--ninaero-material-shadow": "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)"
+            },
+            ".ninaero-calendar-day-button.ninaero-button:active:not(:disabled):not([aria-disabled=true])": {
               "box-shadow": "inset 0 2px 6px color-mix(in oklab, var(--background), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--background), white var(--recess-highlight-weight))",
               "--ninaero-material-shadow": "inset 0 2px 6px color-mix(in oklab, var(--background), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--background), white var(--recess-highlight-weight))",
               "transform": "none"
-            }
-          },
-          ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):active:not(:disabled):not([aria-disabled=true])": {
-            "@media (forced-colors: none)": {
+            },
+            ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):active:not(:disabled):not([aria-disabled=true])": {
               "background-color": "var(--accent)",
               "box-shadow": "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)",
               "--ninaero-material-shadow": "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)"
-            }
-          },
-          ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true][data-range-end=true]):active:not(:disabled):not([aria-disabled=true])": {
-            "@media (forced-colors: none)": {
+            },
+            ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true][data-range-end=true]):active:not(:disabled):not([aria-disabled=true])": {
               "background-image": "none",
               "box-shadow": "inset 0 2px 6px color-mix(in oklab, var(--accent), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--accent), white var(--recess-highlight-weight))",
               "--ninaero-material-shadow": "inset 0 2px 6px color-mix(in oklab, var(--accent), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--accent), white var(--recess-highlight-weight))"
@@ -4380,8 +4376,10 @@
             "stop-color": "var(--glass-mark-face-100)"
           },
           ".ninaero-progress-circular-indicator[data-indeterminate]": {
-            "animation": "ninaero-progress-circular 1s linear infinite",
-            "@media (prefers-reduced-motion: reduce)": {
+            "animation": "ninaero-progress-circular 1s linear infinite"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".ninaero-progress-circular-indicator[data-indeterminate]": {
               "animation": "none"
             }
           },

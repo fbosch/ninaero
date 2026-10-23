@@ -17,7 +17,6 @@ export const styles = {
   ".ninaero-syntax-token": {
     ...syntaxStyle(defaultSyntaxVariants.light),
     "font-style": "normal",
-    "@media (forced-colors: active)": { color: "CanvasText !important" },
   },
   ".dark .ninaero-syntax-token": syntaxStyle(defaultSyntaxVariants.dark),
   ...Object.fromEntries(
@@ -28,4 +27,7 @@ export const styles = {
       syntaxStyle(alias),
     ]),
   ),
+  "@media (forced-colors: active)": {
+    ".ninaero-syntax-token": { color: "CanvasText !important" },
+  },
 };

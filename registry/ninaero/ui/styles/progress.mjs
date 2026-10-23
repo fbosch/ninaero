@@ -28,7 +28,9 @@ export const styles = withMaterialShadows({
     },
     ".ninaero-progress-circular-indicator[data-indeterminate]": {
       animation: "ninaero-progress-circular 1s linear infinite",
-      "@media (prefers-reduced-motion: reduce)": {
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ".ninaero-progress-circular-indicator[data-indeterminate]": {
         animation: "none",
       },
     },

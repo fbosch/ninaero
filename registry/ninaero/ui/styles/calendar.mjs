@@ -69,15 +69,6 @@ export const styles = withMaterialShadows({
         color: "var(--accent-foreground)",
         "border-color": "var(--ring)",
       },
-    ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):where(:not(:disabled):not([aria-disabled=true]))":
-      {
-        "@media (forced-colors: none)": {
-          "background-image":
-            "linear-gradient(180deg in oklab, color-mix(in oklab, var(--accent), white var(--recess-highlight-weight)), var(--accent) 32%, var(--accent) 72%, color-mix(in oklab, var(--accent), black var(--recess-shade-weight)))",
-          "box-shadow":
-            "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)",
-        },
-      },
     ".ninaero-calendar-day[data-selected]:not([data-hidden]) + .ninaero-calendar-day[data-selected]:not([data-hidden]) > .ninaero-calendar-day-button:is([data-range-start=true], [data-range-middle=true], [data-range-end=true])":
       {
         "border-inline-start-width": "0",
@@ -93,28 +84,32 @@ export const styles = withMaterialShadows({
     ".ninaero-calendar-day-button:is([data-range-start=true], [data-range-end=true])": {
       "font-weight": "600",
     },
-    ".ninaero-calendar-day-button.ninaero-button:active:not(:disabled):not([aria-disabled=true])": {
-      "@media (forced-colors: none)": {
-        "box-shadow":
-          "inset 0 2px 6px color-mix(in oklab, var(--background), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--background), white var(--recess-highlight-weight))",
-        transform: "none",
-      },
-    },
-    ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):active:not(:disabled):not([aria-disabled=true])":
-      {
-        "@media (forced-colors: none)": {
+    "@media (forced-colors: none)": {
+      ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):where(:not(:disabled):not([aria-disabled=true]))":
+        {
+          "background-image":
+            "linear-gradient(180deg in oklab, color-mix(in oklab, var(--accent), white var(--recess-highlight-weight)), var(--accent) 32%, var(--accent) 72%, color-mix(in oklab, var(--accent), black var(--recess-shade-weight)))",
+          "box-shadow":
+            "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)",
+        },
+      ".ninaero-calendar-day-button.ninaero-button:active:not(:disabled):not([aria-disabled=true])":
+        {
+          "box-shadow":
+            "inset 0 2px 6px color-mix(in oklab, var(--background), black var(--recess-shade-weight)), inset 0 -1px 2px color-mix(in oklab, var(--background), white var(--recess-highlight-weight))",
+          transform: "none",
+        },
+      ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true], [data-range-end=true], [data-range-middle=true]):active:not(:disabled):not([aria-disabled=true])":
+        {
           "background-color": "var(--accent)",
           "box-shadow":
             "inset 0 1px 0 var(--button-paper-highlight), inset 0 -2px 0 var(--button-paper-shade)",
         },
-      },
-    ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true][data-range-end=true]):active:not(:disabled):not([aria-disabled=true])":
-      {
-        "@media (forced-colors: none)": {
+      ".ninaero-calendar-day-button.ninaero-button:is([data-selected-single=true], [data-range-start=true][data-range-end=true]):active:not(:disabled):not([aria-disabled=true])":
+        {
           "background-image": "none",
           "box-shadow": recessShadow("var(--accent)"),
         },
-      },
+    },
     ".ninaero-calendar-day-button.ninaero-button:is(:disabled, [aria-disabled=true])": {
       color: "var(--muted-foreground)",
       opacity: "1",
