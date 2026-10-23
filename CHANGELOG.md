@@ -1,0 +1,81 @@
+# Changelog
+
+## [0.2.1](https://github.com/fbosch/ninaero/compare/ninaero-v0.2.0...ninaero-v0.2.1) (2026-10-21)
+
+### Miscellaneous Chores
+
+- prepare 0.2.1 release ([eca5055](https://github.com/fbosch/ninaero/commit/eca5055f40a3eee03b7153be9a9f06c078e133fa))
+
+## [0.2.0](https://github.com/fbosch/ninaero/compare/ninaero-v0.1.0...ninaero-v0.2.0) (2026-10-21)
+
+### Features
+
+- **accordion:** add accordion workshop specimens ([4f90d24](https://github.com/fbosch/ninaero/commit/4f90d2475e9b7261f1ef278e7718534e452de170))
+- **appearance:** add home motion and sound controls ([23723fa](https://github.com/fbosch/ninaero/commit/23723fafb2b9e037dbdf3fdb7776af5927fb4cf1))
+- **bubbles:** add refraction to glass bubbles ([5ead429](https://github.com/fbosch/ninaero/commit/5ead429d65e6f4a92a1fa598411b010398e1f362))
+- **bubbles:** animate bubble entrance ([e97a1e4](https://github.com/fbosch/ninaero/commit/e97a1e4aea9a5051e5ce958f425844d5e5b0334c))
+- **button:** add squircle button specimen ([caae9e2](https://github.com/fbosch/ninaero/commit/caae9e2f3de8b2c5c07b4fd11a7203970bba97ac))
+- **calendar:** add calendar workshop specimens ([4bc69db](https://github.com/fbosch/ninaero/commit/4bc69db144e1518b735c6baa643192b0f5d4271d))
+- **checkbox:** add checkbox workshop specimens ([16843a2](https://github.com/fbosch/ninaero/commit/16843a26d8fc274f8ce3afd7f0b597a2b5911eeb))
+- **code-block:** add line-aware syntax highlighting ([91e9ae5](https://github.com/fbosch/ninaero/commit/91e9ae57182fa3d781a3f123d598c2aa9b818d86))
+- **combobox:** add combobox workshop specimens ([a43e440](https://github.com/fbosch/ninaero/commit/a43e440838b9a0693020b2410f9cf7f83bb3d294))
+- **design:** add pattern specimens and card workshop ([4b5d4ed](https://github.com/fbosch/ninaero/commit/4b5d4edf1992f7ce046248f5531a47b5e0f0e21e))
+- **docs:** add component documentation site ([20b279c](https://github.com/fbosch/ninaero/commit/20b279c40b8a11d3c09782a9a2f1f356b3c56e11))
+- **docs:** add configurable paper background patterns ([1a28391](https://github.com/fbosch/ninaero/commit/1a2839116da94eff98fb981147fb4ac0d57d359a))
+- **docs:** add documentation search and install commands ([1fe8e87](https://github.com/fbosch/ninaero/commit/1fe8e87e9c69208fe9ebc2fb99d94fbaddabac59))
+- **docs:** add site-wide overlay guide ([1c4b548](https://github.com/fbosch/ninaero/commit/1c4b548c3c2a23b9d6a4838cc5f8b3b17483e5d2))
+- **field:** style field choice cards ([1e70fde](https://github.com/fbosch/ninaero/commit/1e70fdefdc94ccf993bc68efbe0242c3f3bf774c))
+- **home:** add an accent-aware sky background ([3e4eda8](https://github.com/fbosch/ninaero/commit/3e4eda88b889a63d57b9582bdf8e55c0e256aa1a))
+- **home:** add animated bubble background ([7811c10](https://github.com/fbosch/ninaero/commit/7811c10dd66da8a6862adf76a9a4b7b058f26a6b))
+- **home:** pause ambient motion when idle ([66346ba](https://github.com/fbosch/ninaero/commit/66346baf52c915fe5443c676201125ec4fa4c029))
+- **input:** style recessed input and textarea ([c6818f1](https://github.com/fbosch/ninaero/commit/c6818f15b8834e6661954a8d9af720ddf65b20f6))
+- **overlay:** compensate page colors for texture shifts ([e78638b](https://github.com/fbosch/ninaero/commit/e78638b3b55669b00a77cddcabbaf0aa0cffe0e8))
+- **paper:** add notebook and dither textures ([d25ebfb](https://github.com/fbosch/ninaero/commit/d25ebfb1bca2f5c3312ba2e1601adef947a5daad))
+- **patterns:** add pattern playground ([0b60b65](https://github.com/fbosch/ninaero/commit/0b60b655419efbd74591739a3d5eb69ac871ea98))
+- **popover:** add popover workshop and styling ([cc099f1](https://github.com/fbosch/ninaero/commit/cc099f188dfed05cf98149a8ee90df81b7d5edf7))
+- **radio:** add radio group workshop ([dde62ad](https://github.com/fbosch/ninaero/commit/dde62adb98756c95828b8c4e7a32fa07ee0634d6))
+- **release:** deploy stable releases to cloudflare pages ([41dd9b6](https://github.com/fbosch/ninaero/commit/41dd9b681a02aef90f1bbe5627d3732c8fac40c4))
+- **select:** style select triggers as input fields ([85402df](https://github.com/fbosch/ninaero/commit/85402dfe3e6ba850c52c9bc7b5e139deb4f8bcf8))
+- **shadcn:** add shadcn/ui agent skill ([2456772](https://github.com/fbosch/ninaero/commit/24567725d8dd1aa4a783fefec52732c7cc992634))
+- **site:** show component theming progress notice ([892d6c6](https://github.com/fbosch/ninaero/commit/892d6c6e779f5157a6248ce3613ef96683ebed48))
+- **slider:** add themed slider workshop and component ([b47e9df](https://github.com/fbosch/ninaero/commit/b47e9dfd059af0e9367ae781b41a43439d3d472f))
+- **sound:** adapt glass cues to handheld sounds ([a6bcc0c](https://github.com/fbosch/ninaero/commit/a6bcc0c449150e7cece57563da3e1591f01bdf04))
+- **sound:** add sound feedback to dialogs ([fcaa9ea](https://github.com/fbosch/ninaero/commit/fcaa9eac4a67edb56df4ca3cabb7197fd61e91aa))
+- **sound:** add sound feedback to interactive controls ([5b6a94d](https://github.com/fbosch/ninaero/commit/5b6a94dd2247857cc2ab52ddc98b41f88554c230))
+- **theme:** add accent presets and tabs styling ([4932bba](https://github.com/fbosch/ninaero/commit/4932bba10afd0d557763a47ff853a4a9cbce2bee))
+- **theme:** add anemone and sunflower accents ([1dafa0f](https://github.com/fbosch/ninaero/commit/1dafa0f31dcfc55f9d7b2354fd5d41290f03ef07))
+- **theme:** add appearance themes and paper patterns ([4f50cf4](https://github.com/fbosch/ninaero/commit/4f50cf4864dec4eb9430e5e690d62d6498248cf3))
+- **theme:** add apricot accent palette ([3b65a82](https://github.com/fbosch/ninaero/commit/3b65a82343020046eac3c190d01c6677f3025dcd))
+- **theme:** add glass mark icon and material tokens ([588a5ce](https://github.com/fbosch/ninaero/commit/588a5ce4f2ddd4e013edb082867a9d7cf61fef6a))
+- **theme:** add semantic shadows and select switchers ([0f9cb32](https://github.com/fbosch/ninaero/commit/0f9cb32d0e1744ff4d95cc7da431edc60a681e0b))
+- **theme:** add shadcn theme validation ([bfa915d](https://github.com/fbosch/ninaero/commit/bfa915d3510d8ec3a77fa9229fe74f7b5a8d8e76))
+- **theme:** add shared elevation shadows ([0de089d](https://github.com/fbosch/ninaero/commit/0de089d0866e0e64ee8762ce37165f5871fe4e88))
+- **theme:** add switch workshop and appearance controls ([816c457](https://github.com/fbosch/ninaero/commit/816c4574960734bd59ead93e2355ac33999570d5))
+- **theme:** add switchable accent palettes ([f5bbdb2](https://github.com/fbosch/ninaero/commit/f5bbdb287f7f130cff12c940fde5f3295f5cfd1f))
+- **theme:** enable checker overlay by default ([0420b83](https://github.com/fbosch/ninaero/commit/0420b8355d14ba8eb2280651efd3b7ec6a3df8fb))
+- **theme:** scale design tokens with root font size ([7b31faf](https://github.com/fbosch/ninaero/commit/7b31fafeaebcd59488233ad9857261f8d8ce4d87))
+- **theme:** tint invalid field recess shades ([176a8e5](https://github.com/fbosch/ninaero/commit/176a8e5969d98e0d278e78c897c853fc63c040f9))
+- **toggle:** add toggle workshop specimens ([b180bc1](https://github.com/fbosch/ninaero/commit/b180bc15dfc60bd27e0d762947ec6f4bdfb9fe92))
+- **tooltip:** add accessible tooltip specimens ([07ee9f9](https://github.com/fbosch/ninaero/commit/07ee9f96b9ca56d337da7ef049728810a3814014))
+- **ui:** add appearance and bubble controls ([69075c0](https://github.com/fbosch/ninaero/commit/69075c0d4786e5a8b39f8ce4179daecaee09e045))
+- **ui:** add docs, examples, and component workshops ([adebeea](https://github.com/fbosch/ninaero/commit/adebeea7f729362c80db1835ca26126625b31084))
+- **workshop:** add code block specimens and sound previews ([d8c910f](https://github.com/fbosch/ninaero/commit/d8c910f7b59e1f7c6f8e0b9f8e3103f1e3e450a2))
+- **workshop:** add dropdown menu specimens ([192262a](https://github.com/fbosch/ninaero/commit/192262ae07f8b9d05db2be1fac0814892395a1ac))
+- **workshop:** add field specimen page ([f62b7ef](https://github.com/fbosch/ninaero/commit/f62b7ef4be27da423edc3deeddd98b2fd944cd3c))
+- **workshop:** add workshop navigation and sections ([a45017c](https://github.com/fbosch/ninaero/commit/a45017ceeecb0115694bf72a493f9efcfac85e7b))
+
+### Bug Fixes
+
+- **bubbles:** stop animation when paused ([c94822c](https://github.com/fbosch/ninaero/commit/c94822c727a92628a6005e73735bd0147a2d3706))
+- **button:** define explicit button border colors ([9c53933](https://github.com/fbosch/ninaero/commit/9c539336639ab1b30a43af545134cfb3579a5cea))
+- **carousel:** sync scroll availability with carousel events ([0b6648b](https://github.com/fbosch/ninaero/commit/0b6648b3144dbb62b80577c9104ab14e8e7813aa))
+- **progress:** add shaded circular progress track ([273123f](https://github.com/fbosch/ninaero/commit/273123f24003045f7ccab22dd268d76c2aa91c54))
+- **sound:** lower dialog rise pitch and level ([ea7d0b3](https://github.com/fbosch/ninaero/commit/ea7d0b384dc6b649ebb87f52f778385ac7336d82))
+- **theme:** color invalid selected controls destructive ([4623cd5](https://github.com/fbosch/ninaero/commit/4623cd58379378093ca979d94cbba7d61ab73562))
+- **theme:** tune destructive controls for red states ([db8c031](https://github.com/fbosch/ninaero/commit/db8c031d93c26fc23d8a0423d933741353bd8e87))
+- **tooltip:** attach arrows to trigger edges ([55602fb](https://github.com/fbosch/ninaero/commit/55602fbb9ac6cc12913123ef20b86c75c4761903))
+
+### Performance Improvements
+
+- **home-background:** cap ambient animation at 30 fps ([99f4fa4](https://github.com/fbosch/ninaero/commit/99f4fa4a5e412d3022f1fb6804b640a6b10266fa))
+- **home-background:** hint transform changes for rendering ([fe75346](https://github.com/fbosch/ninaero/commit/fe75346618743ad8e728898df2f1583726be7ef2))

@@ -17,3 +17,65 @@ export function isAmbientFrame(time, previousTime) {
     Math.floor(time / ambientFrameInterval) !== Math.floor(previousTime / ambientFrameInterval)
   );
 }
+
+export function createAmbientPause() {
+  const pauses = new Set();
+  const listeners = new Set();
+  const notify = () => {
+    for (const listener of listeners) listener();
+  };
+
+  return {
+    isPaused: () => pauses.size > 0,
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
+    },
+    pause() {
+      const token = {};
+      pauses.add(token);
+      if (pauses.size === 1) notify();
+      return () => {
+        if (pauses.delete(token) && pauses.size === 0) notify();
+      };
+    },
+  };
+}
+
+// Keep the pause through exit; canceling a queued open must release it too.
+export function createModalMotionGate(
+  ambient,
+  frames = {
+    request: (callback) => requestAnimationFrame(callback),
+    cancel: (frame) => cancelAnimationFrame(frame),
+  },
+) {
+  let release = null;
+  let frame = null;
+
+  return {
+    isPending: () => frame !== null,
+    open(callback, immediate = false) {
+      if (frame !== null) return;
+      release ??= ambient.pause();
+      if (immediate) {
+        callback();
+        return;
+      }
+      frame = frames.request(() => {
+        frame = null;
+        callback();
+      });
+    },
+    finish() {
+      if (frame !== null) {
+        frames.cancel(frame);
+        frame = null;
+      }
+      release?.();
+      release = null;
+    },
+  };
+}

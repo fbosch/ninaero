@@ -14,14 +14,18 @@ import {
 import { Field, FieldLabel } from "@/registry/ninaero/ui/field";
 import { Switch } from "@/registry/ninaero/ui/switch";
 
+import { createAmbientPause, type AmbientPauseController } from "./home-motion.mjs";
+
 const HomeMotionContext = createContext<{
   paused: boolean;
+  ambientPause: AmbientPauseController;
   setPaused: Dispatch<SetStateAction<boolean>>;
 } | null>(null);
 
 export function HomeMotionProvider({ children }: { children: ReactNode }) {
   const [paused, setPaused] = useState(false);
-  const value = useMemo(() => ({ paused, setPaused }), [paused]);
+  const [ambientPause] = useState(createAmbientPause);
+  const value = useMemo(() => ({ paused, setPaused, ambientPause }), [paused, ambientPause]);
 
   return <HomeMotionContext.Provider value={value}>{children}</HomeMotionContext.Provider>;
 }

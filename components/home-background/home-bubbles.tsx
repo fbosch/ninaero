@@ -24,6 +24,7 @@ import {
 import { clearBubblePops, showBubblePop } from "./bubble-pop";
 import { bubbleRefractionTexture } from "./bubble-refraction";
 import { bubbleRefractionStrength } from "./bubble-refraction.mjs";
+import { useHomeMotion } from "./home-motion-settings";
 import { isAmbientFrame } from "./home-motion.mjs";
 
 import styles from "./home-bubbles.module.css";
@@ -46,6 +47,7 @@ type HeldBubble = {
 
 export function HomeBubbles({ paused }: { paused: boolean }) {
   const { play } = useSound();
+  const { ambientPause } = useHomeMotion();
   const playSoundRef = useRef(play);
   const refractionId = useId();
   const refractionImageRef = useRef<SVGFEImageElement>(null);
@@ -181,7 +183,11 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
 
     function enabled() {
       return (
-        !pausedRef.current && !document.hidden && !reducedMotion.matches && !forcedColors.matches
+        !pausedRef.current &&
+        !ambientPause.isPaused() &&
+        !document.hidden &&
+        !reducedMotion.matches &&
+        !forcedColors.matches
       );
     }
     function endHold(action: "launch" | "cancel" | "pop") {
@@ -263,7 +269,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       cancelAnimationFrame(frame);
       previousTime = null;
       entrances.sync(
-        pausedRef.current || document.hidden,
+        pausedRef.current || ambientPause.isPaused() || document.hidden,
         reducedMotion.matches || forcedColors.matches,
       );
       if (!enabled()) {
@@ -400,6 +406,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       syncAnimation();
     });
     observer.observe(field);
+    const unsubscribe = ambientPause.subscribe(syncAnimation);
     resumeRef.current = syncAnimation;
     reducedMotion.addEventListener("change", syncAnimation);
     forcedColors.addEventListener("change", syncAnimation);
@@ -415,6 +422,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
+      unsubscribe();
       cancelAnimationFrame(frame);
       endHold("cancel");
       clearBubblePops(popLayer);
@@ -434,7 +442,7 @@ export function HomeBubbles({ paused }: { paused: boolean }) {
       window.removeEventListener("scroll", cancelHold);
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, []);
+  }, [ambientPause]);
 
   useEffect(() => {
     pausedRef.current = paused;

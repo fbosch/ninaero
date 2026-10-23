@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef } from "react";
 
+import { useHomeMotion } from "./home-motion-settings";
 import { ambientMotionRate, isAmbientFrame } from "./home-motion.mjs";
 import { createWavePaths, waveLayers, waveViewBox } from "./home-waves.mjs";
 
@@ -11,6 +12,7 @@ const initialWaves = waveLayers.map((layer) => createWavePaths(layer, 0));
 
 export function HomeWaves({ paused }: { paused: boolean }) {
   const id = useId();
+  const { ambientPause } = useHomeMotion();
   const fieldRef = useRef<HTMLDivElement>(null);
   const timeRef = useRef(0);
 
@@ -24,7 +26,13 @@ export function HomeWaves({ paused }: { paused: boolean }) {
     let previousTime: number | null = null;
 
     function canAnimate() {
-      return !paused && !document.hidden && !reducedMotion.matches && !forcedColors.matches;
+      return (
+        !paused &&
+        !ambientPause.isPaused() &&
+        !document.hidden &&
+        !reducedMotion.matches &&
+        !forcedColors.matches
+      );
     }
 
     function animate(time: number) {
@@ -46,18 +54,20 @@ export function HomeWaves({ paused }: { paused: boolean }) {
       if (canAnimate()) frame = requestAnimationFrame(animate);
     }
 
+    const unsubscribe = ambientPause.subscribe(syncAnimation);
     syncAnimation();
     reducedMotion.addEventListener("change", syncAnimation);
     forcedColors.addEventListener("change", syncAnimation);
     document.addEventListener("visibilitychange", syncAnimation);
 
     return () => {
+      unsubscribe();
       cancelAnimationFrame(frame);
       reducedMotion.removeEventListener("change", syncAnimation);
       forcedColors.removeEventListener("change", syncAnimation);
       document.removeEventListener("visibilitychange", syncAnimation);
     };
-  }, [paused]);
+  }, [paused, ambientPause]);
 
   return (
     <div ref={fieldRef} className={styles.waves} aria-hidden="true">
