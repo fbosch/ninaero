@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.0](https://github.com/fbosch/ninaero/compare/ninaero-v0.2.1...ninaero-v0.3.0) (2026-10-24)
+
+
+### Features
+
+* **highlighting:** lazy-load accent-specific shiki themes ([292caaf](https://github.com/fbosch/ninaero/commit/292caafef11869c6f9dbbf974e0fdc09b2af4985))
+* **motion:** pause ambient motion when opening search ([a698b7b](https://github.com/fbosch/ninaero/commit/a698b7bca0de9a2708f0d5bef7264928e7794aba))
+* **registry:** add reusable component style modules ([9590f71](https://github.com/fbosch/ninaero/commit/9590f719c8f222bc1acf5befd4c81ca14e98ebb3))
+* **registry:** separate optional styles from theme ([95f86f1](https://github.com/fbosch/ninaero/commit/95f86f13d68be6c7c8e9fb1ad666d834219bdad8))
+
+
+### Bug Fixes
+
+* **deps:** upgrade Next.js from 16.4.0 to 16.4.3 ([553076f](https://github.com/fbosch/ninaero/commit/553076fe071fc7a025a8afaec8c3586665c47292))
+* **deps:** upgrade Next.js from 16.4.0 to 16.4.3 ([de8ced5](https://github.com/fbosch/ninaero/commit/de8ced5f12b8b49ed84615296f5447fc8894620d))
+* **styles:** respect reduced motion and forced colors ([582f515](https://github.com/fbosch/ninaero/commit/582f51556d7e351847272764ad36809642e6b43a))
+
 ## [0.2.1](https://github.com/fbosch/ninaero/compare/ninaero-v0.2.0...ninaero-v0.2.1) (2026-10-21)
 
 ### Miscellaneous Chores
