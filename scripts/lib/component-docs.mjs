@@ -8,29 +8,78 @@ import { registryCommand } from "./registry-command.mjs";
 import { defaultRegistryUrl, normalizeRegistryUrl } from "./theme.mjs";
 
 const previewPaths = [
-  "components/overview/control-previews.tsx",
-  "components/overview/navigation-previews.tsx",
-  "components/overview/overlay-previews.tsx",
-  "components/overview/display-previews.tsx",
+  "components/overview/component-preview.tsx",
+  "components/overview/button-preview.tsx",
+  "components/overview/button-group-preview.tsx",
   "components/overview/calendar-preview.tsx",
-  "components/overview/questionnaire-preview.tsx",
-  "components/overview/chart-preview.tsx",
-  "components/overview/carousel-preview.tsx",
-  "components/overview/layout-previews.tsx",
-  "components/overview/code-block-preview.tsx",
-  "components/overview/sound-provider-preview.tsx",
-  "components/overview/trace-preview.tsx",
+  "components/overview/checkbox-preview.tsx",
+  "components/overview/combobox-preview.tsx",
+  "components/overview/command-preview.tsx",
+  "components/overview/field-preview.tsx",
+  "components/overview/input-preview.tsx",
   "components/overview/data-table-preview.tsx",
   "components/overview/date-picker-preview.tsx",
+  "components/overview/input-group-preview.tsx",
+  "components/overview/input-otp-preview.tsx",
+  "components/overview/label-preview.tsx",
+  "components/overview/native-select-preview.tsx",
+  "components/overview/questionnaire-preview.tsx",
+  "components/overview/radio-group-preview.tsx",
+  "components/overview/select-preview.tsx",
+  "components/overview/slider-preview.tsx",
+  "components/overview/sound-provider-preview.tsx",
+  "components/overview/switch-preview.tsx",
+  "components/overview/textarea-preview.tsx",
+  "components/overview/toggle-preview.tsx",
+  "components/overview/toggle-group-preview.tsx",
+  "components/overview/accordion-preview.tsx",
+  "components/overview/breadcrumb-preview.tsx",
+  "components/overview/collapsible-preview.tsx",
+  "components/overview/context-menu-preview.tsx",
+  "components/overview/dropdown-menu-preview.tsx",
+  "components/overview/menubar-preview.tsx",
+  "components/overview/navigation-menu-preview.tsx",
+  "components/overview/pagination-preview.tsx",
+  "components/overview/tabs-preview.tsx",
+  "components/overview/alert-dialog-preview.tsx",
+  "components/overview/dialog-preview.tsx",
+  "components/overview/drawer-preview.tsx",
+  "components/overview/hover-card-preview.tsx",
+  "components/overview/popover-preview.tsx",
+  "components/overview/sheet-preview.tsx",
+  "components/overview/sonner-preview.tsx",
+  "components/overview/toast-preview.tsx",
+  "components/overview/tooltip-preview.tsx",
+  "components/overview/alert-preview.tsx",
+  "components/overview/aspect-ratio-preview.tsx",
+  "components/overview/attachment-preview.tsx",
+  "components/overview/avatar-preview.tsx",
+  "components/overview/badge-preview.tsx",
+  "components/overview/bubble-preview.tsx",
+  "components/overview/card-preview.tsx",
+  "components/overview/carousel-preview.tsx",
+  "components/overview/chart-preview.tsx",
+  "components/overview/direction-preview.tsx",
+  "components/overview/empty-preview.tsx",
+  "components/overview/item-preview.tsx",
+  "components/overview/kbd-preview.tsx",
+  "components/overview/marker-preview.tsx",
+  "components/overview/message-preview.tsx",
+  "components/overview/message-scroller-preview.tsx",
+  "components/overview/progress-preview.tsx",
+  "components/overview/resizable-preview.tsx",
+  "components/overview/scroll-area-preview.tsx",
+  "components/overview/separator-preview.tsx",
+  "components/overview/sidebar-preview.tsx",
+  "components/overview/skeleton-preview.tsx",
+  "components/overview/spinner-preview.tsx",
+  "components/overview/table-preview.tsx",
+  "components/overview/code-block-preview.tsx",
+  "components/overview/trace-preview.tsx",
   "components/overview/typography-preview.tsx",
 ];
 
-const previewMaps = [
-  "components/overview/control-previews.tsx",
-  "components/overview/navigation-previews.tsx",
-  "components/overview/overlay-previews.tsx",
-  "components/overview/display-previews.tsx",
-];
+const previewMaps = ["components/overview/component-preview.tsx"];
 
 function parseSource(path, content) {
   return ts.createSourceFile(
@@ -154,27 +203,34 @@ function findImportedPreview(mapPath, mapSource, name, previewSources) {
       exportName: undefined,
     };
   }
-  if (!ts.isIdentifier(value)) return undefined;
 
-  const declarations = topLevelDeclarations(mapSource);
-  const declaration = declarations.get(value.text);
-  if (declaration && ts.isFunctionDeclaration(declaration)) {
-    return {
-      path: mapPath,
-      source: mapSource,
-      node: declaration,
-      exportName: undefined,
-    };
+  let importExpression;
+  if (ts.isCallExpression(value)) {
+    importExpression = value;
+  } else if (ts.isIdentifier(value)) {
+    const declarations = topLevelDeclarations(mapSource);
+    const declaration = declarations.get(value.text);
+    if (declaration && ts.isFunctionDeclaration(declaration)) {
+      return {
+        path: mapPath,
+        source: mapSource,
+        node: declaration,
+        exportName: undefined,
+      };
+    }
+    if (!declaration || !ts.isVariableStatement(declaration)) return undefined;
+
+    const binding = declaration.declarationList.declarations.find(
+      (candidate) => ts.isIdentifier(candidate.name) && candidate.name.text === value.text,
+    );
+    if (!binding?.initializer) return undefined;
+    importExpression = binding.initializer;
+  } else {
+    return undefined;
   }
-  if (!declaration || !ts.isVariableStatement(declaration)) return undefined;
 
-  const binding = declaration.declarationList.declarations.find(
-    (candidate) => ts.isIdentifier(candidate.name) && candidate.name.text === value.text,
-  );
-  if (!binding?.initializer) return undefined;
-  const dynamic = moduleSpecifierFromDynamic(binding.initializer);
+  const dynamic = moduleSpecifierFromDynamic(importExpression);
   if (!dynamic) return undefined;
-
   const targetPath = posix.normalize(posix.join(posix.dirname(mapPath), dynamic.path));
   const resolvedPath =
     targetPath.endsWith(".tsx") || targetPath.endsWith(".ts") ? targetPath : `${targetPath}.tsx`;

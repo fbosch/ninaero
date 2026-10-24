@@ -79,9 +79,11 @@ Shared foundations live in `registry/ninaero/theme.mjs`. Component recipes live 
 pnpm check
 ```
 
-Runs the production build, registry contract checks, lint, formatting checks, typecheck, and tests. The registry check installs the shared foundations, optional styles, representative individual components, and the complete baseline into isolated consumers, then compiles their TypeScript and Tailwind CSS using only their declared dependencies.
+Runs the production build, initial-JavaScript budget checks, registry contract checks, lint, formatting checks, typecheck, and tests. The registry check installs the shared foundations, optional styles, representative individual components, and the complete baseline into isolated consumers, then compiles their TypeScript and Tailwind CSS using only their declared dependencies.
 
 Run `pnpm check:shadcn` for the registry checks alone. It scans each consumer's installed TypeScript and TSX sources and reports compiled, minified, and gzipped CSS sizes in bytes. Gzip applies to the minified stylesheet. Sizes exclude JavaScript and font assets. Compare runs with the same fixtures and tool versions; the reports do not enforce size budgets.
+
+Run `pnpm check:bundle-size` after a production build to check initial JavaScript for `/`, `/docs`, `/docs/[component]`, and `/workshop/code-block`. Limits live in `scripts/lib/bundle-size.mjs` and allow 5% headroom above the optimized build, rounded up to 1 kB. The check uses Next's route diagnostics, counts each chunk once per route, and sums raw bytes and per-asset gzip bytes at level 9. It excludes post-hydration lazy downloads, CSS, and fonts; gzip sums are not HTTP transfer measurements.
 
 ## Credits
 
